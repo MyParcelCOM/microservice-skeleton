@@ -1,0 +1,41 @@
+<?php
+
+namespace MyParcelCom\Microservice\Providers;
+
+use Illuminate\Contracts\Container\Container;
+use JsonSchema\Constraints\Factory;
+use JsonSchema\SchemaStorage;
+use JsonSchema\Validator;
+use Illuminate\Support\ServiceProvider;
+use MyParcelCom\Microservice\Http\JsonRequestValidator;
+
+class JsonSchemaServiceProvider extends ServiceProvider
+{
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->app->singleton('schema', function () {
+            return json_decode(file_get_contents(
+                base_path(config('transformer.schemas.carrier'))
+            ));
+        });
+
+        $this->app->singleton(Validator::class, function (Container $app) {
+            $schemaStorage = new SchemaStorage();
+            $schemaStorage->addSchema('file://' . config('transformer.schemas.carrier'), $app->make('schema'));
+
+            return new Validator(new Factory($schemaStorage));
+        });
+
+        $this->app->singleton(JsonRequestValidator::class, function (Container $app) {
+            return (new JsonRequestValidator())
+                ->setRequest($app->make('request'))
+                ->setSchema($app->make('schema'))
+                ->setValidator($app->make(Validator::class));
+        });
+    }
+}

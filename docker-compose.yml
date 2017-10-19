@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  microservice:
+    build:
+      context: ./docker/app
+      dockerfile: Dockerfile
+    image: myparcelcom/microservice:v1-dev
+    working_dir: /opt/microservice
+    environment:
+      - APP_DOMAIN=$APP_DOMAIN
+      - APP_LOG_LEVEL=$APP_LOG_LEVEL
+      - COMPOSER_AUTH=$COMPOSER_AUTH
+      - DOCKER_ENV=$APP_ENV
+      - XDEBUG_IDE_KEY=$XDEBUG_IDE_KEY
+      - XDEBUG_PORT=$XDEBUG_PORT
+    ports:
+      - $APP_PORT:443
+    volumes:
+      - .:/opt/microservice
+      - composercache:/.composer/cache
+
+  redis:
+    image: redis:3.2
+    volumes:
+      - redisdata:/data
+
+volumes:
+  redisdata:
+    driver: local
+  composercache:
+    driver: local

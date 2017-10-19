@@ -1,0 +1,38 @@
+{
+  "data": {
+    "type": "shipments",
+    "attributes": {
+      "recipient_address": {
+        "street_1": "Some road",
+        "street_2": "Room 3",
+        "street_number": 679,
+        "street_number_suffix": "A",
+        "postal_code": "2131BC",
+        "city": "Amsterdam",
+        "country_code": "NL",
+        "person": "John Doe",
+        "phone_number": "+31 234 567 890"
+      },
+      "sender_address": {
+        "street_1": "Streeterino",
+        "street_number": 622,
+        "postal_code": "1102LG",
+        "city": "Bamsterbam",
+        "country_code": "NL",
+        "company": "Acme Jewelry Co.",
+        "email": "john@doe.com"
+      },
+      "description": "order #8008135",
+      "insurance": {
+        "amount": 100,
+        "currency": "EUR"
+      },
+      "weight": 24,
+      "service": {
+        "code": "", // TODO add example service
+        "name": ""
+      },
+      "options": []
+    }
+  }
+}

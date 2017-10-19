@@ -1,0 +1,7 @@
+/.env
+/.idea
+/build
+/docker/app/dist/*
+!/docker/app/dist/.gitkeep
+/vendor
+.DS_Store
