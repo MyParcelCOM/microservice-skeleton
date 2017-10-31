@@ -1,6 +1,6 @@
 {
-  "name": "myparcelcom/microservice-postnl",
-  "description": "Microservice that facilitates communication between the MyParcel.com API and the PostNL SAM API.",
+  "name": "myparcelcom/microservice-skeleton",
+  "description": "Microservice that facilitates communication between the MyParcel.com API and a carrier API.",
   "keywords": [
     "microservice",
     "api"
