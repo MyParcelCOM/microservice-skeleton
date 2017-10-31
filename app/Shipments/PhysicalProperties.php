@@ -6,12 +6,16 @@ class PhysicalProperties
 {
     /** @var int */
     protected $height;
+
     /** @var int */
     protected $width;
+
     /** @var int */
     protected $length;
+
     /** @var int */
     protected $volume;
+
     /** @var int */
     protected $weight;
 

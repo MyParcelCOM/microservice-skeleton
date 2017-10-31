@@ -7,6 +7,7 @@ use MyParcelCom\Transformers\TransformerException;
 
 class StatusTransformer extends AbstractTransformer
 {
+    /** @var string */
     protected $type = 'statuses';
 
     /**

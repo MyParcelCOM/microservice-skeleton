@@ -18,6 +18,7 @@ class ShipmentTransformerTest extends TestCase
 {
     /** @var ShipmentTransformer */
     private $shipmentTransformer;
+
     /** @var Shipment */
     private $shipment;
 

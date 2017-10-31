@@ -6,6 +6,7 @@ class Service
 {
     /** @var string */
     protected $code;
+
     /** @var string */
     protected $name;
 

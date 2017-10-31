@@ -7,8 +7,8 @@ use Illuminate\Support\ServiceProvider;
 use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
 use MyParcelCom\Microservice\PickUpDropOffLocations\PickUpDropOffLocationRepository;
 use MyParcelCom\Microservice\Shipments\ShipmentMapper;
-use MyParcelCom\Microservice\Statuses\StatusRepository;
 use MyParcelCom\Microservice\Shipments\ShipmentRepository;
+use MyParcelCom\Microservice\Statuses\StatusRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {

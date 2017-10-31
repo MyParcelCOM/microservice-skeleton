@@ -7,6 +7,7 @@ use MyParcelCom\Transformers\TransformerException;
 
 class PickUpDropOffLocationTransformer extends AbstractTransformer
 {
+    /** @var string */
     protected $type = 'pickup-dropoff-locations';
 
     /**

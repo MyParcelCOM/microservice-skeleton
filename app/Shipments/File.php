@@ -6,10 +6,13 @@ class File
 {
     /** @var string */
     private $type;
+
     /** @var string */
     private $mimeType;
+
     /** @var string */
     private $extension;
+
     /** @var string */
     private $data;
 

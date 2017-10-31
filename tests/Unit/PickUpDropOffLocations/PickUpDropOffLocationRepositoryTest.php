@@ -6,7 +6,6 @@ use Mockery;
 use MyParcelCom\Common\Resources\PromiseResources;
 use MyParcelCom\Microservice\PickUpDropOffLocations\PickUpDropOffLocationRepository;
 use MyParcelCom\Microservice\Tests\Mocks\CarrierApiGatewayMock;
-use MyParcelCom\Microservice\Tests\Traits\CommunicatesWithCarrier;
 use PHPUnit\Framework\TestCase;
 
 class PickUpDropOffLocationRepositoryTest extends TestCase

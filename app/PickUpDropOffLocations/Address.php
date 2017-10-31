@@ -6,26 +6,37 @@ class Address
 {
     /** @var string */
     protected $street1;
+
     /** @var string */
     protected $street2;
+
     /** @var int */
     protected $streetNumber;
+
     /** @var string */
     protected $streetNumberSuffix;
+
     /** @var string */
     protected $countryCode;
+
     /** @var string */
     protected $person;
+
     /** @var string */
     protected $city;
+
     /** @var string */
     protected $postalCode;
+
     /** @var string */
     protected $phoneNumber;
+
     /** @var string */
     protected $regionCode;
+
     /** @var string */
     protected $email;
+
     /** @var string */
     protected $company;
 
