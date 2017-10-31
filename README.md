@@ -2,9 +2,9 @@
 
 This is a skeleton application for a microservice that facilitates the communication between the MyParcel.com API and a carrier API.
 
-The skeleton application comes already handles most of the communication with the MyParcel.com API.
-Most of the functionality that needs to be implemented is described in `TODO`s in the application and basically comes
-down to the following:
+The skeleton application already handles most of the communication with the MyParcel.com API.
+Most of the functionality that needs to be implemented is described in `TODO`s in the application.
+It basically comes down to the following:
 - Transform existing classes to valid post and get requests for the carrier API.
 - Handle responses from the carrier API and map them to the existing classes.  
 
@@ -44,7 +44,7 @@ The following commands are available:
 - `./mp.sh composer <args>` - Run composer inside the api container.
 - `./mp.sh artisan <args>` - Run artisan commands inside the api container.
 - `./mp.sh test <args>` - Run phpunit tests.
-- `./mp.sh microservice <args>` - Run any command on the postnl container (nginx + php).
+- `./mp.sh microservice <args>` - Run any command on the carrier container (nginx + php).
 - `./mp.sh <args>` - Run any [docker-compose](https://docs.docker.com/compose/reference/overview/) command.
 
 #### Composer commands

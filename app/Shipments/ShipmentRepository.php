@@ -10,6 +10,7 @@ class ShipmentRepository
 {
     /** @var MapperInterface */
     protected $shipmentMapper;
+
     /** @var CarrierApiGatewayInterface */
     protected $carrierApiGateway;
 

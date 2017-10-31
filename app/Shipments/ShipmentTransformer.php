@@ -8,6 +8,7 @@ use MyParcelCom\Transformers\TransformerException;
 
 class ShipmentTransformer extends AbstractTransformer
 {
+    /** @var string */
     protected $type = 'shipments';
 
     /**

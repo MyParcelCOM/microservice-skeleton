@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Http\Middleware;
 
@@ -10,6 +10,9 @@ class ExtractCredentials
     /** @var CarrierApiGatewayInterface */
     private $gateway;
 
+    /**
+     * @param CarrierApiGatewayInterface $gateway
+     */
     public function __construct(CarrierApiGatewayInterface $gateway)
     {
         $this->gateway = $gateway;

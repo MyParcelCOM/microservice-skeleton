@@ -10,9 +10,9 @@ use MyParcelCom\Microservice\PickUpDropOffLocations\OpeningHour;
 use MyParcelCom\Microservice\PickUpDropOffLocations\PickUpDropOffLocation;
 use MyParcelCom\Microservice\PickUpDropOffLocations\PickUpDropOffLocationTransformer;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Position;
-use PHPUnit\Framework\TestCase;
 use MyParcelCom\Transformers\TransformerException;
 use MyParcelCom\Transformers\TransformerFactory;
+use PHPUnit\Framework\TestCase;
 
 class PickUpDropOffLocationTransformerTest extends TestCase
 {

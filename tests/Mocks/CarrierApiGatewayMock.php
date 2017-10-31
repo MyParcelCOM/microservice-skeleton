@@ -2,11 +2,11 @@
 
 namespace MyParcelCom\Microservice\Tests\Mocks;
 
-use function GuzzleHttp\Promise\promise_for;
 use GuzzleHttp\Promise\PromiseInterface;
 use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
 use PHPUnit\Framework\Exception;
 use Psr\Http\Message\ResponseInterface;
+use function GuzzleHttp\Promise\promise_for;
 
 class CarrierApiGatewayMock implements CarrierApiGatewayInterface
 {

@@ -4,13 +4,13 @@ namespace MyParcelCom\Microservice\Providers;
 
 use Com\Tecnick\Barcode\Barcode;
 use Illuminate\Contracts\Container\Container;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Routing\UrlGenerator as LaravelUrlGenerator;
-use MyParcelCom\Common\Contracts\UrlGeneratorInterface;
-use MyParcelCom\Microservice\Exceptions\Handler;
-use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\ServiceProvider;
 use MyParcelCom\Common\Contracts\JsonApiRequestInterface;
+use MyParcelCom\Common\Contracts\UrlGeneratorInterface;
+use MyParcelCom\Microservice\Exceptions\Handler;
 use MyParcelCom\Microservice\Http\Request;
 use MyParcelCom\Microservice\Routing\UrlGenerator;
 use MyParcelCom\Microservice\Shipments\ShipmentMapper;

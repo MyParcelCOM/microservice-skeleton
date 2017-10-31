@@ -6,6 +6,7 @@ class Option
 {
     /** @var string */
     protected $code;
+
     /** @var string */
     protected $name;
 

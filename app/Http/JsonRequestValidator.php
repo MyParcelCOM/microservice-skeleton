@@ -10,8 +10,10 @@ class JsonRequestValidator
 {
     /** @var stdClass */
     protected $schema;
+
     /** @var Validator */
     protected $validator;
+
     /** @var Request */
     protected $request;
 

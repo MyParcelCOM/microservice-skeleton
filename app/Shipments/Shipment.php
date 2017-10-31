@@ -8,34 +8,49 @@ class Shipment
 {
     /** @var string */
     protected $id;
+
     /** @var Address */
     protected $recipientAddress;
+
     /** @var Address */
     protected $senderAddress;
+
     /** @var string */
     protected $pickupLocationCode;
+
     /** @var Address */
     protected $pickupLocationAddress;
+
     /** @var string */
     protected $description;
+
     /** @var int */
     protected $priceAmount;
+
     /** @var string */
     protected $priceCurrency;
+
     /** @var int */
     protected $insuranceAmount;
+
     /** @var string */
     protected $insuranceCurrency;
+
     /** @var string */
     protected $barcode;
+
     /** @var int */
     protected $weight;
+
     /** @var Service */
     protected $service;
+
     /** @var Option[] */
     protected $options = [];
+
     /** @var PhysicalProperties */
     protected $physicalProperties;
+
     /** @var File[] */
     protected $files = [];
 

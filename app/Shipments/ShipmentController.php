@@ -6,7 +6,6 @@ use Illuminate\Http\JsonResponse;
 use MyParcelCom\Microservice\Http\Controllers\Controller;
 use MyParcelCom\Microservice\Http\JsonRequestValidator;
 use MyParcelCom\Microservice\Http\Request;
-use MyParcelCom\Postnl\Shipments\ShipmentRepository;
 use MyParcelCom\Transformers\TransformerService;
 
 class ShipmentController extends Controller

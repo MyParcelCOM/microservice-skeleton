@@ -6,8 +6,8 @@ if [ ! -f /etc/php/7.1/fpm/php-fpm.conf ]; then
     envsubst "${substitutions}" < /etc/php/7.1/fpm/php-fpm.conf.template > /etc/php/7.1/fpm/php-fpm.conf
 fi
 
-if [ ! -f /etc/nginx/sites-available/postnl.myparcel.com ]; then
-    envsubst "${substitutions}" < /etc/nginx/sites-available/postnl.myparcel.com.template > /etc/nginx/sites-available/postnl.myparcel.com
+if [ ! -f /etc/nginx/sites-available/microservice.myparcel.com ]; then
+    envsubst "${substitutions}" < /etc/nginx/sites-available/microservice.myparcel.com.template > /etc/nginx/sites-available/microservice.myparcel.com
 fi
 
 if [ ! -f /etc/supervisor/conf.d/supervisord.conf ]; then

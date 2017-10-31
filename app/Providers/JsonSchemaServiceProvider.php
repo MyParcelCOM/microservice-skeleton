@@ -3,10 +3,10 @@
 namespace MyParcelCom\Microservice\Providers;
 
 use Illuminate\Contracts\Container\Container;
+use Illuminate\Support\ServiceProvider;
 use JsonSchema\Constraints\Factory;
 use JsonSchema\SchemaStorage;
 use JsonSchema\Validator;
-use Illuminate\Support\ServiceProvider;
 use MyParcelCom\Microservice\Http\JsonRequestValidator;
 
 class JsonSchemaServiceProvider extends ServiceProvider
