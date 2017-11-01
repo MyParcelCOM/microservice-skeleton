@@ -3,6 +3,7 @@
 namespace MyParcelCom\Microservice\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
 use MyParcelCom\Exceptions\InvalidSecretException;
 
 class VerifySecret
@@ -10,8 +11,8 @@ class VerifySecret
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure                 $next
+     * @param Request $request
+     * @param Closure $next
      * @return mixed
      * @throws InvalidSecretException
      */

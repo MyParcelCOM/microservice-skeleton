@@ -64,6 +64,7 @@ class CarrierApiGatewayMock implements CarrierApiGatewayInterface
                 sprintf(
                     'The stub response file `%s` does not exist. Please create it and add a response to it for a `%s` request to `%s`',
                     $stubPath,
+                    $method,
                     $url
                 )
             );

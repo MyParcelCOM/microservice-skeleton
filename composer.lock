@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0750c10249f00650a653745a4dbc7471",
+    "content-hash": "147f14946514ef24e7792b36b1083f02",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1048,7 +1048,7 @@
         },
         {
             "name": "mtdowling/cron-expression",
-            "version": "v1.2.0",
+            "version": "v1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mtdowling/cron-expression.git",
@@ -1092,26 +1092,26 @@
         },
         {
             "name": "myparcelcom/carrier-specification",
-            "version": "v0.1.6",
+            "version": "v0.1.7",
             "source": {
                 "type": "git",
-                "url": "git@github.com:MyParcelCOM/carrier-specification.git",
-                "reference": "669f4f6d96168aab30141a318c871f4c65836ea5"
+                "url": "https://github.com/MyParcelCOM/carrier-specification.git",
+                "reference": "f722ec94a82fe66394e41a293dc73a4e9b226db9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MyParcelCOM/carrier-specification/zipball/669f4f6d96168aab30141a318c871f4c65836ea5",
-                "reference": "669f4f6d96168aab30141a318c871f4c65836ea5",
+                "url": "https://api.github.com/repos/MyParcelCOM/carrier-specification/zipball/f722ec94a82fe66394e41a293dc73a4e9b226db9",
+                "reference": "f722ec94a82fe66394e41a293dc73a4e9b226db9",
                 "shasum": ""
             },
             "type": "library",
             "description": "MyParcel.com carrier API specification powering the Swagger documentation.",
             "homepage": "https://www.myparcel.com",
             "support": {
-                "source": "https://github.com/MyParcelCOM/carrier-specification/tree/v0.1.6",
+                "source": "https://github.com/MyParcelCOM/carrier-specification/tree/v0.1.7",
                 "issues": "https://github.com/MyParcelCOM/carrier-specification/issues"
             },
-            "time": "2017-10-11T14:59:09+00:00"
+            "time": "2017-11-01T09:57:21+00:00"
         },
         {
             "name": "myparcelcom/common",

@@ -23,7 +23,7 @@ interface CarrierApiGatewayInterface
 
     /**
      * @param array $credentials
-     * @return CarrierApiGatewayInterface
+     * @return $this
      */
     public function setCredentials(array $credentials): self;
 }
