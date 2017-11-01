@@ -21,12 +21,13 @@ class ShipmentController extends Controller
      */
     public function create(JsonRequestValidator $validator, ShipmentRepository $repository, Request $request, TransformerService $transformerService): JsonResponse
     {
-        $validator->validate('/shipments');
+        $validator->validate('/shipments', 'post', 201);
 
         $shipment = $repository->createFromPostData($request->json('data'));
 
         return new JsonResponse(
-            $transformerService->transformResource($shipment)
+            $transformerService->transformResource($shipment),
+            JsonResponse::HTTP_CREATED
         );
     }
 }

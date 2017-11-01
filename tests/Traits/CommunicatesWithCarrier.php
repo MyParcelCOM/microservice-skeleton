@@ -2,7 +2,6 @@
 
 namespace MyParcelCom\Microservice\Tests\Traits;
 
-use Illuminate\Contracts\Container\Container;
 use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
 use MyParcelCom\Microservice\Tests\Mocks\CarrierApiGatewayMock;
 

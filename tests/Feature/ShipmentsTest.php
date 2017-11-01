@@ -2,7 +2,6 @@
 
 namespace MyParcelCom\Microservice\Tests\Feature;
 
-use GuzzleHttp\Exception\GuzzleException;
 use Mockery;
 use MyParcelCom\Common\Traits\JsonApiAssertionsTrait;
 use MyParcelCom\Microservice\Tests\TestCase;
@@ -37,7 +36,8 @@ class ShipmentsTest extends TestCase
             '/v1/shipments',
             $this->getRequestHeaders(),
             $data,
-            'post'
+            'post',
+            201
         );
     }
 
