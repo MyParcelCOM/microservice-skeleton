@@ -25,7 +25,7 @@ class ExtractCredentialsTest extends TestCase
         $gateway = Mockery::mock(CarrierApiGatewayInterface::class)
             ->shouldReceive('setCredentials')
             ->once()
-            ->with(\GuzzleHttp\json_encode($this->getApiCredentials()))
+            ->with($this->getApiCredentials())
             ->andReturnSelf()
             ->getMock();
 
