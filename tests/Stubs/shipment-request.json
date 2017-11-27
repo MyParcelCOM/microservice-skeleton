@@ -10,7 +10,8 @@
         "postal_code": "2131BC",
         "city": "Amsterdam",
         "country_code": "NL",
-        "person": "John Doe",
+        "first_name": "John",
+        "last_name": "Doe",
         "phone_number": "+31 234 567 890"
       },
       "sender_address": {

@@ -73,10 +73,17 @@ class AddressTest extends TestCase
     }
 
     /** @test */
-    public function testPerson(): void
+    public function testFirstName(): void
     {
-        $this->assertNull($this->address->getPerson(), '`getPerson()` should return `null` when not set');
-        $this->assertEquals('Piet', $this->address->setPerson('Piet')->getPerson(), '`getPerson()` did not return set value');
+        $this->assertNull($this->address->getFirstName(), '`getFirstName()` should return `null` when not set');
+        $this->assertEquals('Piet', $this->address->setFirstName('Piet')->getFirstName(), '`getFirstName()` did not return set value');
+    }
+
+    /** @test */
+    public function testLastName(): void
+    {
+        $this->assertNull($this->address->getLastName(), '`getLastName()` should return `null` when not set');
+        $this->assertEquals('Jansen', $this->address->setLastName('Jansen')->getLastName(), '`getLastName()` did not return set value');
     }
 
     /** @test */
