@@ -64,7 +64,8 @@ class ShipmentMapperTest extends TestCase
                 $this->assertEquals('1102LG', $address->getPostalCode());
                 $this->assertEquals('john@doe.com', $address->getEmail());
                 $this->assertNull($address->getPhoneNumber());
-                $this->assertNull($address->getPerson());
+                $this->assertNull($address->getFirstName());
+                $this->assertNull($address->getLastName());
                 $this->assertEquals('NL', $address->getCountryCode());
                 $this->assertEquals('Bamsterbam', $address->getCity());
                 $this->assertNull($address->getRegionCode());
@@ -81,7 +82,8 @@ class ShipmentMapperTest extends TestCase
                 $this->assertEquals('2131BC', $address->getPostalCode());
                 $this->assertNull($address->getEmail());
                 $this->assertEquals('+31 234 567 890', $address->getPhoneNumber());
-                $this->assertEquals('John Doe', $address->getPerson());
+                $this->assertEquals('John', $address->getFirstName());
+                $this->assertEquals('Doe', $address->getLastName());
                 $this->assertEquals('NL', $address->getCountryCode());
                 $this->assertEquals('Amsterdam', $address->getCity());
                 $this->assertNull($address->getRegionCode());

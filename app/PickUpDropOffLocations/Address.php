@@ -20,7 +20,10 @@ class Address
     protected $countryCode;
 
     /** @var string */
-    protected $person;
+    protected $firstName;
+
+    /** @var string */
+    protected $lastName;
 
     /** @var string */
     protected $city;
@@ -195,18 +198,37 @@ class Address
     /**
      * @return string|null
      */
-    public function getPerson(): ?string
+    public function getFirstName(): ?string
     {
-        return $this->person;
+        return $this->firstName;
     }
 
     /**
-     * @param string $person
+     * @return string|null
+     */
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @param string $firstName
      * @return $this
      */
-    public function setPerson(string $person): self
+    public function setFirstName(string $firstName): self
     {
-        $this->person = $person;
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    /**
+     * @param string $lastName
+     * @return $this
+     */
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
 
         return $this;
     }

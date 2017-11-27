@@ -135,8 +135,11 @@ class ShipmentMapper implements MapperInterface
         if (isset($data['country_code'])) {
             $address->setCountryCode($data['country_code']);
         }
-        if (isset($data['person'])) {
-            $address->setPerson($data['person']);
+        if (isset($data['first_name'])) {
+            $address->setFirstName($data['first_name']);
+        }
+        if (isset($data['last_name'])) {
+            $address->setLastName($data['last_name']);
         }
         if (isset($data['company'])) {
             $address->setCompany($data['company']);

@@ -29,7 +29,7 @@ class PickUpDropOffLocationTest extends TestCase
     /** @test */
     public function testAddress(): void
     {
-        $address = (new Address())->setPerson('Tini');
+        $address = (new Address())->setFirstName('Tini')->setLastName('Plini');
         $this->assertNull($this->location->getAddress(), '`getAddress()` should return `null` when not set');
         $this->assertEquals($address, $this->location->setAddress($address)->getAddress(), '`getAddress()` did not return set value');
     }
