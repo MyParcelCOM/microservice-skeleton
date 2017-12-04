@@ -5,6 +5,8 @@ namespace MyParcelCom\Microservice\Tests\Unit\Shipments;
 use Mockery;
 use MyParcelCom\Common\Contracts\UrlGeneratorInterface;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
+use MyParcelCom\Microservice\Shipments\Customs;
+use MyParcelCom\Microservice\Shipments\CustomsItem;
 use MyParcelCom\Microservice\Shipments\Option;
 use MyParcelCom\Microservice\Shipments\PhysicalProperties;
 use MyParcelCom\Microservice\Shipments\Service;
@@ -63,6 +65,24 @@ class ShipmentTransformerTest extends TestCase
             'getName' => 'plx name me',
         ]);
 
+        $customsItem = Mockery::mock(CustomsItem::class, [
+            'getSku'               => '01284ASD',
+            'getDescription'       => 'priceless Ming vase from some dynasty',
+            'getQuantity'          => 12,
+            'getHsCode'            => '9801.00.60',
+            'getOriginCountryCode' => 'CN',
+            'getItemValueAmount'   => 100000000,
+            'getItemValueCurrency' => 'USD',
+        ]);
+
+        $customs = Mockery::mock(Customs::class, [
+            'getContentType'   => Customs::CONTENT_TYPE_DOCUMENTS,
+            'getInvoiceNumber' => 'V01C3',
+            'getNonDelivery'   => Customs::NON_DELIVERY_ABANDON,
+            'getIncoterm'      => Customs::INCOTERM_DUTY_DELIVERY_UNPAID,
+            'getItems'         => [$customsItem],
+        ]);
+
         $this->shipmentTransformer = new ShipmentTransformer($urlGenerator, $transformerFactory);
         $this->shipment = Mockery::mock(Shipment::class, [
             'getId'                    => 'shipment-id',
@@ -81,6 +101,7 @@ class ShipmentTransformerTest extends TestCase
             'getOptions'               => [$option],
             'getPhysicalProperties'    => $physicalProperties,
             'getFiles'                 => [],
+            'getCustoms'               => $customs,
         ]);
     }
 
@@ -98,6 +119,15 @@ class ShipmentTransformerTest extends TestCase
             'shipment-id',
             $this->shipmentTransformer->getId($this->shipment),
             'Failed getting model id.'
+        );
+    }
+
+    /** @test */
+    public function testGetType()
+    {
+        $this->assertEquals(
+            'shipments',
+            $this->shipmentTransformer->getType()
         );
     }
 
@@ -179,6 +209,25 @@ class ShipmentTransformerTest extends TestCase
                 [
                     'name' => 'plx name me',
                     'code' => 'somecode',
+                ],
+            ],
+            'customs'             => [
+                'content_type'   => Customs::CONTENT_TYPE_DOCUMENTS,
+                'invoice_number' => 'V01C3',
+                'incoterm'       => Customs::INCOTERM_DUTY_DELIVERY_UNPAID,
+                'non_delivery'   => Customs::NON_DELIVERY_ABANDON,
+                'items'          => [
+                    [
+                        'sku'                 => '01284ASD',
+                        'description'         => 'priceless Ming vase from some dynasty',
+                        'quantity'            => 12,
+                        'hs_code'             => '9801.00.60',
+                        'origin_country_code' => 'CN',
+                        'item_value'          => [
+                            'amount'   => 100000000,
+                            'currency' => 'USD',
+                        ],
+                    ],
                 ],
             ],
         ], $this->shipmentTransformer->getAttributes($this->shipment));
@@ -266,6 +315,25 @@ class ShipmentTransformerTest extends TestCase
                         [
                             'name' => 'plx name me',
                             'code' => 'somecode',
+                        ],
+                    ],
+                    'customs'             => [
+                        'content_type'   => Customs::CONTENT_TYPE_DOCUMENTS,
+                        'invoice_number' => 'V01C3',
+                        'incoterm'       => Customs::INCOTERM_DUTY_DELIVERY_UNPAID,
+                        'non_delivery'   => Customs::NON_DELIVERY_ABANDON,
+                        'items'          => [
+                            [
+                                'sku'                 => '01284ASD',
+                                'description'         => 'priceless Ming vase from some dynasty',
+                                'quantity'            => 12,
+                                'hs_code'             => '9801.00.60',
+                                'origin_country_code' => 'CN',
+                                'item_value'          => [
+                                    'amount'   => 100000000,
+                                    'currency' => 'USD',
+                                ],
+                            ],
                         ],
                     ],
                 ],

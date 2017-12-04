@@ -54,6 +54,9 @@ class Shipment
     /** @var File[] */
     protected $files = [];
 
+    /** @var Customs */
+    protected $customs;
+
     /**
      * @return string
      */
@@ -367,5 +370,24 @@ class Shipment
         $this->files[] = $file;
 
         return $this;
+    }
+
+    /**
+     * @param Customs $customs
+     * @return $this
+     */
+    public function setCustoms(Customs $customs): self
+    {
+        $this->customs = $customs;
+
+        return $this;
+    }
+
+    /**
+     * @return Customs|null
+     */
+    public function getCustoms(): ?Customs
+    {
+        return $this->customs;
     }
 }

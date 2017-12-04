@@ -56,6 +56,11 @@ class ShipmentMapper implements MapperInterface
         $shipment->setInsuranceAmount((int)($attributes['insurance']['amount'] ?? self::DEFAULT_INSURANCE_AMOUNT));
         $shipment->setInsuranceCurrency($attributes['insurance']['currency'] ?? self::DEFAULT_CURRENCY);
 
+        // Map customs information.
+        if (!empty($attributes['customs'])) {
+            $this->mapCustoms($attributes['customs'], $shipment);
+        }
+
         // Map optional data.
         if (isset($attributes['description'])) {
             $shipment->setDescription($attributes['description']);
@@ -152,6 +157,68 @@ class ShipmentMapper implements MapperInterface
         }
 
         return $address;
+    }
+
+    /**
+     * @param array    $data
+     * @param Shipment $shipment
+     * @return $this
+     */
+    protected function mapCustoms(array $data, Shipment $shipment): self
+    {
+        $customs = $shipment->getCustoms() ?? new Customs();
+
+        if (isset($data['content_type'])) {
+            $customs->setContentType($data['content_type']);
+        }
+        if (isset($data['invoice_number'])) {
+            $customs->setInvoiceNumber($data['invoice_number']);
+        }
+        if (isset($data['non_delivery'])) {
+            $customs->setNonDelivery($data['non_delivery']);
+        }
+        if (isset($data['incoterm'])) {
+            $customs->setIncoterm($data['incoterm']);
+        }
+
+        if (!empty($data['items'])) {
+            $customs->setItems(
+                array_map([$this, 'mapCustomsItem'], $data['items'])
+            );
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param array $data
+     * @return CustomsItem
+     */
+    protected function mapCustomsItem(array $data): CustomsItem
+    {
+        $item = new CustomsItem();
+
+        if (isset($data['sku'])) {
+            $item->setSku($data['sku']);
+        }
+        if (isset($data['description'])) {
+            $item->setDescription($data['description']);
+        }
+        if (isset($data['item_value'])) {
+            $item->setItemValueAmount($data['item_value']['amount']);
+            $item->setItemValueCurrency($data['item_value']['currency']);
+        }
+        if (isset($data['quantity'])) {
+            $item->setQuantity($data['quantity']);
+        }
+        if (isset($data['hs_code'])) {
+            $item->setHsCode($data['hs_code']);
+        }
+        if (isset($data['origin_country_code'])) {
+            $item->setOriginCountryCode($data['origin_country_code']);
+        }
+
+        return $item;
     }
 
     /**
