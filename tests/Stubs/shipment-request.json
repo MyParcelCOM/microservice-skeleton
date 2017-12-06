@@ -30,9 +30,8 @@
       },
       "weight": 24,
       "service": {
-        "code": "",
-        // TODO add example service
-        "name": ""
+        "code": "service-a01",
+        "name": "Parcel to Parcelshop"
       },
       "options": [],
       "customs": {

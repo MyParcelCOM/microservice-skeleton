@@ -187,6 +187,8 @@ class ShipmentMapper implements MapperInterface
             );
         }
 
+        $shipment->setCustoms($customs);
+
         return $this;
     }
 

@@ -4,6 +4,8 @@ namespace MyParcelCom\Microservice\Tests\Unit\Shipments;
 
 use Mockery;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
+use MyParcelCom\Microservice\Shipments\Customs;
+use MyParcelCom\Microservice\Shipments\CustomsItem;
 use MyParcelCom\Microservice\Shipments\Service;
 use MyParcelCom\Microservice\Shipments\Shipment;
 use MyParcelCom\Microservice\Shipments\ShipmentMapper;
@@ -41,7 +43,7 @@ class ShipmentMapperTest extends TestCase
             })
             ->shouldReceive('setInsuranceAmount')
             ->andReturnUsing(function (int $amount) use ($shipment) {
-                $this->assertEquals(100, $amount);
+                $this->assertEquals(10000, $amount);
 
                 return $shipment;
             })
@@ -53,7 +55,7 @@ class ShipmentMapperTest extends TestCase
             })
             ->shouldReceive('setService')
             ->andReturnUsing(function (Service $service) use ($shipment) {
-                $this->assertEquals('nl300', $service->getCode());
+                $this->assertEquals('service-a01', $service->getCode());
                 $this->assertEquals('Parcel to Parcelshop', $service->getName());
 
                 return $shipment;
@@ -61,12 +63,12 @@ class ShipmentMapperTest extends TestCase
             ->shouldReceive('setSenderAddress')
             ->andReturnUsing(function (Address $address) use ($shipment) {
                 $this->assertEquals('Acme Jewelry Co.', $address->getCompany());
-                $this->assertEquals('1102LG', $address->getPostalCode());
+                $this->assertEquals('1GL HF1', $address->getPostalCode());
                 $this->assertEquals('john@doe.com', $address->getEmail());
                 $this->assertNull($address->getPhoneNumber());
                 $this->assertNull($address->getFirstName());
                 $this->assertNull($address->getLastName());
-                $this->assertEquals('NL', $address->getCountryCode());
+                $this->assertEquals('GB', $address->getCountryCode());
                 $this->assertEquals('Bamsterbam', $address->getCity());
                 $this->assertNull($address->getRegionCode());
                 $this->assertNull($address->getStreetNumberSuffix());
@@ -91,6 +93,49 @@ class ShipmentMapperTest extends TestCase
                 $this->assertEquals(679, $address->getStreetNumber());
                 $this->assertEquals('Room 3', $address->getStreet2());
                 $this->assertEquals('Some road', $address->getStreet1());
+
+                return $shipment;
+            })
+            ->shouldReceive('getCustoms')
+            ->andReturn(null)
+            ->shouldReceive('setCustoms')
+            ->andReturnUsing(function (Customs $customs) use ($shipment) {
+                $this->assertEquals('gifts', $customs->getContentType());
+                $this->assertEquals('876543', $customs->getInvoiceNumber());
+                $this->assertEquals('DDU', $customs->getIncoterm());
+
+                $items = array_map(function (CustomsItem $item) {
+                    return [
+                        'sku'               => $item->getSku(),
+                        'description'       => $item->getDescription(),
+                        'hsCode'            => $item->getHsCode(),
+                        'quantity'          => $item->getQuantity(),
+                        'itemValueAmount'   => $item->getItemValueAmount(),
+                        'itemValueCurrency' => $item->getItemValueCurrency(),
+                        'originCountryCode' => $item->getOriginCountryCode(),
+                    ];
+                }, $customs->getItems());
+
+                $this->assertEquals([
+                    [
+                        'sku'               => '13657za',
+                        'description'       => 'XBox 360',
+                        'hsCode'            => '1234.15.05',
+                        'quantity'          => 2,
+                        'itemValueAmount'   => 30000,
+                        'itemValueCurrency' => 'EUR',
+                        'originCountryCode' => 'GB',
+                    ],
+                    [
+                        'sku'               => '654324re',
+                        'description'       => 'Playstation 2',
+                        'hsCode'            => '1234.15.05',
+                        'quantity'          => 1,
+                        'itemValueAmount'   => 20000,
+                        'itemValueCurrency' => 'EUR',
+                        'originCountryCode' => 'GB',
+                    ],
+                ], $items);
 
                 return $shipment;
             });

@@ -4,6 +4,7 @@ namespace MyParcelCom\Microservice\Tests\Unit\Shipments;
 
 use Mockery;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
+use MyParcelCom\Microservice\Shipments\Customs;
 use MyParcelCom\Microservice\Shipments\File;
 use MyParcelCom\Microservice\Shipments\Option;
 use MyParcelCom\Microservice\Shipments\PhysicalProperties;
@@ -145,5 +146,13 @@ class ShipmentTest extends TestCase
         $file = Mockery::mock(File::class);
         $files = [$file];
         $this->assertEquals($files, $shipment->addFile($file)->getFiles());
+    }
+
+    /** @test */
+    public function testCustoms()
+    {
+        $shipment = new Shipment();
+        $customs = Mockery::mock(Customs::class);
+        $this->assertEquals($customs, $shipment->setCustoms($customs)->getCustoms());
     }
 }

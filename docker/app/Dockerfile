@@ -27,7 +27,8 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /etc/php/7.1/fpm/php-fpm.conf \
     && echo "daemon off;" >> /etc/nginx/nginx.conf \
-    && sed -e 's/;clear_env = no/clear_env = no/' -i /etc/php/7.1/fpm/pool.d/www.conf
+    && sed -e 's/;clear_env = no/clear_env = no/' -i /etc/php/7.1/fpm/pool.d/www.conf \
+    && sed -e 's/error_reporting = E_ALL \& \~E_DEPRECATED \& \~E_STRICT/error_reporting = E_ALL/' -i /etc/php/7.1/cli/php.ini
 
 # Copy config files.
 COPY conf/php-fpm.conf /etc/php/7.1/fpm/php-fpm.conf.template
