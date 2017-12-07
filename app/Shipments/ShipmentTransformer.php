@@ -73,6 +73,25 @@ class ShipmentTransformer extends AbstractTransformer
                     'data'          => $file->getData(),
                 ];
             }, $shipment->getFiles()),
+            'customs'             => $shipment->getCustoms() === null ?: [
+                'content_type'   => $shipment->getCustoms()->getContentType(),
+                'invoice_number' => $shipment->getCustoms()->getInvoiceNumber(),
+                'non_delivery'   => $shipment->getCustoms()->getNonDelivery(),
+                'incoterm'       => $shipment->getCustoms()->getIncoterm(),
+                'items'          => array_map(function (CustomsItem $item) {
+                    return [
+                        'sku'                 => $item->getSku(),
+                        'description'         => $item->getDescription(),
+                        'quantity'            => $item->getQuantity(),
+                        'hs_code'             => $item->getHsCode(),
+                        'origin_country_code' => $item->getOriginCountryCode(),
+                        'item_value'          => [
+                            'amount'   => $item->getItemValueAmount(),
+                            'currency' => $item->getItemValueCurrency(),
+                        ],
+                    ];
+                }, $shipment->getCustoms()->getItems()),
+            ],
         ]);
     }
 

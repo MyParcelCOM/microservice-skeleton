@@ -17,23 +17,53 @@
       "sender_address": {
         "street_1": "Streeterino",
         "street_number": 622,
-        "postal_code": "1102LG",
+        "postal_code": "1GL HF1",
         "city": "Bamsterbam",
-        "country_code": "NL",
+        "country_code": "GB",
         "company": "Acme Jewelry Co.",
         "email": "john@doe.com"
       },
       "description": "order #8008135",
       "insurance": {
-        "amount": 100,
+        "amount": 10000,
         "currency": "EUR"
       },
       "weight": 24,
       "service": {
-        "code": "", // TODO add example service
-        "name": ""
+        "code": "service-a01",
+        "name": "Parcel to Parcelshop"
       },
-      "options": []
+      "options": [],
+      "customs": {
+        "content_type": "gifts",
+        "invoice_number": "876543",
+        "non_delivery": "return",
+        "incoterm": "DDU",
+        "items": [
+          {
+            "sku": "13657za",
+            "description": "XBox 360",
+            "item_value": {
+              "amount": 30000,
+              "currency": "EUR"
+            },
+            "quantity": 2,
+            "hs_code": "1234.15.05",
+            "origin_country_code": "GB"
+          },
+          {
+            "sku": "654324re",
+            "description": "Playstation 2",
+            "item_value": {
+              "amount": 20000,
+              "currency": "EUR"
+            },
+            "quantity": 1,
+            "hs_code": "1234.15.05",
+            "origin_country_code": "GB"
+          }
+        ]
+      }
     }
   }
 }
