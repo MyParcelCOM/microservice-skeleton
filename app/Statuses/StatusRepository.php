@@ -12,12 +12,12 @@ class StatusRepository
 
     /**
      * @param string $shipmentId
-     * @param string $barcode
+     * @param string $trackingCode
      * @return ResourcesInterface
      */
-    public function getStatuses(string $shipmentId, string $barcode): ResourcesInterface
+    public function getStatuses(string $shipmentId, string $trackingCode): ResourcesInterface
     {
-        // TODO Get statuses for given shipment/barcode from carrier (use CarrierApiGateway).
+        // TODO Get statuses for given shipment/tracking_code from carrier (use CarrierApiGateway).
         // TODO Map data to Status objects.
         // TODO Put Status objects in an object that implements ResourcesInterface
     }

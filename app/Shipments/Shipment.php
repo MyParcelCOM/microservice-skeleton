@@ -37,6 +37,12 @@ class Shipment
     protected $insuranceCurrency;
 
     /** @var string */
+    protected $trackingCode;
+
+    /** @var string */
+    protected $trackingUrl;
+
+    /** @var string */
     protected $barcode;
 
     /** @var int */
@@ -265,6 +271,45 @@ class Shipment
 
         return $this;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getTrackingCode(): ?string
+    {
+        return $this->trackingCode;
+    }
+
+    /**
+     * @param string $trackingCode
+     * @return $this
+     */
+    public function setTrackingCode(string $trackingCode): self
+    {
+        $this->trackingCode = $trackingCode;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTrackingUrl(): ?string
+    {
+        return $this->trackingUrl;
+    }
+
+    /**
+     * @param string $trackingUrl
+     * @return $this
+     */
+    public function setTrackingUrl(string $trackingUrl): self
+    {
+        $this->trackingUrl = $trackingUrl;
+
+        return $this;
+    }
+
 
     /**
      * @return int

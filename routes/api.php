@@ -20,5 +20,5 @@ Route::get(
     PickUpDropOffLocationController::class . '@getAll'
 );
 
-Route::get('/v1/shipments/{shipmentId}/statuses/{barcode}', StatusController::class . '@getStatuses');
+Route::get('/v1/shipments/{shipmentId}/statuses/{trackingCode}', StatusController::class . '@getStatuses');
 Route::post('/v1/shipments', ShipmentController::class . '@create');

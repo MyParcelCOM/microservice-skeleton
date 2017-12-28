@@ -47,6 +47,8 @@ class ShipmentTransformer extends AbstractTransformer
                 'currency' => $shipment->getInsuranceCurrency(),
             ],
             'barcode'             => $shipment->getBarcode(),
+            'tracking_code'       => $shipment->getTrackingCode(),
+            'tracking_url'        => $shipment->getTrackingUrl(),
             'weight'              => $shipment->getWeight(),
             'service'             => [
                 'code' => $shipment->getService()->getCode(),

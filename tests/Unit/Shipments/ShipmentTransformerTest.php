@@ -96,6 +96,8 @@ class ShipmentTransformerTest extends TestCase
             'getInsuranceAmount'       => 456,
             'getInsuranceCurrency'     => 'EUR',
             'getBarcode'               => '3SBARCODE',
+            'getTrackingCode'          => 'TR4CK1NGC0D3',
+            'getTrackingUrl'           => 'https://track.me/TR4CK1NGC0D3',
             'getWeight'                => 789,
             'getService'               => $service,
             'getOptions'               => [$option],
@@ -193,6 +195,8 @@ class ShipmentTransformerTest extends TestCase
                 'currency' => 'EUR',
             ],
             'barcode'             => '3SBARCODE',
+            'tracking_code'       => 'TR4CK1NGC0D3',
+            'tracking_url'        => 'https://track.me/TR4CK1NGC0D3',
             'weight'              => 789,
             'service'             => [
                 'code' => 'nl300',
