@@ -75,7 +75,7 @@ class ShipmentTransformer extends AbstractTransformer
                     'data'          => $file->getData(),
                 ];
             }, $shipment->getFiles()),
-            'customs'             => $shipment->getCustoms() === null ?: [
+            'customs'             => $shipment->getCustoms() === null ? null : [
                 'content_type'   => $shipment->getCustoms()->getContentType(),
                 'invoice_number' => $shipment->getCustoms()->getInvoiceNumber(),
                 'non_delivery'   => $shipment->getCustoms()->getNonDelivery(),
