@@ -24,6 +24,9 @@ class ShipmentTransformerTest extends TestCase
     /** @var Shipment */
     private $shipment;
 
+    /** @var Shipment */
+    private $minimalShipment;
+
     public function setUp()
     {
         parent::setUp();
@@ -104,6 +107,28 @@ class ShipmentTransformerTest extends TestCase
             'getPhysicalProperties'    => $physicalProperties,
             'getFiles'                 => [],
             'getCustoms'               => $customs,
+        ]);
+
+        $this->minimalShipment = Mockery::mock(Shipment::class, [
+            'getId'                    => 'shipment-id',
+            'getRecipientAddress'      => $address,
+            'getSenderAddress'         => $address,
+            'getPickupLocationCode'    => null,
+            'getPickupLocationAddress' => null,
+            'getDescription'           => null,
+            'getPriceAmount'           => 123,
+            'getPriceCurrency'         => 'EUR',
+            'getInsuranceAmount'       => 0,
+            'getInsuranceCurrency'     => 'EUR',
+            'getBarcode'               => null,
+            'getTrackingCode'          => null,
+            'getTrackingUrl'           => null,
+            'getWeight'                => 789,
+            'getService'               => $service,
+            'getOptions'               => [],
+            'getPhysicalProperties'    => null,
+            'getFiles'                 => [],
+            'getCustoms'               => null,
         ]);
     }
 
@@ -346,6 +371,64 @@ class ShipmentTransformerTest extends TestCase
         );
     }
 
+    /** @test */
+    public function testTransformMinimalShipment()
+    {
+        $this->assertEquals(
+            [
+                'id'         => 'shipment-id',
+                'type'       => 'shipments',
+                'attributes' => [
+                    'recipient_address' => [
+                        'street_1'             => 'First Street',
+                        'street_2'             => 'Second Street',
+                        'street_number'        => 69,
+                        'street_number_suffix' => 'x',
+                        'postal_code'          => '1337OP',
+                        'city'                 => 'Felicity',
+                        'region_code'          => 'NH',
+                        'country_code'         => 'NL',
+                        'first_name'           => 'Jane',
+                        'last_name'            => 'Doe',
+                        'company'              => 'Experts Exchange',
+                        'email'                => 'john@expertsexchange.com',
+                        'phone_number'         => '1337-9001',
+                    ],
+                    'sender_address'    => [
+                        'street_1'             => 'First Street',
+                        'street_2'             => 'Second Street',
+                        'street_number'        => 69,
+                        'street_number_suffix' => 'x',
+                        'postal_code'          => '1337OP',
+                        'city'                 => 'Felicity',
+                        'region_code'          => 'NH',
+                        'country_code'         => 'NL',
+                        'first_name'           => 'Jane',
+                        'last_name'            => 'Doe',
+                        'company'              => 'Experts Exchange',
+                        'email'                => 'john@expertsexchange.com',
+                        'phone_number'         => '1337-9001',
+                    ],
+                    'price'             => [
+                        'amount'   => 123,
+                        'currency' => 'EUR',
+                    ],
+                    'insurance'         => [
+                        'amount'   => 0,
+                        'currency' => 'EUR',
+                    ],
+                    'weight'            => 789,
+                    'service'           => [
+                        'code' => 'nl300',
+                        'name' => 'noname',
+                    ],
+                ],
+            ],
+            $this->shipmentTransformer->transform($this->minimalShipment)
+        );
+    }
+
+    /** @test */
     public function testTransformInvalidModel()
     {
         $this->expectException(TransformerException::class);

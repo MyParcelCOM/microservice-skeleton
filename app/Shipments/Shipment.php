@@ -161,7 +161,7 @@ class Shipment
     /**
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -256,7 +256,7 @@ class Shipment
     /**
      * @return string
      */
-    public function getBarcode(): string
+    public function getBarcode(): ?string
     {
         return $this->barcode;
     }
