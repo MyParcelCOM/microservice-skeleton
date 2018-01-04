@@ -15,14 +15,17 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 RUN apt-get update \
-    && apt-get install -y nginx curl zip unzip software-properties-common supervisor sqlite3 ssl-cert gettext-base iproute \
+    && apt-get install -y nginx curl zip unzip software-properties-common supervisor sqlite3 ssl-cert gettext-base iproute wget \
     && add-apt-repository -y ppa:ondrej/php \
+    && echo 'deb http://apt.newrelic.com/debian/ newrelic non-free' | tee /etc/apt/sources.list.d/newrelic.list \
+    && wget -O- https://download.newrelic.com/548C16BF.gpg | apt-key add - \
     && apt-get update \
     && apt-get install -y php7.1-fpm php7.1-cli php7.1-mcrypt php7.1-gd \
        php7.1-mbstring php7.1-xml php7.1-curl php7.1-xdebug \
     && php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer \
+    && DEBIAN_FRONTEND=noninteractive apt-get -y install newrelic-php5 \
     && mkdir /run/php \
-    && apt-get remove -y --purge software-properties-common \
+    && apt-get remove -y --purge software-properties-common wget \
     && apt-get -y autoremove \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /etc/php/7.1/fpm/php-fpm.conf \
