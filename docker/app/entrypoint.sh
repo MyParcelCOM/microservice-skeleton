@@ -32,4 +32,9 @@ else
     fi
 fi
 
+# If a newrelic license key is set, we install and start the newrelic daemon.
+if [ "${NEWRELIC_LICENSE}" ]; then
+    NR_INSTALL_SILENT=1 NR_INSTALL_KEY=${NEWRELIC_LICENSE} newrelic-install install
+fi
+
 "$@"
