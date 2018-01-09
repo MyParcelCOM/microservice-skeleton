@@ -178,6 +178,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Intouch\LaravelNewrelic\NewrelicServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -220,6 +221,7 @@ return [
         'Storage' => Illuminate\Support\Facades\Storage::class,
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
+        'Newrelic' => Intouch\LaravelNewrelic\Facades\Newrelic::class,
     ],
 
 ];
