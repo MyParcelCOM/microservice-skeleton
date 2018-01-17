@@ -36,11 +36,4 @@ class PositionTest extends TestCase
         $this->assertNull($this->position->getDistance(), '`getDistance()` should return `null` when not set');
         $this->assertEquals(13.37, $this->position->setDistance(13.37)->getDistance(), '`getDistance()` did not return set value');
     }
-
-    /** @test */
-    public function testUnit(): void
-    {
-        $this->assertNull($this->position->getUnit(), '`getUnit()` should return `null` when not set');
-        $this->assertEquals('units!', $this->position->setUnit('units!')->getUnit(), '`getUnit()` did not return set value');
-    }
 }

@@ -49,7 +49,6 @@ class PickUpDropOffLocationTransformerTest extends TestCase
             'getLatitude'  => '48.8722379',
             'getLongitude' => '2.7736192',
             'getDistance'  => '528',
-            'getUnit'      => Position::UNIT_KILOMETER,
         ]);
         $openingHourA = Mockery::mock(OpeningHour::class, [
             'getDay'    => 'Monday',
@@ -119,7 +118,6 @@ class PickUpDropOffLocationTransformerTest extends TestCase
                 'latitude'  => '48.8722379',
                 'longitude' => '2.7736192',
                 'distance'  => '528',
-                'unit'      => Position::UNIT_KILOMETER,
             ],
         ], $this->pickUpDropOffLocationTransformer->getAttributes($this->pickUpDropOffLocation));
     }
