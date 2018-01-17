@@ -4,10 +4,6 @@ namespace MyParcelCom\Microservice\PickUpDropOffLocations;
 
 class Position
 {
-    public const UNIT_KILOMETER = 'kilometers';
-    public const UNIT_METER = 'meters';
-    public const UNIT_MILE = 'miles';
-
     /** @var float */
     protected $latitude;
 
@@ -16,9 +12,6 @@ class Position
 
     /** @var float */
     protected $distance;
-
-    /** @var string */
-    protected $unit;
 
     /**
      * @return float|null
@@ -73,25 +66,6 @@ class Position
     public function setDistance(float $distance): self
     {
         $this->distance = $distance;
-
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getUnit(): ?string
-    {
-        return $this->unit;
-    }
-
-    /**
-     * @param string $unit
-     * @return $this
-     */
-    public function setUnit(string $unit): self
-    {
-        $this->unit = $unit;
 
         return $this;
     }

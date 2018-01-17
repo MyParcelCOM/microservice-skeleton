@@ -62,7 +62,6 @@ class PickUpDropOffLocationTransformer extends AbstractTransformer
                 'latitude'  => $position->getLatitude(),
                 'longitude' => $position->getLongitude(),
                 'distance'  => $position->getDistance(),
-                'unit'      => $position->getUnit(),
             ]),
         ]);
     }
