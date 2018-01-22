@@ -28,12 +28,23 @@
         "amount": 10000,
         "currency": "EUR"
       },
-      "weight": 24,
       "service": {
         "code": "service-a01",
         "name": "Parcel to Parcelshop"
       },
-      "options": [],
+      "physical_properties": {
+        "weight": 500,
+        "height": 100,
+        "width": 200,
+        "length": 250,
+        "volume": 5
+      },
+      "options": [
+        {
+          "code": "delivery_day_sunday",
+          "name": "Sunday delivery"
+        }
+      ],
       "customs": {
         "content_type": "gifts",
         "invoice_number": "876543",

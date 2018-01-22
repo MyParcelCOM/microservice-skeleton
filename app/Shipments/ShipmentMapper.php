@@ -46,7 +46,25 @@ class ShipmentMapper implements MapperInterface
 
         // Map service.
         $this->mapService($attributes['service'], $shipment);
-        $shipment->setWeight((int)$attributes['weight']);
+
+        if ($shipment->getPhysicalProperties() === null) {
+            $shipment->setPhysicalProperties(new PhysicalProperties());
+        }
+        if (isset($attributes['physical_properties']['weight'])) {
+            $shipment->getPhysicalProperties()->setWeight((int)$attributes['physical_properties']['weight']);
+        }
+        if (isset($attributes['physical_properties']['width'])) {
+            $shipment->getPhysicalProperties()->setWidth((int)$attributes['physical_properties']['width']);
+        }
+        if (isset($attributes['physical_properties']['height'])) {
+            $shipment->getPhysicalProperties()->setHeight((int)$attributes['physical_properties']['height']);
+        }
+        if (isset($attributes['physical_properties']['length'])) {
+            $shipment->getPhysicalProperties()->setLength((int)$attributes['physical_properties']['length']);
+        }
+        if (isset($attributes['physical_properties']['volume'])) {
+            $shipment->getPhysicalProperties()->setVolume((float)$attributes['physical_properties']['volume']);
+        }
 
         if (isset($attributes['options'])) {
             $this->mapOptions($attributes['options'], $shipment);

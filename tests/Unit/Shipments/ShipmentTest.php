@@ -102,13 +102,6 @@ class ShipmentTest extends TestCase
     }
 
     /** @test */
-    public function testWeight()
-    {
-        $shipment = new Shipment();
-        $this->assertEquals(69, $shipment->setWeight(69)->getWeight());
-    }
-
-    /** @test */
     public function testService()
     {
         $shipment = new Shipment();
@@ -137,6 +130,14 @@ class ShipmentTest extends TestCase
         $shipment = new Shipment();
         $physicalProperties = Mockery::mock(PhysicalProperties::class);
         $this->assertEquals($physicalProperties, $shipment->setPhysicalProperties($physicalProperties)->getPhysicalProperties());
+    }
+
+    /** @test */
+    public function testPhysicalPropertiesVerified()
+    {
+        $shipment = new Shipment();
+        $physicalProperties = Mockery::mock(PhysicalProperties::class);
+        $this->assertEquals($physicalProperties, $shipment->setPhysicalPropertiesVerified($physicalProperties)->getPhysicalPropertiesVerified());
     }
 
     /** @test */

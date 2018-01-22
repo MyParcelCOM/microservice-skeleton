@@ -57,9 +57,11 @@ class Shipment
     /** @var PhysicalProperties */
     protected $physicalProperties;
 
+    /** @var PhysicalProperties */
+    protected $physicalPropertiesVerfied;
+
     /** @var File[] */
     protected $files = [];
-
     /** @var Customs */
     protected $customs;
 
@@ -310,26 +312,6 @@ class Shipment
         return $this;
     }
 
-
-    /**
-     * @return int
-     */
-    public function getWeight(): int
-    {
-        return $this->weight;
-    }
-
-    /**
-     * @param int $weight
-     * @return $this
-     */
-    public function setWeight(int $weight): self
-    {
-        $this->weight = $weight;
-
-        return $this;
-    }
-
     /**
      * @return Service
      */
@@ -394,6 +376,25 @@ class Shipment
     public function setPhysicalProperties(PhysicalProperties $physicalProperties): self
     {
         $this->physicalProperties = $physicalProperties;
+
+        return $this;
+    }
+
+    /**
+     * @return PhysicalProperties|null
+     */
+    public function getPhysicalPropertiesVerified(): ?PhysicalProperties
+    {
+        return $this->physicalPropertiesVerfied;
+    }
+
+    /**
+     * @param PhysicalProperties $physicalProperties
+     * @return $this
+     */
+    public function setPhysicalPropertiesVerified(PhysicalProperties $physicalProperties): self
+    {
+        $this->physicalPropertiesVerfied = $physicalProperties;
 
         return $this;
     }

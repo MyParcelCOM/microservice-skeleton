@@ -33,7 +33,7 @@ class PhysicalPropertiesTest extends TestCase
     public function testVolume()
     {
         $physicalProperties = new PhysicalProperties();
-        $this->assertEquals(87, $physicalProperties->setVolume(87)->getVolume());
+        $this->assertEquals(87.2, $physicalProperties->setVolume(87.2)->getVolume());
     }
 
     /** @test */
