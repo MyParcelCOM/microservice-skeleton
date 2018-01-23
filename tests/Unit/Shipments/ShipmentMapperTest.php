@@ -6,6 +6,8 @@ use Mockery;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 use MyParcelCom\Microservice\Shipments\Customs;
 use MyParcelCom\Microservice\Shipments\CustomsItem;
+use MyParcelCom\Microservice\Shipments\Option;
+use MyParcelCom\Microservice\Shipments\PhysicalProperties;
 use MyParcelCom\Microservice\Shipments\Service;
 use MyParcelCom\Microservice\Shipments\Shipment;
 use MyParcelCom\Microservice\Shipments\ShipmentMapper;
@@ -27,6 +29,39 @@ class ShipmentMapperTest extends TestCase
 
         $data = json_decode(file_get_contents(base_path('tests/Stubs/shipment-request.json')), true);
 
+        $physicalProperties = Mockery::mock(PhysicalProperties::class);
+        $physicalProperties
+            ->shouldReceive('setWeight')
+            ->andReturnUsing(function ($weight) use ($physicalProperties) {
+                $this->assertEquals(500, $weight);
+
+                return $physicalProperties;
+            })
+            ->shouldReceive('setWidth')
+            ->andReturnUsing(function ($width) use ($physicalProperties) {
+                $this->assertEquals(200, $width);
+
+                return $physicalProperties;
+            })
+            ->shouldReceive('setHeight')
+            ->andReturnUsing(function ($height) use ($physicalProperties) {
+                $this->assertEquals(100, $height);
+
+                return $physicalProperties;
+            })
+            ->shouldReceive('setLength')
+            ->andReturnUsing(function ($length) use ($physicalProperties) {
+                $this->assertEquals(250, $length);
+
+                return $physicalProperties;
+            })
+            ->shouldReceive('setVolume')
+            ->andReturnUsing(function ($volume) use ($physicalProperties) {
+                $this->assertEquals(5, $volume);
+
+                return $physicalProperties;
+            });
+
         $shipment = Mockery::mock(Shipment::class);
         $shipment
             ->shouldReceive('setDescription')
@@ -47,12 +82,8 @@ class ShipmentMapperTest extends TestCase
 
                 return $shipment;
             })
-            ->shouldReceive('setWeight')
-            ->andReturnUsing(function (int $weight) use ($shipment) {
-                $this->assertEquals(24, $weight);
-
-                return $shipment;
-            })
+            ->shouldReceive('getPhysicalProperties')
+            ->andReturn($physicalProperties)
             ->shouldReceive('setService')
             ->andReturnUsing(function (Service $service) use ($shipment) {
                 $this->assertEquals('service-a01', $service->getCode());
@@ -93,6 +124,15 @@ class ShipmentMapperTest extends TestCase
                 $this->assertEquals(679, $address->getStreetNumber());
                 $this->assertEquals('Room 3', $address->getStreet2());
                 $this->assertEquals('Some road', $address->getStreet1());
+
+                return $shipment;
+            })
+            ->shouldReceive('addOption')
+            ->andReturnUsing(function ($option) use ($shipment) {
+                $this->assertInstanceOf(Option::class, $option);
+                /** @var Option $option */
+                $this->assertEquals('delivery_day_sunday', $option->getCode());
+                $this->assertEquals('Sunday delivery', $option->getName());
 
                 return $shipment;
             })

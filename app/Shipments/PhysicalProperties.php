@@ -13,7 +13,7 @@ class PhysicalProperties
     /** @var int */
     protected $length;
 
-    /** @var int */
+    /** @var float */
     protected $volume;
 
     /** @var int */
@@ -77,18 +77,18 @@ class PhysicalProperties
     }
 
     /**
-     * @return int
+     * @return float
      */
-    public function getVolume(): int
+    public function getVolume(): float
     {
         return $this->volume;
     }
 
     /**
-     * @param int $volume
+     * @param float $volume
      * @return $this
      */
-    public function setVolume(int $volume): self
+    public function setVolume(float $volume): self
     {
         $this->volume = $volume;
 
