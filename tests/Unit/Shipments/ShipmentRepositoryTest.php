@@ -28,7 +28,7 @@ class ShipmentRepositoryTest extends TestCase
             ->setCarrierApiGateway(new CarrierApiGatewayMock());
 
 
-        $shipment = $shipmentRepository->createFromPostData($postData);
+        $shipment = $shipmentRepository->createFromPostData($postData['data']);
 
         $this->assertInstanceOf(Shipment::class, $shipment);
     }
