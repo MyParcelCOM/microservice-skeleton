@@ -22,7 +22,7 @@ class PhysicalProperties
     /**
      * @return int
      */
-    public function getHeight(): int
+    public function getHeight(): ?int
     {
         return $this->height;
     }
@@ -41,7 +41,7 @@ class PhysicalProperties
     /**
      * @return int
      */
-    public function getWidth(): int
+    public function getWidth(): ?int
     {
         return $this->width;
     }
@@ -60,7 +60,7 @@ class PhysicalProperties
     /**
      * @return int
      */
-    public function getLength(): int
+    public function getLength(): ?int
     {
         return $this->length;
     }
@@ -79,7 +79,7 @@ class PhysicalProperties
     /**
      * @return float
      */
-    public function getVolume(): float
+    public function getVolume(): ?float
     {
         return $this->volume;
     }

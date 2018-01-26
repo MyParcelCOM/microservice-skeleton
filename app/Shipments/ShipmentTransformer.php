@@ -49,7 +49,6 @@ class ShipmentTransformer extends AbstractTransformer
             'barcode'             => $shipment->getBarcode(),
             'tracking_code'       => $shipment->getTrackingCode(),
             'tracking_url'        => $shipment->getTrackingUrl(),
-            'weight'              => $shipment->getWeight(),
             'service'             => [
                 'code' => $shipment->getService()->getCode(),
                 'name' => $shipment->getService()->getName(),
@@ -66,6 +65,13 @@ class ShipmentTransformer extends AbstractTransformer
                 'length' => $shipment->getPhysicalProperties()->getLength(),
                 'volume' => $shipment->getPhysicalProperties()->getVolume(),
                 'weight' => $shipment->getPhysicalProperties()->getWeight(),
+            ],
+            'physical_properties_verified' => $shipment->getPhysicalPropertiesVerified() === null ? null : [
+                'height' => $shipment->getPhysicalPropertiesVerified()->getHeight(),
+                'width'  => $shipment->getPhysicalPropertiesVerified()->getWidth(),
+                'length' => $shipment->getPhysicalPropertiesVerified()->getLength(),
+                'volume' => $shipment->getPhysicalPropertiesVerified()->getVolume(),
+                'weight' => $shipment->getPhysicalPropertiesVerified()->getWeight(),
             ],
             'files'               => array_map(function (File $file) {
                 return [
