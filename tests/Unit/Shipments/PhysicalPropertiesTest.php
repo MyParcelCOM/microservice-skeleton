@@ -12,6 +12,7 @@ class PhysicalPropertiesTest extends TestCase
     public function testHeight()
     {
         $physicalProperties = new PhysicalProperties();
+        $this->assertNull($physicalProperties->getHeight());
         $this->assertEquals(100, $physicalProperties->setHeight(100)->getHeight());
     }
 
@@ -19,6 +20,7 @@ class PhysicalPropertiesTest extends TestCase
     public function testWidth()
     {
         $physicalProperties = new PhysicalProperties();
+        $this->assertNull($physicalProperties->getWidth());
         $this->assertEquals(78, $physicalProperties->setWidth(78)->getWidth());
     }
 
@@ -26,6 +28,7 @@ class PhysicalPropertiesTest extends TestCase
     public function testLength()
     {
         $physicalProperties = new PhysicalProperties();
+        $this->assertNull($physicalProperties->getLength());
         $this->assertEquals(12, $physicalProperties->setLength(12)->getLength());
     }
 
@@ -33,6 +36,7 @@ class PhysicalPropertiesTest extends TestCase
     public function testVolume()
     {
         $physicalProperties = new PhysicalProperties();
+        $this->assertNull($physicalProperties->getVolume());
         $this->assertEquals(87.2, $physicalProperties->setVolume(87.2)->getVolume());
     }
 
@@ -41,38 +45,6 @@ class PhysicalPropertiesTest extends TestCase
     {
         $physicalProperties = new PhysicalProperties();
         $this->assertEquals(9, $physicalProperties->setWeight(9)->getWeight());
-    }
-
-    /** @test */
-    public function testUninitializedHeight()
-    {
-        $physicalProperties = new PhysicalProperties();
-        $this->expectException(TypeError::class);
-        $physicalProperties->getHeight();
-    }
-
-    /** @test */
-    public function testUninitializedWidth()
-    {
-        $physicalProperties = new PhysicalProperties();
-        $this->expectException(TypeError::class);
-        $physicalProperties->getWidth();
-    }
-
-    /** @test */
-    public function testUninitializedLength()
-    {
-        $physicalProperties = new PhysicalProperties();
-        $this->expectException(TypeError::class);
-        $physicalProperties->getLength();
-    }
-
-    /** @test */
-    public function testUninitializedVolume()
-    {
-        $physicalProperties = new PhysicalProperties();
-        $this->expectException(TypeError::class);
-        $physicalProperties->getVolume();
     }
 
     /** @test */
