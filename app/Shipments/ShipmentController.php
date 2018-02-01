@@ -23,6 +23,11 @@ class ShipmentController extends Controller
     {
         $validator->validate('/shipments', 'post', 201);
 
+        // TODO Edit ShipmentValidator to include carrier-specific requirements.
+        if (($errors = $this->shipmentValidator->validate($shipment))) {
+            throw new InvalidJsonSchemaException($errors);
+        }
+
         $shipment = $repository->createFromPostData($request->json('data'));
 
         return new JsonResponse(

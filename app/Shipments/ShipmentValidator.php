@@ -2,19 +2,42 @@
 
 namespace MyParcelCom\Microservice\Shipments;
 
-class ShipmentValidator
+class ResourceValidator
 {
-    /**
-     * @param Shipment $shipment
-     * @return string[]
-     */
-    public function validate(Shipment $shipment): array
+    /** @var array  */
+    private $errors = [];
+
+    private function getRules()
     {
-        $errors = [];
+        return [
+            // TODO: Add validation rules.
+        ];
+    }
 
-        // TODO: Check shipment for carrier-specific requirement.
-        // TODO: If not present, add a string explaining the error to the $errors array.
+    /**
+     * @param $resource
+     * @return boolean
+     */
+    public function validate($resource): bool
+    {
+        $rules = $this->getRules();
 
-        return $errors;
+        array_walk($rules, function ($rule, $attribute) use ($resource) {
+            $this->validateAttribute($attribute, $rule, $resource);
+        });
+
+        return empty($this->errors);
+    }
+
+    private function validateAttribute($attribute, $rule, $resource)
+    {
+        if (is_callable($rule)) {
+            return call_user_func($attribute, $rule, $resource);
+        }
+    }
+
+    public function getErrors()
+    {
+        return $this->errors;
     }
 }

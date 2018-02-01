@@ -30,11 +30,6 @@ class ShipmentRepository
         /** @var Shipment $shipment */
         $shipment = $this->shipmentMapper->map($data, new Shipment());
 
-        // TODO Edit ShipmentValidator to include carrier-specific requirements.
-        if (($errors = $this->shipmentValidator->validate($shipment))) {
-            throw new InvalidJsonSchemaException($errors);
-        }
-
         // TODO Map/transform the Shipment to a valid request for the carrier.
         // TODO Send the shipment to the carrier (use CarrierApiGateway).
         // TODO Map updated values to the Shipment (barcode, id, price, etc).
