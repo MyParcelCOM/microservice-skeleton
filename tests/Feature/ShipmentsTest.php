@@ -41,4 +41,27 @@ class ShipmentsTest extends TestCase
         );
     }
 
+    /** @test */
+    public function testPostInvalidShipment()
+    {
+        $this->bindCarrierApiGatewayMock();
+
+        // TODO: Edit invalid-shipment-request.json to reflect invalid
+        //       shipment according to carrier.
+        $data = \GuzzleHttp\json_decode(
+            file_get_contents(
+                base_path('tests/Stubs/invalid-shipment-request.json')
+            ),
+            true
+        );
+
+        $this->assertJsonSchema(
+            '/shipments',
+            '/v1/shipments',
+            $this->getRequestHeaders(),
+            $data,
+            'post',
+            400
+        );
+    }
 }

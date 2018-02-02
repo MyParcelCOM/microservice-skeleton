@@ -7,6 +7,7 @@ use MyParcelCom\Exceptions\InvalidJsonSchemaException;
 use MyParcelCom\Microservice\Http\Controllers\Controller;
 use MyParcelCom\Microservice\Http\JsonRequestValidator;
 use MyParcelCom\Microservice\Http\Request;
+use MyParcelCom\Microservice\Validation\ResourceValidator;
 use MyParcelCom\Transformers\TransformerService;
 
 class ShipmentController extends Controller
@@ -15,6 +16,7 @@ class ShipmentController extends Controller
      * Route that validates and creates a shipment.
      *
      * @param JsonRequestValidator $jsonRequestValidator
+     * @param ResourceValidator    $resourceValidator
      * @param ShipmentRepository   $repository
      * @param Request              $request
      * @param TransformerService   $transformerService
@@ -27,7 +29,9 @@ class ShipmentController extends Controller
         $jsonRequestValidator->validate('/shipments', 'post', 201);
 
         // TODO Edit ShipmentValidator to include carrier-specific requirements.
-        if (($errors = $resourceValidator->validate($request))) {
+        if (!$resourceValidator->validate($request)) {
+            $errors = $resourceValidator->getErrors();
+
             throw new InvalidJsonSchemaException($errors);
         }
 

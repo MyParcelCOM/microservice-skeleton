@@ -1,37 +1,69 @@
 <?php declare(strict_types=1);
 
-namespace MyParcelCom\Microservice\Shipments;
+namespace MyParcelCom\Microservice\Validation;
 
-use MyParcelCom\Microservice\Validation\RuleInterface;
+use MyParcelCom\Microservice\Http\Request;
 
 class ResourceValidator
 {
     /** @var array  */
-    private $errors = [];
+    protected $errors = [];
 
-    private function getRules()
-    {
-        return [
-            // TODO: Add validation rules.
-        ];
-    }
+    /** @var RuleInterface[] */
+    protected $rules = [];
 
     /**
-     * @param $request
-     * @return boolean
+     * @param Request $request
+     * @return bool
      */
-    public function validate($request): bool
+    public function validate(Request $request): bool
     {
+        $requestData = \GuzzleHttp\json_decode($request->getContent());
         $rules = $this->getRules();
 
-        array_walk($rules, function (RuleInterface $rule) use ($request) {
-            $rule->isValid($request);
+        array_walk($rules, function (RuleInterface $rule) use ($requestData) {
+            if (!$rule->isValid($requestData)) {
+                $this->errors[] = $rule->getErrors();
+            }
         });
 
         return empty($this->errors);
     }
 
-    public function getErrors()
+    /**
+     * @return RuleInterface[]
+     */
+    public function getRules()
+    {
+        return $this->rules;
+    }
+
+    /**
+     * @param RuleInterface[] $rules
+     * @return $this
+     */
+    public function setRules(array $rules): self
+    {
+        $this->rules = $rules;
+
+        return $this;
+    }
+
+    /**
+     * @param RuleInterface $rule
+     * @return $this
+     */
+    public function addRule(RuleInterface $rule): self
+    {
+        $this->rules[] = $rule;
+
+        return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getErrors(): array
     {
         return $this->errors;
     }
