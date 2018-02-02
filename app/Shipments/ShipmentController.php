@@ -28,7 +28,7 @@ class ShipmentController extends Controller
     {
         $jsonRequestValidator->validate('/shipments', 'post', 201);
 
-        // TODO Edit ShipmentValidator to include carrier-specific requirements.
+        // TODO Add rules to ResourceValidator to include carrier-specific requirments.
         if (!$resourceValidator->validate($request)) {
             $errors = $resourceValidator->getErrors();
 

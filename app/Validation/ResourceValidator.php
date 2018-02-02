@@ -6,7 +6,7 @@ use MyParcelCom\Microservice\Http\Request;
 
 class ResourceValidator
 {
-    /** @var array  */
+    /** @var string[] */
     protected $errors = [];
 
     /** @var RuleInterface[] */
@@ -23,7 +23,11 @@ class ResourceValidator
 
         array_walk($rules, function (RuleInterface $rule) use ($requestData) {
             if (!$rule->isValid($requestData)) {
-                $this->errors[] = $rule->getErrors();
+                $errors = $rule->getErrors();
+
+                array_walk($errors, function ($error) {
+                    $this->errors[] = $error;
+                });
             }
         });
 

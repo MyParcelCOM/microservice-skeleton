@@ -10,11 +10,11 @@ abstract class ValidationRule
     protected $requiredPath;
 
     /**
-     * @param string $requiredRule
+     * @param string $requiredPath
      */
-    public function __construct(string $requiredRule)
+    public function __construct(string $requiredPath)
     {
-        $this->requiredPath = $requiredRule;
+        $this->requiredPath = $requiredPath;
     }
 
     /**

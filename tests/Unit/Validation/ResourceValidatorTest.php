@@ -83,4 +83,29 @@ class ResourceValidatorTest extends TestCase
         $this->assertCount(3, $validator->getRules());
         $this->assertArraySubset([$rule_A, $rule_B, $rule_C], $validator->getRules());
     }
+
+    /** @test */
+    public function testGetErrors()
+    {
+        $requiredIfPresentPath = 'data.attributes.physical_properties.height';
+        $presentPath = 'data.attributes.physical_properties';
+
+        $requiredPath = 'data.attributes.recipient_address.region_code';
+
+        $validator = (new ResourceValidator())
+            ->addRule(new RequiredIfPresentRule($requiredIfPresentPath, $presentPath))
+            ->addRule(new RequiredRule($requiredPath));
+
+        $this->assertFalse($validator->validate($this->request));
+        $this->assertInternalType('array', $validator->getErrors());
+        $this->assertCount(2, $validator->getErrors());
+        $this->assertContains(
+            "Missing {$requiredPath} on given request.",
+            $validator->getErrors()
+        );
+        $this->assertContains(
+            "{$requiredIfPresentPath} is required when {$presentPath} is set on given request",
+            $validator->getErrors()
+        );
+    }
 }

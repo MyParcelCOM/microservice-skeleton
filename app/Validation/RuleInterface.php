@@ -6,14 +6,14 @@ use stdClass;
 
 interface RuleInterface
 {
-     /**
+    /**
      * @param stdClass $requestData
      * @return bool
      */
     public function isValid(stdClass $requestData);
 
     /**
-     * @return array[]
+     * @return array
      */
     public function getErrors();
 }

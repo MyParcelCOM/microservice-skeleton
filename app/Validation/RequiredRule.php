@@ -19,7 +19,7 @@ class RequiredRule extends ValidationRule implements RuleInterface
         $value = $this->getValueForPath($this->requiredPath, $requestData);
 
         if (!isset($value)) {
-            $this->errors[] = "Missing {$this->requiredPath} path on given request.";
+            $this->errors[] = "Missing {$this->requiredPath} on given request.";
 
             return false;
         }

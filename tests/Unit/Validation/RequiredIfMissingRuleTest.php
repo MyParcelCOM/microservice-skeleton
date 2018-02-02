@@ -7,14 +7,22 @@ use MyParcelCom\Microservice\Validation\RequiredIfMissingRule;
 
 class RequiredIfMissingRuleTest extends TestCase
 {
-    /** @test */
-    public function testIsValid()
+    /** @var RequiredIfMissingRule */
+    private $rule;
+
+    public function setUp()
     {
-        $rule = new RequiredIfMissingRule(
+        parent::setUp();
+
+        $this->rule = new RequiredIfMissingRule(
             'data.attributes.pickup_location',
             'data.attributes.recipient_address'
         );
+    }
 
+    /** @test */
+    public function testIsValid()
+    {
         $requestData = (object)[
             'data' => (object)[
                 'attributes' => (object)[
@@ -28,18 +36,13 @@ class RequiredIfMissingRuleTest extends TestCase
             ],
         ];
 
-        $this->assertTrue($rule->isValid($requestData));
-        $this->assertEmpty($rule->getErrors());
+        $this->assertTrue($this->rule->isValid($requestData));
+        $this->assertEmpty($this->rule->getErrors());
     }
 
     /** @test */
-    public function testNotValidWithoutValue()
+    public function testNotValidBothMissing()
     {
-        $rule = new RequiredIfMissingRule(
-            'data.attributes.pickup_location',
-            'data.attributes.recipient_address'
-        );
-
         $requestData = (object)[
             'data' => (object)[
                 'attributes' => (object)[
@@ -50,18 +53,13 @@ class RequiredIfMissingRuleTest extends TestCase
             ],
         ];
 
-        $this->assertFalse($rule->isValid($requestData));
-        $this->assertNotEmpty($rule->getErrors());
+        $this->assertFalse($this->rule->isValid($requestData));
+        $this->assertNotEmpty($this->rule->getErrors());
     }
 
     /** @test */
     public function testNotValidWithNullValue()
     {
-        $rule = new RequiredIfMissingRule(
-            'data.attributes.pickup_location',
-            'data.attributes.recipient_address'
-        );
-
         $requestData = (object)[
             'data' => (object)[
                 'attributes' => (object)[
@@ -70,7 +68,30 @@ class RequiredIfMissingRuleTest extends TestCase
             ],
         ];
 
-        $this->assertFalse($rule->isValid($requestData));
-        $this->assertNotEmpty($rule->getErrors());
+        $this->assertFalse($this->rule->isValid($requestData));
+        $this->assertNotEmpty($this->rule->getErrors());
+    }
+
+    /** @test */
+    public function testIsValidBothPresent()
+    {
+        $requestData = (object)[
+            'data' => (object)[
+                'attributes' => (object)[
+                    'recipient_address' => (object)[
+                        'street_1' => 'Hoofdweg 679',
+                    ],
+                    'pickup_location'   => (object)[
+                        'code'    => '123456',
+                        'address' => (object)[
+                            'city' => 'Amsterdam',
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        $this->assertTrue($this->rule->isValid($requestData));
+        $this->assertEmpty($this->rule->getErrors());
     }
 }
