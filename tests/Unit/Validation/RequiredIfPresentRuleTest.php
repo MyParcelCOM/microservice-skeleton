@@ -1,18 +1,18 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Tests\Unit\Validation;
 
 use MyParcelCom\Microservice\Tests\TestCase;
-use MyParcelCom\Microservice\Validation\ConditionalRequiredRule;
+use MyParcelCom\Microservice\Validation\RequiredIfPresentRule;
 
-class ConditionalRequiredRuleTest extends TestCase
+class RequiredIfPresentRuleTest extends TestCase
 {
     /** @test */
     public function testIsValid()
     {
-        $rule = new ConditionalRequiredRule('data.attributes.pickup_location.address.city', 'data.attributes.pickup_location.code');
+        $rule = new RequiredIfPresentRule('data.attributes.pickup_location.address.city', 'data.attributes.pickup_location.code');
 
-        $resource = (object)[
+        $requestData = (object)[
             'data' => (object)[
                 'attributes' => (object)[
                     'pickup_location' => (object)[
@@ -25,19 +25,19 @@ class ConditionalRequiredRuleTest extends TestCase
             ],
         ];
 
-        $this->assertTrue($rule->isValid($resource));
+        $this->assertTrue($rule->isValid($requestData));
         $this->assertEmpty($rule->getErrors());
     }
 
     /** @test */
     public function testNotValidWithoutValue()
     {
-        $rule = new ConditionalRequiredRule(
+        $rule = new RequiredIfPresentRule(
             'data.attributes.pickup_location.address.city',
             'data.attributes.pickup_location.code'
         );
 
-        $resource = (object)[
+        $requestData = (object)[
             'data' => (object)[
                 'attributes' => (object)[
                     'pickup_location' => (object)[
@@ -49,19 +49,19 @@ class ConditionalRequiredRuleTest extends TestCase
             ],
         ];
 
-        $this->assertFalse($rule->isValid($resource));
+        $this->assertFalse($rule->isValid($requestData));
         $this->assertNotEmpty($rule->getErrors());
     }
 
     /** @test */
     public function testNotValidWithNullValue()
     {
-        $rule = new ConditionalRequiredRule(
+        $rule = new RequiredIfPresentRule(
             'data.attributes.pickup_location.address.city',
             'data.attributes.pickup_location.code'
         );
 
-        $resource = (object)[
+        $requestData = (object)[
             'data' => (object)[
                 'attributes' => (object)[
                     'pickup_location' => (object)[
@@ -74,7 +74,7 @@ class ConditionalRequiredRuleTest extends TestCase
             ],
         ];
 
-        $this->assertFalse($rule->isValid($resource));
+        $this->assertFalse($rule->isValid($requestData));
         $this->assertNotEmpty($rule->getErrors());
     }
 }

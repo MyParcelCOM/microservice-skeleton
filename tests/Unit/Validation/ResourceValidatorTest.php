@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Tests\Unit\Validation;
 
@@ -6,7 +6,7 @@ use Mockery;
 use MyParcelCom\Microservice\Http\Request;
 use MyParcelCom\Microservice\Validation\ResourceValidator;
 use MyParcelCom\Microservice\Tests\TestCase;
-use MyParcelCom\Microservice\Validation\ConditionalRequiredRule;
+use MyParcelCom\Microservice\Validation\RequiredIfPresentRule;
 use MyParcelCom\Microservice\Validation\RequiredRule;
 use MyParcelCom\Microservice\Validation\RuleInterface;
 
@@ -54,7 +54,7 @@ class ResourceValidatorTest extends TestCase
     public function testInvalidRequest()
     {
         $validator = (new ResourceValidator())
-            ->addRule(new ConditionalRequiredRule(
+            ->addRule(new RequiredIfPresentRule(
                 'data.attributes.physical_properties.height',
                 'data.attributes.physical_properties'
             ));

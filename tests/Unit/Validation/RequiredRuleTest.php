@@ -12,7 +12,7 @@ class RequiredRuleTest extends TestCase
     {
         $rule = new RequiredRule('data.attributes.recipient_address.postal_code');
 
-        $resource = (object)[
+        $requestData = (object)[
             'data' => (object)[
                 'attributes' => (object)[
                     'recipient_address' => (object)[
@@ -23,7 +23,7 @@ class RequiredRuleTest extends TestCase
         ];
 
         $this->assertTrue(
-            $rule->isValid($resource)
+            $rule->isValid($requestData)
         );
     }
 
@@ -32,7 +32,7 @@ class RequiredRuleTest extends TestCase
     {
         $rule = new RequiredRule('data.attributes.recipient_address.postal_code');
 
-        $resource = (object)[
+        $requestData = (object)[
             'data' => (object)[
                 'attributes' => (object)[
                     'recipient_address' => (object)[
@@ -42,7 +42,7 @@ class RequiredRuleTest extends TestCase
         ];
 
         $this->assertFalse(
-            $rule->isValid($resource)
+            $rule->isValid($requestData)
         );
     }
 
@@ -51,7 +51,7 @@ class RequiredRuleTest extends TestCase
     {
         $rule = new RequiredRule('data.attributes.recipient_address.postal_code');
 
-        $resource = (object)[
+        $requestData = (object)[
             'data' => (object)[
                 'attributes' => (object)[
                     'recipient_address' => (object)[
@@ -62,7 +62,7 @@ class RequiredRuleTest extends TestCase
         ];
 
         $this->assertFalse(
-            $rule->isValid($resource)
+            $rule->isValid($requestData)
         );
     }
 }

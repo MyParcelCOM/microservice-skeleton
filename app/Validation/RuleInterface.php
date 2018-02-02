@@ -2,13 +2,15 @@
 
 namespace MyParcelCom\Microservice\Validation;
 
+use stdClass;
+
 interface RuleInterface
 {
      /**
-     * @param $resource
+     * @param stdClass $requestData
      * @return bool
      */
-    public function isValid($resource);
+    public function isValid(stdClass $requestData);
 
     /**
      * @return array[]
