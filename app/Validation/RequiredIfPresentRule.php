@@ -6,8 +6,6 @@ use stdClass;
 
 class RequiredIfPresentRule extends ValidationRule implements RuleInterface
 {
-    /** @var string[] */
-    protected $errors = [];
     /** @var string */
     protected $presentPath;
 
@@ -34,13 +32,5 @@ class RequiredIfPresentRule extends ValidationRule implements RuleInterface
         }
 
         return true;
-    }
-
-    /**
-     * @return string[]
-     */
-    public function getErrors(): array
-    {
-        return $this->errors;
     }
 }

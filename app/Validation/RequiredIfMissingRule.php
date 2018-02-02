@@ -8,8 +8,6 @@ class RequiredIfMissingRule extends ValidationRule implements RuleInterface
 {
     /** @var string */
     protected $missingPath;
-    /** @var string[] */
-    protected $errors = [];
 
     public function __construct(string $requiredPath, string $missingPath)
     {
@@ -34,13 +32,5 @@ class RequiredIfMissingRule extends ValidationRule implements RuleInterface
         }
 
         return true;
-    }
-
-    /**
-     * @return string[]
-     */
-    public function getErrors(): array
-    {
-        return $this->errors;
     }
 }

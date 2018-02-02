@@ -6,6 +6,9 @@ use stdClass;
 
 abstract class ValidationRule
 {
+    /** @var string[] */
+    protected $errors = [];
+
     /** @var string */
     protected $requiredPath;
 
@@ -33,5 +36,13 @@ abstract class ValidationRule
         });
 
         return $requiredProperty;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getErrors(): array
+    {
+        return $this->errors;
     }
 }
