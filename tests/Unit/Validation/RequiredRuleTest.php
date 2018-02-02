@@ -10,11 +10,15 @@ class RequiredRuleTest extends TestCase
     /** @test */
     public function testIsValid()
     {
-        $rule = new RequiredRule('recipient_address.postal_code');
+        $rule = new RequiredRule('data.attributes.recipient_address.postal_code');
 
         $resource = (object)[
-            'recipient_address' => (object)[
-                'postal_code' => '1234AB',
+            'data' => (object)[
+                'attributes' => (object)[
+                    'recipient_address' => (object)[
+                        'postal_code' => '1234AB',
+                    ],
+                ],
             ],
         ];
 
@@ -26,10 +30,14 @@ class RequiredRuleTest extends TestCase
     /** @test */
     public function testNotValidWithoutValue()
     {
-        $rule = new RequiredRule('recipient_address.postal_code');
+        $rule = new RequiredRule('data.attributes.recipient_address.postal_code');
 
         $resource = (object)[
-            'recipient_address' => (object)[
+            'data' => (object)[
+                'attributes' => (object)[
+                    'recipient_address' => (object)[
+                    ],
+                ],
             ],
         ];
 
@@ -41,11 +49,15 @@ class RequiredRuleTest extends TestCase
     /** @test */
     public function testNotValidNullValue()
     {
-        $rule = new RequiredRule('recipient_address.postal_code');
+        $rule = new RequiredRule('data.attributes.recipient_address.postal_code');
 
         $resource = (object)[
-            'recipient_address' => (object)[
-                'postal_code' => null,
+            'data' => (object)[
+                'attributes' => (object)[
+                    'recipient_address' => (object)[
+                        'postal_code' => null
+                    ],
+                ],
             ],
         ];
 

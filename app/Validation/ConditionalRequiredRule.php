@@ -6,6 +6,15 @@ class ConditionalRequiredRule extends ValidationRule implements RuleInterface
 {
     /** @var string[] */
     protected $errors = [];
+    /** @var string */
+    protected $conditionalPath;
+
+    public function __construct(string $path, string $conditionalPath)
+    {
+        parent::__construct($path);
+
+        $this->conditionalPath = $conditionalPath;
+    }
 
     /**
      * @param $resource
@@ -13,14 +22,23 @@ class ConditionalRequiredRule extends ValidationRule implements RuleInterface
      */
     public function isValid($resource)
     {
-        // TODO: Implement isValid() method.
+        $requiredValue = $this->getValueForPath($this->path, $resource);
+        $conditionalValue = $this->getValueForPath($this->conditionalPath, $resource);
+
+        if (isset($conditionalValue) && !isset($requiredValue)) {
+            $this->errors[] = "{$this->path} property is required when {$this->conditionalPath} is set on given resource object.";
+
+            return false;
+        }
+
+        return true;
     }
 
     /**
-     * @return array[]
+     * @return string[]
      */
-    public function getErrors()
+    public function getErrors(): array
     {
-        // TODO: Implement getErrors() method.
+        return $this->errors;
     }
 }

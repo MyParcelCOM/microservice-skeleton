@@ -2,6 +2,8 @@
 
 namespace MyParcelCom\Microservice\Shipments;
 
+use MyParcelCom\Microservice\Validation\RuleInterface;
+
 class ResourceValidator
 {
     /** @var array  */
@@ -15,25 +17,18 @@ class ResourceValidator
     }
 
     /**
-     * @param $resource
+     * @param $request
      * @return boolean
      */
-    public function validate($resource): bool
+    public function validate($request): bool
     {
         $rules = $this->getRules();
 
-        array_walk($rules, function ($rule, $attribute) use ($resource) {
-            $this->validateAttribute($attribute, $rule, $resource);
+        array_walk($rules, function (RuleInterface $rule) use ($request) {
+            $rule->isValid($request);
         });
 
         return empty($this->errors);
-    }
-
-    private function validateAttribute($attribute, $rule, $resource)
-    {
-        if (is_callable($rule)) {
-            return call_user_func($attribute, $rule, $resource);
-        }
     }
 
     public function getErrors()
