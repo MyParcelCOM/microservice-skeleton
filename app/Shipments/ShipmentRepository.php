@@ -3,7 +3,6 @@
 namespace MyParcelCom\Microservice\Shipments;
 
 use MyParcelCom\Common\Contracts\MapperInterface;
-use MyParcelCom\Exceptions\InvalidJsonSchemaException;
 use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
 
 class ShipmentRepository
@@ -14,16 +13,12 @@ class ShipmentRepository
     /** @var CarrierApiGatewayInterface */
     protected $carrierApiGateway;
 
-    /** @var ShipmentValidator */
-    protected $shipmentValidator;
-
     /**
      * Makes a shipment and persists it (by sending it to the PostNL api)
      * from the shipment data posted.
      *
      * @param  array $data
      * @return Shipment
-     * @throws InvalidJsonSchemaException
      */
     public function createFromPostData(array $data): Shipment
     {
@@ -59,17 +54,6 @@ class ShipmentRepository
     public function setShipmentMapper(MapperInterface $mapper): self
     {
         $this->shipmentMapper = $mapper;
-
-        return $this;
-    }
-
-    /**
-     * @param ShipmentValidator $validator
-     * @return $this
-     */
-    public function setShipmentValidator(ShipmentValidator $validator): self
-    {
-        $this->shipmentValidator = $validator;
 
         return $this;
     }

@@ -4,13 +4,13 @@ namespace MyParcelCom\Microservice\Tests\Unit\Validation;
 
 use Mockery;
 use MyParcelCom\Microservice\Http\Request;
-use MyParcelCom\Microservice\Validation\ResourceValidator;
+use MyParcelCom\Microservice\Validation\ApiRequestValidator;
 use MyParcelCom\Microservice\Tests\TestCase;
 use MyParcelCom\Microservice\Validation\RequiredIfPresentRule;
 use MyParcelCom\Microservice\Validation\RequiredRule;
 use MyParcelCom\Microservice\Validation\RuleInterface;
 
-class ResourceValidatorTest extends TestCase
+class ApiRequestValidatorTest extends TestCase
 {
     /** @var Request */
     protected $request;
@@ -43,7 +43,7 @@ class ResourceValidatorTest extends TestCase
     /** @test */
     public function testValidRequest()
     {
-        $validator = (new ResourceValidator())
+        $validator = (new ApiRequestValidator())
             ->addRule(new RequiredRule('data.attributes.recipient_address.postal_code'));
 
         $this->assertTrue($validator->validate($this->request));
@@ -53,7 +53,7 @@ class ResourceValidatorTest extends TestCase
     /** @test */
     public function testInvalidRequest()
     {
-        $validator = (new ResourceValidator())
+        $validator = (new ApiRequestValidator())
             ->addRule(new RequiredIfPresentRule(
                 'data.attributes.physical_properties.height',
                 'data.attributes.physical_properties'
@@ -66,7 +66,7 @@ class ResourceValidatorTest extends TestCase
     /** @test */
     public function testRules()
     {
-        $validator = new ResourceValidator();
+        $validator = new ApiRequestValidator();
 
         $rule_A = Mockery::mock(RuleInterface::class);
         $rule_B = Mockery::mock(RuleInterface::class);
@@ -92,7 +92,7 @@ class ResourceValidatorTest extends TestCase
 
         $requiredPath = 'data.attributes.recipient_address.region_code';
 
-        $validator = (new ResourceValidator())
+        $validator = (new ApiRequestValidator())
             ->addRule(new RequiredIfPresentRule($requiredIfPresentPath, $presentPath))
             ->addRule(new RequiredRule($requiredPath));
 

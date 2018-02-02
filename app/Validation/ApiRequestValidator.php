@@ -4,7 +4,7 @@ namespace MyParcelCom\Microservice\Validation;
 
 use MyParcelCom\Microservice\Http\Request;
 
-class ResourceValidator
+class ApiRequestValidator
 {
     /** @var string[] */
     protected $errors = [];
