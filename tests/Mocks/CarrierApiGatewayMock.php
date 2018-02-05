@@ -11,11 +11,9 @@ use function GuzzleHttp\Promise\promise_for;
 class CarrierApiGatewayMock implements CarrierApiGatewayInterface
 {
     /**
-     * @param string $url
-     * @param array  $queryParams
-     * @return PromiseInterface
+     * @inheritdoc
      */
-    public function get(string $url, array $queryParams = []): PromiseInterface
+    public function get(string $url, array $queryParams = [], array $headers = []): PromiseInterface
     {
         return promise_for(\Mockery::mock(ResponseInterface::class, [
             'getBody' => $this->getResponseStub('get', $url),
@@ -24,12 +22,9 @@ class CarrierApiGatewayMock implements CarrierApiGatewayInterface
     }
 
     /**
-     * @param string $url
-     * @param array  $data
-     * @param array  $queryParams
-     * @return PromiseInterface
+     * @inheritdoc
      */
-    public function post(string $url, array $data, array $queryParams = []): PromiseInterface
+    public function post(string $url, array $data, array $queryParams = [], array $headers = []): PromiseInterface
     {
         return promise_for(\Mockery::mock(ResponseInterface::class, [
             'getBody' => $this->getResponseStub('post', $url),
