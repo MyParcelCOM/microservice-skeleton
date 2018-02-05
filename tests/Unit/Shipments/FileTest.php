@@ -42,10 +42,10 @@ class FileTest extends TestCase
     public function testSetDataFromPath()
     {
         $file = new File();
-        $contents = base64_encode(file_get_contents(base_path('tests/Stubs/pdf.pdf')));
+        $contents = base64_encode(file_get_contents(base_path('tests/Stubs/document.pdf')));
         $this->assertEquals(
             $contents,
-            $file->setDataFromPath(base_path('tests/Stubs/pdf.pdf'))->getData()
+            $file->setDataFromPath(base_path('tests/Stubs/document.pdf'))->getData()
         );
     }
 }

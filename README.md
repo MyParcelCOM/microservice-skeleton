@@ -6,7 +6,7 @@ The skeleton application already handles most of the communication with the MyPa
 Most of the functionality that needs to be implemented is described in `TODO`s in the application.
 It basically comes down to the following:
 - Transform existing classes to valid post and get requests for the carrier API.
-- Handle responses from the carrier API and map them to the existing classes.  
+- Handle responses from the carrier API and map them to the existing classes.
 
 ## Content
 - [Installation](#installation)

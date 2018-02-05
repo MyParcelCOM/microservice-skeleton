@@ -1,12 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace MyParcelCom\Microservice\Tests\Feature;
+namespace MyParcelCom\Microservice\Tests\Endpoints;
 
 use Mockery;
 use MyParcelCom\Common\Traits\JsonApiAssertionsTrait;
 use MyParcelCom\Microservice\Tests\TestCase;
 use MyParcelCom\Microservice\Tests\Traits\CommunicatesWithCarrier;
 
+/**
+ * @group Endpoints:Shipment
+ */
 class ShipmentsTest extends TestCase
 {
     use CommunicatesWithCarrier;
@@ -15,7 +18,6 @@ class ShipmentsTest extends TestCase
     protected function tearDown()
     {
         parent::tearDown();
-
         Mockery::close();
     }
 
@@ -38,30 +40,6 @@ class ShipmentsTest extends TestCase
             $data,
             'post',
             201
-        );
-    }
-
-    /** @test */
-    public function testPostInvalidShipment()
-    {
-        $this->bindCarrierApiGatewayMock();
-
-        // TODO: Edit invalid-shipment-request.json to reflect invalid
-        //       shipment according to carrier.
-        $data = \GuzzleHttp\json_decode(
-            file_get_contents(
-                base_path('tests/Stubs/invalid-shipment-request.json')
-            ),
-            true
-        );
-
-        $this->assertJsonSchema(
-            '/shipments',
-            '/v1/shipments',
-            $this->getRequestHeaders(),
-            $data,
-            'post',
-            400
         );
     }
 }

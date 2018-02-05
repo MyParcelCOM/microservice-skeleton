@@ -1,24 +1,27 @@
 <?php declare(strict_types=1);
 
-namespace MyParcelCom\Microservice\Tests\Feature;
+namespace MyParcelCom\Microservice\Tests\Endpoints;
 
 use MyParcelCom\Common\Traits\JsonApiAssertionsTrait;
 use MyParcelCom\Microservice\Tests\TestCase;
 use MyParcelCom\Microservice\Tests\Traits\CommunicatesWithCarrier;
 
-class PickUpDropOffLocationsTest extends TestCase
+/**
+ * @group Endpoints:Status
+ */
+class StatusesTest extends TestCase
 {
     use CommunicatesWithCarrier;
     use JsonApiAssertionsTrait;
 
     /** @test */
-    public function itRetrievesAndMapsPickUpAndDropOffLocations()
+    public function testGetStatuses()
     {
         $this->bindCarrierApiGatewayMock();
 
         $this->assertJsonSchema(
-            '/pickup-dropoff-locations/{country_code}/{postal_code}',
-            '/v1/pickup-dropoff-locations/UK/EC1A 1BB',
+            '/shipments/{shipment_id}/statuses/{tracking_code}',
+            '/v1/shipments/0/statuses/3SMKPL6192376',
             $this->getRequestHeaders()
         );
     }

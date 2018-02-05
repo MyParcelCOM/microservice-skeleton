@@ -51,7 +51,7 @@ class CarrierApiGatewayMock implements CarrierApiGatewayInterface
         $stubPath = base_path(
             'tests/Stubs/'
             . $method . '-' . str_replace('/', '-', $url)
-            . '.json'
+            . '.stub'
         );
 
         if (!file_exists($stubPath)) {

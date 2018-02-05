@@ -13,7 +13,6 @@ class PickUpDropOffLocationRepositoryTest extends TestCase
     protected function tearDown()
     {
         parent::tearDown();
-
         Mockery::close();
     }
 
@@ -23,9 +22,8 @@ class PickUpDropOffLocationRepositoryTest extends TestCase
         $pickUpDropOffLocationRepository = (new PickUpDropOffLocationRepository())
             ->setCarrierApiGateway(new CarrierApiGatewayMock());
 
-        $promise = $pickUpDropOffLocationRepository->getAll('NL', '2131BC');
+        $promise = $pickUpDropOffLocationRepository->getAll('UK', 'EC1A 1BB');
 
         $this->assertInstanceOf(PromiseResources::class, $promise);
-        $this->assertEquals(2, $promise->count()); // TODO change count to expected amount
     }
 }

@@ -14,7 +14,7 @@ trait CommunicatesWithCarrier
      */
     protected function getApiCredentials(): array
     {
-        return []; // TODO add credentials
+        return config('services.carrier_credentials');
     }
 
     /**
@@ -30,7 +30,7 @@ trait CommunicatesWithCarrier
 
     /**
      * Binds a mock object to the CarrierApiGatewayInterface in the dependency
-     * containser.
+     * container.
      */
     protected function bindCarrierApiGatewayMock()
     {
