@@ -6,7 +6,7 @@ function fixPermissions {
 }
 
 function ownAllTheThings {
-  ${COMPOSE} ${DO} microservice chown -R ${USER_ID}:${GROUP_ID} .
+  ${COMPOSE} run --rm microservice chown -R $(id -u):$(id -g) .
 }
 
 ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -28,22 +28,15 @@ fi
 export $(cat ${ROOT_DIR}/.env | xargs)
 
 COMPOSE="docker-compose --project-name ${PROJECT_NAME}"
-TTY="" # tty is enabled by default
-
-# CI config
-if [ ! -z "${JENKINS_VERSION}" ]; then
-  # Disable tty so Jenkins doesn't throw errors.
-  TTY="-T"
-fi
 
 if [ $# -gt 0 ]; then
   # Check if services are running.
   RUNNING=$(${COMPOSE} ps -q)
 
   # Either run or exec based on RUNNING var.
-  DO="run --rm ${TTY}"
+  DO="run --rm"
   if [ "${RUNNING}" != "" ]; then
-    DO="exec ${TTY}"
+    DO="exec"
   fi
 
   # Start services.
@@ -57,20 +50,20 @@ if [ $# -gt 0 ]; then
   elif [ "$1" == "composer" ]; then
     shift 1
     ownAllTheThings
-    ${COMPOSE} ${DO} -u ${USER_ID}:${GROUP_ID} microservice composer "$@"
+    ${COMPOSE} run --rm microservice composer "$@"
     fixPermissions
 
   # Run an artisan command on the microservice service.
   elif [ "$1" == "artisan" ]; then
     shift 1
     ownAllTheThings
-    ${COMPOSE} ${DO} -u ${USER_ID}:${GROUP_ID} microservice php artisan "$@"
+    ${COMPOSE} run --rm microservice php artisan "$@"
     fixPermissions
 
   # Run phpunit tests.
   elif [ "$1" == "test" ]; then
     shift 1
-    ${COMPOSE} ${DO} microservice ./vendor/bin/phpunit "$@"
+    ${COMPOSE} run --rm microservice ./vendor/bin/phpunit "$@"
 
   # Execute a command on a service.
   elif [ "$1" == "microservice" ]; then
@@ -100,7 +93,7 @@ if [ $# -gt 0 ]; then
     ownAllTheThings
     # first make sure the cache is writable
     ./mp.sh microservice chmod 777 /.composer/cache
-    ${COMPOSE} exec ${TTY} -u ${USER_ID}:${GROUP_ID} microservice composer install
+    ./mp.sh composer install
 
     # Making directories writable for www-data.
     echo ""
