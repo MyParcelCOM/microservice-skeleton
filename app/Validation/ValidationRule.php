@@ -10,14 +10,14 @@ abstract class ValidationRule
     protected $errors = [];
 
     /** @var string */
-    protected $requiredPath;
+    protected $path;
 
     /**
-     * @param string $requiredPath
+     * @param string $path
      */
-    public function __construct(string $requiredPath)
+    public function __construct(string $path)
     {
-        $this->requiredPath = $requiredPath;
+        $this->path = $path;
     }
 
     /**
