@@ -26,10 +26,11 @@ class ShipmentsTest extends TestCase
     {
         $this->bindCarrierApiGatewayMock();
 
+        // TODO: Add carrier response stub for creating a shipment.
+        // See the "Response Stubs" chapter in the readme for more info.
+
         $data = \GuzzleHttp\json_decode(
-            file_get_contents(
-                base_path('tests/Stubs/shipment-request.json')
-            ),
+            file_get_contents(base_path('tests/Stubs/shipment-request.stub')),
             true
         );
 

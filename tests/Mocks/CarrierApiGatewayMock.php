@@ -22,26 +22,6 @@ class CarrierApiGatewayMock implements CarrierApiGatewayInterface
     }
 
     /**
-     * @inheritdoc
-     */
-    public function post(string $url, array $data, array $queryParams = [], array $headers = []): PromiseInterface
-    {
-        return promise_for(\Mockery::mock(ResponseInterface::class, [
-            'getBody' => $this->getResponseStub('post', $url),
-            'getCode' => 200,
-        ]));
-    }
-
-    /**
-     * @param array $credentials
-     * @return $this
-     */
-    public function setCredentials(array $credentials): CarrierApiGatewayInterface
-    {
-        return $this;
-    }
-
-    /**
      * @param string $method
      * @param string $url
      * @return string
@@ -66,5 +46,25 @@ class CarrierApiGatewayMock implements CarrierApiGatewayInterface
         }
 
         return file_get_contents($stubPath);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function post(string $url, array $data, array $queryParams = [], array $headers = []): PromiseInterface
+    {
+        return promise_for(\Mockery::mock(ResponseInterface::class, [
+            'getBody' => $this->getResponseStub('post', $url),
+            'getCode' => 200,
+        ]));
+    }
+
+    /**
+     * @param array $credentials
+     * @return $this
+     */
+    public function setCredentials(array $credentials): CarrierApiGatewayInterface
+    {
+        return $this;
     }
 }

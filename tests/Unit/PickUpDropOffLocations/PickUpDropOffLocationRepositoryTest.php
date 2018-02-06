@@ -3,7 +3,7 @@
 namespace MyParcelCom\Microservice\Tests\Unit\PickUpDropOffLocations;
 
 use Mockery;
-use MyParcelCom\Common\Resources\PromiseResources;
+use MyParcelCom\Common\Contracts\ResourcesInterface;
 use MyParcelCom\Microservice\PickUpDropOffLocations\PickUpDropOffLocationRepository;
 use MyParcelCom\Microservice\Tests\Mocks\CarrierApiGatewayMock;
 use PHPUnit\Framework\TestCase;
@@ -24,6 +24,6 @@ class PickUpDropOffLocationRepositoryTest extends TestCase
 
         $promise = $pickUpDropOffLocationRepository->getAll('UK', 'EC1A 1BB');
 
-        $this->assertInstanceOf(PromiseResources::class, $promise);
+        $this->assertInstanceOf(ResourcesInterface::class, $promise);
     }
 }

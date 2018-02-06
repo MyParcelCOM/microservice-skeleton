@@ -5,12 +5,14 @@ This is a skeleton application for a microservice that facilitates the communica
 The skeleton application already handles most of the communication with the MyParcel.com API.
 Most of the functionality that needs to be implemented is described in `TODO`s in the application.
 It basically comes down to the following:
+
 - Transform existing classes to valid post and get requests for the carrier API.
 - Handle responses from the carrier API and map them to the existing classes.
 
 ## Content
 - [Installation](#installation)
 - [Setup](#setup)
+- [TODOs](#todos)
 - [Commands](#commands)
 - [Xdebug](#xdebug)
 
@@ -21,6 +23,23 @@ The project uses Docker to run a local development environment. To install Docke
 To setup the project (install composer dependencies, setup database, etc), run the following command:
 ```bash
 ./mp.sh setup
+```
+
+### TODOs
+There are several `TODO` comments added to the codebase to help you get started on what to implement. There are also several tests to check if everything is working as it is supposed to. The endpoint tests are the starting point to check if an endpoint does what is required from the carrier specification.
+
+#### Response Stubs
+The endpoint tests should not make actual calls to the carrier. They use a `CarrierApiGatewayMock` class to mock external calls. To make sure the tests do work with actual data, stubs must be created for the carrier responses.
+
+To create the response stub, just make a call to the carrier's endpoint with your favorite API tool (like Postman). Copy and paste the entire response of the carrier into a file inside the `/tests/Stubs` directory. The file name should be equal to the url you accessed with the exception that all `/` characters are replaced with `-`. It should also be prefixed with the http method followed by another `-` and end in `.stub`.
+
+For example:
+```
+// This request:
+GET 'shipping/shipment/235446474/label'
+
+// Would be stored as:
+`/tests/Stubs/get-shipping-shipment-235446474-label.stub`
 ```
 
 ### Commands

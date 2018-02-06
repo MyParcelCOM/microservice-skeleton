@@ -27,7 +27,7 @@ class ShipmentMapperTest extends TestCase
     {
         $mapper = new ShipmentMapper();
 
-        $data = json_decode(file_get_contents(base_path('tests/Stubs/shipment-request.json')), true);
+        $data = json_decode(file_get_contents(base_path('tests/Stubs/shipment-request.stub')), true);
 
         $physicalProperties = Mockery::mock(PhysicalProperties::class);
         $physicalProperties
