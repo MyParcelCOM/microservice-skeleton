@@ -25,6 +25,7 @@ class RequiredRuleTest extends TestCase
         $this->assertTrue(
             $rule->isValid($requestData)
         );
+        $this->assertEmpty($rule->getErrors());
     }
 
     /** @test */
@@ -44,6 +45,7 @@ class RequiredRuleTest extends TestCase
         $this->assertFalse(
             $rule->isValid($requestData)
         );
+        $this->assertNotEmpty($rule->getErrors());
     }
 
     /** @test */
@@ -64,5 +66,6 @@ class RequiredRuleTest extends TestCase
         $this->assertFalse(
             $rule->isValid($requestData)
         );
+        $this->assertNotEmpty($rule->getErrors());
     }
 }

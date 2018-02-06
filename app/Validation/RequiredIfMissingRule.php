@@ -20,7 +20,7 @@ class RequiredIfMissingRule extends ValidationRule implements RuleInterface
      * @param stdClass $requestData
      * @return bool
      */
-    public function isValid(stdClass $requestData)
+    public function isValid(stdClass $requestData): bool
     {
         $requiredValue = $this->getValueForPath($this->requiredPath, $requestData);
         $missingValue = $this->getValueForPath($this->missingPath, $requestData);

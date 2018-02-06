@@ -10,10 +10,10 @@ interface RuleInterface
      * @param stdClass $requestData
      * @return bool
      */
-    public function isValid(stdClass $requestData);
+    public function isValid(stdClass $requestData): bool;
 
     /**
      * @return array
      */
-    public function getErrors();
+    public function getErrors(): array;
 }

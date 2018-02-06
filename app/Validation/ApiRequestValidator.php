@@ -25,9 +25,7 @@ class ApiRequestValidator
             if (!$rule->isValid($requestData)) {
                 $errors = $rule->getErrors();
 
-                array_walk($errors, function ($error) {
-                    $this->errors[] = $error;
-                });
+                $this->errors = array_merge($this->errors, $errors);
             }
         });
 

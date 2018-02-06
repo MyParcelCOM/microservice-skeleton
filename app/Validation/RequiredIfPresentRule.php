@@ -20,7 +20,7 @@ class RequiredIfPresentRule extends ValidationRule implements RuleInterface
      * @param stdClass $requestData
      * @return bool
      */
-    public function isValid(stdClass $requestData)
+    public function isValid(stdClass $requestData): bool
     {
         $requiredValue = $this->getValueForPath($this->requiredPath, $requestData);
         $presentValue = $this->getValueForPath($this->presentPath, $requestData);

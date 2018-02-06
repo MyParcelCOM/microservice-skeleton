@@ -21,22 +21,21 @@ class ApiRequestValidatorTest extends TestCase
 
         $this->request = (Mockery::mock(Request::class))
             ->shouldReceive('getContent')
-            ->andReturn(\GuzzleHttp\json_encode(
-                (object)[
-                    'data' => (object)[
-                        'attributes' => (object)[
-                            'recipient_address'   => (object)[
-                                'street_1'     => 'Hoofdweg 679',
-                                'postal_code'  => '1324GA',
-                                'city'         => 'Hoofddorp',
-                                'country_code' => 'NL',
-                            ],
-                            'physical_properties' => (object)[
-                                'weight' => 86,
-                            ],
+            ->andReturn(\GuzzleHttp\json_encode([
+                'data' => (object)[
+                    'attributes' => (object)[
+                        'recipient_address'   => (object)[
+                            'street_1'     => 'Hoofdweg 679',
+                            'postal_code'  => '1324GA',
+                            'city'         => 'Hoofddorp',
+                            'country_code' => 'NL',
+                        ],
+                        'physical_properties' => (object)[
+                            'weight' => 86,
                         ],
                     ],
-                ]))
+                ],
+            ]))
             ->getMock();
     }
 
@@ -87,24 +86,28 @@ class ApiRequestValidatorTest extends TestCase
     /** @test */
     public function testGetErrors()
     {
-        $requiredIfPresentPath = 'data.attributes.physical_properties.height';
-        $presentPath = 'data.attributes.physical_properties';
-
-        $requiredPath = 'data.attributes.recipient_address.region_code';
+        $requiredRule = Mockery::mock(RequiredRule::class, [
+            'isValid'   => false,
+            'getErrors' => ['Missing required property.'],
+        ]);
+        $requiredIfPresentRule = Mockery::mock(RequiredIfPresentRule::class, [
+            'isValid'   => false,
+            'getErrors' => ['Property is required when other property is present.'],
+        ]);
 
         $validator = (new ApiRequestValidator())
-            ->addRule(new RequiredIfPresentRule($requiredIfPresentPath, $presentPath))
-            ->addRule(new RequiredRule($requiredPath));
+            ->addRule($requiredRule)
+            ->addRule($requiredIfPresentRule);
 
         $this->assertFalse($validator->validate($this->request));
         $this->assertInternalType('array', $validator->getErrors());
         $this->assertCount(2, $validator->getErrors());
         $this->assertContains(
-            "Missing {$requiredPath} on given request.",
+            'Missing required property.',
             $validator->getErrors()
         );
         $this->assertContains(
-            "{$requiredIfPresentPath} is required when {$presentPath} is set on given request",
+            'Property is required when other property is present.',
             $validator->getErrors()
         );
     }
