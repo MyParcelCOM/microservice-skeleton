@@ -88,47 +88,49 @@ class ShipmentTransformerTest extends TestCase
 
         $this->shipmentTransformer = new ShipmentTransformer($urlGenerator, $transformerFactory);
         $this->shipment = Mockery::mock(Shipment::class, [
-            'getId'                    => 'shipment-id',
-            'getRecipientAddress'      => $address,
-            'getSenderAddress'         => $address,
-            'getPickupLocationCode'    => 'aaaa',
-            'getPickupLocationAddress' => $address,
-            'getDescription'           => 'descending ription',
-            'getPriceAmount'           => 123,
-            'getPriceCurrency'         => 'EUR',
-            'getInsuranceAmount'       => 456,
-            'getInsuranceCurrency'     => 'EUR',
-            'getBarcode'               => '3SBARCODE',
-            'getTrackingCode'          => 'TR4CK1NGC0D3',
-            'getTrackingUrl'           => 'https://track.me/TR4CK1NGC0D3',
-            'getWeight'                => 789,
-            'getService'               => $service,
-            'getOptions'               => [$option],
-            'getPhysicalProperties'    => $physicalProperties,
-            'getFiles'                 => [],
-            'getCustoms'               => $customs,
+            'getId'                         => 'shipment-id',
+            'getRecipientAddress'           => $address,
+            'getSenderAddress'              => $address,
+            'getPickupLocationCode'         => 'aaaa',
+            'getPickupLocationAddress'      => $address,
+            'getDescription'                => 'descending ription',
+            'getPriceAmount'                => 123,
+            'getPriceCurrency'              => 'EUR',
+            'getInsuranceAmount'            => 456,
+            'getInsuranceCurrency'          => 'EUR',
+            'getBarcode'                    => '3SBARCODE',
+            'getTrackingCode'               => 'TR4CK1NGC0D3',
+            'getTrackingUrl'                => 'https://track.me/TR4CK1NGC0D3',
+            'getWeight'                     => 789,
+            'getService'                    => $service,
+            'getOptions'                    => [$option],
+            'getPhysicalProperties'         => $physicalProperties,
+            'getPhysicalPropertiesVerified' => $physicalProperties,
+            'getFiles'                      => [],
+            'getCustoms'                    => $customs,
         ]);
 
         $this->minimalShipment = Mockery::mock(Shipment::class, [
-            'getId'                    => 'shipment-id',
-            'getRecipientAddress'      => $address,
-            'getSenderAddress'         => $address,
-            'getPickupLocationCode'    => null,
-            'getPickupLocationAddress' => null,
-            'getDescription'           => null,
-            'getPriceAmount'           => 123,
-            'getPriceCurrency'         => 'EUR',
-            'getInsuranceAmount'       => 0,
-            'getInsuranceCurrency'     => 'EUR',
-            'getBarcode'               => null,
-            'getTrackingCode'          => null,
-            'getTrackingUrl'           => null,
-            'getWeight'                => 789,
-            'getService'               => $service,
-            'getOptions'               => [],
-            'getPhysicalProperties'    => null,
-            'getFiles'                 => [],
-            'getCustoms'               => null,
+            'getId'                         => 'shipment-id',
+            'getRecipientAddress'           => $address,
+            'getSenderAddress'              => $address,
+            'getPickupLocationCode'         => null,
+            'getPickupLocationAddress'      => null,
+            'getDescription'                => null,
+            'getPriceAmount'                => 123,
+            'getPriceCurrency'              => 'EUR',
+            'getInsuranceAmount'            => 0,
+            'getInsuranceCurrency'          => 'EUR',
+            'getBarcode'                    => null,
+            'getTrackingCode'               => null,
+            'getTrackingUrl'                => null,
+            'getWeight'                     => 789,
+            'getService'                    => $service,
+            'getOptions'                    => [],
+            'getPhysicalProperties'         => null,
+            'getPhysicalPropertiesVerified' => null,
+            'getFiles'                      => [],
+            'getCustoms'                    => null,
         ]);
     }
 
@@ -162,7 +164,7 @@ class ShipmentTransformerTest extends TestCase
     public function testGetAttributes()
     {
         $this->assertEquals([
-            'recipient_address'   => [
+            'recipient_address'            => [
                 'street_1'             => 'First Street',
                 'street_2'             => 'Second Street',
                 'street_number'        => 69,
@@ -177,7 +179,7 @@ class ShipmentTransformerTest extends TestCase
                 'email'                => 'john@expertsexchange.com',
                 'phone_number'         => '1337-9001',
             ],
-            'sender_address'      => [
+            'sender_address'               => [
                 'street_1'             => 'First Street',
                 'street_2'             => 'Second Street',
                 'street_number'        => 69,
@@ -192,7 +194,7 @@ class ShipmentTransformerTest extends TestCase
                 'email'                => 'john@expertsexchange.com',
                 'phone_number'         => '1337-9001',
             ],
-            'pickup_location'     => [
+            'pickup_location'              => [
                 'code'    => 'aaaa',
                 'address' => [
                     'street_1'             => 'First Street',
@@ -210,37 +212,43 @@ class ShipmentTransformerTest extends TestCase
                     'phone_number'         => '1337-9001',
                 ],
             ],
-            'description'         => 'descending ription',
-            'price'               => [
+            'description'                  => 'descending ription',
+            'price'                        => [
                 'amount'   => 123,
                 'currency' => 'EUR',
             ],
-            'insurance'           => [
+            'insurance'                    => [
                 'amount'   => 456,
                 'currency' => 'EUR',
             ],
-            'barcode'             => '3SBARCODE',
-            'tracking_code'       => 'TR4CK1NGC0D3',
-            'tracking_url'        => 'https://track.me/TR4CK1NGC0D3',
-            'weight'              => 789,
-            'service'             => [
+            'barcode'                      => '3SBARCODE',
+            'tracking_code'                => 'TR4CK1NGC0D3',
+            'tracking_url'                 => 'https://track.me/TR4CK1NGC0D3',
+            'service'                      => [
                 'code' => 'nl300',
                 'name' => 'noname',
             ],
-            'physical_properties' => [
+            'physical_properties'          => [
                 'height' => 1,
                 'width'  => 2,
                 'length' => 3,
                 'volume' => 4,
                 'weight' => 5,
             ],
-            'options'             => [
+            'physical_properties_verified' => [
+                'height' => 1,
+                'width'  => 2,
+                'length' => 3,
+                'volume' => 4,
+                'weight' => 5,
+            ],
+            'options'                      => [
                 [
                     'name' => 'plx name me',
                     'code' => 'somecode',
                 ],
             ],
-            'customs'             => [
+            'customs'                      => [
                 'content_type'   => Customs::CONTENT_TYPE_DOCUMENTS,
                 'invoice_number' => 'V01C3',
                 'incoterm'       => Customs::INCOTERM_DUTY_DELIVERY_UNPAID,
@@ -270,7 +278,7 @@ class ShipmentTransformerTest extends TestCase
                 'id'         => 'shipment-id',
                 'type'       => 'shipments',
                 'attributes' => [
-                    'recipient_address'   => [
+                    'recipient_address'            => [
                         'street_1'             => 'First Street',
                         'street_2'             => 'Second Street',
                         'street_number'        => 69,
@@ -285,7 +293,7 @@ class ShipmentTransformerTest extends TestCase
                         'email'                => 'john@expertsexchange.com',
                         'phone_number'         => '1337-9001',
                     ],
-                    'sender_address'      => [
+                    'sender_address'               => [
                         'street_1'             => 'First Street',
                         'street_2'             => 'Second Street',
                         'street_number'        => 69,
@@ -300,7 +308,7 @@ class ShipmentTransformerTest extends TestCase
                         'email'                => 'john@expertsexchange.com',
                         'phone_number'         => '1337-9001',
                     ],
-                    'pickup_location'     => [
+                    'pickup_location'              => [
                         'code'    => 'aaaa',
                         'address' => [
                             'street_1'             => 'First Street',
@@ -318,35 +326,41 @@ class ShipmentTransformerTest extends TestCase
                             'phone_number'         => '1337-9001',
                         ],
                     ],
-                    'description'         => 'descending ription',
-                    'price'               => [
+                    'description'                  => 'descending ription',
+                    'price'                        => [
                         'amount'   => 123,
                         'currency' => 'EUR',
                     ],
-                    'insurance'           => [
+                    'insurance'                    => [
                         'amount'   => 456,
                         'currency' => 'EUR',
                     ],
-                    'barcode'             => '3SBARCODE',
-                    'weight'              => 789,
-                    'service'             => [
+                    'barcode'                      => '3SBARCODE',
+                    'service'                      => [
                         'code' => 'nl300',
                         'name' => 'noname',
                     ],
-                    'physical_properties' => [
+                    'physical_properties'          => [
                         'height' => 1,
                         'width'  => 2,
                         'length' => 3,
                         'volume' => 4,
                         'weight' => 5,
                     ],
-                    'options'             => [
+                    'physical_properties_verified' => [
+                        'height' => 1,
+                        'width'  => 2,
+                        'length' => 3,
+                        'volume' => 4,
+                        'weight' => 5,
+                    ],
+                    'options'                      => [
                         [
                             'name' => 'plx name me',
                             'code' => 'somecode',
                         ],
                     ],
-                    'customs'             => [
+                    'customs'                      => [
                         'content_type'   => Customs::CONTENT_TYPE_DOCUMENTS,
                         'invoice_number' => 'V01C3',
                         'incoterm'       => Customs::INCOTERM_DUTY_DELIVERY_UNPAID,
@@ -365,6 +379,8 @@ class ShipmentTransformerTest extends TestCase
                             ],
                         ],
                     ],
+                    'tracking_code'                => 'TR4CK1NGC0D3',
+                    'tracking_url'                 => 'https://track.me/TR4CK1NGC0D3',
                 ],
             ],
             $this->shipmentTransformer->transform($this->shipment)
@@ -417,7 +433,6 @@ class ShipmentTransformerTest extends TestCase
                         'amount'   => 0,
                         'currency' => 'EUR',
                     ],
-                    'weight'            => 789,
                     'service'           => [
                         'code' => 'nl300',
                         'name' => 'noname',

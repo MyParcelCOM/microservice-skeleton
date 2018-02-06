@@ -25,11 +25,12 @@ class ShipmentRepository
         /** @var Shipment $shipment */
         $shipment = $this->shipmentMapper->map($data, new Shipment());
 
-        // TODO Map/transform the Shipment to a valid request for the carrier.
-        // TODO Send the shipment to the carrier (use CarrierApiGateway).
-        // TODO Map updated values to the Shipment (barcode, id, price, etc).
-        // TODO Get files (label, printcode, etc) for the shipment.
-        // TODO Add files to the shipment (use File objects).
+        // TODO: Validate the data for this specific carrier.
+        // TODO: Map/transform the Shipment to a valid request for the carrier.
+        // TODO: Send the shipment to the carrier (use CarrierApiGateway).
+        // TODO: Map updated values to the Shipment (barcode, id, price, etc).
+        // TODO: Get files (label, printcode, etc) for the shipment.
+        // TODO: Add files to the shipment (use File objects).
 
         return $shipment;
     }

@@ -10,6 +10,13 @@ class VerifySecretTest extends TestCase
 {
     use CommunicatesWithCarrier;
 
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->bindCarrierApiGatewayMock();
+    }
+
     /** @test */
     public function aRequestNeedsAValidSecret()
     {

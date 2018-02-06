@@ -19,9 +19,14 @@ class PickUpDropOffLocationRepository
      */
     public function getAll(string $countryCode, string $postalCode, string $street = null, string $streetNumber = null): ResourcesInterface
     {
-        // TODO Get the pudo points from carrier (use CarrierApiGateway).
-        // TODO Map data to PickUpDropOffLocation objects.
-        // TODO Put PickUpDropOffLocation objects in an object that implements ResourcesInterface.
+        // TODO: Get the pudo points from carrier (use CarrierApiGateway).
+        // TODO: Map data to PickUpDropOffLocation objects.
+        // TODO: Put PickUpDropOffLocation objects in an object that implements ResourcesInterface.
+
+        // CollectionResources
+        // PromiseResources
+        // QueryResources
+        // PromiseCollectionResources
     }
 
     /**
