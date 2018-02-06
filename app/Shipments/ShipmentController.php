@@ -3,9 +3,11 @@
 namespace MyParcelCom\Microservice\Shipments;
 
 use Illuminate\Http\JsonResponse;
+use MyParcelCom\Exceptions\InvalidJsonSchemaException;
 use MyParcelCom\Microservice\Http\Controllers\Controller;
 use MyParcelCom\Microservice\Http\JsonRequestValidator;
 use MyParcelCom\Microservice\Http\Request;
+use MyParcelCom\Microservice\Validation\ApiRequestValidator;
 use MyParcelCom\Transformers\TransformerService;
 
 class ShipmentController extends Controller
@@ -13,15 +15,25 @@ class ShipmentController extends Controller
     /**
      * Route that validates and creates a shipment.
      *
-     * @param JsonRequestValidator $validator
+     * @param JsonRequestValidator $jsonRequestValidator
+     * @param ApiRequestValidator  $apiRequestValidator
      * @param ShipmentRepository   $repository
      * @param Request              $request
      * @param TransformerService   $transformerService
      * @return JsonResponse
+     * @throws InvalidJsonSchemaException
+     * @throws \MyParcelCom\Transformers\TransformerException
      */
-    public function create(JsonRequestValidator $validator, ShipmentRepository $repository, Request $request, TransformerService $transformerService): JsonResponse
+    public function create(JsonRequestValidator $jsonRequestValidator, ApiRequestValidator $apiRequestValidator, ShipmentRepository $repository, Request $request, TransformerService $transformerService): JsonResponse
     {
-        $validator->validate('/shipments', 'post', 201);
+        $jsonRequestValidator->validate('/shipments', 'post', 201);
+
+        // TODO Add rules to ApiRequestValidator to include carrier-specific requirements.
+        if (!$apiRequestValidator->validate($request)) {
+            $errors = $apiRequestValidator->getErrors();
+
+            throw new InvalidJsonSchemaException($errors);
+        }
 
         $shipment = $repository->createFromPostData($request->json('data'));
 

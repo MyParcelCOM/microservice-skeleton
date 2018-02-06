@@ -1,0 +1,23 @@
+{
+  "data": {
+    "type": "shipments",
+    "attributes": {
+      "recipient_address": {
+        "street_1": "Some road",
+        "city": "Cardiff",
+        "country_code": "GB"
+      },
+      "sender_address": {
+        "street_1": "Some road",
+        "city": "Cardiff",
+        "country_code": "GB"
+      },
+      "service": {
+        "code": "1203A"
+      },
+      "physical_properties": {
+        "weight": 5000
+      }
+    }
+  }
+}
