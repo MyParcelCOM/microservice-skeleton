@@ -9,9 +9,9 @@ class RequiredIfPresentRule extends ValidationRule implements RuleInterface
     /** @var string */
     protected $presentPath;
 
-    public function __construct(string $requiredPath, string $presentPath)
+    public function __construct(string $path, string $presentPath)
     {
-        parent::__construct($requiredPath);
+        parent::__construct($path);
 
         $this->presentPath = $presentPath;
     }
@@ -22,11 +22,11 @@ class RequiredIfPresentRule extends ValidationRule implements RuleInterface
      */
     public function isValid(stdClass $requestData): bool
     {
-        $requiredValue = $this->getValueForPath($this->requiredPath, $requestData);
+        $requiredValue = $this->getValueForPath($this->path, $requestData);
         $presentValue = $this->getValueForPath($this->presentPath, $requestData);
 
         if (isset($presentValue) && !isset($requiredValue)) {
-            $this->errors[] = "{$this->requiredPath} is required when {$this->presentPath} is set on given request";
+            $this->errors[] = "{$this->path} is required when {$this->presentPath} is set on given request";
 
             return false;
         }

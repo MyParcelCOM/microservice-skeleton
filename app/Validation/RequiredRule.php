@@ -2,7 +2,6 @@
 
 namespace MyParcelCom\Microservice\Validation;
 
-
 use stdClass;
 
 class RequiredRule extends ValidationRule implements RuleInterface
@@ -13,10 +12,10 @@ class RequiredRule extends ValidationRule implements RuleInterface
      */
     public function isValid(stdClass $requestData): bool
     {
-        $value = $this->getValueForPath($this->requiredPath, $requestData);
+        $value = $this->getValueForPath($this->path, $requestData);
 
         if (!isset($value)) {
-            $this->errors[] = "Missing required {$this->requiredPath} on given request.";
+            $this->errors[] = "Missing required {$this->path} on given request.";
 
             return false;
         }
