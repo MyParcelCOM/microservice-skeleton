@@ -8,6 +8,7 @@ use MyParcelCom\Microservice\Tests\Traits\CommunicatesWithCarrier;
 
 /**
  * @group Endpoints:Status
+ * @group Implementation
  */
 class StatusesTest extends TestCase
 {

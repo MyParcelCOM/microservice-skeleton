@@ -16,7 +16,10 @@ class PickUpDropOffLocationRepositoryTest extends TestCase
         Mockery::close();
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group Implementation
+     */
     public function testGetAll()
     {
         $pickUpDropOffLocationRepository = (new PickUpDropOffLocationRepository())

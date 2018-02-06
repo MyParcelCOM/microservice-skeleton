@@ -8,6 +8,7 @@ use MyParcelCom\Microservice\Tests\Traits\CommunicatesWithCarrier;
 
 /**
  * @group Endpoints:PickUpDropOff
+ * @group Implementation
  */
 class PickUpDropOffLocationsTest extends TestCase
 {

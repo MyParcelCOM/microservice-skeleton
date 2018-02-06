@@ -63,6 +63,8 @@ The following commands are available:
 - `./mp.sh composer <args>` - Run composer inside the api container.
 - `./mp.sh artisan <args>` - Run artisan commands inside the api container.
 - `./mp.sh test <args>` - Run phpunit tests.
+- `./mp.sh test pudo|shipment|status` - Test if one of the endpoints is correctly implemented.
+- `./mp.sh test skeleton` - Test if the skeleton works correctly.
 - `./mp.sh microservice <args>` - Run any command on the carrier container (nginx + php).
 - `./mp.sh <args>` - Run any [docker-compose](https://docs.docker.com/compose/reference/overview/) command.
 

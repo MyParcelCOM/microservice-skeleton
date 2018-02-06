@@ -9,6 +9,7 @@ use MyParcelCom\Microservice\Tests\Traits\CommunicatesWithCarrier;
 
 /**
  * @group Endpoints:Shipment
+ * @group Implementation
  */
 class ShipmentsTest extends TestCase
 {
