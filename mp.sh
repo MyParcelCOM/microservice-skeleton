@@ -27,7 +27,7 @@ if [ ! -f ${ROOT_DIR}/.env ]; then
 fi
 export $(cat ${ROOT_DIR}/.env | xargs)
 
-COMPOSE="docker-compose --project-name ${PROJECT_NAME}"
+COMPOSE="docker-compose"
 
 if [ $# -gt 0 ]; then
   # Check if services are running.
@@ -63,15 +63,21 @@ if [ $# -gt 0 ]; then
   # Run phpunit tests.
   elif [ "$1" == "test" ]; then
     shift 1
-    ${COMPOSE} run --rm microservice ./vendor/bin/phpunit "$@"
+    if [ "$1" == "skeleton" ]; then
+      ${COMPOSE} run --rm microservice ./vendor/bin/phpunit --exclude-group Implementation
+    elif [ "$1" == "pudo" ]; then
+      ${COMPOSE} run --rm microservice ./vendor/bin/phpunit --group Endpoints:PickUpDropOff
+    elif [ "$1" == "shipment" ]; then
+      ${COMPOSE} run --rm microservice ./vendor/bin/phpunit --group Endpoints:Shipment
+    elif [ "$1" == "status" ]; then
+      ${COMPOSE} run --rm microservice ./vendor/bin/phpunit --group Endpoints:Status
+    else
+      ${COMPOSE} run --rm microservice ./vendor/bin/phpunit "$@"
+    fi
 
   # Execute a command on a service.
   elif [ "$1" == "microservice" ]; then
     ${COMPOSE} ${DO} "$@"
-
-  # Delete project volumes.
-  elif [ "$1" == "prune" ]; then
-    docker volume rm $(docker volume ls -f name=${PROJECT_NAME} -q)
 
   # Run commands for the api specification
   elif [ "$1" == "schema" ]; then

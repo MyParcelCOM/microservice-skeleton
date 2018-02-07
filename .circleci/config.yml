@@ -1,0 +1,28 @@
+version: 2
+jobs:
+  build:
+    machine:
+      image: circleci/classic:edge
+
+    steps:
+      - checkout
+
+      - run:
+          name: Setup environment variables
+          command: |
+            ./mp.sh
+            sed -i "s/<api-token>/${COMPOSER_TOKEN}/g" .env
+
+      - run:
+          name: Setup dependencies
+          command: |
+            docker network create micronet
+            ./mp.sh up
+            ./mp.sh composer install
+            ./mp.sh schema bundle
+
+      - run:
+          name: Run tests
+          command: |
+            ./mp.sh test skeleton
+            if [ "$(head -n 3 build/report.junit.xml | grep 'errors="0"' | grep 'failures="0"')" == '' ]; then exit 1; else exit 0; fi
