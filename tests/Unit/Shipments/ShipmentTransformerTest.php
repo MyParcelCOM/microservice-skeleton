@@ -3,7 +3,7 @@
 namespace MyParcelCom\Microservice\Tests\Unit\Shipments;
 
 use Mockery;
-use MyParcelCom\Common\Contracts\UrlGeneratorInterface;
+use MyParcelCom\JsonApi\Interfaces\UrlGeneratorInterface;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 use MyParcelCom\Microservice\Shipments\Customs;
 use MyParcelCom\Microservice\Shipments\CustomsItem;
@@ -12,8 +12,8 @@ use MyParcelCom\Microservice\Shipments\PhysicalProperties;
 use MyParcelCom\Microservice\Shipments\Service;
 use MyParcelCom\Microservice\Shipments\Shipment;
 use MyParcelCom\Microservice\Shipments\ShipmentTransformer;
-use MyParcelCom\Transformers\TransformerException;
-use MyParcelCom\Transformers\TransformerFactory;
+use MyParcelCom\JsonApi\Transformers\TransformerException;
+use MyParcelCom\JsonApi\Transformers\TransformerFactory;
 use PHPUnit\Framework\TestCase;
 
 class ShipmentTransformerTest extends TestCase
@@ -31,7 +31,9 @@ class ShipmentTransformerTest extends TestCase
     {
         parent::setUp();
 
+        /** @var UrlGeneratorInterface $urlGenerator */
         $urlGenerator = Mockery::mock(UrlGeneratorInterface::class, ['route' => 'url']);
+        /** @var TransformerFactory $transformerFactory */
         $transformerFactory = Mockery::mock(TransformerFactory::class);
 
         $address = Mockery::mock(Address::class, [
@@ -86,7 +88,8 @@ class ShipmentTransformerTest extends TestCase
             'getItems'         => [$customsItem],
         ]);
 
-        $this->shipmentTransformer = new ShipmentTransformer($urlGenerator, $transformerFactory);
+        $this->shipmentTransformer = (new ShipmentTransformer($transformerFactory))
+            ->setUrlGenerator($urlGenerator);
         $this->shipment = Mockery::mock(Shipment::class, [
             'getId'                         => 'shipment-id',
             'getRecipientAddress'           => $address,

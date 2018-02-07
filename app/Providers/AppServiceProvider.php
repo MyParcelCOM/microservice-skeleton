@@ -8,13 +8,14 @@ use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Routing\UrlGenerator as LaravelUrlGenerator;
 use Illuminate\Support\ServiceProvider;
-use MyParcelCom\Common\Contracts\JsonApiRequestInterface;
-use MyParcelCom\Common\Contracts\UrlGeneratorInterface;
+use MyParcelCom\JsonApi\Http\Interfaces\RequestInterface;
+use MyParcelCom\JsonApi\Interfaces\UrlGeneratorInterface;
+use MyParcelCom\JsonApi\Transformers\AbstractTransformer;
 use MyParcelCom\Microservice\Exceptions\Handler;
 use MyParcelCom\Microservice\Http\Request;
 use MyParcelCom\Microservice\Routing\UrlGenerator;
 use MyParcelCom\Microservice\Shipments\ShipmentMapper;
-use MyParcelCom\Transformers\TransformerFactory;
+use MyParcelCom\JsonApi\Transformers\TransformerFactory;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->alias('request', Request::class);
-        $this->app->alias('request', JsonApiRequestInterface::class);
+        $this->app->alias('request', RequestInterface::class);
 
         $this->app->singleton(ExceptionHandler::class, function (Container $app) {
             $handler = (new Handler($app))
@@ -50,7 +51,14 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(UrlGeneratorInterface::class, UrlGenerator::class);
 
         $this->app->singleton(TransformerFactory::class, function (Container $app) {
-            return (new TransformerFactory($app->make(UrlGeneratorInterface::class)))
+            return (new TransformerFactory())
+                ->setDependencies([
+                    AbstractTransformer::class => [
+                        'setUrlGenerator' => function () use ($app) {
+                            return $app->make(UrlGeneratorInterface::class);
+                        },
+                    ],
+                ])
                 ->setMapping(config('transformer.mapping'));
         });
 

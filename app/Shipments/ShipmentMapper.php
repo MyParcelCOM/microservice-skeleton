@@ -3,7 +3,7 @@
 namespace MyParcelCom\Microservice\Shipments;
 
 use Com\Tecnick\Barcode\Barcode;
-use MyParcelCom\Common\Contracts\MapperInterface;
+use MyParcelCom\JsonApi\Interfaces\MapperInterface;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 
 class ShipmentMapper implements MapperInterface

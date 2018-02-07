@@ -3,7 +3,7 @@
 namespace MyParcelCom\Microservice\Http;
 
 use JsonSchema\Validator;
-use MyParcelCom\Exceptions\InvalidJsonSchemaException;
+use MyParcelCom\JsonApi\Exceptions\InvalidJsonSchemaException;
 use stdClass;
 
 class JsonRequestValidator

@@ -4,8 +4,8 @@ namespace MyParcelCom\Microservice\Exceptions;
 
 use Exception;
 use GuzzleHttp\Exception\RequestException;
-use MyParcelCom\Exceptions\CarrierApiException;
-use MyParcelCom\Exceptions\Handler as ExceptionHandler;
+use MyParcelCom\JsonApi\Exceptions\CarrierApiException;
+use MyParcelCom\JsonApi\ExceptionHandler;
 use Symfony\Component\HttpFoundation\Response;
 
 class Handler extends ExceptionHandler

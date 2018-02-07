@@ -3,12 +3,12 @@
 namespace MyParcelCom\Microservice\Tests\Unit\Statuses;
 
 use Mockery;
-use MyParcelCom\Common\Contracts\UrlGeneratorInterface;
+use MyParcelCom\JsonApi\Interfaces\UrlGeneratorInterface;
 use MyParcelCom\Microservice\Statuses\Status;
 use MyParcelCom\Microservice\Statuses\StatusTransformer;
 use MyParcelCom\Microservice\Tests\TestCase;
-use MyParcelCom\Transformers\TransformerException;
-use MyParcelCom\Transformers\TransformerFactory;
+use MyParcelCom\JsonApi\Transformers\TransformerException;
+use MyParcelCom\JsonApi\Transformers\TransformerFactory;
 
 class StatusTransformerTest extends TestCase
 {
@@ -22,10 +22,13 @@ class StatusTransformerTest extends TestCase
     {
         parent::setUp();
 
+        /** @var UrlGeneratorInterface $urlGenerator */
         $urlGenerator = Mockery::mock(UrlGeneratorInterface::class, ['route' => 'url']);
+        /** @var TransformerFactory $transformerFactory */
         $transformerFactory = Mockery::mock(TransformerFactory::class);
 
-        $this->statusTransformer = new StatusTransformer($urlGenerator, $transformerFactory);
+        $this->statusTransformer = (new StatusTransformer($transformerFactory))
+            ->setUrlGenerator($urlGenerator);
         $this->status = Mockery::mock(Status::class, [
             'getId'          => 'w',
             'getCode'        => 'u',

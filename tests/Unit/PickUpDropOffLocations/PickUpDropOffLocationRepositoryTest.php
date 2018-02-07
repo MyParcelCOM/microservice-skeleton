@@ -3,7 +3,7 @@
 namespace MyParcelCom\Microservice\Tests\Unit\PickUpDropOffLocations;
 
 use Mockery;
-use MyParcelCom\Common\Contracts\ResourcesInterface;
+use MyParcelCom\JsonApi\Resources\Interfaces\ResourcesInterface;
 use MyParcelCom\Microservice\PickUpDropOffLocations\PickUpDropOffLocationRepository;
 use MyParcelCom\Microservice\Tests\Mocks\CarrierApiGatewayMock;
 use PHPUnit\Framework\TestCase;

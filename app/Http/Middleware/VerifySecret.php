@@ -4,7 +4,7 @@ namespace MyParcelCom\Microservice\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use MyParcelCom\Exceptions\InvalidSecretException;
+use MyParcelCom\JsonApi\Exceptions\InvalidSecretException;
 
 class VerifySecret
 {
