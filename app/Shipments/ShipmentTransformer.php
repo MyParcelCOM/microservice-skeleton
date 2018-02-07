@@ -3,8 +3,8 @@
 namespace MyParcelCom\Microservice\Shipments;
 
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
-use MyParcelCom\Transformers\AbstractTransformer;
-use MyParcelCom\Transformers\TransformerException;
+use MyParcelCom\JsonApi\Transformers\AbstractTransformer;
+use MyParcelCom\JsonApi\Transformers\TransformerException;
 
 class ShipmentTransformer extends AbstractTransformer
 {

@@ -4,7 +4,7 @@ namespace MyParcelCom\Microservice\Statuses;
 
 use Illuminate\Http\JsonResponse;
 use MyParcelCom\Microservice\Http\Controllers\Controller;
-use MyParcelCom\Transformers\TransformerService;
+use MyParcelCom\JsonApi\Transformers\TransformerService;
 
 class StatusController extends Controller
 {

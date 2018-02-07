@@ -3,10 +3,10 @@
 namespace MyParcelCom\Microservice\Http;
 
 use Illuminate\Http\Request as BaseRequest;
-use MyParcelCom\Common\Contracts\JsonApiRequestInterface;
-use MyParcelCom\Common\Traits\JsonApiRequestTrait;
+use MyParcelCom\JsonApi\Http\Interfaces\RequestInterface;
+use MyParcelCom\JsonApi\Http\Traits\RequestTrait;
 
-class Request extends BaseRequest implements JsonApiRequestInterface
+class Request extends BaseRequest implements RequestInterface
 {
-    use JsonApiRequestTrait;
+    use RequestTrait;
 }

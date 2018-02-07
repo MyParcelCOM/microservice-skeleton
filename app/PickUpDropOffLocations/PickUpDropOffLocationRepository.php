@@ -2,7 +2,7 @@
 
 namespace MyParcelCom\Microservice\PickUpDropOffLocations;
 
-use MyParcelCom\Common\Contracts\ResourcesInterface;
+use MyParcelCom\JsonApi\Resources\Interfaces\ResourcesInterface;
 use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
 
 class PickUpDropOffLocationRepository

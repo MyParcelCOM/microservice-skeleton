@@ -3,7 +3,7 @@
 namespace MyParcelCom\Microservice\Routing;
 
 use Illuminate\Routing\UrlGenerator as BaseUrlGenerator;
-use MyParcelCom\Common\Contracts\UrlGeneratorInterface;
+use MyParcelCom\JsonApi\Interfaces\UrlGeneratorInterface;
 
 class UrlGenerator extends BaseUrlGenerator implements UrlGeneratorInterface
 {

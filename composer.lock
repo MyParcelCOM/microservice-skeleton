@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0aad22e956b55c6626a1aad271f3c6ce",
+    "content-hash": "43dc537d9a068f3663adb152acf1d0c3",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -740,16 +740,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.5.33",
+            "version": "v5.5.34",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "ef7880e665390f999f4def7c9f78133636f973cf"
+                "reference": "1de7c0aec13eadbdddc2d1ba4019b064b2c6b966"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/ef7880e665390f999f4def7c9f78133636f973cf",
-                "reference": "ef7880e665390f999f4def7c9f78133636f973cf",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/1de7c0aec13eadbdddc2d1ba4019b064b2c6b966",
+                "reference": "1de7c0aec13eadbdddc2d1ba4019b064b2c6b966",
                 "shasum": ""
             },
             "require": {
@@ -870,7 +870,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2018-01-30T15:06:13+00:00"
+            "time": "2018-02-06T15:36:55+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -1165,74 +1165,25 @@
             "time": "2018-02-06T10:02:02+00:00"
         },
         {
-            "name": "myparcelcom/common",
-            "version": "v0.1.12",
+            "name": "myparcelcom/json-api",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "git@github.com:MyParcelCOM/common.git",
-                "reference": "b852506107ba7c7fd93ffa407343b8b7c148be0b"
+                "reference": "6a425adc57b6a70fe365bb8f15a6d168b5147b51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MyParcelCOM/common/zipball/b852506107ba7c7fd93ffa407343b8b7c148be0b",
-                "reference": "b852506107ba7c7fd93ffa407343b8b7c148be0b",
+                "url": "https://api.github.com/repos/MyParcelCOM/common/zipball/6a425adc57b6a70fe365bb8f15a6d168b5147b51",
+                "reference": "6a425adc57b6a70fe365bb8f15a6d168b5147b51",
                 "shasum": ""
             },
             "require": {
                 "guzzlehttp/promises": "^1.0",
                 "illuminate/database": "~5.0",
                 "illuminate/support": "~5.0",
-                "justinrainbow/json-schema": "^5.2",
-                "php": ">=7.1"
-            },
-            "require-dev": {
-                "mockery/mockery": "0.9.*",
-                "phpunit/phpunit": "^6.3",
-                "squizlabs/php_codesniffer": "^3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "MyParcelCom\\Common\\": "src/Common/"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "MyParcelCom\\Common\\Tests\\": "tests"
-                }
-            },
-            "scripts": {
-                "check-style": [
-                    "vendor/bin/phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 --warning-severity=6 src tests"
-                ],
-                "fix-style": [
-                    "vendor/bin/phpcbf -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 --warning-severity=6 src tests"
-                ]
-            },
-            "description": "MyParcel.com shared library with common interfaces, traits and utility classes.",
-            "homepage": "https://www.myparcel.com",
-            "support": {
-                "source": "https://github.com/MyParcelCOM/common/tree/v0.1.12",
-                "issues": "https://github.com/MyParcelCOM/common/issues"
-            },
-            "time": "2018-01-15T13:53:45+00:00"
-        },
-        {
-            "name": "myparcelcom/exceptions",
-            "version": "v0.1.7",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:MyParcelCOM/exceptions.git",
-                "reference": "495f07e9657a737f8f70c5938c79dd2b306361b1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/MyParcelCOM/exceptions/zipball/495f07e9657a737f8f70c5938c79dd2b306361b1",
-                "reference": "495f07e9657a737f8f70c5938c79dd2b306361b1",
-                "shasum": ""
-            },
-            "require": {
                 "intouch/newrelic": "^1.0.3",
+                "justinrainbow/json-schema": "^5.2",
                 "laravel/framework": "~5.4",
                 "php": ">=7.1"
             },
@@ -1244,18 +1195,15 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "MyParcelCom\\Exceptions\\": "src/Exceptions/"
+                    "MyParcelCom\\JsonApi\\": "src/"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "MyParcelCom\\Exceptions\\Tests\\": "tests"
+                    "MyParcelCom\\JsonApi\\Tests\\": "tests/"
                 }
             },
             "scripts": {
-                "test": [
-                    "vendor/bin/phpunit"
-                ],
                 "check-style": [
                     "vendor/bin/phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 --warning-severity=6 src tests"
                 ],
@@ -1263,87 +1211,13 @@
                     "vendor/bin/phpcbf -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 --warning-severity=6 src tests"
                 ]
             },
-            "authors": [
-                {
-                    "name": "Sam de Vries",
-                    "email": "sam@myparcel.com"
-                },
-                {
-                    "name": "Shady Khattab",
-                    "email": "shady@myparcel.com"
-                }
-            ],
-            "description": "Package for exceptions and exception handling for MyParcel.com projects.",
+            "description": "MyParcel.com shared library with JSON API related exceptions, interfaces, traits and utility classes.",
             "homepage": "https://www.myparcel.com",
             "support": {
-                "source": "https://github.com/MyParcelCOM/exceptions/tree/v0.1.7",
-                "issues": "https://github.com/MyParcelCOM/exceptions/issues"
+                "source": "https://github.com/MyParcelCOM/common/tree/master",
+                "issues": "https://github.com/MyParcelCOM/common/issues"
             },
-            "time": "2017-12-05T15:54:55+00:00"
-        },
-        {
-            "name": "myparcelcom/transformers",
-            "version": "v0.1.5",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:MyParcelCOM/transformers.git",
-                "reference": "7eab36758d778f626324584a4aa503c5b151bf84"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/MyParcelCOM/transformers/zipball/7eab36758d778f626324584a4aa503c5b151bf84",
-                "reference": "7eab36758d778f626324584a4aa503c5b151bf84",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "~5.0",
-                "myparcelcom/common": "^0.1.0",
-                "php": ">=7.1"
-            },
-            "require-dev": {
-                "mockery/mockery": "0.9.*",
-                "phpunit/phpunit": "^6.3",
-                "squizlabs/php_codesniffer": "^3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "MyParcelCom\\Transformers\\": "src/Transformers/"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "MyParcelCom\\Transformers\\Tests\\": "tests"
-                }
-            },
-            "scripts": {
-                "test": [
-                    "vendor/bin/phpunit"
-                ],
-                "check-style": [
-                    "vendor/bin/phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 --warning-severity=6 src tests"
-                ],
-                "fix-style": [
-                    "vendor/bin/phpcbf -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 --warning-severity=6 src tests"
-                ]
-            },
-            "authors": [
-                {
-                    "name": "Thomas Eilering",
-                    "email": "thomas@myparcel.com"
-                },
-                {
-                    "name": "Shady Khattab",
-                    "email": "shady@myparcel.com"
-                }
-            ],
-            "description": "MyParcel.com package for transforming models into jsonapi responses.",
-            "homepage": "https://www.myparcel.com",
-            "support": {
-                "source": "https://github.com/MyParcelCOM/transformers/tree/v0.1.5",
-                "issues": "https://github.com/MyParcelCOM/transformers/issues"
-            },
-            "time": "2017-10-10T11:11:37+00:00"
+            "time": "2018-02-07T09:10:20+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -4631,7 +4505,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "myparcelcom/json-api": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

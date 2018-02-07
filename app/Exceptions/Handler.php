@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace MyParcelCom\Microservice\Exceptions;
+namespace MyParcelCom\Microservice\JsonApi\Exceptions;
 
 use Exception;
 use GuzzleHttp\Exception\RequestException;
-use MyParcelCom\Exceptions\CarrierApiException;
-use MyParcelCom\Exceptions\Handler as ExceptionHandler;
+use MyParcelCom\JsonApi\Exceptions\CarrierApiException;
+use MyParcelCom\JsonApi\ExceptionHandler as ExceptionHandler;
 use Symfony\Component\HttpFoundation\Response;
 
 class Handler extends ExceptionHandler

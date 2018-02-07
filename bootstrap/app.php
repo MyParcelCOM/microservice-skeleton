@@ -38,7 +38,7 @@ $app->singleton(
 
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
-    \MyParcelCom\Microservice\Exceptions\Handler::class
+    \MyParcelCom\Microservice\JsonApi\Exceptions\Handler::class
 );
 
 /*

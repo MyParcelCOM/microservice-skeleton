@@ -4,14 +4,14 @@ namespace MyParcelCom\Microservice\Tests\Unit\PickUpDropOffLocations;
 
 use Carbon\Carbon;
 use Mockery;
-use MyParcelCom\Common\Contracts\UrlGeneratorInterface;
+use MyParcelCom\JsonApi\Interfaces\UrlGeneratorInterface;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 use MyParcelCom\Microservice\PickUpDropOffLocations\OpeningHour;
 use MyParcelCom\Microservice\PickUpDropOffLocations\PickUpDropOffLocation;
 use MyParcelCom\Microservice\PickUpDropOffLocations\PickUpDropOffLocationTransformer;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Position;
-use MyParcelCom\Transformers\TransformerException;
-use MyParcelCom\Transformers\TransformerFactory;
+use MyParcelCom\JsonApi\Transformers\TransformerException;
+use MyParcelCom\JsonApi\Transformers\TransformerFactory;
 use PHPUnit\Framework\TestCase;
 
 class PickUpDropOffLocationTransformerTest extends TestCase
@@ -26,10 +26,14 @@ class PickUpDropOffLocationTransformerTest extends TestCase
     {
         parent::setUp();
 
+        /** @var UrlGeneratorInterface $urlGenerator */
         $urlGenerator = Mockery::mock(UrlGeneratorInterface::class, ['route' => 'url']);
+        /** @var TransformerFactory $transformerFactory */
         $transformerFactory = Mockery::mock(TransformerFactory::class);
 
-        $this->pickUpDropOffLocationTransformer = new PickUpDropOffLocationTransformer($urlGenerator, $transformerFactory);
+        $this->pickUpDropOffLocationTransformer = (new PickUpDropOffLocationTransformer($transformerFactory))
+            ->setUrlGenerator($urlGenerator);
+
         $address = Mockery::mock(Address::class, [
             'getStreet1'            => 'First Street',
             'getStreet2'            => 'Second Street',
