@@ -11,7 +11,7 @@ use Illuminate\Support\ServiceProvider;
 use MyParcelCom\JsonApi\Http\Interfaces\RequestInterface;
 use MyParcelCom\JsonApi\Interfaces\UrlGeneratorInterface;
 use MyParcelCom\JsonApi\Transformers\AbstractTransformer;
-use MyParcelCom\Microservice\JsonApi\Exceptions\Handler;
+use MyParcelCom\Microservice\Exceptions\Handler;
 use MyParcelCom\Microservice\Http\Request;
 use MyParcelCom\Microservice\Routing\UrlGenerator;
 use MyParcelCom\Microservice\Shipments\ShipmentMapper;

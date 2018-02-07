@@ -6,12 +6,6 @@
     "api"
   ],
   "type": "project",
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/MyParcelCOM/common.git"
-    }
-  ],
   "require": {
     "php": ">=7.1",
     "fideloper/proxy": "~3.3",
@@ -22,7 +16,7 @@
     "laravel/framework": "5.5.*",
     "laravel/tinker": "~1.0",
     "myparcelcom/carrier-specification": "^0.1.14",
-    "myparcelcom/json-api": "dev-master",
+    "myparcelcom/json-api": "^0.4.0",
     "predis/predis": "~1.0",
     "tecnickcom/tc-lib-barcode": "^1.15",
     "vlucas/phpdotenv": "~2.2"
