@@ -4,6 +4,7 @@ namespace MyParcelCom\Microservice\Providers;
 
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\ServiceProvider;
+use MyParcelCom\Microservice\Geo\GeoService;
 use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
 use MyParcelCom\Microservice\PickUpDropOffLocations\PickUpDropOffLocationRepository;
 use MyParcelCom\Microservice\Shipments\ShipmentMapper;
@@ -21,6 +22,7 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $this->app->singleton(PickUpDropOffLocationRepository::class, function (Container $app) {
             return (new PickUpDropOffLocationRepository())
+                ->setAddressService($app->make(GeoService::class))
                 ->setCarrierApiGateway($app->make(CarrierApiGatewayInterface::class));
         });
 
