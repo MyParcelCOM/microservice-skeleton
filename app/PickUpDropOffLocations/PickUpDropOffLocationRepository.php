@@ -16,7 +16,7 @@ class PickUpDropOffLocationRepository
     protected $carrierApiGateway;
 
     /** @var GeoService */
-    protected $addressService;
+    protected $geoService;
 
     /** @var CacheInterface */
     protected $cache;
@@ -28,7 +28,7 @@ class PickUpDropOffLocationRepository
      * @param string|null $streetNumber
      * @return ResourcesInterface
      */
-    public function getAll(string $countryCode, string $postalCode, string $street = null, string $streetNumber = null): ResourcesInterface
+    public function getAll(string $countryCode, string $postalCode, ?string $street = null, ?string $streetNumber = null): ResourcesInterface
     {
         // Return the locations if they are cached.
         if (($locations = $this->getCachedLocations($countryCode, $postalCode, $street, $streetNumber))) {
@@ -38,8 +38,45 @@ class PickUpDropOffLocationRepository
         // TODO: Get the pudo points from carrier (use CarrierApiGateway).
         // TODO: Map data to PickUpDropOffLocation objects.
         // TODO: Put PickUpDropOffLocation objects in an object that implements ResourcesInterface.
-        // TODO: Use the address service to update missing or incomplete positions.
+        // TODO: Use the method `updatePosition()` to update the position values of a pudo point with coordinates.
         // TODO: Cache the collection of pudo locations using the method `setCachedLocations()`
+    }
+
+    /**
+     * @param PickUpDropOffLocation $location
+     * @param null|string           $sourceCountryCode
+     * @param null|string           $sourcePostalCode
+     * @param null|string           $sourceStreet
+     * @param int|null              $sourceStreetNumber
+     * @return PickUpDropOffLocation
+     */
+    protected function updatePosition(PickUpDropOffLocation $location, ?string $sourceCountryCode, ?string $sourcePostalCode, ?string $sourceStreet, ?int $sourceStreetNumber)
+    {
+        $position = $location->getPosition() ?: new Position();
+
+        if ($position->getLatitude() === null || $position->getLongitude() === null) {
+            $address = $location->getAddress();
+            $addressPosition = $this->geoService->getPositionForAddress(
+                $address->getCountryCode(),
+                $address->getPostalCode(),
+                $address->getStreet1(),
+                $address->getStreetNumber(),
+                $address->getStreetNumberSuffix()
+            );
+
+            $position->setLatitude($addressPosition->getLatitude());
+            $position->setLongitude($addressPosition->getLongitude());
+        }
+
+        if ($position->getDistance() === null) {
+            $sourcePosition = $this->geoService->getPositionForAddress($sourceCountryCode, $sourcePostalCode, $sourceStreet, $sourceStreetNumber);
+
+            $position->setDistance(
+                $this->geoService->getDistance($sourcePosition, $position)
+            );
+        }
+
+        return $location->setPosition($position);
     }
 
     /**
@@ -114,7 +151,7 @@ class PickUpDropOffLocationRepository
      */
     public function setGeoService(GeoService $geoService): self
     {
-        $this->addressService = $geoService;
+        $this->geoService = $geoService;
 
         return $this;
     }

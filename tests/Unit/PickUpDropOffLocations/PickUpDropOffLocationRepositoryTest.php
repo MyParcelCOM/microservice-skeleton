@@ -23,12 +23,12 @@ class PickUpDropOffLocationRepositoryTest extends TestCase
         $cache = Mockery::mock(CacheInterface::class, ['get' => null, 'set' => true]);
 
         $geoService = Mockery::mock(GeoService::class, [
-            'getPosition' => Mockery::mock(Position::class, [
+            'getPositionForAddress' => Mockery::mock(Position::class, [
                 'getLatitude'  => 52.304860,
                 'getLongitude' => 4.691103,
-                'getDistance'  => 10,
+                'getDistance'  => null,
             ]),
-            'getDistance' => 137,
+            'getDistance'           => 137,
         ]);
 
         $this->pickUpDropOffLocationRepository = (new PickUpDropOffLocationRepository())
