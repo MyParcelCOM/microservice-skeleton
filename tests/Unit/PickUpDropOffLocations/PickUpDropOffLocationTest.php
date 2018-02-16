@@ -2,6 +2,7 @@
 
 namespace MyParcelCom\Microservice\Tests\Unit\PickUpDropOffLocations;
 
+use Illuminate\Support\Collection;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 use MyParcelCom\Microservice\PickUpDropOffLocations\OpeningHour;
 use MyParcelCom\Microservice\PickUpDropOffLocations\PickUpDropOffLocation;
