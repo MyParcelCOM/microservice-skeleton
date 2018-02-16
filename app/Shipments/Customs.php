@@ -24,8 +24,6 @@ class Customs
     private $nonDelivery;
     /** @var string */
     private $incoterm;
-    /** @var CustomsItem[] */
-    private $items = [];
 
     /**
      * @return string
@@ -61,40 +59,6 @@ class Customs
     public function setInvoiceNumber(string $invoiceNumber): self
     {
         $this->invoiceNumber = $invoiceNumber;
-
-        return $this;
-    }
-
-    /**
-     * @return CustomsItem[]
-     */
-    public function getItems(): array
-    {
-        return $this->items;
-    }
-
-    /**
-     * @param CustomsItem $item
-     * @return $this
-     */
-    public function addItem(CustomsItem $item): self
-    {
-        $this->items[] = $item;
-
-        return $this;
-    }
-
-    /**
-     * @param CustomsItem[] $items
-     * @return $this
-     */
-    public function setItems(array $items): self
-    {
-        $this->items = [];
-
-        array_walk($items, function (CustomsItem $item) {
-            $this->addItem($item);
-        });
 
         return $this;
     }

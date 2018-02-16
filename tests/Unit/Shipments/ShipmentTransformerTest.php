@@ -4,16 +4,16 @@ namespace MyParcelCom\Microservice\Tests\Unit\Shipments;
 
 use Mockery;
 use MyParcelCom\JsonApi\Interfaces\UrlGeneratorInterface;
+use MyParcelCom\JsonApi\Transformers\TransformerException;
+use MyParcelCom\JsonApi\Transformers\TransformerFactory;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 use MyParcelCom\Microservice\Shipments\Customs;
-use MyParcelCom\Microservice\Shipments\CustomsItem;
 use MyParcelCom\Microservice\Shipments\Option;
 use MyParcelCom\Microservice\Shipments\PhysicalProperties;
 use MyParcelCom\Microservice\Shipments\Service;
 use MyParcelCom\Microservice\Shipments\Shipment;
+use MyParcelCom\Microservice\Shipments\ShipmentItem;
 use MyParcelCom\Microservice\Shipments\ShipmentTransformer;
-use MyParcelCom\JsonApi\Transformers\TransformerException;
-use MyParcelCom\JsonApi\Transformers\TransformerFactory;
 use PHPUnit\Framework\TestCase;
 
 class ShipmentTransformerTest extends TestCase
@@ -70,7 +70,7 @@ class ShipmentTransformerTest extends TestCase
             'getName' => 'plx name me',
         ]);
 
-        $customsItem = Mockery::mock(CustomsItem::class, [
+        $shipmentItem = Mockery::mock(ShipmentItem::class, [
             'getSku'               => '01284ASD',
             'getDescription'       => 'priceless Ming vase from some dynasty',
             'getQuantity'          => 12,
@@ -85,7 +85,6 @@ class ShipmentTransformerTest extends TestCase
             'getInvoiceNumber' => 'V01C3',
             'getNonDelivery'   => Customs::NON_DELIVERY_ABANDON,
             'getIncoterm'      => Customs::INCOTERM_DUTY_DELIVERY_UNPAID,
-            'getItems'         => [$customsItem],
         ]);
 
         $this->shipmentTransformer = (new ShipmentTransformer($transformerFactory))
@@ -111,6 +110,7 @@ class ShipmentTransformerTest extends TestCase
             'getPhysicalPropertiesVerified' => $physicalProperties,
             'getFiles'                      => [],
             'getCustoms'                    => $customs,
+            'getItems'                      => [$shipmentItem],
         ]);
 
         $this->minimalShipment = Mockery::mock(Shipment::class, [
@@ -134,6 +134,7 @@ class ShipmentTransformerTest extends TestCase
             'getPhysicalPropertiesVerified' => null,
             'getFiles'                      => [],
             'getCustoms'                    => null,
+            'getItems'                      => [],
         ]);
     }
 
@@ -251,24 +252,24 @@ class ShipmentTransformerTest extends TestCase
                     'code' => 'somecode',
                 ],
             ],
+            'items'                        => [
+                [
+                    'sku'                 => '01284ASD',
+                    'description'         => 'priceless Ming vase from some dynasty',
+                    'quantity'            => 12,
+                    'hs_code'             => '9801.00.60',
+                    'origin_country_code' => 'CN',
+                    'item_value'          => [
+                        'amount'   => 100000000,
+                        'currency' => 'USD',
+                    ],
+                ],
+            ],
             'customs'                      => [
                 'content_type'   => Customs::CONTENT_TYPE_DOCUMENTS,
                 'invoice_number' => 'V01C3',
                 'incoterm'       => Customs::INCOTERM_DUTY_DELIVERY_UNPAID,
                 'non_delivery'   => Customs::NON_DELIVERY_ABANDON,
-                'items'          => [
-                    [
-                        'sku'                 => '01284ASD',
-                        'description'         => 'priceless Ming vase from some dynasty',
-                        'quantity'            => 12,
-                        'hs_code'             => '9801.00.60',
-                        'origin_country_code' => 'CN',
-                        'item_value'          => [
-                            'amount'   => 100000000,
-                            'currency' => 'USD',
-                        ],
-                    ],
-                ],
             ],
         ], $this->shipmentTransformer->getAttributes($this->shipment));
     }
@@ -363,24 +364,24 @@ class ShipmentTransformerTest extends TestCase
                             'code' => 'somecode',
                         ],
                     ],
+                    'items'                        => [
+                        [
+                            'sku'                 => '01284ASD',
+                            'description'         => 'priceless Ming vase from some dynasty',
+                            'quantity'            => 12,
+                            'hs_code'             => '9801.00.60',
+                            'origin_country_code' => 'CN',
+                            'item_value'          => [
+                                'amount'   => 100000000,
+                                'currency' => 'USD',
+                            ],
+                        ],
+                    ],
                     'customs'                      => [
                         'content_type'   => Customs::CONTENT_TYPE_DOCUMENTS,
                         'invoice_number' => 'V01C3',
                         'incoterm'       => Customs::INCOTERM_DUTY_DELIVERY_UNPAID,
                         'non_delivery'   => Customs::NON_DELIVERY_ABANDON,
-                        'items'          => [
-                            [
-                                'sku'                 => '01284ASD',
-                                'description'         => 'priceless Ming vase from some dynasty',
-                                'quantity'            => 12,
-                                'hs_code'             => '9801.00.60',
-                                'origin_country_code' => 'CN',
-                                'item_value'          => [
-                                    'amount'   => 100000000,
-                                    'currency' => 'USD',
-                                ],
-                            ],
-                        ],
                     ],
                     'tracking_code'                => 'TR4CK1NGC0D3',
                     'tracking_url'                 => 'https://track.me/TR4CK1NGC0D3',
