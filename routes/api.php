@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get(
-    '/v1/pickup-dropoff-locations/{countryCode}/{postalCode}/{street?}/{streetNumber?}',
+    '/v1/pickup-dropoff-locations/{countryCode}/{postalCode}',
     PickUpDropOffLocationController::class . '@getAll'
 );
 
