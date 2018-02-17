@@ -10,6 +10,7 @@ use MyParcelCom\Microservice\Shipments\Option;
 use MyParcelCom\Microservice\Shipments\PhysicalProperties;
 use MyParcelCom\Microservice\Shipments\Service;
 use MyParcelCom\Microservice\Shipments\Shipment;
+use MyParcelCom\Microservice\Shipments\ShipmentItem;
 use PHPUnit\Framework\TestCase;
 
 class ShipmentTest extends TestCase
@@ -155,5 +156,29 @@ class ShipmentTest extends TestCase
         $shipment = new Shipment();
         $customs = Mockery::mock(Customs::class);
         $this->assertEquals($customs, $shipment->setCustoms($customs)->getCustoms());
+    }
+
+    /** @test */
+    public function testItems()
+    {
+        $shipment = new Shipment();
+
+        $this->assertEmpty($shipment->getItems());
+
+        $items = [
+            Mockery::mock(ShipmentItem::class),
+            Mockery::mock(ShipmentItem::class),
+            Mockery::mock(ShipmentItem::class),
+        ];
+
+        $shipment->setItems($items);
+        $this->assertCount(3, $shipment->getItems());
+        $this->assertEquals($items, $shipment->getItems());
+
+        $item = Mockery::mock(ShipmentItem::class);
+        $items[] = $item;
+        $shipment->addItem($item);
+        $this->assertCount(4, $shipment->getItems());
+        $this->assertEquals($items, $shipment->getItems());
     }
 }

@@ -4,7 +4,6 @@ namespace MyParcelCom\Microservice\Tests\Unit\Shipments;
 
 use Mockery;
 use MyParcelCom\Microservice\Shipments\Customs;
-use MyParcelCom\Microservice\Shipments\CustomsItem;
 use PHPUnit\Framework\TestCase;
 
 class CustomsTest extends TestCase
@@ -48,29 +47,5 @@ class CustomsTest extends TestCase
     {
         $customs = new Customs();
         $this->assertEquals(Customs::NON_DELIVERY_RETURN, $customs->setNonDelivery(Customs::NON_DELIVERY_RETURN)->getNonDelivery());
-    }
-
-    /** @test */
-    public function testItems()
-    {
-        $customs = new Customs();
-
-        $this->assertEmpty($customs->getItems());
-
-        $items = [
-            Mockery::mock(CustomsItem::class),
-            Mockery::mock(CustomsItem::class),
-            Mockery::mock(CustomsItem::class),
-        ];
-
-        $customs->setItems($items);
-        $this->assertCount(3, $customs->getItems());
-        $this->assertEquals($items, $customs->getItems());
-
-        $item = Mockery::mock(CustomsItem::class);
-        $items[] = $item;
-        $customs->addItem($item);
-        $this->assertCount(4, $customs->getItems());
-        $this->assertEquals($items, $customs->getItems());
     }
 }

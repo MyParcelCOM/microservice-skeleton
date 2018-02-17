@@ -62,8 +62,12 @@ class Shipment
 
     /** @var File[] */
     protected $files = [];
+
     /** @var Customs */
     protected $customs;
+
+    /** @var ShipmentItem[] */
+    protected $items = [];
 
     /**
      * @return string
@@ -435,5 +439,39 @@ class Shipment
     public function getCustoms(): ?Customs
     {
         return $this->customs;
+    }
+
+    /**
+     * @return ShipmentItem[]
+     */
+    public function getItems(): array
+    {
+        return $this->items;
+    }
+
+    /**
+     * @param ShipmentItem $item
+     * @return $this
+     */
+    public function addItem(ShipmentItem $item): self
+    {
+        $this->items[] = $item;
+
+        return $this;
+    }
+
+    /**
+     * @param ShipmentItem[] $items
+     * @return $this
+     */
+    public function setItems(array $items): self
+    {
+        $this->items = [];
+
+        array_walk($items, function (ShipmentItem $item) {
+            $this->addItem($item);
+        });
+
+        return $this;
     }
 }

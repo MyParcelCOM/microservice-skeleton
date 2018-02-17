@@ -2,9 +2,9 @@
 
 namespace MyParcelCom\Microservice\Shipments;
 
-use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 use MyParcelCom\JsonApi\Transformers\AbstractTransformer;
 use MyParcelCom\JsonApi\Transformers\TransformerException;
+use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 
 class ShipmentTransformer extends AbstractTransformer
 {
@@ -31,35 +31,35 @@ class ShipmentTransformer extends AbstractTransformer
         $this->validateModel($shipment);
 
         return array_filter([
-            'recipient_address'   => $this->transformAddress($shipment->getRecipientAddress()),
-            'sender_address'      => $this->transformAddress($shipment->getSenderAddress()),
-            'pickup_location'     => $shipment->getPickupLocationCode() === null ? null : [
+            'recipient_address'            => $this->transformAddress($shipment->getRecipientAddress()),
+            'sender_address'               => $this->transformAddress($shipment->getSenderAddress()),
+            'pickup_location'              => $shipment->getPickupLocationCode() === null ? null : [
                 'code'    => $shipment->getPickupLocationCode(),
                 'address' => $this->transformAddress($shipment->getPickupLocationAddress()),
             ],
-            'description'         => $shipment->getDescription(),
-            'price'               => [
+            'description'                  => $shipment->getDescription(),
+            'price'                        => [
                 'amount'   => $shipment->getPriceAmount(),
                 'currency' => $shipment->getPriceCurrency(),
             ],
-            'insurance'           => [
+            'insurance'                    => [
                 'amount'   => $shipment->getInsuranceAmount(),
                 'currency' => $shipment->getInsuranceCurrency(),
             ],
-            'barcode'             => $shipment->getBarcode(),
-            'tracking_code'       => $shipment->getTrackingCode(),
-            'tracking_url'        => $shipment->getTrackingUrl(),
-            'service'             => [
+            'barcode'                      => $shipment->getBarcode(),
+            'tracking_code'                => $shipment->getTrackingCode(),
+            'tracking_url'                 => $shipment->getTrackingUrl(),
+            'service'                      => [
                 'code' => $shipment->getService()->getCode(),
                 'name' => $shipment->getService()->getName(),
             ],
-            'options'             => array_map(function (Option $option) {
+            'options'                      => array_map(function (Option $option) {
                 return [
                     'code' => $option->getCode(),
                     'name' => $option->getName(),
                 ];
             }, $shipment->getOptions()),
-            'physical_properties' => $shipment->getPhysicalProperties() === null ? null : [
+            'physical_properties'          => $shipment->getPhysicalProperties() === null ? null : [
                 'height' => $shipment->getPhysicalProperties()->getHeight(),
                 'width'  => $shipment->getPhysicalProperties()->getWidth(),
                 'length' => $shipment->getPhysicalProperties()->getLength(),
@@ -73,7 +73,7 @@ class ShipmentTransformer extends AbstractTransformer
                 'volume' => $shipment->getPhysicalPropertiesVerified()->getVolume(),
                 'weight' => $shipment->getPhysicalPropertiesVerified()->getWeight(),
             ],
-            'files'               => array_map(function (File $file) {
+            'files'                        => array_map(function (File $file) {
                 return [
                     'resource_type' => $file->getType(),
                     'mime_type'     => $file->getMimeType(),
@@ -81,24 +81,24 @@ class ShipmentTransformer extends AbstractTransformer
                     'data'          => $file->getData(),
                 ];
             }, $shipment->getFiles()),
-            'customs'             => $shipment->getCustoms() === null ? null : [
+            'items'                        => array_map(function (ShipmentItem $item) {
+                return [
+                    'sku'                 => $item->getSku(),
+                    'description'         => $item->getDescription(),
+                    'quantity'            => $item->getQuantity(),
+                    'hs_code'             => $item->getHsCode(),
+                    'origin_country_code' => $item->getOriginCountryCode(),
+                    'item_value'          => [
+                        'amount'   => $item->getItemValueAmount(),
+                        'currency' => $item->getItemValueCurrency(),
+                    ],
+                ];
+            }, $shipment->getItems()),
+            'customs'                      => $shipment->getCustoms() === null ? null : [
                 'content_type'   => $shipment->getCustoms()->getContentType(),
                 'invoice_number' => $shipment->getCustoms()->getInvoiceNumber(),
                 'non_delivery'   => $shipment->getCustoms()->getNonDelivery(),
                 'incoterm'       => $shipment->getCustoms()->getIncoterm(),
-                'items'          => array_map(function (CustomsItem $item) {
-                    return [
-                        'sku'                 => $item->getSku(),
-                        'description'         => $item->getDescription(),
-                        'quantity'            => $item->getQuantity(),
-                        'hs_code'             => $item->getHsCode(),
-                        'origin_country_code' => $item->getOriginCountryCode(),
-                        'item_value'          => [
-                            'amount'   => $item->getItemValueAmount(),
-                            'currency' => $item->getItemValueCurrency(),
-                        ],
-                    ];
-                }, $shipment->getCustoms()->getItems()),
             ],
         ]);
     }

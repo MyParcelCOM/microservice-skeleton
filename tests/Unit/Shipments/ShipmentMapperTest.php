@@ -5,7 +5,6 @@ namespace MyParcelCom\Microservice\Tests\Unit\Shipments;
 use Mockery;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 use MyParcelCom\Microservice\Shipments\Customs;
-use MyParcelCom\Microservice\Shipments\CustomsItem;
 use MyParcelCom\Microservice\Shipments\Option;
 use MyParcelCom\Microservice\Shipments\PhysicalProperties;
 use MyParcelCom\Microservice\Shipments\Service;
@@ -144,18 +143,10 @@ class ShipmentMapperTest extends TestCase
                 $this->assertEquals('876543', $customs->getInvoiceNumber());
                 $this->assertEquals('DDU', $customs->getIncoterm());
 
-                $items = array_map(function (CustomsItem $item) {
-                    return [
-                        'sku'               => $item->getSku(),
-                        'description'       => $item->getDescription(),
-                        'hsCode'            => $item->getHsCode(),
-                        'quantity'          => $item->getQuantity(),
-                        'itemValueAmount'   => $item->getItemValueAmount(),
-                        'itemValueCurrency' => $item->getItemValueCurrency(),
-                        'originCountryCode' => $item->getOriginCountryCode(),
-                    ];
-                }, $customs->getItems());
-
+                return $shipment;
+            })
+            ->shouldReceive('setItems')
+            ->andReturnUsing(function (array $items) use ($shipment) {
                 $this->assertEquals([
                     [
                         'sku'               => '13657za',
