@@ -9,6 +9,7 @@ use MyParcelCom\Microservice\Shipments\Option;
 use MyParcelCom\Microservice\Shipments\PhysicalProperties;
 use MyParcelCom\Microservice\Shipments\Service;
 use MyParcelCom\Microservice\Shipments\Shipment;
+use MyParcelCom\Microservice\Shipments\ShipmentItem;
 use MyParcelCom\Microservice\Shipments\ShipmentMapper;
 use PHPUnit\Framework\TestCase;
 
@@ -147,26 +148,19 @@ class ShipmentMapperTest extends TestCase
             })
             ->shouldReceive('setItems')
             ->andReturnUsing(function (array $items) use ($shipment) {
-                $this->assertEquals([
-                    [
-                        'sku'               => '13657za',
-                        'description'       => 'XBox 360',
-                        'hsCode'            => '1234.15.05',
-                        'quantity'          => 2,
-                        'itemValueAmount'   => 30000,
-                        'itemValueCurrency' => 'EUR',
-                        'originCountryCode' => 'GB',
-                    ],
-                    [
-                        'sku'               => '654324re',
-                        'description'       => 'Playstation 2',
-                        'hsCode'            => '1234.15.05',
-                        'quantity'          => 1,
-                        'itemValueAmount'   => 20000,
-                        'itemValueCurrency' => 'EUR',
-                        'originCountryCode' => 'GB',
-                    ],
-                ], $items);
+                $this->assertInternalType('array', $items);
+                array_walk($items, function (ShipmentItem $item) {
+                    $this->assertInstanceOf(ShipmentItem::class, $item);
+                    $this->assertNotNull($item->getSku());
+                    $this->assertNotNull($item->getDescription());
+                    $this->assertNotNull($item->getHsCode());
+                    $this->assertInternalType('integer', $item->getItemValueAmount());
+                    $this->assertNotNull($item->getItemValueAmount());
+                    $this->assertNotNull($item->getItemValueCurrency());
+                    $this->assertInternalType('integer', $item->getQuantity());
+                    $this->assertNotNull($item->getQuantity());
+                    $this->assertNotNull($item->getOriginCountryCode());
+                });
 
                 return $shipment;
             });

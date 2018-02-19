@@ -45,35 +45,35 @@
           "name": "Sunday delivery"
         }
       ],
+      "items": [
+        {
+          "sku": "13657za",
+          "description": "XBox 360",
+          "item_value": {
+            "amount": 30000,
+            "currency": "EUR"
+          },
+          "quantity": 2,
+          "hs_code": "1234.15.05",
+          "origin_country_code": "GB"
+        },
+        {
+          "sku": "654324re",
+          "description": "Playstation 2",
+          "item_value": {
+            "amount": 20000,
+            "currency": "EUR"
+          },
+          "quantity": 1,
+          "hs_code": "1234.15.05",
+          "origin_country_code": "GB"
+        }
+      ],
       "customs": {
         "content_type": "gifts",
         "invoice_number": "876543",
         "non_delivery": "return",
-        "incoterm": "DDU",
-        "items": [
-          {
-            "sku": "13657za",
-            "description": "XBox 360",
-            "item_value": {
-              "amount": 30000,
-              "currency": "EUR"
-            },
-            "quantity": 2,
-            "hs_code": "1234.15.05",
-            "origin_country_code": "GB"
-          },
-          {
-            "sku": "654324re",
-            "description": "Playstation 2",
-            "item_value": {
-              "amount": 20000,
-              "currency": "EUR"
-            },
-            "quantity": 1,
-            "hs_code": "1234.15.05",
-            "origin_country_code": "GB"
-          }
-        ]
+        "incoterm": "DDU"
       }
     }
   }
