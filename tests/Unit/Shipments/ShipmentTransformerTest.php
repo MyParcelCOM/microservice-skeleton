@@ -96,8 +96,6 @@ class ShipmentTransformerTest extends TestCase
             'getPickupLocationCode'         => 'aaaa',
             'getPickupLocationAddress'      => $address,
             'getDescription'                => 'descending ription',
-            'getPriceAmount'                => 123,
-            'getPriceCurrency'              => 'EUR',
             'getInsuranceAmount'            => 456,
             'getInsuranceCurrency'          => 'EUR',
             'getBarcode'                    => '3SBARCODE',
@@ -107,7 +105,6 @@ class ShipmentTransformerTest extends TestCase
             'getService'                    => $service,
             'getOptions'                    => [$option],
             'getPhysicalProperties'         => $physicalProperties,
-            'getPhysicalPropertiesVerified' => $physicalProperties,
             'getFiles'                      => [],
             'getCustoms'                    => $customs,
             'getItems'                      => [$shipmentItem],
@@ -120,8 +117,6 @@ class ShipmentTransformerTest extends TestCase
             'getPickupLocationCode'         => null,
             'getPickupLocationAddress'      => null,
             'getDescription'                => null,
-            'getPriceAmount'                => 123,
-            'getPriceCurrency'              => 'EUR',
             'getInsuranceAmount'            => 0,
             'getInsuranceCurrency'          => 'EUR',
             'getBarcode'                    => null,
@@ -131,7 +126,6 @@ class ShipmentTransformerTest extends TestCase
             'getService'                    => $service,
             'getOptions'                    => [],
             'getPhysicalProperties'         => null,
-            'getPhysicalPropertiesVerified' => null,
             'getFiles'                      => [],
             'getCustoms'                    => null,
             'getItems'                      => [],
@@ -217,10 +211,6 @@ class ShipmentTransformerTest extends TestCase
                 ],
             ],
             'description'                  => 'descending ription',
-            'price'                        => [
-                'amount'   => 123,
-                'currency' => 'EUR',
-            ],
             'insurance'                    => [
                 'amount'   => 456,
                 'currency' => 'EUR',
@@ -233,13 +223,6 @@ class ShipmentTransformerTest extends TestCase
                 'name' => 'noname',
             ],
             'physical_properties'          => [
-                'height' => 1,
-                'width'  => 2,
-                'length' => 3,
-                'volume' => 4,
-                'weight' => 5,
-            ],
-            'physical_properties_verified' => [
                 'height' => 1,
                 'width'  => 2,
                 'length' => 3,
@@ -331,10 +314,6 @@ class ShipmentTransformerTest extends TestCase
                         ],
                     ],
                     'description'                  => 'descending ription',
-                    'price'                        => [
-                        'amount'   => 123,
-                        'currency' => 'EUR',
-                    ],
                     'insurance'                    => [
                         'amount'   => 456,
                         'currency' => 'EUR',
@@ -345,13 +324,6 @@ class ShipmentTransformerTest extends TestCase
                         'name' => 'noname',
                     ],
                     'physical_properties'          => [
-                        'height' => 1,
-                        'width'  => 2,
-                        'length' => 3,
-                        'volume' => 4,
-                        'weight' => 5,
-                    ],
-                    'physical_properties_verified' => [
                         'height' => 1,
                         'width'  => 2,
                         'length' => 3,
@@ -428,10 +400,6 @@ class ShipmentTransformerTest extends TestCase
                         'company'              => 'Experts Exchange',
                         'email'                => 'john@expertsexchange.com',
                         'phone_number'         => '1337-9001',
-                    ],
-                    'price'             => [
-                        'amount'   => 123,
-                        'currency' => 'EUR',
                     ],
                     'insurance'         => [
                         'amount'   => 0,

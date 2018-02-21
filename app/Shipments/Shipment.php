@@ -25,12 +25,6 @@ class Shipment
     protected $description;
 
     /** @var int */
-    protected $priceAmount;
-
-    /** @var string */
-    protected $priceCurrency;
-
-    /** @var int */
     protected $insuranceAmount;
 
     /** @var string */
@@ -56,9 +50,6 @@ class Shipment
 
     /** @var PhysicalProperties */
     protected $physicalProperties;
-
-    /** @var PhysicalProperties */
-    protected $physicalPropertiesVerfied;
 
     /** @var File[] */
     protected $files = [];
@@ -179,44 +170,6 @@ class Shipment
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPriceAmount(): int
-    {
-        return $this->priceAmount;
-    }
-
-    /**
-     * @param int $priceAmount
-     * @return $this
-     */
-    public function setPriceAmount(int $priceAmount): self
-    {
-        $this->priceAmount = $priceAmount;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPriceCurrency(): string
-    {
-        return $this->priceCurrency;
-    }
-
-    /**
-     * @param string $priceCurrency
-     * @return $this
-     */
-    public function setPriceCurrency(string $priceCurrency): self
-    {
-        $this->priceCurrency = $priceCurrency;
 
         return $this;
     }
@@ -380,25 +333,6 @@ class Shipment
     public function setPhysicalProperties(PhysicalProperties $physicalProperties): self
     {
         $this->physicalProperties = $physicalProperties;
-
-        return $this;
-    }
-
-    /**
-     * @return PhysicalProperties|null
-     */
-    public function getPhysicalPropertiesVerified(): ?PhysicalProperties
-    {
-        return $this->physicalPropertiesVerfied;
-    }
-
-    /**
-     * @param PhysicalProperties $physicalProperties
-     * @return $this
-     */
-    public function setPhysicalPropertiesVerified(PhysicalProperties $physicalProperties): self
-    {
-        $this->physicalPropertiesVerfied = $physicalProperties;
 
         return $this;
     }

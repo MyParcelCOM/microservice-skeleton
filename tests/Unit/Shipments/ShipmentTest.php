@@ -68,20 +68,6 @@ class ShipmentTest extends TestCase
     }
 
     /** @test */
-    public function testPriceAmount()
-    {
-        $shipment = new Shipment();
-        $this->assertEquals(1337, $shipment->setPriceAmount(1337)->getPriceAmount());
-    }
-
-    /** @test */
-    public function testPriceCurrency()
-    {
-        $shipment = new Shipment();
-        $this->assertEquals('USD', $shipment->setPriceCurrency('USD')->getPriceCurrency());
-    }
-
-    /** @test */
     public function testInsuranceAmount()
     {
         $shipment = new Shipment();
@@ -131,14 +117,6 @@ class ShipmentTest extends TestCase
         $shipment = new Shipment();
         $physicalProperties = Mockery::mock(PhysicalProperties::class);
         $this->assertEquals($physicalProperties, $shipment->setPhysicalProperties($physicalProperties)->getPhysicalProperties());
-    }
-
-    /** @test */
-    public function testPhysicalPropertiesVerified()
-    {
-        $shipment = new Shipment();
-        $physicalProperties = Mockery::mock(PhysicalProperties::class);
-        $this->assertEquals($physicalProperties, $shipment->setPhysicalPropertiesVerified($physicalProperties)->getPhysicalPropertiesVerified());
     }
 
     /** @test */
