@@ -49,15 +49,15 @@ if [ $# -gt 0 ]; then
   # Run a composer command on the microservice service.
   elif [ "$1" == "composer" ]; then
     shift 1
-    ownAllTheThings
     ${COMPOSE} run --rm microservice composer "$@"
+    ownAllTheThings
     fixPermissions
 
   # Run an artisan command on the microservice service.
   elif [ "$1" == "artisan" ]; then
     shift 1
-    ownAllTheThings
     ${COMPOSE} run --rm microservice php artisan "$@"
+    ownAllTheThings
     fixPermissions
 
   # Run phpunit tests.
