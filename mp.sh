@@ -123,6 +123,12 @@ if [ $# -gt 0 ]; then
   elif [ "$1" == "update" ]; then
     ./mp.sh composer install
     ./mp.sh schema bundle
+
+  # Upgrade dependencies.
+  elif [ "$1" == "upgrade" ]; then
+    ./mp.sh composer update
+    ./mp.sh schema bundle
+
   else
     ${COMPOSE} "$@"
   fi
