@@ -60,6 +60,7 @@ The following commands are available:
 - `./mp.sh prune` - Prune project volumes.
 - `./mp.sh setup` - Setup the development environment.
 - `./mp.sh update` - Update the development environment.
+- `./mp.sh upgrade` - Upgrade the dependencies.
 - `./mp.sh composer <args>` - Run composer inside the api container.
 - `./mp.sh artisan <args>` - Run artisan commands inside the api container.
 - `./mp.sh test <args>` - Run phpunit tests.

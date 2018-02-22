@@ -38,10 +38,6 @@ class ShipmentTransformer extends AbstractTransformer
                 'address' => $this->transformAddress($shipment->getPickupLocationAddress()),
             ],
             'description'                  => $shipment->getDescription(),
-            'price'                        => [
-                'amount'   => $shipment->getPriceAmount(),
-                'currency' => $shipment->getPriceCurrency(),
-            ],
             'insurance'                    => [
                 'amount'   => $shipment->getInsuranceAmount(),
                 'currency' => $shipment->getInsuranceCurrency(),
@@ -65,13 +61,6 @@ class ShipmentTransformer extends AbstractTransformer
                 'length' => $shipment->getPhysicalProperties()->getLength(),
                 'volume' => $shipment->getPhysicalProperties()->getVolume(),
                 'weight' => $shipment->getPhysicalProperties()->getWeight(),
-            ],
-            'physical_properties_verified' => $shipment->getPhysicalPropertiesVerified() === null ? null : [
-                'height' => $shipment->getPhysicalPropertiesVerified()->getHeight(),
-                'width'  => $shipment->getPhysicalPropertiesVerified()->getWidth(),
-                'length' => $shipment->getPhysicalPropertiesVerified()->getLength(),
-                'volume' => $shipment->getPhysicalPropertiesVerified()->getVolume(),
-                'weight' => $shipment->getPhysicalPropertiesVerified()->getWeight(),
             ],
             'files'                        => array_map(function (File $file) {
                 return [

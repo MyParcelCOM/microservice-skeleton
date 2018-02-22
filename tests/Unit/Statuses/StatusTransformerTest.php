@@ -55,7 +55,7 @@ class StatusTransformerTest extends TestCase
     public function testGetAttributes()
     {
         $this->assertEquals([
-            'code'        => 'u',
+            'myparcelcom_code' => 'u',
             'description' => 'b',
             'timestamp'   => 888,
         ], $this->statusTransformer->getAttributes($this->status));

@@ -30,7 +30,7 @@ class StatusTransformer extends AbstractTransformer
         $this->validateModel($status);
 
         return array_filter([
-            'code'        => $status->getCode(),
+            'myparcelcom_code' => $status->getCode(),
             'description' => $status->getDescription(),
             'timestamp'   => $status->getTimestamp(),
         ]);
