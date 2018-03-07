@@ -23,6 +23,18 @@
         "company": "Acme Jewelry Co.",
         "email": "john@doe.com"
       },
+      "return_address": {
+        "street_1": "Baker Street",
+        "street_number": 221,
+        "postal_code": "NW1 6XE",
+        "city": "London",
+        "country_code": "GB",
+        "phone_number": "+31 234 567 890",
+        "company": "Holmes Investigations",
+        "first_name": "Sherlock",
+        "last_name": "Holmes",
+        "email": "s.holmes@holmesinvestigations.com"
+      },
       "description": "order #8008135",
       "insurance": {
         "amount": 10000,

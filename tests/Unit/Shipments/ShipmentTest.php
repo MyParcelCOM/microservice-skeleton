@@ -38,6 +38,14 @@ class ShipmentTest extends TestCase
     }
 
     /** @test */
+    public function testReturnAddress()
+    {
+        $shipment = new Shipment();
+        $address = Mockery::mock(Address::class);
+        $this->assertEquals($address, $shipment->setReturnAddress($address)->getReturnAddress());
+    }
+
+    /** @test */
     public function testSenderAddress()
     {
         $shipment = new Shipment();
