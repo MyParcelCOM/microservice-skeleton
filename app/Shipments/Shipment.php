@@ -15,6 +15,9 @@ class Shipment
     /** @var Address */
     protected $senderAddress;
 
+    /** @var Address */
+    protected $returnAddress;
+
     /** @var string */
     protected $pickupLocationCode;
 
@@ -94,6 +97,25 @@ class Shipment
     public function setRecipientAddress(Address $recipientAddress): self
     {
         $this->recipientAddress = $recipientAddress;
+
+        return $this;
+    }
+
+    /**
+     * @return Address
+     */
+    public function getReturnAddress(): Address
+    {
+        return $this->returnAddress;
+    }
+
+    /**
+     * @param Address $returnAddress
+     * @return $this
+     */
+    public function setReturnAddress(Address $returnAddress): self
+    {
+        $this->returnAddress = $returnAddress;
 
         return $this;
     }

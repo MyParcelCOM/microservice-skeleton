@@ -109,6 +109,24 @@ class ShipmentMapperTest extends TestCase
 
                 return $shipment;
             })
+            ->shouldReceive('setReturnAddress')
+            ->andReturnUsing(function (Address $address) use ($shipment) {
+                $this->assertEquals('Holmes Investigations', $address->getCompany());
+                $this->assertEquals('NW1 6XE', $address->getPostalCode());
+                $this->assertEquals('s.holmes@holmesinvestigations.com', $address->getEmail());
+                $this->assertEquals('+31 234 567 890', $address->getPhoneNumber());
+                $this->assertEquals('Sherlock', $address->getFirstName());
+                $this->assertEquals('Holmes', $address->getLastName());
+                $this->assertEquals('GB', $address->getCountryCode());
+                $this->assertEquals('London', $address->getCity());
+                $this->assertNull($address->getRegionCode());
+                $this->assertNull($address->getStreetNumberSuffix());
+                $this->assertEquals(221, $address->getStreetNumber());
+                $this->assertNull($address->getStreet2());
+                $this->assertEquals('Baker Street', $address->getStreet1());
+
+                return $shipment;
+            })
             ->shouldReceive('setRecipientAddress')
             ->andReturnUsing(function (Address $address) use ($shipment) {
                 $this->assertNull($address->getCompany());
