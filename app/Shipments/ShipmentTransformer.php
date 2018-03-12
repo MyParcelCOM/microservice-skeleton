@@ -31,38 +31,39 @@ class ShipmentTransformer extends AbstractTransformer
         $this->validateModel($shipment);
 
         return array_filter([
-            'recipient_address'            => $this->transformAddress($shipment->getRecipientAddress()),
-            'sender_address'               => $this->transformAddress($shipment->getSenderAddress()),
-            'pickup_location'              => $shipment->getPickupLocationCode() === null ? null : [
+            'recipient_address'   => $this->transformAddress($shipment->getRecipientAddress()),
+            'sender_address'      => $this->transformAddress($shipment->getSenderAddress()),
+            'return_address'      => $this->transformAddress($shipment->getReturnAddress()),
+            'pickup_location'     => $shipment->getPickupLocationCode() === null ? null : [
                 'code'    => $shipment->getPickupLocationCode(),
                 'address' => $this->transformAddress($shipment->getPickupLocationAddress()),
             ],
-            'description'                  => $shipment->getDescription(),
-            'insurance'                    => [
+            'description'         => $shipment->getDescription(),
+            'insurance'           => [
                 'amount'   => $shipment->getInsuranceAmount(),
                 'currency' => $shipment->getInsuranceCurrency(),
             ],
-            'barcode'                      => $shipment->getBarcode(),
-            'tracking_code'                => $shipment->getTrackingCode(),
-            'tracking_url'                 => $shipment->getTrackingUrl(),
-            'service'                      => [
+            'barcode'             => $shipment->getBarcode(),
+            'tracking_code'       => $shipment->getTrackingCode(),
+            'tracking_url'        => $shipment->getTrackingUrl(),
+            'service'             => [
                 'code' => $shipment->getService()->getCode(),
                 'name' => $shipment->getService()->getName(),
             ],
-            'options'                      => array_map(function (Option $option) {
+            'options'             => array_map(function (Option $option) {
                 return [
                     'code' => $option->getCode(),
                     'name' => $option->getName(),
                 ];
             }, $shipment->getOptions()),
-            'physical_properties'          => $shipment->getPhysicalProperties() === null ? null : [
+            'physical_properties' => $shipment->getPhysicalProperties() === null ? null : [
                 'height' => $shipment->getPhysicalProperties()->getHeight(),
                 'width'  => $shipment->getPhysicalProperties()->getWidth(),
                 'length' => $shipment->getPhysicalProperties()->getLength(),
                 'volume' => $shipment->getPhysicalProperties()->getVolume(),
                 'weight' => $shipment->getPhysicalProperties()->getWeight(),
             ],
-            'files'                        => array_map(function (File $file) {
+            'files'               => array_map(function (File $file) {
                 return [
                     'resource_type' => $file->getType(),
                     'mime_type'     => $file->getMimeType(),
@@ -70,7 +71,7 @@ class ShipmentTransformer extends AbstractTransformer
                     'data'          => $file->getData(),
                 ];
             }, $shipment->getFiles()),
-            'items'                        => array_map(function (ShipmentItem $item) {
+            'items'               => array_map(function (ShipmentItem $item) {
                 return [
                     'sku'                 => $item->getSku(),
                     'description'         => $item->getDescription(),
@@ -83,7 +84,7 @@ class ShipmentTransformer extends AbstractTransformer
                     ],
                 ];
             }, $shipment->getItems()),
-            'customs'                      => $shipment->getCustoms() === null ? null : [
+            'customs'             => $shipment->getCustoms() === null ? null : [
                 'content_type'   => $shipment->getCustoms()->getContentType(),
                 'invoice_number' => $shipment->getCustoms()->getInvoiceNumber(),
                 'non_delivery'   => $shipment->getCustoms()->getNonDelivery(),
