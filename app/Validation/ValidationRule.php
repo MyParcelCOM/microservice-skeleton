@@ -4,7 +4,7 @@ namespace MyParcelCom\Microservice\Validation;
 
 use stdClass;
 
-abstract class ValidationRule
+abstract class ValidationRule implements RuleInterface
 {
     /** @var string[] */
     protected $errors = [];
@@ -21,21 +21,13 @@ abstract class ValidationRule
     }
 
     /**
-     * @param string $path
+     * @param string   $path
      * @param stdClass $requestData
      * @return mixed
      */
     protected function getValueForPath(string $path, stdClass $requestData)
     {
-        $pathArray = explode('.', $path);
-
-        $requiredProperty = $requestData;
-
-        array_walk($pathArray, function ($attribute) use (&$requiredProperty) {
-            $requiredProperty = $requiredProperty->$attribute ?? null;
-        });
-
-        return $requiredProperty;
+        return (new PathResolver())->resolve($path, $requestData);
     }
 
     /**
