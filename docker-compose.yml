@@ -19,14 +19,25 @@ services:
     volumes:
       - .:/opt/microservice
       - composercache:/.composer/cache
+    networks:
+      - default
+      - micronet
 
   redis:
     image: redis:3.2
     volumes:
       - redisdata:/data
+    networks:
+      - default
 
 volumes:
   redisdata:
     driver: local
   composercache:
     driver: local
+
+networks:
+  default:
+    driver: bridge
+  micronet:
+    external: true
