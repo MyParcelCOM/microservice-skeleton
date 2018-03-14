@@ -9,6 +9,14 @@ function ownAllTheThings {
   ${COMPOSE} run --rm microservice chown -R $(id -u):$(id -g) .
 }
 
+function createMicronet {
+  if [ "$(docker network ls -q -f name=micronet)" = "" ]; then
+    echo ""
+    echo "Creating micronet network"
+    docker network create micronet
+  fi
+}
+
 ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Check if the file with environment variables exists, otherwise copy the default file.
@@ -30,6 +38,8 @@ export $(cat ${ROOT_DIR}/.env | xargs)
 COMPOSE="docker-compose"
 
 if [ $# -gt 0 ]; then
+  createMicronet
+
   # Check if services are running.
   RUNNING=$(${COMPOSE} ps -q)
 
