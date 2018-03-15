@@ -57,7 +57,7 @@ class RequiredRuleTest extends TestCase
             'data' => (object)[
                 'attributes' => (object)[
                     'recipient_address' => (object)[
-                        'postal_code' => null
+                        'postal_code' => null,
                     ],
                 ],
             ],

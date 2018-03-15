@@ -17,7 +17,7 @@ It basically comes down to the following:
 - [Xdebug](#xdebug)
 
 ### Installation
-The project uses Docker to run a local development environment. To install Docker, follow the steps in the [wiki](https://staging-wiki.myparcel.com/development/docker/).
+The project uses Docker to run a local development environment. To install Docker, follow the steps in the [documentation](https://docs.myparcel.com/development/docker/).
 
 ### Setup
 To setup the project (install composer dependencies, setup database, etc), run the following command:

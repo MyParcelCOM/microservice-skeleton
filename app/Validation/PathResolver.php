@@ -20,7 +20,7 @@ class PathResolver
 
         $property = $data;
 
-        foreach ($pathArray as $attribute)  {
+        foreach ($pathArray as $attribute) {
             $property = $property->$attribute ?? null;
         };
 
