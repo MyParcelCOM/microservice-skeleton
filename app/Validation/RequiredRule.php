@@ -6,7 +6,7 @@ use stdClass;
 
 class RequiredRule extends ValidationRule implements RuleInterface
 {
-     /**
+    /**
      * @param stdClass $requestData
      * @return bool
      */

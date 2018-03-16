@@ -4,11 +4,11 @@ namespace MyParcelCom\Microservice\Tests\Unit\Statuses;
 
 use Mockery;
 use MyParcelCom\JsonApi\Interfaces\UrlGeneratorInterface;
+use MyParcelCom\JsonApi\Transformers\TransformerException;
+use MyParcelCom\JsonApi\Transformers\TransformerFactory;
 use MyParcelCom\Microservice\Statuses\Status;
 use MyParcelCom\Microservice\Statuses\StatusTransformer;
 use MyParcelCom\Microservice\Tests\TestCase;
-use MyParcelCom\JsonApi\Transformers\TransformerException;
-use MyParcelCom\JsonApi\Transformers\TransformerFactory;
 
 class StatusTransformerTest extends TestCase
 {
@@ -56,8 +56,8 @@ class StatusTransformerTest extends TestCase
     {
         $this->assertEquals([
             'myparcelcom_code' => 'u',
-            'description' => 'b',
-            'timestamp'   => 888,
+            'description'      => 'b',
+            'timestamp'        => 888,
         ], $this->statusTransformer->getAttributes($this->status));
     }
 

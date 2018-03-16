@@ -4,8 +4,8 @@ namespace MyParcelCom\Microservice\Tests\Unit\Validation;
 
 use Mockery;
 use MyParcelCom\Microservice\Http\Request;
-use MyParcelCom\Microservice\Validation\ApiRequestValidator;
 use MyParcelCom\Microservice\Tests\TestCase;
+use MyParcelCom\Microservice\Validation\ApiRequestValidator;
 use MyParcelCom\Microservice\Validation\RequiredIfPresentRule;
 use MyParcelCom\Microservice\Validation\RequiredRule;
 use MyParcelCom\Microservice\Validation\RuleInterface;

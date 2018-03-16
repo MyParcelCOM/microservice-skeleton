@@ -31,8 +31,8 @@ class StatusTransformer extends AbstractTransformer
 
         return array_filter([
             'myparcelcom_code' => $status->getCode(),
-            'description' => $status->getDescription(),
-            'timestamp'   => $status->getTimestamp(),
+            'description'      => $status->getDescription(),
+            'timestamp'        => $status->getTimestamp(),
         ]);
     }
 

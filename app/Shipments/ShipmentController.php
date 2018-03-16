@@ -4,11 +4,11 @@ namespace MyParcelCom\Microservice\Shipments;
 
 use Illuminate\Http\JsonResponse;
 use MyParcelCom\JsonApi\Exceptions\InvalidJsonSchemaException;
+use MyParcelCom\JsonApi\Transformers\TransformerService;
 use MyParcelCom\Microservice\Http\Controllers\Controller;
 use MyParcelCom\Microservice\Http\JsonRequestValidator;
 use MyParcelCom\Microservice\Http\Request;
 use MyParcelCom\Microservice\Validation\ApiRequestValidator;
-use MyParcelCom\JsonApi\Transformers\TransformerService;
 
 class ShipmentController extends Controller
 {

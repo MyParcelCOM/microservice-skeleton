@@ -5,13 +5,13 @@ namespace MyParcelCom\Microservice\Tests\Unit\PickUpDropOffLocations;
 use Carbon\Carbon;
 use Mockery;
 use MyParcelCom\JsonApi\Interfaces\UrlGeneratorInterface;
+use MyParcelCom\JsonApi\Transformers\TransformerException;
+use MyParcelCom\JsonApi\Transformers\TransformerFactory;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 use MyParcelCom\Microservice\PickUpDropOffLocations\OpeningHour;
 use MyParcelCom\Microservice\PickUpDropOffLocations\PickUpDropOffLocation;
 use MyParcelCom\Microservice\PickUpDropOffLocations\PickUpDropOffLocationTransformer;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Position;
-use MyParcelCom\JsonApi\Transformers\TransformerException;
-use MyParcelCom\JsonApi\Transformers\TransformerFactory;
 use PHPUnit\Framework\TestCase;
 
 class PickUpDropOffLocationTransformerTest extends TestCase
