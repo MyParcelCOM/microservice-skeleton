@@ -10,6 +10,9 @@
          stopOnFailure="false"
          syntaxCheck="false">
     <testsuites>
+        <testsuite name="Endpoint Tests">
+            <directory suffix="Test.php">./tests/Endpoints</directory>
+        </testsuite>
         <testsuite name="Feature Tests">
             <directory suffix="Test.php">./tests/Feature</directory>
         </testsuite>

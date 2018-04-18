@@ -3,18 +3,21 @@
 namespace MyParcelCom\Microservice\Providers;
 
 use Com\Tecnick\Barcode\Barcode;
+use GuzzleHttp\Client;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Routing\UrlGenerator as LaravelUrlGenerator;
 use Illuminate\Support\ServiceProvider;
-use MyParcelCom\Common\Contracts\JsonApiRequestInterface;
-use MyParcelCom\Common\Contracts\UrlGeneratorInterface;
+use MyParcelCom\JsonApi\Http\Interfaces\RequestInterface;
+use MyParcelCom\JsonApi\Interfaces\UrlGeneratorInterface;
+use MyParcelCom\JsonApi\Transformers\AbstractTransformer;
+use MyParcelCom\JsonApi\Transformers\TransformerFactory;
 use MyParcelCom\Microservice\Exceptions\Handler;
+use MyParcelCom\Microservice\Geo\GeoService;
 use MyParcelCom\Microservice\Http\Request;
 use MyParcelCom\Microservice\Routing\UrlGenerator;
 use MyParcelCom\Microservice\Shipments\ShipmentMapper;
-use MyParcelCom\Transformers\TransformerFactory;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,15 +29,15 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->alias('request', Request::class);
-        $this->app->alias('request', JsonApiRequestInterface::class);
+        $this->app->alias('request', RequestInterface::class);
 
         $this->app->singleton(ExceptionHandler::class, function (Container $app) {
             $handler = (new Handler($app))
                 ->setResponseFactory($app->make(ResponseFactory::class))
-                ->setDebug(config('app.debug'));
+                ->setDebug((bool)config('app.debug'));
 
             if (config('app.links.contact_page') !== null) {
-                $handler->setContactLink(config('app.links.contact_page'));
+                $handler->setContactLink((string)config('app.links.contact_page'));
             }
 
             if (extension_loaded('newrelic')) {
@@ -50,13 +53,28 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(UrlGeneratorInterface::class, UrlGenerator::class);
 
         $this->app->singleton(TransformerFactory::class, function (Container $app) {
-            return (new TransformerFactory($app->make(UrlGeneratorInterface::class)))
+            return (new TransformerFactory())
+                ->setDependencies([
+                    AbstractTransformer::class => [
+                        'setUrlGenerator' => function () use ($app) {
+                            return $app->make(UrlGeneratorInterface::class);
+                        },
+                    ],
+                ])
                 ->setMapping(config('transformer.mapping'));
         });
 
         $this->app->singleton(ShipmentMapper::class, function (Container $app) {
             return (new ShipmentMapper())
                 ->setBarcodeGenerator($app->make(Barcode::class));
+        });
+
+        $this->app->singleton(GeoService::class, function (Container $app) {
+            return (new GeoService())
+                ->setCache($app->make('cache.store'))
+                ->setBaseUrl((string)config('address.service.url'))
+                ->setSecret((string)config('address.service.secret'))
+                ->setClient(new Client());
         });
     }
 }

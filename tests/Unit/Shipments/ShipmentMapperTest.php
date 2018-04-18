@@ -5,11 +5,11 @@ namespace MyParcelCom\Microservice\Tests\Unit\Shipments;
 use Mockery;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 use MyParcelCom\Microservice\Shipments\Customs;
-use MyParcelCom\Microservice\Shipments\CustomsItem;
 use MyParcelCom\Microservice\Shipments\Option;
 use MyParcelCom\Microservice\Shipments\PhysicalProperties;
 use MyParcelCom\Microservice\Shipments\Service;
 use MyParcelCom\Microservice\Shipments\Shipment;
+use MyParcelCom\Microservice\Shipments\ShipmentItem;
 use MyParcelCom\Microservice\Shipments\ShipmentMapper;
 use PHPUnit\Framework\TestCase;
 
@@ -27,7 +27,7 @@ class ShipmentMapperTest extends TestCase
     {
         $mapper = new ShipmentMapper();
 
-        $data = json_decode(file_get_contents(base_path('tests/Stubs/shipment-request.json')), true);
+        $data = json_decode(file_get_contents(base_path('tests/Stubs/shipment-request.stub')), true);
 
         $physicalProperties = Mockery::mock(PhysicalProperties::class);
         $physicalProperties
@@ -109,6 +109,24 @@ class ShipmentMapperTest extends TestCase
 
                 return $shipment;
             })
+            ->shouldReceive('setReturnAddress')
+            ->andReturnUsing(function (Address $address) use ($shipment) {
+                $this->assertEquals('Holmes Investigations', $address->getCompany());
+                $this->assertEquals('NW1 6XE', $address->getPostalCode());
+                $this->assertEquals('s.holmes@holmesinvestigations.com', $address->getEmail());
+                $this->assertEquals('+31 234 567 890', $address->getPhoneNumber());
+                $this->assertEquals('Sherlock', $address->getFirstName());
+                $this->assertEquals('Holmes', $address->getLastName());
+                $this->assertEquals('GB', $address->getCountryCode());
+                $this->assertEquals('London', $address->getCity());
+                $this->assertNull($address->getRegionCode());
+                $this->assertNull($address->getStreetNumberSuffix());
+                $this->assertEquals(221, $address->getStreetNumber());
+                $this->assertNull($address->getStreet2());
+                $this->assertEquals('Baker Street', $address->getStreet1());
+
+                return $shipment;
+            })
             ->shouldReceive('setRecipientAddress')
             ->andReturnUsing(function (Address $address) use ($shipment) {
                 $this->assertNull($address->getCompany());
@@ -144,38 +162,23 @@ class ShipmentMapperTest extends TestCase
                 $this->assertEquals('876543', $customs->getInvoiceNumber());
                 $this->assertEquals('DDU', $customs->getIncoterm());
 
-                $items = array_map(function (CustomsItem $item) {
-                    return [
-                        'sku'               => $item->getSku(),
-                        'description'       => $item->getDescription(),
-                        'hsCode'            => $item->getHsCode(),
-                        'quantity'          => $item->getQuantity(),
-                        'itemValueAmount'   => $item->getItemValueAmount(),
-                        'itemValueCurrency' => $item->getItemValueCurrency(),
-                        'originCountryCode' => $item->getOriginCountryCode(),
-                    ];
-                }, $customs->getItems());
-
-                $this->assertEquals([
-                    [
-                        'sku'               => '13657za',
-                        'description'       => 'XBox 360',
-                        'hsCode'            => '1234.15.05',
-                        'quantity'          => 2,
-                        'itemValueAmount'   => 30000,
-                        'itemValueCurrency' => 'EUR',
-                        'originCountryCode' => 'GB',
-                    ],
-                    [
-                        'sku'               => '654324re',
-                        'description'       => 'Playstation 2',
-                        'hsCode'            => '1234.15.05',
-                        'quantity'          => 1,
-                        'itemValueAmount'   => 20000,
-                        'itemValueCurrency' => 'EUR',
-                        'originCountryCode' => 'GB',
-                    ],
-                ], $items);
+                return $shipment;
+            })
+            ->shouldReceive('setItems')
+            ->andReturnUsing(function (array $items) use ($shipment) {
+                $this->assertInternalType('array', $items);
+                array_walk($items, function (ShipmentItem $item) {
+                    $this->assertInstanceOf(ShipmentItem::class, $item);
+                    $this->assertNotNull($item->getSku());
+                    $this->assertNotNull($item->getDescription());
+                    $this->assertNotNull($item->getHsCode());
+                    $this->assertInternalType('integer', $item->getItemValueAmount());
+                    $this->assertNotNull($item->getItemValueAmount());
+                    $this->assertNotNull($item->getItemValueCurrency());
+                    $this->assertInternalType('integer', $item->getQuantity());
+                    $this->assertNotNull($item->getQuantity());
+                    $this->assertNotNull($item->getOriginCountryCode());
+                });
 
                 return $shipment;
             });

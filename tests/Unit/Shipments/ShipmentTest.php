@@ -10,6 +10,7 @@ use MyParcelCom\Microservice\Shipments\Option;
 use MyParcelCom\Microservice\Shipments\PhysicalProperties;
 use MyParcelCom\Microservice\Shipments\Service;
 use MyParcelCom\Microservice\Shipments\Shipment;
+use MyParcelCom\Microservice\Shipments\ShipmentItem;
 use PHPUnit\Framework\TestCase;
 
 class ShipmentTest extends TestCase
@@ -34,6 +35,14 @@ class ShipmentTest extends TestCase
         $shipment = new Shipment();
         $address = Mockery::mock(Address::class);
         $this->assertEquals($address, $shipment->setRecipientAddress($address)->getRecipientAddress());
+    }
+
+    /** @test */
+    public function testReturnAddress()
+    {
+        $shipment = new Shipment();
+        $address = Mockery::mock(Address::class);
+        $this->assertEquals($address, $shipment->setReturnAddress($address)->getReturnAddress());
     }
 
     /** @test */
@@ -64,20 +73,6 @@ class ShipmentTest extends TestCase
     {
         $shipment = new Shipment();
         $this->assertEquals('Some sort of description', $shipment->setDescription('Some sort of description')->getDescription());
-    }
-
-    /** @test */
-    public function testPriceAmount()
-    {
-        $shipment = new Shipment();
-        $this->assertEquals(1337, $shipment->setPriceAmount(1337)->getPriceAmount());
-    }
-
-    /** @test */
-    public function testPriceCurrency()
-    {
-        $shipment = new Shipment();
-        $this->assertEquals('USD', $shipment->setPriceCurrency('USD')->getPriceCurrency());
     }
 
     /** @test */
@@ -133,14 +128,6 @@ class ShipmentTest extends TestCase
     }
 
     /** @test */
-    public function testPhysicalPropertiesVerified()
-    {
-        $shipment = new Shipment();
-        $physicalProperties = Mockery::mock(PhysicalProperties::class);
-        $this->assertEquals($physicalProperties, $shipment->setPhysicalPropertiesVerified($physicalProperties)->getPhysicalPropertiesVerified());
-    }
-
-    /** @test */
     public function testFiles()
     {
         $shipment = new Shipment();
@@ -155,5 +142,29 @@ class ShipmentTest extends TestCase
         $shipment = new Shipment();
         $customs = Mockery::mock(Customs::class);
         $this->assertEquals($customs, $shipment->setCustoms($customs)->getCustoms());
+    }
+
+    /** @test */
+    public function testItems()
+    {
+        $shipment = new Shipment();
+
+        $this->assertEmpty($shipment->getItems());
+
+        $items = [
+            Mockery::mock(ShipmentItem::class),
+            Mockery::mock(ShipmentItem::class),
+            Mockery::mock(ShipmentItem::class),
+        ];
+
+        $shipment->setItems($items);
+        $this->assertCount(3, $shipment->getItems());
+        $this->assertEquals($items, $shipment->getItems());
+
+        $item = Mockery::mock(ShipmentItem::class);
+        $items[] = $item;
+        $shipment->addItem($item);
+        $this->assertCount(4, $shipment->getItems());
+        $this->assertEquals($items, $shipment->getItems());
     }
 }

@@ -21,7 +21,7 @@ class ShipmentRepositoryTest extends TestCase
     /** @test */
     public function testCreateFromPostData()
     {
-        $postData = json_decode(file_get_contents(base_path('tests/Stubs/shipment-request.json')), true);
+        $postData = json_decode(file_get_contents(base_path('tests/Stubs/shipment-request.stub')), true);
 
         $shipmentRepository = (new ShipmentRepository())
             ->setShipmentMapper(new ShipmentMapper())

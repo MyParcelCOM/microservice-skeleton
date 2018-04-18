@@ -5,12 +5,11 @@ services:
     build:
       context: ./docker/app
       dockerfile: Dockerfile
-    image: myparcelcom/microservice:v2-dev
+    image: myparcelcom/microservice:v3-dev
     working_dir: /opt/microservice
     environment:
       - APP_DOMAIN=$APP_DOMAIN
       - APP_LOG_LEVEL=$APP_LOG_LEVEL
-      - COMPOSER_AUTH=$COMPOSER_AUTH
       - DOCKER_ENV=$APP_ENV
       - XDEBUG_IDE_KEY=$XDEBUG_IDE_KEY
       - XDEBUG_PORT=$XDEBUG_PORT
@@ -19,14 +18,25 @@ services:
     volumes:
       - .:/opt/microservice
       - composercache:/.composer/cache
+    networks:
+      - default
+      - micronet
 
   redis:
     image: redis:3.2
     volumes:
       - redisdata:/data
+    networks:
+      - default
 
 volumes:
   redisdata:
     driver: local
   composercache:
     driver: local
+
+networks:
+  default:
+    driver: bridge
+  micronet:
+    external: true

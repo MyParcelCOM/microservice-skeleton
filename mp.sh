@@ -9,6 +9,14 @@ function ownAllTheThings {
   ${COMPOSE} run --rm microservice chown -R $(id -u):$(id -g) .
 }
 
+function createMicronet {
+  if [ "$(docker network ls -q -f name=micronet)" = "" ]; then
+    echo ""
+    echo "Creating micronet network"
+    docker network create micronet
+  fi
+}
+
 ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Check if the file with environment variables exists, otherwise copy the default file.
@@ -27,9 +35,11 @@ if [ ! -f ${ROOT_DIR}/.env ]; then
 fi
 export $(cat ${ROOT_DIR}/.env | xargs)
 
-COMPOSE="docker-compose --project-name ${PROJECT_NAME}"
+COMPOSE="docker-compose"
 
 if [ $# -gt 0 ]; then
+  createMicronet
+
   # Check if services are running.
   RUNNING=$(${COMPOSE} ps -q)
 
@@ -49,29 +59,35 @@ if [ $# -gt 0 ]; then
   # Run a composer command on the microservice service.
   elif [ "$1" == "composer" ]; then
     shift 1
-    ownAllTheThings
     ${COMPOSE} run --rm microservice composer "$@"
+    ownAllTheThings
     fixPermissions
 
   # Run an artisan command on the microservice service.
   elif [ "$1" == "artisan" ]; then
     shift 1
-    ownAllTheThings
     ${COMPOSE} run --rm microservice php artisan "$@"
+    ownAllTheThings
     fixPermissions
 
   # Run phpunit tests.
   elif [ "$1" == "test" ]; then
     shift 1
-    ${COMPOSE} run --rm microservice ./vendor/bin/phpunit "$@"
+    if [ "$1" == "skeleton" ]; then
+      ${COMPOSE} run --rm microservice ./vendor/bin/phpunit --exclude-group Implementation
+    elif [ "$1" == "pudo" ]; then
+      ${COMPOSE} run --rm microservice ./vendor/bin/phpunit --group Endpoints:PickUpDropOff
+    elif [ "$1" == "shipment" ]; then
+      ${COMPOSE} run --rm microservice ./vendor/bin/phpunit --group Endpoints:Shipment
+    elif [ "$1" == "status" ]; then
+      ${COMPOSE} run --rm microservice ./vendor/bin/phpunit --group Endpoints:Status
+    else
+      ${COMPOSE} run --rm microservice ./vendor/bin/phpunit "$@"
+    fi
 
   # Execute a command on a service.
   elif [ "$1" == "microservice" ]; then
     ${COMPOSE} ${DO} "$@"
-
-  # Delete project volumes.
-  elif [ "$1" == "prune" ]; then
-    docker volume rm $(docker volume ls -f name=${PROJECT_NAME} -q)
 
   # Run commands for the api specification
   elif [ "$1" == "schema" ]; then
@@ -117,6 +133,12 @@ if [ $# -gt 0 ]; then
   elif [ "$1" == "update" ]; then
     ./mp.sh composer install
     ./mp.sh schema bundle
+
+  # Upgrade dependencies.
+  elif [ "$1" == "upgrade" ]; then
+    ./mp.sh composer update
+    ./mp.sh schema bundle
+
   else
     ${COMPOSE} "$@"
   fi

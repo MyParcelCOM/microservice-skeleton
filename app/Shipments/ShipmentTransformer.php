@@ -2,9 +2,9 @@
 
 namespace MyParcelCom\Microservice\Shipments;
 
+use MyParcelCom\JsonApi\Transformers\AbstractTransformer;
+use MyParcelCom\JsonApi\Transformers\TransformerException;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
-use MyParcelCom\Transformers\AbstractTransformer;
-use MyParcelCom\Transformers\TransformerException;
 
 class ShipmentTransformer extends AbstractTransformer
 {
@@ -33,15 +33,12 @@ class ShipmentTransformer extends AbstractTransformer
         return array_filter([
             'recipient_address'   => $this->transformAddress($shipment->getRecipientAddress()),
             'sender_address'      => $this->transformAddress($shipment->getSenderAddress()),
+            'return_address'      => $this->transformAddress($shipment->getReturnAddress()),
             'pickup_location'     => $shipment->getPickupLocationCode() === null ? null : [
                 'code'    => $shipment->getPickupLocationCode(),
                 'address' => $this->transformAddress($shipment->getPickupLocationAddress()),
             ],
             'description'         => $shipment->getDescription(),
-            'price'               => [
-                'amount'   => $shipment->getPriceAmount(),
-                'currency' => $shipment->getPriceCurrency(),
-            ],
             'insurance'           => [
                 'amount'   => $shipment->getInsuranceAmount(),
                 'currency' => $shipment->getInsuranceCurrency(),
@@ -66,13 +63,6 @@ class ShipmentTransformer extends AbstractTransformer
                 'volume' => $shipment->getPhysicalProperties()->getVolume(),
                 'weight' => $shipment->getPhysicalProperties()->getWeight(),
             ],
-            'physical_properties_verified' => $shipment->getPhysicalPropertiesVerified() === null ? null : [
-                'height' => $shipment->getPhysicalPropertiesVerified()->getHeight(),
-                'width'  => $shipment->getPhysicalPropertiesVerified()->getWidth(),
-                'length' => $shipment->getPhysicalPropertiesVerified()->getLength(),
-                'volume' => $shipment->getPhysicalPropertiesVerified()->getVolume(),
-                'weight' => $shipment->getPhysicalPropertiesVerified()->getWeight(),
-            ],
             'files'               => array_map(function (File $file) {
                 return [
                     'resource_type' => $file->getType(),
@@ -81,24 +71,24 @@ class ShipmentTransformer extends AbstractTransformer
                     'data'          => $file->getData(),
                 ];
             }, $shipment->getFiles()),
+            'items'               => array_map(function (ShipmentItem $item) {
+                return [
+                    'sku'                 => $item->getSku(),
+                    'description'         => $item->getDescription(),
+                    'quantity'            => $item->getQuantity(),
+                    'hs_code'             => $item->getHsCode(),
+                    'origin_country_code' => $item->getOriginCountryCode(),
+                    'item_value'          => [
+                        'amount'   => $item->getItemValueAmount(),
+                        'currency' => $item->getItemValueCurrency(),
+                    ],
+                ];
+            }, $shipment->getItems()),
             'customs'             => $shipment->getCustoms() === null ? null : [
                 'content_type'   => $shipment->getCustoms()->getContentType(),
                 'invoice_number' => $shipment->getCustoms()->getInvoiceNumber(),
                 'non_delivery'   => $shipment->getCustoms()->getNonDelivery(),
                 'incoterm'       => $shipment->getCustoms()->getIncoterm(),
-                'items'          => array_map(function (CustomsItem $item) {
-                    return [
-                        'sku'                 => $item->getSku(),
-                        'description'         => $item->getDescription(),
-                        'quantity'            => $item->getQuantity(),
-                        'hs_code'             => $item->getHsCode(),
-                        'origin_country_code' => $item->getOriginCountryCode(),
-                        'item_value'          => [
-                            'amount'   => $item->getItemValueAmount(),
-                            'currency' => $item->getItemValueCurrency(),
-                        ],
-                    ];
-                }, $shipment->getCustoms()->getItems()),
             ],
         ]);
     }

@@ -3,17 +3,17 @@
 namespace MyParcelCom\Microservice\Tests\Unit\Shipments;
 
 use Mockery;
-use MyParcelCom\Common\Contracts\UrlGeneratorInterface;
+use MyParcelCom\JsonApi\Interfaces\UrlGeneratorInterface;
+use MyParcelCom\JsonApi\Transformers\TransformerException;
+use MyParcelCom\JsonApi\Transformers\TransformerFactory;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 use MyParcelCom\Microservice\Shipments\Customs;
-use MyParcelCom\Microservice\Shipments\CustomsItem;
 use MyParcelCom\Microservice\Shipments\Option;
 use MyParcelCom\Microservice\Shipments\PhysicalProperties;
 use MyParcelCom\Microservice\Shipments\Service;
 use MyParcelCom\Microservice\Shipments\Shipment;
+use MyParcelCom\Microservice\Shipments\ShipmentItem;
 use MyParcelCom\Microservice\Shipments\ShipmentTransformer;
-use MyParcelCom\Transformers\TransformerException;
-use MyParcelCom\Transformers\TransformerFactory;
 use PHPUnit\Framework\TestCase;
 
 class ShipmentTransformerTest extends TestCase
@@ -31,7 +31,9 @@ class ShipmentTransformerTest extends TestCase
     {
         parent::setUp();
 
+        /** @var UrlGeneratorInterface $urlGenerator */
         $urlGenerator = Mockery::mock(UrlGeneratorInterface::class, ['route' => 'url']);
+        /** @var TransformerFactory $transformerFactory */
         $transformerFactory = Mockery::mock(TransformerFactory::class);
 
         $address = Mockery::mock(Address::class, [
@@ -68,7 +70,7 @@ class ShipmentTransformerTest extends TestCase
             'getName' => 'plx name me',
         ]);
 
-        $customsItem = Mockery::mock(CustomsItem::class, [
+        $shipmentItem = Mockery::mock(ShipmentItem::class, [
             'getSku'               => '01284ASD',
             'getDescription'       => 'priceless Ming vase from some dynasty',
             'getQuantity'          => 12,
@@ -83,19 +85,18 @@ class ShipmentTransformerTest extends TestCase
             'getInvoiceNumber' => 'V01C3',
             'getNonDelivery'   => Customs::NON_DELIVERY_ABANDON,
             'getIncoterm'      => Customs::INCOTERM_DUTY_DELIVERY_UNPAID,
-            'getItems'         => [$customsItem],
         ]);
 
-        $this->shipmentTransformer = new ShipmentTransformer($urlGenerator, $transformerFactory);
+        $this->shipmentTransformer = (new ShipmentTransformer($transformerFactory))
+            ->setUrlGenerator($urlGenerator);
         $this->shipment = Mockery::mock(Shipment::class, [
             'getId'                    => 'shipment-id',
             'getRecipientAddress'      => $address,
             'getSenderAddress'         => $address,
+            'getReturnAddress'         => $address,
             'getPickupLocationCode'    => 'aaaa',
             'getPickupLocationAddress' => $address,
             'getDescription'           => 'descending ription',
-            'getPriceAmount'           => 123,
-            'getPriceCurrency'         => 'EUR',
             'getInsuranceAmount'       => 456,
             'getInsuranceCurrency'     => 'EUR',
             'getBarcode'               => '3SBARCODE',
@@ -107,17 +108,17 @@ class ShipmentTransformerTest extends TestCase
             'getPhysicalProperties'    => $physicalProperties,
             'getFiles'                 => [],
             'getCustoms'               => $customs,
+            'getItems'                 => [$shipmentItem],
         ]);
 
         $this->minimalShipment = Mockery::mock(Shipment::class, [
             'getId'                    => 'shipment-id',
             'getRecipientAddress'      => $address,
             'getSenderAddress'         => $address,
+            'getReturnAddress'         => $address,
             'getPickupLocationCode'    => null,
             'getPickupLocationAddress' => null,
             'getDescription'           => null,
-            'getPriceAmount'           => 123,
-            'getPriceCurrency'         => 'EUR',
             'getInsuranceAmount'       => 0,
             'getInsuranceCurrency'     => 'EUR',
             'getBarcode'               => null,
@@ -129,6 +130,7 @@ class ShipmentTransformerTest extends TestCase
             'getPhysicalProperties'    => null,
             'getFiles'                 => [],
             'getCustoms'               => null,
+            'getItems'                 => [],
         ]);
     }
 
@@ -192,6 +194,21 @@ class ShipmentTransformerTest extends TestCase
                 'email'                => 'john@expertsexchange.com',
                 'phone_number'         => '1337-9001',
             ],
+            'return_address'      => [
+                'street_1'             => 'First Street',
+                'street_2'             => 'Second Street',
+                'street_number'        => 69,
+                'street_number_suffix' => 'x',
+                'postal_code'          => '1337OP',
+                'city'                 => 'Felicity',
+                'region_code'          => 'NH',
+                'country_code'         => 'NL',
+                'first_name'           => 'Jane',
+                'last_name'            => 'Doe',
+                'company'              => 'Experts Exchange',
+                'email'                => 'john@expertsexchange.com',
+                'phone_number'         => '1337-9001',
+            ],
             'pickup_location'     => [
                 'code'    => 'aaaa',
                 'address' => [
@@ -211,10 +228,6 @@ class ShipmentTransformerTest extends TestCase
                 ],
             ],
             'description'         => 'descending ription',
-            'price'               => [
-                'amount'   => 123,
-                'currency' => 'EUR',
-            ],
             'insurance'           => [
                 'amount'   => 456,
                 'currency' => 'EUR',
@@ -222,7 +235,6 @@ class ShipmentTransformerTest extends TestCase
             'barcode'             => '3SBARCODE',
             'tracking_code'       => 'TR4CK1NGC0D3',
             'tracking_url'        => 'https://track.me/TR4CK1NGC0D3',
-            'weight'              => 789,
             'service'             => [
                 'code' => 'nl300',
                 'name' => 'noname',
@@ -240,24 +252,24 @@ class ShipmentTransformerTest extends TestCase
                     'code' => 'somecode',
                 ],
             ],
+            'items'               => [
+                [
+                    'sku'                 => '01284ASD',
+                    'description'         => 'priceless Ming vase from some dynasty',
+                    'quantity'            => 12,
+                    'hs_code'             => '9801.00.60',
+                    'origin_country_code' => 'CN',
+                    'item_value'          => [
+                        'amount'   => 100000000,
+                        'currency' => 'USD',
+                    ],
+                ],
+            ],
             'customs'             => [
                 'content_type'   => Customs::CONTENT_TYPE_DOCUMENTS,
                 'invoice_number' => 'V01C3',
                 'incoterm'       => Customs::INCOTERM_DUTY_DELIVERY_UNPAID,
                 'non_delivery'   => Customs::NON_DELIVERY_ABANDON,
-                'items'          => [
-                    [
-                        'sku'                 => '01284ASD',
-                        'description'         => 'priceless Ming vase from some dynasty',
-                        'quantity'            => 12,
-                        'hs_code'             => '9801.00.60',
-                        'origin_country_code' => 'CN',
-                        'item_value'          => [
-                            'amount'   => 100000000,
-                            'currency' => 'USD',
-                        ],
-                    ],
-                ],
             ],
         ], $this->shipmentTransformer->getAttributes($this->shipment));
     }
@@ -271,6 +283,21 @@ class ShipmentTransformerTest extends TestCase
                 'type'       => 'shipments',
                 'attributes' => [
                     'recipient_address'   => [
+                        'street_1'             => 'First Street',
+                        'street_2'             => 'Second Street',
+                        'street_number'        => 69,
+                        'street_number_suffix' => 'x',
+                        'postal_code'          => '1337OP',
+                        'city'                 => 'Felicity',
+                        'region_code'          => 'NH',
+                        'country_code'         => 'NL',
+                        'first_name'           => 'Jane',
+                        'last_name'            => 'Doe',
+                        'company'              => 'Experts Exchange',
+                        'email'                => 'john@expertsexchange.com',
+                        'phone_number'         => '1337-9001',
+                    ],
+                    'return_address'      => [
                         'street_1'             => 'First Street',
                         'street_2'             => 'Second Street',
                         'street_number'        => 69,
@@ -319,16 +346,11 @@ class ShipmentTransformerTest extends TestCase
                         ],
                     ],
                     'description'         => 'descending ription',
-                    'price'               => [
-                        'amount'   => 123,
-                        'currency' => 'EUR',
-                    ],
                     'insurance'           => [
                         'amount'   => 456,
                         'currency' => 'EUR',
                     ],
                     'barcode'             => '3SBARCODE',
-                    'weight'              => 789,
                     'service'             => [
                         'code' => 'nl300',
                         'name' => 'noname',
@@ -346,25 +368,27 @@ class ShipmentTransformerTest extends TestCase
                             'code' => 'somecode',
                         ],
                     ],
+                    'items'               => [
+                        [
+                            'sku'                 => '01284ASD',
+                            'description'         => 'priceless Ming vase from some dynasty',
+                            'quantity'            => 12,
+                            'hs_code'             => '9801.00.60',
+                            'origin_country_code' => 'CN',
+                            'item_value'          => [
+                                'amount'   => 100000000,
+                                'currency' => 'USD',
+                            ],
+                        ],
+                    ],
                     'customs'             => [
                         'content_type'   => Customs::CONTENT_TYPE_DOCUMENTS,
                         'invoice_number' => 'V01C3',
                         'incoterm'       => Customs::INCOTERM_DUTY_DELIVERY_UNPAID,
                         'non_delivery'   => Customs::NON_DELIVERY_ABANDON,
-                        'items'          => [
-                            [
-                                'sku'                 => '01284ASD',
-                                'description'         => 'priceless Ming vase from some dynasty',
-                                'quantity'            => 12,
-                                'hs_code'             => '9801.00.60',
-                                'origin_country_code' => 'CN',
-                                'item_value'          => [
-                                    'amount'   => 100000000,
-                                    'currency' => 'USD',
-                                ],
-                            ],
-                        ],
                     ],
+                    'tracking_code'       => 'TR4CK1NGC0D3',
+                    'tracking_url'        => 'https://track.me/TR4CK1NGC0D3',
                 ],
             ],
             $this->shipmentTransformer->transform($this->shipment)
@@ -394,6 +418,21 @@ class ShipmentTransformerTest extends TestCase
                         'email'                => 'john@expertsexchange.com',
                         'phone_number'         => '1337-9001',
                     ],
+                    'return_address'    => [
+                        'street_1'             => 'First Street',
+                        'street_2'             => 'Second Street',
+                        'street_number'        => 69,
+                        'street_number_suffix' => 'x',
+                        'postal_code'          => '1337OP',
+                        'city'                 => 'Felicity',
+                        'region_code'          => 'NH',
+                        'country_code'         => 'NL',
+                        'first_name'           => 'Jane',
+                        'last_name'            => 'Doe',
+                        'company'              => 'Experts Exchange',
+                        'email'                => 'john@expertsexchange.com',
+                        'phone_number'         => '1337-9001',
+                    ],
                     'sender_address'    => [
                         'street_1'             => 'First Street',
                         'street_2'             => 'Second Street',
@@ -409,15 +448,10 @@ class ShipmentTransformerTest extends TestCase
                         'email'                => 'john@expertsexchange.com',
                         'phone_number'         => '1337-9001',
                     ],
-                    'price'             => [
-                        'amount'   => 123,
-                        'currency' => 'EUR',
-                    ],
                     'insurance'         => [
                         'amount'   => 0,
                         'currency' => 'EUR',
                     ],
-                    'weight'            => 789,
                     'service'           => [
                         'code' => 'nl300',
                         'name' => 'noname',

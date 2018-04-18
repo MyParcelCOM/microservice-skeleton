@@ -2,8 +2,8 @@
 
 namespace MyParcelCom\Microservice\Statuses;
 
-use MyParcelCom\Transformers\AbstractTransformer;
-use MyParcelCom\Transformers\TransformerException;
+use MyParcelCom\JsonApi\Transformers\AbstractTransformer;
+use MyParcelCom\JsonApi\Transformers\TransformerException;
 
 class StatusTransformer extends AbstractTransformer
 {
@@ -30,9 +30,9 @@ class StatusTransformer extends AbstractTransformer
         $this->validateModel($status);
 
         return array_filter([
-            'code'        => $status->getCode(),
-            'description' => $status->getDescription(),
-            'timestamp'   => $status->getTimestamp(),
+            'myparcelcom_code' => $status->getCode(),
+            'description'      => $status->getDescription(),
+            'timestamp'        => $status->getTimestamp(),
         ]);
     }
 

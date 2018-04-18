@@ -22,6 +22,33 @@ class CarrierApiGatewayMock implements CarrierApiGatewayInterface
     }
 
     /**
+     * @param string $method
+     * @param string $url
+     * @return string
+     */
+    private function getResponseStub(string $method, string $url): string
+    {
+        $stubPath = base_path(
+            'tests/Stubs/'
+            . $method . '-' . str_replace('/', '-', $url)
+            . '.stub'
+        );
+
+        if (!file_exists($stubPath)) {
+            throw new Exception(
+                sprintf(
+                    'The stub response file `%s` does not exist. Please create it and add a response to it for a `%s` request to `%s`',
+                    $stubPath,
+                    $method,
+                    $url
+                )
+            );
+        }
+
+        return file_get_contents($stubPath);
+    }
+
+    /**
      * @inheritdoc
      */
     public function post(string $url, array $data, array $queryParams = [], array $headers = []): PromiseInterface
@@ -39,32 +66,5 @@ class CarrierApiGatewayMock implements CarrierApiGatewayInterface
     public function setCredentials(array $credentials): CarrierApiGatewayInterface
     {
         return $this;
-    }
-
-    /**
-     * @param string $method
-     * @param string $url
-     * @return string
-     */
-    private function getResponseStub(string $method, string $url): string
-    {
-        $stubPath = base_path(
-            'tests/Stubs/'
-            . $method . '-' . str_replace('/', '-', $url)
-            . '.json'
-        );
-
-        if (!file_exists($stubPath)) {
-            throw new Exception(
-                sprintf(
-                    'The stub response file `%s` does not exist. Please create it and add a response to it for a `%s` request to `%s`',
-                    $stubPath,
-                    $method,
-                    $url
-                )
-            );
-        }
-
-        return file_get_contents($stubPath);
     }
 }

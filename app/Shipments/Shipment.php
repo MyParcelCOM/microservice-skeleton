@@ -15,6 +15,9 @@ class Shipment
     /** @var Address */
     protected $senderAddress;
 
+    /** @var Address */
+    protected $returnAddress;
+
     /** @var string */
     protected $pickupLocationCode;
 
@@ -23,12 +26,6 @@ class Shipment
 
     /** @var string */
     protected $description;
-
-    /** @var int */
-    protected $priceAmount;
-
-    /** @var string */
-    protected $priceCurrency;
 
     /** @var int */
     protected $insuranceAmount;
@@ -57,13 +54,14 @@ class Shipment
     /** @var PhysicalProperties */
     protected $physicalProperties;
 
-    /** @var PhysicalProperties */
-    protected $physicalPropertiesVerfied;
-
     /** @var File[] */
     protected $files = [];
+
     /** @var Customs */
     protected $customs;
+
+    /** @var ShipmentItem[] */
+    protected $items = [];
 
     /**
      * @return string
@@ -99,6 +97,25 @@ class Shipment
     public function setRecipientAddress(Address $recipientAddress): self
     {
         $this->recipientAddress = $recipientAddress;
+
+        return $this;
+    }
+
+    /**
+     * @return Address
+     */
+    public function getReturnAddress(): Address
+    {
+        return $this->returnAddress;
+    }
+
+    /**
+     * @param Address $returnAddress
+     * @return $this
+     */
+    public function setReturnAddress(Address $returnAddress): self
+    {
+        $this->returnAddress = $returnAddress;
 
         return $this;
     }
@@ -175,44 +192,6 @@ class Shipment
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getPriceAmount(): int
-    {
-        return $this->priceAmount;
-    }
-
-    /**
-     * @param int $priceAmount
-     * @return $this
-     */
-    public function setPriceAmount(int $priceAmount): self
-    {
-        $this->priceAmount = $priceAmount;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPriceCurrency(): string
-    {
-        return $this->priceCurrency;
-    }
-
-    /**
-     * @param string $priceCurrency
-     * @return $this
-     */
-    public function setPriceCurrency(string $priceCurrency): self
-    {
-        $this->priceCurrency = $priceCurrency;
 
         return $this;
     }
@@ -381,25 +360,6 @@ class Shipment
     }
 
     /**
-     * @return PhysicalProperties|null
-     */
-    public function getPhysicalPropertiesVerified(): ?PhysicalProperties
-    {
-        return $this->physicalPropertiesVerfied;
-    }
-
-    /**
-     * @param PhysicalProperties $physicalProperties
-     * @return $this
-     */
-    public function setPhysicalPropertiesVerified(PhysicalProperties $physicalProperties): self
-    {
-        $this->physicalPropertiesVerfied = $physicalProperties;
-
-        return $this;
-    }
-
-    /**
      * @return File[]
      */
     public function getFiles(): array
@@ -435,5 +395,39 @@ class Shipment
     public function getCustoms(): ?Customs
     {
         return $this->customs;
+    }
+
+    /**
+     * @return ShipmentItem[]
+     */
+    public function getItems(): array
+    {
+        return $this->items;
+    }
+
+    /**
+     * @param ShipmentItem $item
+     * @return $this
+     */
+    public function addItem(ShipmentItem $item): self
+    {
+        $this->items[] = $item;
+
+        return $this;
+    }
+
+    /**
+     * @param ShipmentItem[] $items
+     * @return $this
+     */
+    public function setItems(array $items): self
+    {
+        $this->items = [];
+
+        array_walk($items, function (ShipmentItem $item) {
+            $this->addItem($item);
+        });
+
+        return $this;
     }
 }

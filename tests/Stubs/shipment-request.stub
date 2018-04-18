@@ -23,6 +23,18 @@
         "company": "Acme Jewelry Co.",
         "email": "john@doe.com"
       },
+      "return_address": {
+        "street_1": "Baker Street",
+        "street_number": 221,
+        "postal_code": "NW1 6XE",
+        "city": "London",
+        "country_code": "GB",
+        "phone_number": "+31 234 567 890",
+        "company": "Holmes Investigations",
+        "first_name": "Sherlock",
+        "last_name": "Holmes",
+        "email": "s.holmes@holmesinvestigations.com"
+      },
       "description": "order #8008135",
       "insurance": {
         "amount": 10000,
@@ -45,35 +57,35 @@
           "name": "Sunday delivery"
         }
       ],
+      "items": [
+        {
+          "sku": "13657za",
+          "description": "XBox 360",
+          "item_value": {
+            "amount": 30000,
+            "currency": "EUR"
+          },
+          "quantity": 2,
+          "hs_code": "1234.15.05",
+          "origin_country_code": "GB"
+        },
+        {
+          "sku": "654324re",
+          "description": "Playstation 2",
+          "item_value": {
+            "amount": 20000,
+            "currency": "EUR"
+          },
+          "quantity": 1,
+          "hs_code": "1234.15.05",
+          "origin_country_code": "GB"
+        }
+      ],
       "customs": {
         "content_type": "gifts",
         "invoice_number": "876543",
         "non_delivery": "return",
-        "incoterm": "DDU",
-        "items": [
-          {
-            "sku": "13657za",
-            "description": "XBox 360",
-            "item_value": {
-              "amount": 30000,
-              "currency": "EUR"
-            },
-            "quantity": 2,
-            "hs_code": "1234.15.05",
-            "origin_country_code": "GB"
-          },
-          {
-            "sku": "654324re",
-            "description": "Playstation 2",
-            "item_value": {
-              "amount": 20000,
-              "currency": "EUR"
-            },
-            "quantity": 1,
-            "hs_code": "1234.15.05",
-            "origin_country_code": "GB"
-          }
-        ]
+        "incoterm": "DDU"
       }
     }
   }

@@ -2,16 +2,13 @@
 
 return [
 
-    /*
-    |--------------------------------------------------------------------------
-    | Third Party Services
-    |--------------------------------------------------------------------------
-    |
-    | This file is for storing the credentials for third party services such
-    | as Stripe, Mailgun, SparkPost and others. This file provides a sane
-    | default location for this type of information, allowing packages
-    | to have a conventional place to find your various credentials.
-    |
-    */
+    /**
+     * This is where you build your array of carrier credentials.
+     * The format is always key => env(). You can then store the
+     * actual credentials in your .env file.
+     */
+    'carrier_credentials' => [
+        'api_key' => env('CARRIER_API_KEY'),
+    ],
 
 ];

@@ -3,7 +3,7 @@
 namespace MyParcelCom\Microservice\Shipments;
 
 use Com\Tecnick\Barcode\Barcode;
-use MyParcelCom\Common\Contracts\MapperInterface;
+use MyParcelCom\JsonApi\Interfaces\MapperInterface;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 
 class ShipmentMapper implements MapperInterface
@@ -31,6 +31,10 @@ class ShipmentMapper implements MapperInterface
         // Map addresses.
         $shipment->setRecipientAddress(
             $this->mapAddress($attributes['recipient_address'], new Address())
+        );
+
+        $shipment->setReturnAddress(
+            $this->mapAddress($attributes['return_address'], new Address())
         );
 
         $shipment->setSenderAddress(
@@ -82,6 +86,13 @@ class ShipmentMapper implements MapperInterface
         // Map optional data.
         if (isset($attributes['description'])) {
             $shipment->setDescription($attributes['description']);
+        }
+
+        // Map items information.
+        if (!empty($attributes['items'])) {
+            $shipment->setItems(
+                array_map([$this, 'mapShipmentItem'], $attributes['items'])
+            );
         }
 
         return $shipment;
@@ -199,12 +210,6 @@ class ShipmentMapper implements MapperInterface
             $customs->setIncoterm($data['incoterm']);
         }
 
-        if (!empty($data['items'])) {
-            $customs->setItems(
-                array_map([$this, 'mapCustomsItem'], $data['items'])
-            );
-        }
-
         $shipment->setCustoms($customs);
 
         return $this;
@@ -212,11 +217,11 @@ class ShipmentMapper implements MapperInterface
 
     /**
      * @param array $data
-     * @return CustomsItem
+     * @return ShipmentItem
      */
-    protected function mapCustomsItem(array $data): CustomsItem
+    protected function mapShipmentItem(array $data): ShipmentItem
     {
-        $item = new CustomsItem();
+        $item = new ShipmentItem();
 
         if (isset($data['sku'])) {
             $item->setSku($data['sku']);

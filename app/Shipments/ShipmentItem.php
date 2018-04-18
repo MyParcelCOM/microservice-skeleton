@@ -2,7 +2,7 @@
 
 namespace MyParcelCom\Microservice\Shipments;
 
-class CustomsItem
+class ShipmentItem
 {
     /** @var string */
     protected $sku;
