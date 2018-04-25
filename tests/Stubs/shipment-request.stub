@@ -53,8 +53,8 @@
       },
       "options": [
         {
-          "code": "delivery_day_sunday",
-          "name": "Sunday delivery"
+          "code": "delivery-day:sunday",
+          "name": "Sunday Delivery"
         }
       ],
       "items": [
