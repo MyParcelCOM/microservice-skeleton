@@ -149,8 +149,8 @@ class ShipmentMapperTest extends TestCase
             ->andReturnUsing(function ($option) use ($shipment) {
                 $this->assertInstanceOf(Option::class, $option);
                 /** @var Option $option */
-                $this->assertEquals('delivery_day_sunday', $option->getCode());
-                $this->assertEquals('Sunday delivery', $option->getName());
+                $this->assertEquals('delivery-day:sunday', $option->getCode());
+                $this->assertEquals('Sunday Delivery', $option->getName());
 
                 return $shipment;
             })
