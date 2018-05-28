@@ -2,7 +2,7 @@
 set -eo pipefail
 
 function fixPermissions {
-  ${COMPOSE} exec microservice chown -R www-data:www-data ./storage/ ./bootstrap/cache/
+  ${COMPOSE} run --rm microservice chown -R www-data:www-data ./storage/ ./bootstrap/cache/
 }
 
 function ownAllTheThings {
@@ -43,12 +43,6 @@ if [ $# -gt 0 ]; then
   # Check if services are running.
   RUNNING=$(${COMPOSE} ps -q)
 
-  # Either run or exec based on RUNNING var.
-  DO="run --rm"
-  if [ "${RUNNING}" != "" ]; then
-    DO="exec"
-  fi
-
   # Start services.
   if [ "$1" == "up" ]; then
     ${COMPOSE} up -d
@@ -87,7 +81,7 @@ if [ $# -gt 0 ]; then
 
   # Execute a command on a service.
   elif [ "$1" == "microservice" ]; then
-    ${COMPOSE} ${DO} "$@"
+    ${COMPOSE} run --rm "$@"
 
   # Run commands for the api specification
   elif [ "$1" == "schema" ]; then
