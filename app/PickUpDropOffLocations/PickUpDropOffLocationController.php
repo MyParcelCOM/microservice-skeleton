@@ -18,6 +18,8 @@ class PickUpDropOffLocationController extends Controller
         string $countryCode,
         string $postalCode
     ): JsonResponse {
+        // TODO: Get categories filter and pass it to the repository.
+
         $pudoLocations = $pickUpDropOffLocationRepository->getAll(
             $countryCode,
             $postalCode,

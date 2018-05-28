@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace MyParcelCom\Microservice\Tests\Endpoints;
 
 use Mockery;
-use MyParcelCom\JsonApi\Traits\AssertionsTrait;
 use MyParcelCom\Microservice\Tests\TestCase;
 use MyParcelCom\Microservice\Tests\Traits\CommunicatesWithCarrier;
+use MyParcelCom\Microservice\Tests\Traits\JsonApiAssertionsTrait;
 
 /**
  * @group Endpoints:Shipment
@@ -16,7 +16,7 @@ use MyParcelCom\Microservice\Tests\Traits\CommunicatesWithCarrier;
 class ShipmentsTest extends TestCase
 {
     use CommunicatesWithCarrier;
-    use AssertionsTrait;
+    use JsonApiAssertionsTrait;
 
     protected function tearDown()
     {
