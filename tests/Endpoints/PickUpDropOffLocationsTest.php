@@ -32,6 +32,7 @@ class PickUpDropOffLocationsTest extends TestCase
         );
     }
 
+    /** @test */
     public function itCanFilterPickUpAndDropOffLocationsByCategories()
     {
         $this->bindCarrierApiGatewayMock();
@@ -41,10 +42,10 @@ class PickUpDropOffLocationsTest extends TestCase
         // Retrieve only pick-up locations.
         $pickupResponse = $this->assertJsonSchema(
             '/pickup-dropoff-locations/{country_code}/{postal_code}',
-            '/v1/pickup-dropoff-locations/UK/EC1A 1BB?filter[categories]=pick-up',
+            '/v1/pickup-dropoff-locations/UK/EC1A 1BBs?filter[categories]=pick-up',
             $this->getRequestHeaders()
         );
-        array_walk($pickupResponse->getContent()->data, function($pudoPoint) {
+        array_walk($pickupResponse->getContent()->data, function ($pudoPoint) {
             $this->assertNotContains('drop-off', $pudoPoint->attributes->categories);
         });
 
@@ -54,7 +55,7 @@ class PickUpDropOffLocationsTest extends TestCase
             '/v1/pickup-dropoff-locations/UK/EC1A 1BB?filter[categories]=drop-off',
             $this->getRequestHeaders()
         );
-        array_walk($pickupResponse->getContent()->data, function($pudoPoint) {
+        array_walk($pickupResponse->getContent()->data, function ($pudoPoint) {
             $this->assertNotContains('pick-up', $pudoPoint->attributes->categories);
         });
 

@@ -18,13 +18,17 @@ class PickUpDropOffLocationController extends Controller
         string $countryCode,
         string $postalCode
     ): JsonResponse {
-        // TODO: Get categories filter and pass it to the repository.
+        $filters = $request->getFilter();
+        $categories = isset($filters['categories'])
+            ? explode(',', $filters['categories'])
+            : [];
 
         $pudoLocations = $pickUpDropOffLocationRepository->getAll(
             $countryCode,
             $postalCode,
             $request->query('street', null),
-            $request->query('street_number', null)
+            $request->query('street_number', null),
+            $categories
         );
 
         $response = $transformerService->transformResources($pudoLocations);
