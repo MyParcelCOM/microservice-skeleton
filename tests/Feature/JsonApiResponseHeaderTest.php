@@ -1,0 +1,41 @@
+<?php declare(strict_types=1);
+
+namespace MyParcelCom\Microservice\Tests\Feature;
+
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Route;
+use MyParcelCom\Microservice\Tests\TestCase;
+use MyParcelCom\Microservice\Tests\Traits\CommunicatesWithCarrier;
+
+class JsonApiResponseHeaderTest extends TestCase
+{
+    use CommunicatesWithCarrier;
+
+    /** @test */
+    public function itTransformsJsonAcceptHeaderToJsonApiHeader()
+    {
+        $this->bindCarrierApiGatewayMock();
+
+        Route::get('/foo', function () {
+            return new Response('Bar', 200, ['Content-Type' => 'application/json']);
+        });
+
+        $response = $this->json('GET', '/foo', [], $this->getRequestHeaders());
+
+        $response->assertHeader('Content-Type', 'application/vnd.api+json');
+    }
+
+    /** @test */
+    public function itDoesNotTransformOtherAcceptHeaders()
+    {
+        $this->bindCarrierApiGatewayMock();
+
+        Route::get('/foo', function () {
+            return new Response('Bar', 200, ['Content-Type' => 'application/something-else']);
+        });
+
+        $response = $this->json('GET', '/foo', [], $this->getRequestHeaders());
+
+        $response->assertHeader('Content-Type', 'application/something-else');
+    }
+}
