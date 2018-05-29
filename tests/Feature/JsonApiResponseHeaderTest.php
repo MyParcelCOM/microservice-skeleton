@@ -11,11 +11,16 @@ class JsonApiResponseHeaderTest extends TestCase
 {
     use CommunicatesWithCarrier;
 
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->bindCarrierApiGatewayMock();
+    }
+
     /** @test */
     public function itTransformsJsonAcceptHeaderToJsonApiHeader()
     {
-        $this->bindCarrierApiGatewayMock();
-
         Route::get('/foo', function () {
             return new Response('Bar', 200, ['Content-Type' => 'application/json']);
         });
@@ -28,8 +33,6 @@ class JsonApiResponseHeaderTest extends TestCase
     /** @test */
     public function itDoesNotTransformOtherAcceptHeaders()
     {
-        $this->bindCarrierApiGatewayMock();
-
         Route::get('/foo', function () {
             return new Response('Bar', 200, ['Content-Type' => 'application/something-else']);
         });
