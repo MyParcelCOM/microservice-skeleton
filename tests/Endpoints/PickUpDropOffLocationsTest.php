@@ -17,11 +17,16 @@ class PickUpDropOffLocationsTest extends TestCase
     use CommunicatesWithCarrier;
     use JsonApiAssertionsTrait;
 
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->bindCarrierApiGatewayMock();
+    }
+
     /** @test */
     public function itRetrievesAndMapsPickUpAndDropOffLocations()
     {
-        $this->bindCarrierApiGatewayMock();
-
         // TODO: Add carrier response stub for pudo points.
         // See the "Response Stubs" chapter in the readme for more info.
 
@@ -35,18 +40,17 @@ class PickUpDropOffLocationsTest extends TestCase
     /** @test */
     public function itCanFilterPickUpAndDropOffLocationsByCategories()
     {
-        $this->bindCarrierApiGatewayMock();
-
         // TODO: This method also requires the response stub as mentioned in itRetrievesAndMapsPickUpAndDropOffLocations().
 
         // Retrieve only pick-up locations.
         $pickupResponse = $this->assertJsonSchema(
             '/pickup-dropoff-locations/{country_code}/{postal_code}',
-            '/v1/pickup-dropoff-locations/UK/EC1A 1BBs?filter[categories]=pick-up',
+            '/v1/pickup-dropoff-locations/UK/EC1A 1BB?filter[categories]=pick-up',
             $this->getRequestHeaders()
         );
-        array_walk($pickupResponse->getContent()->data, function ($pudoPoint) {
-            $this->assertNotContains('drop-off', $pudoPoint->attributes->categories);
+        $responseBody = json_decode($pickupResponse->getContent());
+        array_walk($responseBody->data, function ($pudoPoint) {
+            $this->assertNotEquals(['drop-off'], $pudoPoint->attributes->categories);
         });
 
         // Retrieve only drop-off locations.
@@ -55,8 +59,9 @@ class PickUpDropOffLocationsTest extends TestCase
             '/v1/pickup-dropoff-locations/UK/EC1A 1BB?filter[categories]=drop-off',
             $this->getRequestHeaders()
         );
-        array_walk($pickupResponse->getContent()->data, function ($pudoPoint) {
-            $this->assertNotContains('pick-up', $pudoPoint->attributes->categories);
+        $responseBody = json_decode($dropoffResponse->getContent());
+        array_walk($responseBody->data, function ($pudoPoint) {
+            $this->assertNotContains(['pick-up'], $pudoPoint->attributes->categories);
         });
 
         // Retrieve both pick-up and drop-off locations.

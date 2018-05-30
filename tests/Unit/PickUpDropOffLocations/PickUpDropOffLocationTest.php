@@ -29,6 +29,16 @@ class PickUpDropOffLocationTest extends TestCase
     }
 
     /** @test */
+    public function testCategories()
+    {
+        $this->assertEquals([], $this->location->getCategories());
+        $this->assertEquals(
+            ['pick-up'],
+            $this->location->setCategories(['pick-up'])->getCategories()
+        );
+    }
+
+    /** @test */
     public function testAddress(): void
     {
         $address = (new Address())->setFirstName('Tini')->setLastName('Plini');
