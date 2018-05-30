@@ -37,7 +37,7 @@ return [
     |
     */
 
-    'carrier_api_url' => env('CARRIER_API_URL'),
+    'carrier_api_url' => env('CARRIER_API_URL', ''),
 
     /*
     |--------------------------------------------------------------------------
