@@ -45,7 +45,7 @@ class PickUpDropOffLocationsTest extends TestCase
         // Retrieve only pick-up locations.
         $pickupResponse = $this->assertJsonSchema(
             '/pickup-dropoff-locations/{country_code}/{postal_code}',
-            '/v1/pickup-dropoff-locations/UK/EC1A 1BBs?filter[categories]=pick-up',
+            '/v1/pickup-dropoff-locations/UK/EC1A 1BB?filter[categories]=pick-up',
             $this->getRequestHeaders()
         );
         $responseBody = json_decode($pickupResponse->getContent());
