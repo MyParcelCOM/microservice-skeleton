@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MyParcelCom\Http\Middleware;
+namespace MyParcelCom\Microservice\Http\Middleware;
 
 use Closure;
 use Exception;

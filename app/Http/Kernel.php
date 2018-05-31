@@ -7,7 +7,7 @@ namespace MyParcelCom\Microservice\Http;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode;
 use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
-use MyParcelCom\Http\Middleware\JsonApiResponseHeader;
+use MyParcelCom\Microservice\Http\Middleware\JsonApiResponseHeader;
 use MyParcelCom\Microservice\Http\Middleware\ExtractCredentials;
 use MyParcelCom\Microservice\Http\Middleware\VerifySecret;
 
