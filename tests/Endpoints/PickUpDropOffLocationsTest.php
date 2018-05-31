@@ -9,6 +9,9 @@ use MyParcelCom\Microservice\Tests\Traits\CommunicatesWithCarrier;
 use MyParcelCom\Microservice\Tests\Traits\JsonApiAssertionsTrait;
 
 /**
+ * TODO: Add carrier response stub for pudo points.
+ * See the "Response Stubs" chapter in the readme for more info.
+ *
  * @group Endpoints:PickUpDropOff
  * @group Implementation
  */
@@ -27,48 +30,73 @@ class PickUpDropOffLocationsTest extends TestCase
     /** @test */
     public function itRetrievesAndMapsPickUpAndDropOffLocations()
     {
-        // TODO: Add carrier response stub for pudo points.
-        // See the "Response Stubs" chapter in the readme for more info.
-
         $this->assertJsonSchema(
             '/pickup-dropoff-locations/{country_code}/{postal_code}',
-            '/v1/pickup-dropoff-locations/UK/EC1A 1BB',
+            '/v1/pickup-dropoff-locations/GB/B694DA',
+            $this->getRequestHeaders()
+        );
+        $this->assertJsonDataCount(
+            2, // TODO: Update this according to the used stub.
+            '/v1/pickup-dropoff-locations/GB/B694DA',
             $this->getRequestHeaders()
         );
     }
 
     /** @test */
-    public function itCanFilterPickUpAndDropOffLocationsByCategories()
+    public function getPickUpAndDropOffLocationsFilteredByPickUpCategory()
     {
-        // TODO: This method also requires the response stub as mentioned in itRetrievesAndMapsPickUpAndDropOffLocations().
-
-        // Retrieve only pick-up locations.
-        $pickupResponse = $this->assertJsonSchema(
+        $response = $this->assertJsonSchema(
             '/pickup-dropoff-locations/{country_code}/{postal_code}',
             '/v1/pickup-dropoff-locations/UK/EC1A 1BB?filter[categories]=pick-up',
             $this->getRequestHeaders()
         );
-        $responseBody = json_decode($pickupResponse->getContent());
-        array_walk($responseBody->data, function ($pudoPoint) {
-            $this->assertNotEquals(['drop-off'], $pudoPoint->attributes->categories);
+        $this->assertJsonDataCount(
+            2, // TODO: Update this according to the used stub.
+            '/v1/pickup-dropoff-locations/UK/EC1A 1BB?filter[categories]=pick-up',
+            $this->getRequestHeaders()
+        );
+        $locations = json_decode($response->getContent())->data;
+        array_walk($locations, function ($pudoPoint) {
+            $this->assertContains('pick-up', $pudoPoint->attributes->categories);
         });
+    }
 
-        // Retrieve only drop-off locations.
-        $dropoffResponse = $this->assertJsonSchema(
+    /** @test */
+    public function getPickUpAndDropOffLocationsFilteredByDropOffCategory()
+    {
+        $response = $this->assertJsonSchema(
             '/pickup-dropoff-locations/{country_code}/{postal_code}',
             '/v1/pickup-dropoff-locations/UK/EC1A 1BB?filter[categories]=drop-off',
             $this->getRequestHeaders()
         );
-        $responseBody = json_decode($dropoffResponse->getContent());
-        array_walk($responseBody->data, function ($pudoPoint) {
-            $this->assertNotContains(['pick-up'], $pudoPoint->attributes->categories);
+        $this->assertJsonDataCount(
+            2, // TODO: Update this according to the used stub.
+            '/v1/pickup-dropoff-locations/UK/EC1A 1BB?filter[categories]=drop-off',
+            $this->getRequestHeaders()
+        );
+        $locations = json_decode($response->getContent())->data;
+        array_walk($locations, function ($pudoPoint) {
+            $this->assertContains('drop-off', $pudoPoint->attributes->categories);
         });
+    }
 
-        // Retrieve both pick-up and drop-off locations.
-        $this->assertJsonSchema(
+    /** @test */
+    public function getPickUpAndDropOffLocationsFilteredByPickUpAndDropOffCategories()
+    {
+        $response = $this->assertJsonSchema(
             '/pickup-dropoff-locations/{country_code}/{postal_code}',
             '/v1/pickup-dropoff-locations/UK/EC1A 1BB?filter[categories]=pick-up,drop-off',
             $this->getRequestHeaders()
         );
+        $this->assertJsonDataCount(
+            2, // TODO: Update this according to the used stub.
+            '/v1/pickup-dropoff-locations/UK/EC1A 1BB?filter[categories]=pick-up,drop-off',
+            $this->getRequestHeaders()
+        );
+        $locations = json_decode($response->getContent())->data;
+        array_walk($locations, function ($pudoPoint) {
+            $this->assertContains('drop-off', $pudoPoint->attributes->categories);
+            $this->assertContains('pick-up', $pudoPoint->attributes->categories);
+        });
     }
 }
