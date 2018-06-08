@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace MyParcelCom\Microservice\Credentials;
 
 use Illuminate\Http\JsonResponse;
+use MyParcelCom\JsonApi\Exceptions\InvalidJsonSchemaException;
 use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
 use MyParcelCom\Microservice\Http\Controllers\Controller;
+use MyParcelCom\Microservice\Http\JsonRequestValidator;
 use MyParcelCom\Microservice\Http\Request;
 
 class CredentialController extends Controller
@@ -27,18 +29,28 @@ class CredentialController extends Controller
     /**
      * Validates the given credentials
      *
-     * @param Request $request
+     * @param JsonRequestValidator $jsonRequestValidator
+     * @param Request              $request
      * @return JsonResponse
      */
-    public function validateCredentials(Request $request)
-    {
-        $valid = true;
+    public function validateCredentials(
+        JsonRequestValidator $jsonRequestValidator,
+        Request $request
+    ) {
+        try {
+            $jsonRequestValidator->validate('/validate-credentials', 'post', null);
+        } catch (InvalidJsonSchemaException $e) {
+            return $this->invalidResponse('Request body does not match schema');
+        }
+
         // TODO: implement validation check
         // Some carriers may have dedicated endpoints
         // for this. Otherwise you could try a random
         // GET endpoint and see if it comes up with
         // any erroneous status codes related to
         // invalid credentials
+        $valid = true;
+
         if (!$valid) {
             return $this->invalidResponse('Credentials given are invalid');
         }

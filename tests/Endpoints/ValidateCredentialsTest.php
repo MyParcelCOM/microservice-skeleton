@@ -7,6 +7,10 @@ namespace MyParcelCom\Microservice\Tests\Endpoints;
 use MyParcelCom\Microservice\Tests\TestCase;
 use MyParcelCom\Microservice\Tests\Traits\CommunicatesWithCarrier;
 
+/**
+ * @group Endpoints:Shipment
+ * @group Implementation
+ */
 class ValidateCredentialsTest extends TestCase
 {
     use CommunicatesWithCarrier;
@@ -22,7 +26,7 @@ class ValidateCredentialsTest extends TestCase
             ]
         ];
 
-        $response = $this->json('POST', '/validate-credentials', $data);
+        $response = $this->json('POST', '/v1/validate-credentials', $data, $this->getRequestHeaders());
         $response->assertStatus(400);
     }
 
@@ -35,7 +39,7 @@ class ValidateCredentialsTest extends TestCase
             'credentials' => config('services.carrier_credentials')
         ];
 
-        $response = $this->json('POST', '/validate-credentials', $data);
+        $response = $this->json('POST', '/v1/validate-credentials', $data, $this->getRequestHeaders());
         $response->assertStatus(200);
     }
 
