@@ -5,11 +5,8 @@ declare(strict_types=1);
 namespace MyParcelCom\Microservice\Credentials;
 
 use Illuminate\Http\JsonResponse;
-use MyParcelCom\JsonApi\Exceptions\InvalidJsonSchemaException;
 use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
 use MyParcelCom\Microservice\Http\Controllers\Controller;
-use MyParcelCom\Microservice\Http\JsonRequestValidator;
-use MyParcelCom\Microservice\Http\Request;
 
 class CredentialController extends Controller
 {
