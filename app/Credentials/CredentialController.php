@@ -27,21 +27,11 @@ class CredentialController extends Controller
     }
 
     /**
-     * Validates the given credentials
+     * Validates credentials in the header
      *
-     * @param JsonRequestValidator $jsonRequestValidator
-     * @param Request              $request
      * @return JsonResponse
      */
-    public function validateCredentials(
-        JsonRequestValidator $jsonRequestValidator,
-        Request $request
-    ) {
-        try {
-            $jsonRequestValidator->validate('/validate-credentials', 'post', null);
-        } catch (InvalidJsonSchemaException $e) {
-            return $this->invalidResponse('Request body does not match schema');
-        }
+    public function validateCredentials() {
 
         // TODO: implement validation check
         // Some carriers may have dedicated endpoints
