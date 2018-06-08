@@ -20,13 +20,10 @@ class ValidateCredentialsTest extends TestCase
     {
         $this->bindCarrierApiGatewayMock();
 
-        $data = [
-            'credentials' => [
-                'foo' => 'bar'
-            ]
-        ];
-
-        $response = $this->json('POST', '/v1/validate-credentials', $data, $this->getRequestHeaders());
+        $response = $this->json('GET', '/v1/validate-credentials', [], [
+            'foo' => 'bar',
+            'some' => 'credentials'
+        ]);
         $response->assertStatus(400);
     }
 
@@ -35,11 +32,7 @@ class ValidateCredentialsTest extends TestCase
     {
         $this->bindCarrierApiGatewayMock();
 
-        $data = [
-            'credentials' => config('services.carrier_credentials')
-        ];
-
-        $response = $this->json('POST', '/v1/validate-credentials', $data, $this->getRequestHeaders());
+        $response = $this->json('GET', '/v1/validate-credentials', [], $this->getRequestHeaders());
         $response->assertStatus(200);
     }
 
