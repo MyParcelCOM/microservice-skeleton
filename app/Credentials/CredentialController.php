@@ -30,7 +30,7 @@ class CredentialController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function validate(Request $request)
+    public function validateCredentials(Request $request)
     {
         $valid = true;
         // TODO: implement validation check

@@ -26,4 +26,4 @@ Route::get(
 Route::get('/v1/shipments/{shipmentId}/statuses/{trackingCode}', StatusController::class . '@getStatuses');
 Route::post('/v1/shipments', ShipmentController::class . '@create');
 
-Route::post('/v1/validate-credentials', CredentialController::class . '@validate');
+Route::post('/v1/validate-credentials', CredentialController::class . '@validateCredentials');
