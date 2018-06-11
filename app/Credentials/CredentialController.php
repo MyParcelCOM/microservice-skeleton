@@ -28,7 +28,8 @@ class CredentialController extends Controller
      *
      * @return JsonResponse
      */
-    public function validateCredentials() {
+    public function validateCredentials(): JsonResponse
+    {
 
         // TODO: implement validation check
         // Some carriers may have dedicated endpoints
@@ -54,7 +55,7 @@ class CredentialController extends Controller
      * @param int    $statusCode
      * @return JsonResponse
      */
-    protected function invalidResponse(string $message = '', $statusCode = JsonResponse::HTTP_BAD_REQUEST)
+    protected function invalidResponse(string $message = '', $statusCode = JsonResponse::HTTP_BAD_REQUEST): JsonResponse
     {
         return new JsonResponse([
             'data' => [
