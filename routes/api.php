@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Route;
+use MyParcelCom\Microservice\Credentials\CredentialController;
 use MyParcelCom\Microservice\PickUpDropOffLocations\PickUpDropOffLocationController;
 use MyParcelCom\Microservice\Shipments\ShipmentController;
 use MyParcelCom\Microservice\Statuses\StatusController;
@@ -24,3 +25,5 @@ Route::get(
 
 Route::get('/v1/shipments/{shipmentId}/statuses/{trackingCode}', StatusController::class . '@getStatuses');
 Route::post('/v1/shipments', ShipmentController::class . '@create');
+
+Route::get('/v1/validate-credentials', CredentialController::class . '@validateCredentials');
