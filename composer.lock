@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "afb888d73216092dcdc25316fd5d099b",
+    "content-hash": "020b7686d490e5a0bf7623eb7871a346",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1144,23 +1144,23 @@
         },
         {
             "name": "myparcelcom/carrier-specification",
-            "version": "v0.3.0",
+            "version": "v0.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MyParcelCOM/carrier-specification.git",
-                "reference": "4ee23d150528baf971132a7f2e537c0a06fe7544"
+                "reference": "e8566a8caf83d403bb47e67f88c3a71eaa830992"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MyParcelCOM/carrier-specification/zipball/4ee23d150528baf971132a7f2e537c0a06fe7544",
-                "reference": "4ee23d150528baf971132a7f2e537c0a06fe7544",
+                "url": "https://api.github.com/repos/MyParcelCOM/carrier-specification/zipball/e8566a8caf83d403bb47e67f88c3a71eaa830992",
+                "reference": "e8566a8caf83d403bb47e67f88c3a71eaa830992",
                 "shasum": ""
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
             "description": "MyParcel.com carrier API specification.",
             "homepage": "https://docs.myparcel.com/carrier-specification",
-            "time": "2018-03-07T09:27:42+00:00"
+            "time": "2018-06-11T09:43:04+00:00"
         },
         {
             "name": "myparcelcom/json-api",
