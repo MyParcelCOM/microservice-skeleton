@@ -48,9 +48,6 @@ class ValidateCredentialsTest extends TestCase
             'get',
             200
         );
-
-        $response = $this->json('GET', '/v1/validate-credentials', [], $this->getRequestHeaders());
-        $response->assertStatus(200);
     }
 
 }
