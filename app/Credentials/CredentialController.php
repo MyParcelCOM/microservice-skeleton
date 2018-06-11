@@ -42,10 +42,11 @@ class CredentialController extends Controller
             return $this->invalidResponse('Credentials given are invalid');
         }
 
-        return new JsonResponse(
-            ['valid' => true],
-            JsonResponse::HTTP_OK
-        );
+        return new JsonResponse([
+            'data' => [
+                'valid' => true,
+            ],
+        ], JsonResponse::HTTP_OK);
     }
 
     /**
@@ -55,12 +56,11 @@ class CredentialController extends Controller
      */
     protected function invalidResponse(string $message = '', $statusCode = JsonResponse::HTTP_BAD_REQUEST)
     {
-        return new JsonResponse(
-            [
+        return new JsonResponse([
+            'data' => [
                 'valid' => false,
-                'message' => $message
+                'message' => $message,
             ],
-            $statusCode
-        );
+        ], $statusCode);
     }
 }
