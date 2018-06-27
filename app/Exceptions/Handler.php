@@ -30,10 +30,14 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if ($exception instanceof RequestException) {
+        if ($exception instanceof RequestException && ($response = $exception->getResponse()) !== null) {
+            $carrierResponse = json_decode($response->getBody()->getContents())
+                ?? ['response_body' => (string)$response->getBody()];
+
             $exception = new CarrierApiException(
-                $this->mapStatusCode($exception->getResponse()->getStatusCode()),
-                json_decode($exception->getResponse()->getBody()->getContents(), true)
+                $this->mapStatusCode($response->getStatusCode()),
+                $carrierResponse,
+                $exception
             );
         }
 
