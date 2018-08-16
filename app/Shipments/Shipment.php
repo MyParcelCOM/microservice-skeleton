@@ -29,12 +29,6 @@ class Shipment
     /** @var string */
     protected $description;
 
-    /** @var int */
-    protected $insuranceAmount;
-
-    /** @var string */
-    protected $insuranceCurrency;
-
     /** @var string */
     protected $trackingCode;
 
@@ -194,44 +188,6 @@ class Shipment
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getInsuranceAmount(): int
-    {
-        return $this->insuranceAmount;
-    }
-
-    /**
-     * @param int $insuranceAmount
-     * @return $this
-     */
-    public function setInsuranceAmount(int $insuranceAmount): self
-    {
-        $this->insuranceAmount = $insuranceAmount;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getInsuranceCurrency(): string
-    {
-        return $this->insuranceCurrency;
-    }
-
-    /**
-     * @param string $insuranceCurrency
-     * @return $this
-     */
-    public function setInsuranceCurrency(string $insuranceCurrency): self
-    {
-        $this->insuranceCurrency = $insuranceCurrency;
 
         return $this;
     }
