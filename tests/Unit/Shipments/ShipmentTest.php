@@ -78,20 +78,6 @@ class ShipmentTest extends TestCase
     }
 
     /** @test */
-    public function testInsuranceAmount()
-    {
-        $shipment = new Shipment();
-        $this->assertEquals(9001, $shipment->setInsuranceAmount(9001)->getInsuranceAmount());
-    }
-
-    /** @test */
-    public function testInsuranceCurrency()
-    {
-        $shipment = new Shipment();
-        $this->assertEquals('EUR', $shipment->setInsuranceCurrency('EUR')->getInsuranceCurrency());
-    }
-
-    /** @test */
     public function testBarcode()
     {
         $shipment = new Shipment();

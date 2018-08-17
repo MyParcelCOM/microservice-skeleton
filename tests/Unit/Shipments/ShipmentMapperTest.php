@@ -72,18 +72,6 @@ class ShipmentMapperTest extends TestCase
 
                 return $shipment;
             })
-            ->shouldReceive('setInsuranceCurrency')
-            ->andReturnUsing(function (string $currency) use ($shipment) {
-                $this->assertEquals('EUR', $currency);
-
-                return $shipment;
-            })
-            ->shouldReceive('setInsuranceAmount')
-            ->andReturnUsing(function (int $amount) use ($shipment) {
-                $this->assertEquals(10000, $amount);
-
-                return $shipment;
-            })
             ->shouldReceive('getPhysicalProperties')
             ->andReturn($physicalProperties)
             ->shouldReceive('setService')

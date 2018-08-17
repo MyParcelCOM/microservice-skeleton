@@ -41,10 +41,6 @@ class ShipmentTransformer extends AbstractTransformer
                 'address' => $this->transformAddress($shipment->getPickupLocationAddress()),
             ],
             'description'         => $shipment->getDescription(),
-            'insurance'           => [
-                'amount'   => $shipment->getInsuranceAmount(),
-                'currency' => $shipment->getInsuranceCurrency(),
-            ],
             'barcode'             => $shipment->getBarcode(),
             'tracking_code'       => $shipment->getTrackingCode(),
             'tracking_url'        => $shipment->getTrackingUrl(),
