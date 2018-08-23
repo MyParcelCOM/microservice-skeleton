@@ -12,6 +12,7 @@ It basically comes down to the following:
 ## Content
 - [Installation](#installation)
 - [Setup](#setup)
+- [Credentials](#credentials)
 - [TODOs](#todos)
 - [Commands](#commands)
 - [Xdebug](#xdebug)
@@ -24,6 +25,9 @@ To setup the project (install composer dependencies, setup database, etc), run t
 ```bash
 ./mp.sh setup
 ```
+
+### Credentials
+A few credentials are required to let carriers know who is making the request. The MyParcelCom API sends these credentials to the microservice in the `X-MYPARCELCOM-CREDENTIALS` header. These credentials are carrier specific, and usually consist of an `api-user` and `api-password`, or maybe an `api-key` for the carrier's API. The data in the `X-MYPARCELCOM-CREDENTIALS` header should be formatted in `JSON`, as the `ExtractCredentials` middleware in the microservice automatically converts this `JSON` to an array. It then passes the credentials array on to the implementation of the `CarrierApiGatewayInterface` through the `setCredentials()` method.
 
 ### TODOs
 There are several `TODO` comments added to the codebase to help you get started on what to implement. There are also several tests to check if everything is working as it is supposed to. The endpoint tests are the starting point to check if an endpoint does what is required from the carrier specification.

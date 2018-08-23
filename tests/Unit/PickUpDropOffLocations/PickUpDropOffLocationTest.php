@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Tests\Unit\PickUpDropOffLocations;
 
@@ -24,6 +26,16 @@ class PickUpDropOffLocationTest extends TestCase
     {
         $this->assertNull($this->location->getId(), '`getId()` should return `null` when not set');
         $this->assertEquals('woeid', $this->location->setId('woeid')->getId(), '`getId()` did not return set value');
+    }
+
+    /** @test */
+    public function testCategories()
+    {
+        $this->assertEquals([], $this->location->getCategories());
+        $this->assertEquals(
+            ['pick-up'],
+            $this->location->setCategories(['pick-up'])->getCategories()
+        );
     }
 
     /** @test */

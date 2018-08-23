@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Tests\Unit\Shipments;
 
@@ -70,18 +72,6 @@ class ShipmentMapperTest extends TestCase
 
                 return $shipment;
             })
-            ->shouldReceive('setInsuranceCurrency')
-            ->andReturnUsing(function (string $currency) use ($shipment) {
-                $this->assertEquals('EUR', $currency);
-
-                return $shipment;
-            })
-            ->shouldReceive('setInsuranceAmount')
-            ->andReturnUsing(function (int $amount) use ($shipment) {
-                $this->assertEquals(10000, $amount);
-
-                return $shipment;
-            })
             ->shouldReceive('getPhysicalProperties')
             ->andReturn($physicalProperties)
             ->shouldReceive('setService')
@@ -149,8 +139,8 @@ class ShipmentMapperTest extends TestCase
             ->andReturnUsing(function ($option) use ($shipment) {
                 $this->assertInstanceOf(Option::class, $option);
                 /** @var Option $option */
-                $this->assertEquals('delivery_day_sunday', $option->getCode());
-                $this->assertEquals('Sunday delivery', $option->getName());
+                $this->assertEquals('delivery-day:sunday', $option->getCode());
+                $this->assertEquals('Sunday Delivery', $option->getName());
 
                 return $shipment;
             })

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Tests\Unit\Shipments;
 
@@ -73,20 +75,6 @@ class ShipmentTest extends TestCase
     {
         $shipment = new Shipment();
         $this->assertEquals('Some sort of description', $shipment->setDescription('Some sort of description')->getDescription());
-    }
-
-    /** @test */
-    public function testInsuranceAmount()
-    {
-        $shipment = new Shipment();
-        $this->assertEquals(9001, $shipment->setInsuranceAmount(9001)->getInsuranceAmount());
-    }
-
-    /** @test */
-    public function testInsuranceCurrency()
-    {
-        $shipment = new Shipment();
-        $this->assertEquals('EUR', $shipment->setInsuranceCurrency('EUR')->getInsuranceCurrency());
     }
 
     /** @test */

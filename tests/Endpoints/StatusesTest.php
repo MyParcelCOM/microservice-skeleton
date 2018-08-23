@@ -1,10 +1,12 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Tests\Endpoints;
 
-use MyParcelCom\JsonApi\Traits\AssertionsTrait;
 use MyParcelCom\Microservice\Tests\TestCase;
 use MyParcelCom\Microservice\Tests\Traits\CommunicatesWithCarrier;
+use MyParcelCom\Microservice\Tests\Traits\JsonApiAssertionsTrait;
 
 /**
  * @group Endpoints:Status
@@ -13,7 +15,7 @@ use MyParcelCom\Microservice\Tests\Traits\CommunicatesWithCarrier;
 class StatusesTest extends TestCase
 {
     use CommunicatesWithCarrier;
-    use AssertionsTrait;
+    use JsonApiAssertionsTrait;
 
     /** @test */
     public function testGetStatuses()

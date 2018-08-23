@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Shipments;
 
@@ -8,9 +10,6 @@ use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 
 class ShipmentMapper implements MapperInterface
 {
-    protected const DEFAULT_INSURANCE_AMOUNT = 0;
-    protected const DEFAULT_CURRENCY = 'EUR';
-
     protected const PRINTCODE_WIDTH = 299;
     protected const PRINTCODE_HEIGHT = 95;
 
@@ -73,10 +72,6 @@ class ShipmentMapper implements MapperInterface
         if (isset($attributes['options'])) {
             $this->mapOptions($attributes['options'], $shipment);
         }
-
-        // If no insurance is set, fall back to defaults.
-        $shipment->setInsuranceAmount((int)($attributes['insurance']['amount'] ?? self::DEFAULT_INSURANCE_AMOUNT));
-        $shipment->setInsuranceCurrency($attributes['insurance']['currency'] ?? self::DEFAULT_CURRENCY);
 
         // Map customs information.
         if (!empty($attributes['customs'])) {

@@ -52,6 +52,7 @@ ENV APP_DOMAIN microservice.myparcel.com
 ENV DOCKER_ENV production
 ENV XDEBUG_PORT 9000
 ENV XDEBUG_IDE_KEY myparcelcom_microservice
+ENV COMPOSER_ALLOW_SUPERUSER 1
 
 WORKDIR /opt/microservice
 

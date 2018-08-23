@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Tests\Unit\Shipments;
 
@@ -97,8 +99,6 @@ class ShipmentTransformerTest extends TestCase
             'getPickupLocationCode'    => 'aaaa',
             'getPickupLocationAddress' => $address,
             'getDescription'           => 'descending ription',
-            'getInsuranceAmount'       => 456,
-            'getInsuranceCurrency'     => 'EUR',
             'getBarcode'               => '3SBARCODE',
             'getTrackingCode'          => 'TR4CK1NGC0D3',
             'getTrackingUrl'           => 'https://track.me/TR4CK1NGC0D3',
@@ -119,8 +119,6 @@ class ShipmentTransformerTest extends TestCase
             'getPickupLocationCode'    => null,
             'getPickupLocationAddress' => null,
             'getDescription'           => null,
-            'getInsuranceAmount'       => 0,
-            'getInsuranceCurrency'     => 'EUR',
             'getBarcode'               => null,
             'getTrackingCode'          => null,
             'getTrackingUrl'           => null,
@@ -228,10 +226,6 @@ class ShipmentTransformerTest extends TestCase
                 ],
             ],
             'description'         => 'descending ription',
-            'insurance'           => [
-                'amount'   => 456,
-                'currency' => 'EUR',
-            ],
             'barcode'             => '3SBARCODE',
             'tracking_code'       => 'TR4CK1NGC0D3',
             'tracking_url'        => 'https://track.me/TR4CK1NGC0D3',
@@ -346,10 +340,6 @@ class ShipmentTransformerTest extends TestCase
                         ],
                     ],
                     'description'         => 'descending ription',
-                    'insurance'           => [
-                        'amount'   => 456,
-                        'currency' => 'EUR',
-                    ],
                     'barcode'             => '3SBARCODE',
                     'service'             => [
                         'code' => 'nl300',
@@ -447,10 +437,6 @@ class ShipmentTransformerTest extends TestCase
                         'company'              => 'Experts Exchange',
                         'email'                => 'john@expertsexchange.com',
                         'phone_number'         => '1337-9001',
-                    ],
-                    'insurance'         => [
-                        'amount'   => 0,
-                        'currency' => 'EUR',
                     ],
                     'service'           => [
                         'code' => 'nl300',

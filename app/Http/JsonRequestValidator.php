@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Http;
 
@@ -22,14 +24,21 @@ class JsonRequestValidator
      *
      * @param string      $schemaPath
      * @param string|null $method
-     * @param int         $status
+     * @param null|int    $status
      * @throws InvalidJsonSchemaException
      */
-    public function validate(string $schemaPath, string $method = null, int $status = 200): void
+    public function validate(string $schemaPath, string $method = null, ?int $status = 200): void
     {
         $method = $method ?? strtolower($this->request->getRealMethod());
 
-        $schema = $this->schema->paths->{$schemaPath}->{$method}->responses->{$status}->schema;
+        if ($status !== null) {
+            $schema = $this->schema->paths->{$schemaPath}->{$method}->responses->{$status}->schema;
+        } else {
+            $parameters = $this->schema->paths->{$schemaPath}->{$method}->parameters;
+
+            $schema = $parameters[array_search('body', array_column($parameters, 'in'))]->schema;
+        }
+
 
         $postData = json_decode($this->request->getContent());
 

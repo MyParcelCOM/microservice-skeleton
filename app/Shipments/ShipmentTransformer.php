@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Shipments;
 
@@ -39,10 +41,6 @@ class ShipmentTransformer extends AbstractTransformer
                 'address' => $this->transformAddress($shipment->getPickupLocationAddress()),
             ],
             'description'         => $shipment->getDescription(),
-            'insurance'           => [
-                'amount'   => $shipment->getInsuranceAmount(),
-                'currency' => $shipment->getInsuranceCurrency(),
-            ],
             'barcode'             => $shipment->getBarcode(),
             'tracking_code'       => $shipment->getTrackingCode(),
             'tracking_url'        => $shipment->getTrackingUrl(),

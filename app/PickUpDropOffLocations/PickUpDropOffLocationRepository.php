@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\PickUpDropOffLocations;
 
@@ -28,14 +30,20 @@ class PickUpDropOffLocationRepository
      * @param string|null $streetNumber
      * @return ResourcesInterface
      */
-    public function getAll(string $countryCode, string $postalCode, ?string $street = null, ?string $streetNumber = null): ResourcesInterface
-    {
+    public function getAll(
+        string $countryCode,
+        string $postalCode,
+        ?string $street = null,
+        ?string $streetNumber = null,
+        array $categories = []
+    ): ResourcesInterface {
         // Return the locations if they are cached.
         if (($locations = $this->getCachedLocations($countryCode, $postalCode, $street, $streetNumber))) {
             return new CollectionResources($locations);
         }
 
         // TODO: Get the pudo points from carrier (use CarrierApiGateway).
+        // TODO: Filter pudo points by passed categories.
         // TODO: Map data to PickUpDropOffLocation objects.
         // TODO: Put PickUpDropOffLocation objects in an object that implements ResourcesInterface.
         // TODO: Use the method `updatePosition()` to update the position values of a pudo point with coordinates.

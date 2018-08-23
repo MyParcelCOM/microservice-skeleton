@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\PickUpDropOffLocations;
 
@@ -42,6 +44,7 @@ class PickUpDropOffLocationTransformer extends AbstractTransformer
         }
 
         return array_filter([
+            'categories'    => $pickUpDropOffLocation->getCategories(),
             'address'       => array_filter([
                 'street_1'             => $address->getStreet1(),
                 'street_2'             => $address->getStreet2(),

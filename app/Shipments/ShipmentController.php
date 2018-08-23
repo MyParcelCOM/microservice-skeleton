@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Shipments;
 
@@ -24,8 +26,13 @@ class ShipmentController extends Controller
      * @throws InvalidJsonSchemaException
      * @throws \MyParcelCom\JsonApi\Transformers\TransformerException
      */
-    public function create(JsonRequestValidator $jsonRequestValidator, ApiRequestValidator $apiRequestValidator, ShipmentRepository $repository, Request $request, TransformerService $transformerService): JsonResponse
-    {
+    public function create(
+        JsonRequestValidator $jsonRequestValidator,
+        ApiRequestValidator $apiRequestValidator,
+        ShipmentRepository $repository,
+        Request $request,
+        TransformerService $transformerService
+    ): JsonResponse {
         $jsonRequestValidator->validate('/shipments', 'post', 201);
 
         // TODO Add rules to ApiRequestValidator to include carrier-specific requirements.

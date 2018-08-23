@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Tests\Unit\PickUpDropOffLocations;
 
@@ -66,6 +68,7 @@ class PickUpDropOffLocationTransformerTest extends TestCase
         ]);
         $this->pickUpDropOffLocation = Mockery::mock(PickUpDropOffLocation::class, [
             'getId'           => 'location-id',
+            'getCategories'   => ['pick-up'],
             'getAddress'      => $address,
             'getPosition'     => $position,
             'getOpeningHours' => [$openingHourA, $openingHourB],
@@ -91,6 +94,7 @@ class PickUpDropOffLocationTransformerTest extends TestCase
     public function testGetAttributes()
     {
         $this->assertEquals([
+            'categories'    => ['pick-up'],
             'address'       => [
                 'street_1'             => 'First Street',
                 'street_2'             => 'Second Street',

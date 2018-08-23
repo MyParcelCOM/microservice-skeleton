@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\PickUpDropOffLocations;
 
@@ -16,11 +18,17 @@ class PickUpDropOffLocationController extends Controller
         string $countryCode,
         string $postalCode
     ): JsonResponse {
+        $filters = $request->getFilter();
+        $categories = isset($filters['categories'])
+            ? explode(',', $filters['categories'])
+            : [];
+
         $pudoLocations = $pickUpDropOffLocationRepository->getAll(
             $countryCode,
             $postalCode,
             $request->query('street', null),
-            $request->query('street_number', null)
+            $request->query('street_number', null),
+            $categories
         );
 
         $response = $transformerService->transformResources($pudoLocations);

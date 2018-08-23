@@ -1,11 +1,19 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\PickUpDropOffLocations;
 
 class PickUpDropOffLocation
 {
+    const CATEGORY_PICK_UP = 'pick-up';
+    const CATEGORY_DROP_OFF = 'drop-off';
+
     /** @var string */
     protected $id;
+
+    /** @var array */
+    protected $categories = [];
 
     /** @var Address */
     protected $address;
@@ -31,6 +39,25 @@ class PickUpDropOffLocation
     public function setId(string $id)
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    /**
+     * @param array $categories
+     * @return $this
+     */
+    public function setCategories(array $categories): self
+    {
+        $this->categories = $categories;
 
         return $this;
     }
