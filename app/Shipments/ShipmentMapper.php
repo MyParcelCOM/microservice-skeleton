@@ -25,7 +25,7 @@ class ShipmentMapper implements MapperInterface
      */
     public function map($data, $shipment): Shipment
     {
-        $attributes = $data['data']['attributes'];
+        $attributes = $data['attributes'];
 
         // Map addresses.
         $shipment->setRecipientAddress(

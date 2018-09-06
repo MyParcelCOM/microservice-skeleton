@@ -27,7 +27,6 @@ class ShipmentsTest extends TestCase
     /** @test */
     public function testPostShipment()
     {
-        $this->withoutExceptionHandling();
         $this->bindCarrierApiGatewayMock();
 
         // TODO: Add carrier response stub for creating a shipment.

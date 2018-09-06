@@ -87,7 +87,7 @@
   },
   "meta": {
     "track_trace": {
-      "enabled": true
+      "enabled": false
     }
   }
 }
