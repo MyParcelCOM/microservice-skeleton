@@ -33,7 +33,7 @@ class ShipmentController extends Controller
         Request $request,
         TransformerService $transformerService
     ): JsonResponse {
-        $jsonRequestValidator->validate('/shipments', 'post', 201);
+        $jsonRequestValidator->validate('/shipments', 'post', null);
 
         // TODO Add rules to ApiRequestValidator to include carrier-specific requirements.
         if (!$apiRequestValidator->validate($request)) {
