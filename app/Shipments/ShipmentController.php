@@ -42,7 +42,7 @@ class ShipmentController extends Controller
             throw new InvalidJsonSchemaException($errors);
         }
 
-        $shipment = $repository->createFromPostData($request->json('data'));
+        $shipment = $repository->createFromPostData($request->json('data'), $request->json('meta'));
 
         return new JsonResponse(
             $transformerService->transformResource($shipment),

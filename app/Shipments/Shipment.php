@@ -59,6 +59,9 @@ class Shipment
     /** @var ShipmentItem[] */
     protected $items = [];
 
+    /** @var bool */
+    protected $trackTraceEnabled = true;
+
     /**
      * @return string
      */
@@ -387,5 +390,24 @@ class Shipment
         });
 
         return $this;
+    }
+
+    /**
+     * @param bool $trackTraceEnabled
+     * @return $this
+     */
+    public function setTrackTraceEnabled(bool $trackTraceEnabled): self
+    {
+        $this->trackTraceEnabled = $trackTraceEnabled;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTrackTraceEnabled(): bool
+    {
+        return $this->trackTraceEnabled;
     }
 }
