@@ -75,6 +75,8 @@ if [ $# -gt 0 ]; then
       ${COMPOSE} run --rm microservice ./vendor/bin/phpunit --group Endpoints:Shipment
     elif [ "$1" == "status" ]; then
       ${COMPOSE} run --rm microservice ./vendor/bin/phpunit --group Endpoints:Status
+    elif [ "$1" == "credentials" ]; then
+      ${COMPOSE} run --rm microservice ./vendor/bin/phpunit --group Endpoints:ValidateCredentials
     else
       ${COMPOSE} run --rm microservice ./vendor/bin/phpunit "$@"
     fi

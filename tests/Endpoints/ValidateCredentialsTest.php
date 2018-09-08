@@ -9,7 +9,7 @@ use MyParcelCom\Microservice\Tests\Traits\CommunicatesWithCarrier;
 use MyParcelCom\Microservice\Tests\Traits\JsonApiAssertionsTrait;
 
 /**
- * @group Endpoints:Shipment
+ * @group Endpoints:ValidateCredentials
  * @group Implementation
  */
 class ValidateCredentialsTest extends TestCase
