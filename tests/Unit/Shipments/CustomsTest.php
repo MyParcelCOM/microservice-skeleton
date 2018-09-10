@@ -41,6 +41,7 @@ class CustomsTest extends TestCase
     public function testInvoiceNumber()
     {
         $customs = new Customs();
+        $this->assertNull($customs->getInvoiceNumber());
         $this->assertEquals('000314156', $customs->setInvoiceNumber('000314156')->getInvoiceNumber());
     }
 
