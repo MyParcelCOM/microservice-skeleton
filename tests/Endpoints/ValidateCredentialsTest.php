@@ -24,7 +24,7 @@ class ValidateCredentialsTest extends TestCase
 
         $this->assertJsonSchema(
             '/validate-credentials',
-            '/v1/validate-credentials',
+            '/validate-credentials',
             [
                 'foo' => 'bar',
                 'some' => 'credentials'
@@ -42,7 +42,7 @@ class ValidateCredentialsTest extends TestCase
 
         $this->assertJsonSchema(
             '/validate-credentials',
-            '/v1/validate-credentials',
+            '/validate-credentials',
             $this->getRequestHeaders(),
             [],
             'get',

@@ -32,12 +32,12 @@ class PickUpDropOffLocationsTest extends TestCase
     {
         $this->assertJsonSchema(
             '/pickup-dropoff-locations/{country_code}/{postal_code}',
-            '/v1/pickup-dropoff-locations/GB/B694DA',
+            '/pickup-dropoff-locations/GB/B694DA',
             $this->getRequestHeaders()
         );
         $this->assertJsonDataCount(
             2, // TODO: Update this according to the used stub.
-            '/v1/pickup-dropoff-locations/GB/B694DA',
+            '/pickup-dropoff-locations/GB/B694DA',
             $this->getRequestHeaders()
         );
     }
@@ -47,12 +47,12 @@ class PickUpDropOffLocationsTest extends TestCase
     {
         $response = $this->assertJsonSchema(
             '/pickup-dropoff-locations/{country_code}/{postal_code}',
-            '/v1/pickup-dropoff-locations/UK/EC1A 1BB?filter[categories]=pick-up',
+            '/pickup-dropoff-locations/UK/EC1A 1BB?filter[categories]=pick-up',
             $this->getRequestHeaders()
         );
         $this->assertJsonDataCount(
             2, // TODO: Update this according to the used stub.
-            '/v1/pickup-dropoff-locations/UK/EC1A 1BB?filter[categories]=pick-up',
+            '/pickup-dropoff-locations/UK/EC1A 1BB?filter[categories]=pick-up',
             $this->getRequestHeaders()
         );
         $locations = json_decode($response->getContent())->data;
@@ -66,12 +66,12 @@ class PickUpDropOffLocationsTest extends TestCase
     {
         $response = $this->assertJsonSchema(
             '/pickup-dropoff-locations/{country_code}/{postal_code}',
-            '/v1/pickup-dropoff-locations/UK/EC1A 1BB?filter[categories]=drop-off',
+            '/pickup-dropoff-locations/UK/EC1A 1BB?filter[categories]=drop-off',
             $this->getRequestHeaders()
         );
         $this->assertJsonDataCount(
             2, // TODO: Update this according to the used stub.
-            '/v1/pickup-dropoff-locations/UK/EC1A 1BB?filter[categories]=drop-off',
+            '/pickup-dropoff-locations/UK/EC1A 1BB?filter[categories]=drop-off',
             $this->getRequestHeaders()
         );
         $locations = json_decode($response->getContent())->data;
@@ -85,12 +85,12 @@ class PickUpDropOffLocationsTest extends TestCase
     {
         $response = $this->assertJsonSchema(
             '/pickup-dropoff-locations/{country_code}/{postal_code}',
-            '/v1/pickup-dropoff-locations/UK/EC1A 1BB?filter[categories]=pick-up,drop-off',
+            '/pickup-dropoff-locations/UK/EC1A 1BB?filter[categories]=pick-up,drop-off',
             $this->getRequestHeaders()
         );
         $this->assertJsonDataCount(
             2, // TODO: Update this according to the used stub.
-            '/v1/pickup-dropoff-locations/UK/EC1A 1BB?filter[categories]=pick-up,drop-off',
+            '/pickup-dropoff-locations/UK/EC1A 1BB?filter[categories]=pick-up,drop-off',
             $this->getRequestHeaders()
         );
         $locations = json_decode($response->getContent())->data;

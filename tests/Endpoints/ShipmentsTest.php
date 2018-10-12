@@ -39,7 +39,7 @@ class ShipmentsTest extends TestCase
 
         $this->assertJsonSchema(
             '/shipments',
-            '/v1/shipments',
+            '/shipments',
             $this->getRequestHeaders(),
             $data,
             'post',
