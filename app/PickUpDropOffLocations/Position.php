@@ -12,9 +12,6 @@ class Position
     /** @var float */
     protected $longitude;
 
-    /** @var float */
-    protected $distance;
-
     /**
      * @return float|null
      */
@@ -49,25 +46,6 @@ class Position
     public function setLongitude(float $longitude): self
     {
         $this->longitude = $longitude;
-
-        return $this;
-    }
-
-    /**
-     * @return float|null
-     */
-    public function getDistance(): ?float
-    {
-        return $this->distance;
-    }
-
-    /**
-     * @param float $distance
-     * @return $this
-     */
-    public function setDistance(float $distance): self
-    {
-        $this->distance = $distance;
 
         return $this;
     }

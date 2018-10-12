@@ -64,9 +64,21 @@ class PickUpDropOffLocationTransformer extends AbstractTransformer
             'position'      => array_filter([
                 'latitude'  => $position->getLatitude(),
                 'longitude' => $position->getLongitude(),
-                'distance'  => $position->getDistance(),
             ]),
         ]);
+    }
+
+    /**
+     * @param PickUpDropOffLocation $pickUpDropOffLocation
+     * @return array
+     */
+    public function getMeta($pickUpDropOffLocation): array
+    {
+        $this->validateModel($pickUpDropOffLocation);
+
+        return [
+            'distance' => $pickUpDropOffLocation->getDistance(),
+        ];
     }
 
     /**

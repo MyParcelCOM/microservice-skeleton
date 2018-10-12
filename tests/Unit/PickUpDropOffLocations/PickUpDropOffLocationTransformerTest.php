@@ -54,7 +54,6 @@ class PickUpDropOffLocationTransformerTest extends TestCase
         $position = Mockery::mock(Position::class, [
             'getLatitude'  => '48.8722379',
             'getLongitude' => '2.7736192',
-            'getDistance'  => '528',
         ]);
         $openingHourA = Mockery::mock(OpeningHour::class, [
             'getDay'    => 'Monday',
@@ -70,8 +69,9 @@ class PickUpDropOffLocationTransformerTest extends TestCase
             'getId'           => 'location-id',
             'getCategories'   => ['pick-up'],
             'getAddress'      => $address,
-            'getPosition'     => $position,
             'getOpeningHours' => [$openingHourA, $openingHourB],
+            'getPosition'     => $position,
+            'getDistance'     => '528',
         ]);
     }
 
@@ -125,9 +125,15 @@ class PickUpDropOffLocationTransformerTest extends TestCase
             'position'      => [
                 'latitude'  => '48.8722379',
                 'longitude' => '2.7736192',
-                'distance'  => '528',
             ],
         ], $this->pickUpDropOffLocationTransformer->getAttributes($this->pickUpDropOffLocation));
+    }
+
+    public function testGetMeta()
+    {
+        $this->assertEquals([
+            'distance' => '528',
+        ], $this->pickUpDropOffLocationTransformer->getMeta($this->pickUpDropOffLocation));
     }
 
     public function testGetIdWithInvalidModel()

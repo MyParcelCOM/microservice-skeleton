@@ -57,8 +57,15 @@ class PickUpDropOffLocationTest extends TestCase
     /** @test */
     public function testPosition(): void
     {
-        $position = (new Position())->setDistance(9001);
+        $position = (new Position())->setLatitude(9001);
         $this->assertNull($this->location->getPosition(), '`getPosition()` should return `null` when not set');
         $this->assertEquals($position, $this->location->setPosition($position)->getPosition(), '`getPosition()` did not return set value');
+    }
+
+    /** @test */
+    public function testDistance(): void
+    {
+        $this->assertNull($this->location->getDistance(), '`getDistance()` should return `null` when not set');
+        $this->assertEquals(1337, $this->location->setDistance(1337)->getDistance(), '`getDistance()` did not return set value');
     }
 }

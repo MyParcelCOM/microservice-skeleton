@@ -24,6 +24,9 @@ class PickUpDropOffLocation
     /** @var Position */
     protected $position;
 
+    /** @var int */
+    protected $distance;
+
     /**
      * @return null|string
      */
@@ -115,6 +118,25 @@ class PickUpDropOffLocation
     public function setPosition(Position $position): self
     {
         $this->position = $position;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getDistance(): ?int
+    {
+        return $this->distance;
+    }
+
+    /**
+     * @param int|null $distance
+     * @return $this
+     */
+    public function setDistance(?int $distance): self
+    {
+        $this->distance = $distance;
 
         return $this;
     }
