@@ -28,7 +28,6 @@ class PickUpDropOffLocationRepositoryTest extends TestCase
             'getPositionForAddress' => Mockery::mock(Position::class, [
                 'getLatitude'  => 52.304860,
                 'getLongitude' => 4.691103,
-                'getDistance'  => null,
             ]),
             'getDistance'           => 137,
         ]);

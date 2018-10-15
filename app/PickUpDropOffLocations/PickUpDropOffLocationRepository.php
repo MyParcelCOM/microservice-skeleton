@@ -76,10 +76,10 @@ class PickUpDropOffLocationRepository
             $position->setLongitude($addressPosition->getLongitude());
         }
 
-        if ($position->getDistance() === null) {
+        if ($location->getDistance() === null) {
             $sourcePosition = $this->geoService->getPositionForAddress($sourceCountryCode, $sourcePostalCode, $sourceStreet, $sourceStreetNumber);
 
-            $position->setDistance(
+            $location->setDistance(
                 $this->geoService->getDistance($sourcePosition, $position)
             );
         }
