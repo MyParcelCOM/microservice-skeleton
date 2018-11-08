@@ -27,7 +27,7 @@ class StatusesTest extends TestCase
 
         $this->assertJsonSchema(
             '/shipments/{shipment_id}/statuses/{tracking_code}',
-            '/v1/shipments/0/statuses/3SMKPL6192376',
+            '/shipments/0/statuses/3SMKPL6192376',
             $this->getRequestHeaders()
         );
     }

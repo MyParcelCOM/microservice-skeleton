@@ -84,5 +84,10 @@
         "incoterm": "DDU"
       }
     }
+  },
+  "meta": {
+    "track_trace": {
+      "enabled": false
+    }
   }
 }

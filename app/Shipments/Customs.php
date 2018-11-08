@@ -20,7 +20,7 @@ class Customs
 
     /** @var string */
     protected $contentType;
-    /** @var string */
+    /** @var null|string */
     protected $invoiceNumber;
     /** @var string */
     private $nonDelivery;
@@ -47,18 +47,18 @@ class Customs
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getInvoiceNumber(): string
+    public function getInvoiceNumber(): ?string
     {
         return $this->invoiceNumber;
     }
 
     /**
-     * @param string $invoiceNumber
+     * @param null|string $invoiceNumber
      * @return $this
      */
-    public function setInvoiceNumber(string $invoiceNumber): self
+    public function setInvoiceNumber(?string $invoiceNumber): self
     {
         $this->invoiceNumber = $invoiceNumber;
 

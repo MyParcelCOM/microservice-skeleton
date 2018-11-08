@@ -18,12 +18,9 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get(
-    '/v1/pickup-dropoff-locations/{countryCode}/{postalCode}',
-    PickUpDropOffLocationController::class . '@getAll'
-);
+Route::get('/pickup-dropoff-locations/{countryCode}/{postalCode}', PickUpDropOffLocationController::class . '@getAll');
 
-Route::get('/v1/shipments/{shipmentId}/statuses/{trackingCode}', StatusController::class . '@getStatuses');
-Route::post('/v1/shipments', ShipmentController::class . '@create');
+Route::get('/shipments/{shipmentId}/statuses/{trackingCode}', StatusController::class . '@getStatuses');
+Route::post('/shipments', ShipmentController::class . '@create');
 
-Route::get('/v1/validate-credentials', CredentialController::class . '@validateCredentials');
+Route::get('/validate-credentials', CredentialController::class . '@validateCredentials');

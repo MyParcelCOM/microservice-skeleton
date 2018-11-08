@@ -33,7 +33,7 @@ class ShipmentController extends Controller
         Request $request,
         TransformerService $transformerService
     ): JsonResponse {
-        $jsonRequestValidator->validate('/shipments', 'post', 201);
+        $jsonRequestValidator->validate('/shipments', 'post', null);
 
         // TODO Add rules to ApiRequestValidator to include carrier-specific requirements.
         if (!$apiRequestValidator->validate($request)) {
@@ -42,7 +42,7 @@ class ShipmentController extends Controller
             throw new InvalidJsonSchemaException($errors);
         }
 
-        $shipment = $repository->createFromPostData($request->json('data'));
+        $shipment = $repository->createFromPostData($request->json('data'), $request->json('meta', []));
 
         return new JsonResponse(
             $transformerService->transformResource($shipment),

@@ -155,4 +155,13 @@ class ShipmentTest extends TestCase
         $this->assertCount(4, $shipment->getItems());
         $this->assertEquals($items, $shipment->getItems());
     }
+
+    /** @test */
+    public function testTrackTraceEnabled()
+    {
+        $shipment = new Shipment();
+
+        $this->assertTrue($shipment->isTrackTraceEnabled());
+        $this->assertFalse($shipment->setTrackTraceEnabled(false)->isTrackTraceEnabled());
+    }
 }

@@ -31,7 +31,7 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         if ($exception instanceof RequestException && ($response = $exception->getResponse()) !== null) {
-            $carrierResponse = json_decode($response->getBody()->getContents())
+            $carrierResponse = json_decode($response->getBody()->getContents(), true)
                 ?? ['response_body' => (string)$response->getBody()];
 
             $exception = new CarrierApiException(
