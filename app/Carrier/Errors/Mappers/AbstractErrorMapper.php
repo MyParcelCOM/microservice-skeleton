@@ -60,7 +60,7 @@ abstract class AbstractErrorMapper implements ErrorMapperInterface
      * [
      *      [
      *          'description'   => 'Invalid email address',
-     *          'code'          => '1337', // Code can be null, but should be present
+     *          'code'          => '1337'
      *      ]
      * ]
      *
@@ -108,15 +108,15 @@ abstract class AbstractErrorMapper implements ErrorMapperInterface
     }
 
     /**
+     * @param JsonSchemaErrorInterface[] $errors
      * @param string                     $message
      * @param string                     $code
-     * @param JsonSchemaErrorInterface[] $errors
      * @return self
      */
     protected function addError(
         array &$errors,
         string $message,
-        ?string $code = null
+        string $code = ''
     ): self {
         $error = $this->mapError($message, $code);
         if ($error === null) {
@@ -130,8 +130,8 @@ abstract class AbstractErrorMapper implements ErrorMapperInterface
 
     /**
      * @param string      $message
-     * @param null|string $code
+     * @param string $code
      * @return JsonSchemaErrorInterface
      */
-    abstract protected function mapError(string $message, ?string $code = null): JsonSchemaErrorInterface;
+    abstract protected function mapError(string $message, string $code = ''): JsonSchemaErrorInterface;
 }
