@@ -46,6 +46,9 @@ GET 'shipping/shipment/235446474/label'
 `/tests/Stubs/get-shipping-shipment-235446474-label.stub`
 ```
 
+### Error handling
+Errors from the carrier should be transformed to [JSON API error objects](https://jsonapi.org/format/#error-objects). To get you started, an `AbstractErrorMapper` can be found in `app/Carrier/Errors/Mappers`. This `AbstractErrorMapper` can be extended and called from the `CarrierApiGateway` to parse carrier responses and transform it into exceptions the exception handler can transform to a valid JSON schema response.
+
 ### Commands
 To start the containers, run:
 ```bash
