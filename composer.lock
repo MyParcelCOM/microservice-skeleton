@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "af88f007924fca77722c533500651291",
+    "content-hash": "f06082991a8861c2cb2ed5ae7033e891",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1163,16 +1163,16 @@
         },
         {
             "name": "myparcelcom/json-api",
-            "version": "v0.5.1",
+            "version": "v0.6.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MyParcelCOM/json-api.git",
-                "reference": "a95be2a5c261fd3ae64afe577ebdcc007c2b097a"
+                "reference": "8302c2d9b7cce113f9c481f5a12dfeb1ca43b93a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MyParcelCOM/json-api/zipball/a95be2a5c261fd3ae64afe577ebdcc007c2b097a",
-                "reference": "a95be2a5c261fd3ae64afe577ebdcc007c2b097a",
+                "url": "https://api.github.com/repos/MyParcelCOM/json-api/zipball/8302c2d9b7cce113f9c481f5a12dfeb1ca43b93a",
+                "reference": "8302c2d9b7cce113f9c481f5a12dfeb1ca43b93a",
                 "shasum": ""
             },
             "require": {
@@ -1198,7 +1198,7 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "MyParcel.com shared library with JSON API related exceptions, interfaces, traits and utility classes.",
             "homepage": "https://www.myparcel.com",
-            "time": "2018-06-05T14:56:33+00:00"
+            "time": "2018-11-07T13:35:05+00:00"
         },
         {
             "name": "nesbot/carbon",

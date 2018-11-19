@@ -14,8 +14,13 @@ It basically comes down to the following:
 - [Setup](#setup)
 - [Credentials](#credentials)
 - [TODOs](#todos)
+- [Response Stubs](#response-stubs)
+- [Error handling](#error-handling)
+- [Things to keep in mind](#things-to-keep-in-mind)
 - [Commands](#commands)
+- [Composer commands](#composer-commands)
 - [Xdebug](#xdebug)
+- [PhpStorm setup](#phpstorm-setup)
 
 ### Installation
 The project uses Docker to run a local development environment. To install Docker, follow the steps in the [documentation](https://docs.myparcel.com/development/docker/).
@@ -28,6 +33,7 @@ To setup the project (install composer dependencies, setup database, etc), run t
 
 ### Credentials
 A few credentials are required to let carriers know who is making the request. The MyParcelCom API sends these credentials to the microservice in the `X-MYPARCELCOM-CREDENTIALS` header. These credentials are carrier specific, and usually consist of an `api-user` and `api-password`, or maybe an `api-key` for the carrier's API. The data in the `X-MYPARCELCOM-CREDENTIALS` header should be formatted in `JSON`, as the `ExtractCredentials` middleware in the microservice automatically converts this `JSON` to an array. It then passes the credentials array on to the implementation of the `CarrierApiGatewayInterface` through the `setCredentials()` method.
+Persisting information such as the API url should be set in the `.env` file.
 
 ### TODOs
 There are several `TODO` comments added to the codebase to help you get started on what to implement. There are also several tests to check if everything is working as it is supposed to. The endpoint tests are the starting point to check if an endpoint does what is required from the carrier specification.
@@ -45,6 +51,15 @@ GET 'shipping/shipment/235446474/label'
 // Would be stored as:
 `/tests/Stubs/get-shipping-shipment-235446474-label.stub`
 ```
+
+### Error handling
+Errors from the carrier should be transformed to [JSON API error objects](https://jsonapi.org/format/#error-objects). To get you started, an `AbstractErrorMapper` can be found in `app/Carrier/Errors/Mappers`. This `AbstractErrorMapper` can be extended and called from the `CarrierApiGateway` to parse carrier responses and transform it into exceptions the exception handler can transform to a valid JSON schema response.
+
+### Things to keep in mind
+- Labels must be returned as a base64 encoded string. If the carrier already returns a base64 encoded string make sure you don't encode it twice. The base64 encoded string should decode to a A6 sized PDF in landscape format. If the label is in portrait orientation rotate it 270 degrees so the top is on the left.
+- If the microservice needs to store data (logs, labels, service tables, etc.) make sure to save it in `storage/`.
+- Not all carriers have their own endpoint for credential verification. If they don't you can make a harmless request (such as a status update request) to test the credentials for the `validate-credentials` endpoint.
+- All time must be set in UTC
 
 ### Commands
 To start the containers, run:
