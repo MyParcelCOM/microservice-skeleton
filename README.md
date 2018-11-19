@@ -59,6 +59,7 @@ Errors from the carrier should be transformed to [JSON API error objects](https:
 - Labels must be returned as a base64 encoded string. If the carrier already returns a base64 encoded string make sure you don't encode it twice. The base64 encoded string should decode to a A6 sized PDF in landscape format. If the label is in portrait orientation rotate it 270 degrees so the top is on the left.
 - If the microservice needs to store data (logs, labels, service tables, etc.) make sure to save it in `storage/`.
 - Not all carriers have their own endpoint for credential verification. If they don't you can make a harmless request (such as a status update request) to test the credentials for the `validate-credentials` endpoint.
+- All time must be set in UTC
 
 ### Commands
 To start the containers, run:
