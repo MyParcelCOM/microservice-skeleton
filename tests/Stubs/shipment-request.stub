@@ -61,6 +61,7 @@
             "amount": 30000,
             "currency": "EUR"
           },
+          "item_weight": 1500,
           "quantity": 2,
           "hs_code": "1234.15.05",
           "origin_country_code": "GB"
@@ -72,6 +73,7 @@
             "amount": 20000,
             "currency": "EUR"
           },
+          "item_weight": 2500,
           "quantity": 1,
           "hs_code": "1234.15.05",
           "origin_country_code": "GB"

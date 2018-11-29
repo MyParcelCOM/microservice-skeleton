@@ -228,6 +228,9 @@ class ShipmentMapper implements MapperInterface
             $item->setItemValueAmount($data['item_value']['amount']);
             $item->setItemValueCurrency($data['item_value']['currency']);
         }
+        if (isset($data['item_weight'])) {
+            $item->setItemWeight($data['item_weight']);
+        }
         if (isset($data['quantity'])) {
             $item->setQuantity($data['quantity']);
         }
