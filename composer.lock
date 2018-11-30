@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f06082991a8861c2cb2ed5ae7033e891",
+    "content-hash": "de82ed9a016b7b206e7af323eb1de101",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1143,23 +1143,23 @@
         },
         {
             "name": "myparcelcom/carrier-specification",
-            "version": "v0.7.0",
+            "version": "v0.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MyParcelCOM/carrier-specification.git",
-                "reference": "b4f28814f7246c059cd8cafa142dd38763c8f09e"
+                "reference": "1a479323522f02bb0d2264b77b5ff939f9eb448c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MyParcelCOM/carrier-specification/zipball/b4f28814f7246c059cd8cafa142dd38763c8f09e",
-                "reference": "b4f28814f7246c059cd8cafa142dd38763c8f09e",
+                "url": "https://api.github.com/repos/MyParcelCOM/carrier-specification/zipball/1a479323522f02bb0d2264b77b5ff939f9eb448c",
+                "reference": "1a479323522f02bb0d2264b77b5ff939f9eb448c",
                 "shasum": ""
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
             "description": "MyParcel.com carrier API specification.",
             "homepage": "https://docs.myparcel.com/carrier-specification",
-            "time": "2018-10-12T10:30:26+00:00"
+            "time": "2018-11-29T16:29:19+00:00"
         },
         {
             "name": "myparcelcom/json-api",
