@@ -20,7 +20,7 @@ class ShipmentItem
     protected $itemValueCurrency;
     /** @var string */
     protected $originCountryCode;
-    /** @var int|null */
+    /** @var int */
     protected $itemWeight;
 
     /**
@@ -157,18 +157,18 @@ class ShipmentItem
     }
 
     /**
-     * @return null|int
+     * @return int
      */
-    public function getItemWeight(): ?int
+    public function getItemWeight(): int
     {
         return $this->itemWeight;
     }
 
     /**
-     * @param null|int $itemWeight
+     * @param int $itemWeight
      * @return $this
      */
-    public function setItemWeight(?int $itemWeight): self
+    public function setItemWeight(int $itemWeight): self
     {
         $this->itemWeight = $itemWeight;
 
