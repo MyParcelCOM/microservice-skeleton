@@ -20,6 +20,8 @@ class ShipmentItem
     protected $itemValueCurrency;
     /** @var string */
     protected $originCountryCode;
+    /** @var int */
+    protected $itemWeight;
 
     /**
      * @param string $sku
@@ -152,5 +154,24 @@ class ShipmentItem
     public function getOriginCountryCode(): string
     {
         return $this->originCountryCode;
+    }
+
+    /**
+     * @return int
+     */
+    public function getItemWeight(): int
+    {
+        return $this->itemWeight;
+    }
+
+    /**
+     * @param int $itemWeight
+     * @return $this
+     */
+    public function setItemWeight(int $itemWeight): self
+    {
+        $this->itemWeight = $itemWeight;
+
+        return $this;
     }
 }
