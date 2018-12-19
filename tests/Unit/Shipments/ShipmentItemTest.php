@@ -55,6 +55,9 @@ class ShipmentItemTest extends TestCase
     public function testSku()
     {
         $item = new ShipmentItem();
+
+        $this->assertNull($item->getSku());
+
         $this->assertEquals('DVC-2314/12', $item->setSku('DVC-2314/12')->getSku());
     }
 }
