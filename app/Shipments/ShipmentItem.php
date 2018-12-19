@@ -35,9 +35,9 @@ class ShipmentItem
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getSku(): string
+    public function getSku(): ?string
     {
         return $this->sku;
     }
