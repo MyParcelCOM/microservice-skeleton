@@ -86,7 +86,7 @@ class ShipmentTransformerTest extends TestCase
             'getContentType'   => Customs::CONTENT_TYPE_DOCUMENTS,
             'getInvoiceNumber' => 'V01C3',
             'getNonDelivery'   => Customs::NON_DELIVERY_ABANDON,
-            'getIncoterm'      => Customs::INCOTERM_DUTY_DELIVERY_UNPAID,
+            'getIncoterm'      => Customs::INCOTERM_DELIVERED_AT_PLACE,
         ]);
 
         $this->shipmentTransformer = (new ShipmentTransformer($transformerFactory))
@@ -262,7 +262,7 @@ class ShipmentTransformerTest extends TestCase
             'customs'             => [
                 'content_type'   => Customs::CONTENT_TYPE_DOCUMENTS,
                 'invoice_number' => 'V01C3',
-                'incoterm'       => Customs::INCOTERM_DUTY_DELIVERY_UNPAID,
+                'incoterm'       => Customs::INCOTERM_DELIVERED_AT_PLACE,
                 'non_delivery'   => Customs::NON_DELIVERY_ABANDON,
             ],
         ], $this->shipmentTransformer->getAttributes($this->shipment));
@@ -374,7 +374,7 @@ class ShipmentTransformerTest extends TestCase
                     'customs'             => [
                         'content_type'   => Customs::CONTENT_TYPE_DOCUMENTS,
                         'invoice_number' => 'V01C3',
-                        'incoterm'       => Customs::INCOTERM_DUTY_DELIVERY_UNPAID,
+                        'incoterm'       => Customs::INCOTERM_DELIVERED_AT_PLACE,
                         'non_delivery'   => Customs::NON_DELIVERY_ABANDON,
                     ],
                     'tracking_code'       => 'TR4CK1NGC0D3',

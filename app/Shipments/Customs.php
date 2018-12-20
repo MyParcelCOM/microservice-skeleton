@@ -15,7 +15,7 @@ class Customs
     const NON_DELIVERY_RETURN = 'return';
     const NON_DELIVERY_ABANDON = 'abandon';
 
-    const INCOTERM_DUTY_DELIVERY_UNPAID = 'DDU';
+    const INCOTERM_DELIVERED_AT_PLACE = 'DAP';
     const INCOTERM_DUTY_DELIVERY_PAID = 'DDP';
 
     /** @var string */
