@@ -76,7 +76,6 @@ The following commands are available:
 - `./mp.sh` - List running containers (for this repo).
 - `./mp.sh up` - Start the containers.
 - `./mp.sh down` - Stop the containers.
-- `./mp.sh prune` - Prune project volumes.
 - `./mp.sh setup` - Setup the development environment.
 - `./mp.sh update` - Update the development environment.
 - `./mp.sh upgrade` - Upgrade the dependencies.
