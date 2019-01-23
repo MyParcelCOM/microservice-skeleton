@@ -20,6 +20,7 @@ class ShipmentItemTest extends TestCase
     public function testHsCode()
     {
         $item = new ShipmentItem();
+        $this->assertNull($item->getHsCode());
         $this->assertEquals('3215.32.54', $item->setHsCode('3215.32.54')->getHsCode());
     }
 
@@ -41,6 +42,7 @@ class ShipmentItemTest extends TestCase
     public function testOriginCountryCode()
     {
         $item = new ShipmentItem();
+        $this->assertNull($item->getOriginCountryCode());
         $this->assertEquals('CN', $item->setOriginCountryCode('CN')->getOriginCountryCode());
     }
 
@@ -55,9 +57,15 @@ class ShipmentItemTest extends TestCase
     public function testSku()
     {
         $item = new ShipmentItem();
-
         $this->assertNull($item->getSku());
-
         $this->assertEquals('DVC-2314/12', $item->setSku('DVC-2314/12')->getSku());
+    }
+
+    /** @test */
+    public function testItemWeight()
+    {
+        $item = new ShipmentItem();
+        $this->assertNull($item->getItemWeight());
+        $this->assertEquals(37, $item->setItemWeight(37)->getItemWeight());
     }
 }
