@@ -8,18 +8,25 @@ class ShipmentItem
 {
     /** @var string */
     protected $sku;
+
     /** @var string */
     protected $description;
+
     /** @var string */
     protected $hsCode;
+
     /** @var int */
     protected $quantity;
+
     /** @var int */
     protected $itemValueAmount;
+
     /** @var string */
     protected $itemValueCurrency;
+
     /** @var string */
     protected $originCountryCode;
+
     /** @var int */
     protected $itemWeight;
 
@@ -73,9 +80,9 @@ class ShipmentItem
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getHsCode(): string
+    public function getHsCode(): ?string
     {
         return $this->hsCode;
     }
@@ -149,17 +156,17 @@ class ShipmentItem
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getOriginCountryCode(): string
+    public function getOriginCountryCode(): ?string
     {
         return $this->originCountryCode;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getItemWeight(): int
+    public function getItemWeight(): ?int
     {
         return $this->itemWeight;
     }
