@@ -79,7 +79,9 @@ workflows:
       - build:
           filters:
             branches:
-              ignore: /^(master|develop)$/
+              ignore:
+                - master
+                - develop
 
   build_and_deploy_develop:
     jobs:
@@ -99,7 +101,7 @@ workflows:
       - build:
           filters:
             tags:
-              only: /^v\d+\.\d+\.\d+$/
+              only: /^v\d+\.\d+\.\d+-?\d*$/
             branches:
               ignore: /.*/
       - deploy_tag:
@@ -107,6 +109,6 @@ workflows:
             - build
           filters:
             tags:
-              only: /^v\d+\.\d+\.\d+$/
+              only: /^v\d+\.\d+\.\d+-?\d*$/
             branches:
               ignore: /.*/
