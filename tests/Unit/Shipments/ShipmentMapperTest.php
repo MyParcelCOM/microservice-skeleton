@@ -169,7 +169,6 @@ class ShipmentMapperTest extends TestCase
                     $this->assertInternalType('integer', $item->getQuantity());
                     $this->assertNotNull($item->getQuantity());
                     $this->assertNotNull($item->getOriginCountryCode());
-
                 });
 
                 return $shipment;

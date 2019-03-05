@@ -131,15 +131,13 @@ class PickUpDropOffLocationRepository
      */
     protected function getCacheKey(?string $countryCode, ?string $postalCode, ?string $street, ?int $streetNumber): string
     {
-        return implode(
-            '_', [
-                'pudo_locations',
-                $countryCode,
-                $postalCode,
-                $street,
-                $streetNumber,
-            ]
-        );
+        return implode('_', [
+            'pudo_locations',
+            $countryCode,
+            $postalCode,
+            $street,
+            $streetNumber,
+        ]);
     }
 
     /**

@@ -21,7 +21,7 @@ class ShipmentRepository
      * from the shipment data posted.
      *
      * @param array $data
-     * @param array  $meta
+     * @param array $meta
      * @return Shipment
      */
     public function createFromPostData(array $data, array $meta = []): Shipment

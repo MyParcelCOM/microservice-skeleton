@@ -129,7 +129,7 @@ abstract class AbstractErrorMapper implements ErrorMapperInterface
     }
 
     /**
-     * @param string      $message
+     * @param string $message
      * @param string $code
      * @return JsonSchemaErrorInterface
      */
