@@ -59,7 +59,7 @@ class CredentialController extends Controller
     {
         return new JsonResponse([
             'data' => [
-                'valid' => false,
+                'valid'   => false,
                 'message' => $message,
             ],
         ], $statusCode);
