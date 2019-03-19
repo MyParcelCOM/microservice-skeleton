@@ -26,8 +26,8 @@ class ValidateCredentialsTest extends TestCase
             '/validate-credentials',
             '/validate-credentials',
             [
-                'foo' => 'bar',
-                'some' => 'credentials'
+                'foo'  => 'bar',
+                'some' => 'credentials',
             ],
             [],
             'get',
@@ -49,5 +49,4 @@ class ValidateCredentialsTest extends TestCase
             200
         );
     }
-
 }

@@ -15,15 +15,15 @@
     "justinrainbow/json-schema": "^5.2",
     "laravel/framework": "5.5.*",
     "laravel/tinker": "~1.0",
-    "myparcelcom/carrier-specification": "^0.11.1",
+    "myparcelcom/carrier-specification": "^0.11.2",
     "myparcelcom/json-api": "^0.6.15",
     "predis/predis": "~1.0",
     "tecnickcom/tc-lib-barcode": "^1.15",
     "vlucas/phpdotenv": "~2.2"
   },
   "require-dev": {
-    "mockery/mockery": "0.9.*",
-    "phpunit/phpunit": "~6.0",
+    "mockery/mockery": "^1.2",
+    "phpunit/phpunit": "^7.5",
     "squizlabs/php_codesniffer": "^3.0"
   },
   "autoload": {
