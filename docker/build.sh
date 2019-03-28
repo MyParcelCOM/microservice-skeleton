@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eo pipefail
+
 if [ $# -lt 2 ]; then
   echo "Please supply the image and tag name of the container you want to build"
   exit 1
