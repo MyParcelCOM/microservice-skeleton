@@ -90,8 +90,8 @@ jobs:
             export IMAGE_TAG=$(image_tag)
             export ENV_HOST=$(env_host)
 
-            $(aws-ssm-params ${NS}) # fetch global settings
-            $(aws-ssm-params ${NS}/${CIRCLE_PROJECT_REPONAME}) # fetch project settings
+            eval $(aws-ssm-params ${NS}) # fetch global settings
+            eval $(aws-ssm-params ${NS}/${CIRCLE_PROJECT_REPONAME}) # fetch project settings
             $(cat kube/secrets.template.yaml | yq -r '.data | keys[]' | encode_secrets) # base64 encode secrets
 
             envsubst < kube/configmap.template.yaml > kube/configmap.yaml
