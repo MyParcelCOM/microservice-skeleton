@@ -107,9 +107,7 @@ jobs:
             kubectl apply -f kube/deployment.yaml
             kubectl apply -f kube/service.yaml
 
-            $(aws-ssm-params ${NS}) # fetch global settings
-
-            if [ "${APP_ENV}" != "production" ]; then
+            if [ "$(env_name)" != "production" ]; then
               kubectl apply -f kube/ingress.yaml
             fi
 
