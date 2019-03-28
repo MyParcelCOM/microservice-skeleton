@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  test:
     machine:
       image: circleci/classic:edge
 
@@ -25,7 +25,7 @@ jobs:
             ./mp.sh test skeleton
             if [ "$(head -n 3 build/report.junit.xml | grep 'errors="0"' | grep 'failures="0"')" == '' ]; then exit 1; else exit 0; fi
 
-  deploy_develop:
+  build:
     machine:
       image: circleci/classic:edge
 
@@ -46,6 +46,65 @@ jobs:
           name: Deploy to docker
           command: |
             ./docker/build.sh microservice develop
+
+  deploy_staging:
+    machine:
+      image: circleci/classic:edge
+
+    steps:
+      - run:
+          name: Restarting app servers
+          command: |
+            docker run --rm \
+                -e AWS_ACCESS_KEY_ID=${DOCKER_AWS_ACCESS_KEY_ID} \
+                -e AWS_SECRET_ACCESS_KEY=${DOCKER_AWS_SECRET_ACCESS_KEY} \
+                cgswong/aws:aws elasticbeanstalk restart-app-server \
+                    --region eu-central-1 \
+                    --environment-name staging-api
+            docker run --rm \
+                -e AWS_ACCESS_KEY_ID=${DOCKER_AWS_ACCESS_KEY_ID} \
+                -e AWS_SECRET_ACCESS_KEY=${DOCKER_AWS_SECRET_ACCESS_KEY} \
+                cgswong/aws:aws elasticbeanstalk restart-app-server \
+                    --region eu-central-1 \
+                    --environment-name staging-worker
+
+  deploy:
+    docker:
+      - image: myparcelcom/kubectl-aws
+        auth:
+          username: ${DOCKER_USER}
+          password: ${DOCKER_PASSWORD}
+    steps:
+      - checkout
+      - run:
+          name: Bootstrap AWS EKS and kubectl
+          command: |
+            export CLUSTER=$(cluster_name)
+            export AWS_ACCESS_KEY=${DEPLOY_AWS_ACCESS_KEY}
+            export AWS_SECRET_KEY=${DEPLOY_AWS_SECRET_KEY}
+            bootstrap
+      - run:
+          name: Process templates
+          command: |
+            export NS=$(env_namespace)
+            export IMAGE_TAG=$(image_tag)
+            export ENV_HOST=$(env_host)
+
+            $(aws-ssm-params ${NS}) # fetch global settings
+            $(aws-ssm-params ${NS}/${CIRCLE_PROJECT_REPONAME}) # fetch project settings
+            $(cat kube/secrets.template.yaml | yq -r '.data | keys[]' | encode_secrets) # base64 encode secrets
+
+            envsubst < kube/configmap.template.yaml > kube/configmap.yaml
+            envsubst < kube/secrets.template.yaml > kube/secrets.yaml
+            envsubst < kube/deployment.template.yaml > kube/deployment.yaml
+            envsubst < kube/service.template.yaml > kube/service.yaml
+      - run:
+          name: Deploy
+          command: |
+            kubectl apply -f kube/configmap.yaml
+            kubectl apply -f kube/secrets.yaml
+            kubectl apply -f kube/deployment.yaml
+            kubectl apply -f kube/service.yaml
 
   deploy_tag:
     machine:
@@ -76,20 +135,32 @@ workflows:
 
   test:
     jobs:
-      - build:
+      - test:
           filters:
             branches:
               ignore:
                 - master
                 - develop
 
-  build_and_deploy_develop:
+  build_and_deploy:
     jobs:
-      - build:
+      - test:
           filters:
             branches:
               only: develop
-      - deploy_develop:
+      - build:
+          requires:
+            - test
+          filters:
+            branches:
+              only: develop
+      - deploy_staging:
+          requires:
+            - build
+          filters:
+            branches:
+              only: develop
+      - deploy:
           requires:
             - build
           filters:
@@ -98,7 +169,7 @@ workflows:
 
   build_and_deploy_tag:
     jobs:
-      - build:
+      - test:
           filters:
             tags:
               only: /^v\d+\.\d+\.\d+-?\d*$/
@@ -106,7 +177,7 @@ workflows:
               ignore: /.*/
       - deploy_tag:
           requires:
-            - build
+            - test
           filters:
             tags:
               only: /^v\d+\.\d+\.\d+-?\d*$/
