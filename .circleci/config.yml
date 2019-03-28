@@ -45,7 +45,7 @@ jobs:
       - run:
           name: Deploy to docker
           command: |
-            ./docker/build.sh microservice develop
+            ./docker/build.sh ${CIRCLE_PROJECT_REPONAME##*-} develop
 
   deploy_staging:
     machine:
@@ -132,8 +132,8 @@ jobs:
           name: Deploy to docker
           command: |
             TAG="$(git describe --exact-match --tags --abbrev=0 $(git rev-parse HEAD) 2>/dev/null)"
-            ./docker/build.sh microservice $TAG
-            ./docker/build.sh microservice latest
+            ./docker/build.sh ${CIRCLE_PROJECT_REPONAME##*-} $TAG
+            ./docker/build.sh ${CIRCLE_PROJECT_REPONAME##*-} latest
 
 workflows:
   version: 2
