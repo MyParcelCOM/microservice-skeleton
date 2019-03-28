@@ -98,6 +98,7 @@ jobs:
             envsubst < kube/secrets.template.yaml > kube/secrets.yaml
             envsubst < kube/deployment.template.yaml > kube/deployment.yaml
             envsubst < kube/service.template.yaml > kube/service.yaml
+            envsubst < kube/ingress.template.yaml > kube/ingress.yaml
       - run:
           name: Deploy
           command: |
@@ -105,6 +106,12 @@ jobs:
             kubectl apply -f kube/secrets.yaml
             kubectl apply -f kube/deployment.yaml
             kubectl apply -f kube/service.yaml
+
+            $(aws-ssm-params ${NS}) # fetch global settings
+
+            if [ "${APP_ENV}" != "production" ]; then
+              kubectl apply -f kube/ingress.yaml
+            fi
 
   deploy_tag:
     machine:
