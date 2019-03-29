@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 LABEL maintainer="MyParcel.com <info@myparcel.com>"
 
@@ -15,7 +15,7 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 RUN apt-get update \
-    && apt-get install -y nginx curl zip unzip software-properties-common supervisor sqlite3 ssl-cert gettext-base iproute wget \
+    && apt-get install -y nginx curl zip unzip software-properties-common supervisor sqlite3 ssl-cert gettext-base iproute2 wget \
     && add-apt-repository -y ppa:ondrej/php \
     && echo 'deb http://apt.newrelic.com/debian/ newrelic non-free' | tee /etc/apt/sources.list.d/newrelic.list \
     && wget -O- https://download.newrelic.com/548C16BF.gpg | apt-key add - \
