@@ -87,8 +87,9 @@ jobs:
           name: Process templates
           command: |
             export NS=$(env_namespace)
-            export IMAGE_TAG=$(image_tag)
             export ENV_HOST=$(env_host)
+            export IMAGE_NAME=${CIRCLE_PROJECT_REPONAME##*-}
+            export IMAGE_TAG=$(image_tag)
 
             eval $(aws-ssm-params ${NS}) # fetch global settings
             eval $(aws-ssm-params ${NS}/${CIRCLE_PROJECT_REPONAME}) # fetch project settings
