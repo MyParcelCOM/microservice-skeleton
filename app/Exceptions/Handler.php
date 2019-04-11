@@ -6,8 +6,12 @@ namespace MyParcelCom\Microservice\Exceptions;
 
 use Exception;
 use GuzzleHttp\Exception\RequestException;
+use Illuminate\Validation\ValidationException;
+use MyParcelCom\JsonApi\Errors\InvalidInputError;
+use MyParcelCom\JsonApi\Errors\MissingInputError;
 use MyParcelCom\JsonApi\ExceptionHandler;
 use MyParcelCom\JsonApi\Exceptions\CarrierApiException;
+use MyParcelCom\JsonApi\Exceptions\InvalidInputException;
 use Symfony\Component\HttpFoundation\Response;
 
 class Handler extends ExceptionHandler
@@ -41,6 +45,10 @@ class Handler extends ExceptionHandler
             );
         }
 
+        if ($exception instanceof ValidationException) {
+            $exception = $this->mapValidationException($exception);
+        }
+
         return parent::render($request, $exception);
     }
 
@@ -61,5 +69,35 @@ class Handler extends ExceptionHandler
         }
 
         return Response::HTTP_INTERNAL_SERVER_ERROR;
+    }
+
+
+    /**
+     * @param ValidationException $exception
+     * @return InvalidInputException
+     */
+    private function mapValidationException(ValidationException $exception): InvalidInputException
+    {
+        $validator = $exception->validator;
+
+        $invalidAttributes = array_keys($validator->failed());
+
+        $errors = [];
+
+        foreach ($invalidAttributes as $invalidAttribute) {
+            $errorMessages = $validator->errors()->get($invalidAttribute);
+
+            foreach ($errorMessages as $errorMessage) {
+                $pointer = str_replace('.', '/', $invalidAttribute);
+
+                if (strpos($errorMessage, 'required') !== false) {
+                    $errors[] = new MissingInputError('', $errorMessage, $pointer);
+                } else {
+                    $errors[] = new InvalidInputError('', $errorMessage, $pointer);
+                }
+            }
+        }
+
+        return new InvalidInputException($errors);
     }
 }
