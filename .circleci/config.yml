@@ -25,7 +25,7 @@ jobs:
             if [ "${CIRCLE_PROJECT_REPONAME##*-}" != "skeleton" ]; then
               ./mp.sh test --no-coverage
             else
-              ./mp.sh test skeleton
+              ./mp.sh test skeleton --no-coverage
             fi
 
   build:
