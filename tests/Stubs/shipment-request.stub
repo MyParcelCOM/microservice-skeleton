@@ -83,7 +83,7 @@
         "content_type": "gifts",
         "invoice_number": "876543",
         "non_delivery": "return",
-        "incoterm": "DDU"
+        "incoterm": "DDP"
       }
     }
   },
