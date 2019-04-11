@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Validation;
 
-use MyParcelCom\Microservice\Http\Request;
+use MyParcelCom\Hermes\Http\ShipmentRequest;
 
 class ApiRequestValidator
 {
@@ -15,10 +15,10 @@ class ApiRequestValidator
     protected $rules = [];
 
     /**
-     * @param Request $request
+     * @param ShipmentRequest $request
      * @return bool
      */
-    public function validate(Request $request): bool
+    public function validate(ShipmentRequest $request): bool
     {
         $requestData = \GuzzleHttp\json_decode($request->getContent());
         $rules = $this->getRules();
