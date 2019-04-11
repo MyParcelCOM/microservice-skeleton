@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MyParcelCom\Microservice\Shipments;
 
 use Illuminate\Http\JsonResponse;
+use MyParcelCom\Hermes\Http\ShipmentRequest;
 use MyParcelCom\JsonApi\Exceptions\InvalidJsonSchemaException;
 use MyParcelCom\JsonApi\Transformers\TransformerService;
 use MyParcelCom\Microservice\Http\Controllers\Controller;
@@ -20,7 +21,7 @@ class ShipmentController extends Controller
      * @param JsonRequestValidator $jsonRequestValidator
      * @param ApiRequestValidator  $apiRequestValidator
      * @param ShipmentRepository   $repository
-     * @param Request              $request
+     * @param ShipmentRequest      $request
      * @param TransformerService   $transformerService
      * @return JsonResponse
      * @throws InvalidJsonSchemaException
@@ -30,11 +31,12 @@ class ShipmentController extends Controller
         JsonRequestValidator $jsonRequestValidator,
         ApiRequestValidator $apiRequestValidator,
         ShipmentRepository $repository,
-        Request $request,
+        ShipmentRequest $request,
         TransformerService $transformerService
     ): JsonResponse {
         $jsonRequestValidator->validate('/shipments', 'post', null);
 
+        dd($request->getContent());
         // TODO Add rules to ApiRequestValidator to include carrier-specific requirements.
         if (!$apiRequestValidator->validate($request)) {
             $errors = $apiRequestValidator->getErrors();
