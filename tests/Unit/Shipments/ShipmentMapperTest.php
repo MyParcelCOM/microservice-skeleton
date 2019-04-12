@@ -150,7 +150,7 @@ class ShipmentMapperTest extends TestCase
             ->andReturnUsing(function (Customs $customs) use ($shipment) {
                 $this->assertEquals('gifts', $customs->getContentType());
                 $this->assertEquals('876543', $customs->getInvoiceNumber());
-                $this->assertEquals('DDU', $customs->getIncoterm());
+                $this->assertEquals('DDP', $customs->getIncoterm());
 
                 return $shipment;
             })
