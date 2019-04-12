@@ -18,7 +18,6 @@ class ShipmentController extends Controller
      * Route that validates and creates a shipment.
      *
      * @param JsonRequestValidator $jsonRequestValidator
-     * @param ApiRequestValidator  $apiRequestValidator
      * @param ShipmentRepository   $repository
      * @param ShipmentRequest      $request
      * @param TransformerService   $transformerService
@@ -29,19 +28,11 @@ class ShipmentController extends Controller
      */
     public function create(
         JsonRequestValidator $jsonRequestValidator,
-        ApiRequestValidator $apiRequestValidator,
         ShipmentRepository $repository,
         ShipmentRequest $request,
         TransformerService $transformerService
     ): JsonResponse {
         $jsonRequestValidator->validate('/shipments', 'post', null);
-
-        // TODO Add rules to ApiRequestValidator to include carrier-specific requirements.
-        if (!$apiRequestValidator->validate($request)) {
-            $errors = $apiRequestValidator->getErrors();
-
-            throw new InvalidJsonSchemaException($errors);
-        }
 
         $shipment = $repository->createFromPostData($request->json('data'), $request->json('meta', []));
 
