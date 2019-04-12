@@ -55,6 +55,13 @@ GET 'shipping/shipment/235446474/label'
 ### Error handling
 Errors from the carrier should be transformed to [JSON API error objects](https://jsonapi.org/format/#error-objects). To get you started, an `AbstractErrorMapper` can be found in `app/Carrier/Errors/Mappers`. This `AbstractErrorMapper` can be extended and called from the `CarrierApiGateway` to parse carrier responses and transform it into exceptions the exception handler can transform to a valid JSON schema response.
 
+### Carrier specific shipment requirements
+Carriers tend to have specific requirements for a shipment request. Some carriers might require the shipment request to contain a description while others don't.
+To preemptively validate a shipment request based on a set of defined rules, we use the Laravel form request validation.
+When building a microservice, these rules should be added to make sure the request to the carrier is valid.
+The rules should be added to the `carrierSpecificShipmentRules()` method in the `/app/Http/ShipmentRequest.php` file.
+For more information on Laravel's form request validation, see their documentation [here](https://laravel.com/docs/5.5/validation#form-request-validation).
+
 ### Things to keep in mind
 - Labels must be returned as a base64 encoded string. If the carrier already returns a base64 encoded string make sure you don't encode it twice. The base64 encoded string should decode to a A6 sized PDF in landscape format. If the label is in portrait orientation rotate it 270 degrees so the top is on the left.
 - If the microservice needs to store data (logs, labels, service tables, etc.) make sure to save it in `storage/`.
