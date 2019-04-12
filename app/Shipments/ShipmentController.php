@@ -10,7 +10,6 @@ use MyParcelCom\JsonApi\Exceptions\InvalidJsonSchemaException;
 use MyParcelCom\JsonApi\Transformers\TransformerService;
 use MyParcelCom\Microservice\Http\Controllers\Controller;
 use MyParcelCom\Microservice\Http\JsonRequestValidator;
-use MyParcelCom\Microservice\Http\Request;
 use MyParcelCom\Microservice\Validation\ApiRequestValidator;
 
 class ShipmentController extends Controller
@@ -23,6 +22,7 @@ class ShipmentController extends Controller
      * @param ShipmentRepository   $repository
      * @param ShipmentRequest      $request
      * @param TransformerService   $transformerService
+     *
      * @return JsonResponse
      * @throws InvalidJsonSchemaException
      * @throws \MyParcelCom\JsonApi\Transformers\TransformerException
@@ -36,7 +36,6 @@ class ShipmentController extends Controller
     ): JsonResponse {
         $jsonRequestValidator->validate('/shipments', 'post', null);
 
-        dd($request->getContent());
         // TODO Add rules to ApiRequestValidator to include carrier-specific requirements.
         if (!$apiRequestValidator->validate($request)) {
             $errors = $apiRequestValidator->getErrors();

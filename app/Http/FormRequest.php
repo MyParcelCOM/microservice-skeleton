@@ -21,40 +21,23 @@ class FormRequest extends BaseFormRequest
     /**
      * @return array
      */
-    public function messages(): array
-    {
-        return [
-            'required' => 'The :attribute is required.',
-            'email'    => 'The :attribute is not formatted as a valid email address.'
-            // TODO: Add custom messages for all rules.
-        ];
-    }
-
-    /**
-     * @return array
-     */
-    public function attributes(): array
-    {
-        return [
-            'data.attributes.recipient_address.email' => 'recipient\'s email address',
-            // TODO: Add a custom attribute for all shipment's attributes.
-        ];
-    }
-
-    /**
-     * @return array
-     */
     public function rules(): array
     {
-        return array_merge($this->getRules(), [
-            // Default rules.
-        ]);
+        return array_merge($this->defaultRules(), $this->carrierSpecificShipmentRules());
     }
 
     /**
      * @return array
      */
-    public function getRules(): array
+    private function defaultRules(): array
+    {
+        return [];
+    }
+
+    /**
+     * @return array
+     */
+    protected function carrierSpecificShipmentRules(): array
     {
         return [];
     }
