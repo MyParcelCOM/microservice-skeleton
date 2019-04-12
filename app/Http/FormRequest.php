@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest as BaseFormRequest;
 
 class FormRequest extends BaseFormRequest
 {
-    public $redirect = '/shipments';
+    protected $redirect = '/shipments';
 
     /**
      * @return bool
