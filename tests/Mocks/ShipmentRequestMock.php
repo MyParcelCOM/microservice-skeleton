@@ -9,9 +9,9 @@ use MyParcelCom\Hermes\Http\ShipmentRequest;
 class ShipmentRequestMock extends ShipmentRequest
 {
     /**
-     * @return array
+     * @inheritDoc
      */
-    public function getRules(): array
+    protected function carrierSpecificShipmentRules(): array
     {
         return [
             'data.attributes.recipient_address.email'        => 'required_with:data.attributes.customs|email',
@@ -20,7 +20,7 @@ class ShipmentRequestMock extends ShipmentRequest
             'data.attributes.service.code'                   => 'required|in:service-a,service-b,service-c',
             'data.attributes.sender_address.phone_number'    => 'required_if:data.attributes.recipient_address.country_code,CI,data.attributes.recipient_address.region_code,ENG',
             'data.attributes.items.*.hs_code'                => 'required',
-            'data.attributes.items.*.item_weight'            => 'min:1000',
+            'data.attributes.items.*.item_weight'            => 'min:1000|integer',
         ];
     }
 }
