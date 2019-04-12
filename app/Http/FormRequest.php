@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MyParcelCom\Hermes\Http;
+namespace MyParcelCom\Microservice\Http;
 
 use Illuminate\Foundation\Http\FormRequest as BaseFormRequest;
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace MyParcelCom\Microservice\Tests\Endpoints;
 
 use Mockery;
-use MyParcelCom\Hermes\Http\ShipmentRequest;
+use MyParcelCom\Microservice\Http\ShipmentRequest;
 use MyParcelCom\Microservice\Tests\Mocks\ShipmentRequestMock;
 use MyParcelCom\Microservice\Tests\TestCase;
 use MyParcelCom\Microservice\Tests\Traits\CommunicatesWithCarrier;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace MyParcelCom\Hermes\Http;
+namespace MyParcelCom\Microservice\Http;
 
 class ShipmentRequest extends FormRequest
 {

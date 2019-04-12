@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace MyParcelCom\Microservice\Shipments;
 
 use Illuminate\Http\JsonResponse;
-use MyParcelCom\Hermes\Http\ShipmentRequest;
+use MyParcelCom\Microservice\Http\ShipmentRequest;
 use MyParcelCom\JsonApi\Exceptions\InvalidJsonSchemaException;
 use MyParcelCom\JsonApi\Transformers\TransformerService;
 use MyParcelCom\Microservice\Http\Controllers\Controller;
 use MyParcelCom\Microservice\Http\JsonRequestValidator;
-use MyParcelCom\Microservice\Validation\ApiRequestValidator;
 
 class ShipmentController extends Controller
 {

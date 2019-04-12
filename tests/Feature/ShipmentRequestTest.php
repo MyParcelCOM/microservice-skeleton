@@ -6,7 +6,7 @@ namespace MyParcelCom\Microservice\Tests\Feature;
 
 use Illuminate\Support\Arr;
 use Mockery;
-use MyParcelCom\Hermes\Http\ShipmentRequest;
+use MyParcelCom\Microservice\Http\ShipmentRequest;
 use MyParcelCom\Microservice\Tests\TestCase;
 use MyParcelCom\Microservice\Tests\Traits\CommunicatesWithCarrier;
 
