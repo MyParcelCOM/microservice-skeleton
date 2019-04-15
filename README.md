@@ -59,7 +59,7 @@ Errors from the carrier should be transformed to [JSON API error objects](https:
 Carriers tend to have specific requirements for a shipment request. Some carriers might require the shipment request to contain a description while others don't.
 To preemptively validate a shipment request based on a set of defined rules, we use the Laravel form request validation.
 When building a microservice, these rules should be added to make sure the request to the carrier is valid.
-The rules should be added to the `carrierSpecificShipmentRules()` method in the `/app/Http/ShipmentRequest.php` file.
+The rules should be added to the `shipmentRules()` method in the `/app/Http/ShipmentRequest.php` file.
 For more information on Laravel's form request validation, see their documentation [here](https://laravel.com/docs/5.5/validation#form-request-validation).
 
 ### Things to keep in mind

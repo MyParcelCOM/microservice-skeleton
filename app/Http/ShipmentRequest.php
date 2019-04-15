@@ -20,7 +20,7 @@ class ShipmentRequest extends FormRequest
      *
      * @return array
      */
-    protected function carrierSpecificShipmentRules(): array
+    protected function shipmentRules(): array
     {
         return [
             // TODO: Create rules based on carrier specific requirements.

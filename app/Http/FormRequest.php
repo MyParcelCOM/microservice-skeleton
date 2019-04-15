@@ -8,6 +8,11 @@ use Illuminate\Foundation\Http\FormRequest as BaseFormRequest;
 
 class FormRequest extends BaseFormRequest
 {
+    /**
+     * Prevents laravel from trying to interact with a session that isn't there.
+     *
+     * @var string
+     */
     protected $redirect = '/shipments';
 
     /**
@@ -23,7 +28,7 @@ class FormRequest extends BaseFormRequest
      */
     public function rules(): array
     {
-        return array_merge($this->defaultRules(), $this->carrierSpecificShipmentRules());
+        return array_merge($this->defaultRules(), $this->shipmentRules());
     }
 
     /**
@@ -37,7 +42,7 @@ class FormRequest extends BaseFormRequest
     /**
      * @return array
      */
-    protected function carrierSpecificShipmentRules(): array
+    protected function shipmentRules(): array
     {
         return [];
     }
