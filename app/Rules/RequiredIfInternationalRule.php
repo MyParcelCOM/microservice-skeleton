@@ -27,6 +27,9 @@ class RequiredIfInternationalRule implements CustomRuleInterface
      */
     private function isInternational(array $data): bool
     {
-        return Arr::get($data, 'data.attributes.recipient_address.country_code') !== Arr::get($data, 'data.attributes.sender_address.country_code');
+        $recipientCountryCode = Arr::get($data, 'data.attributes.recipient_address.country_code');
+        $senderCountryCode = Arr::get($data, 'data.attributes.sender_address.country_code');
+        
+        return $recipientCountryCode !== $senderCountryCode;
     }
 }
