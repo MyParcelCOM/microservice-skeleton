@@ -21,7 +21,7 @@ class CombinedFieldsMaxRuleTest extends TestCase
         ];
 
         /** @var Validator $validator */
-        $validator = app()->make('validator')->make($data, [
+        $validator = app('validator')->make($data, [
             'fields.field-1' => 'combined_fields_max:40,fields.field-2,fields.field-3',
         ]);
 
@@ -41,7 +41,7 @@ class CombinedFieldsMaxRuleTest extends TestCase
         ];
 
         /** @var Validator $validator */
-        $validator = app()->make('validator')->make($data, [
+        $validator = app('validator')->make($data, [
             'fields.field-1' => 'combined_fields_max:25,fields.field-2,fields.field-3',
         ]);
 
@@ -61,7 +61,7 @@ class CombinedFieldsMaxRuleTest extends TestCase
         ];
 
         /** @var Validator $validator */
-        $validator = app()->make('validator')->make($data, [
+        $validator = app('validator')->make($data, [
             'fields.field-1' => 'combined_fields_max:41,fields.field-2,fields.field-3',
         ]);
 
@@ -83,7 +83,7 @@ class CombinedFieldsMaxRuleTest extends TestCase
         ];
 
         /** @var Validator $validator */
-        $validator = app()->make('validator')->make($data, [
+        $validator = app('validator')->make($data, [
             'fields.field-1' => 'combined_fields_max:41,fields.field-2,fields.field-3',
         ]);
 
@@ -103,7 +103,7 @@ class CombinedFieldsMaxRuleTest extends TestCase
         ];
 
         /** @var Validator $validator */
-        $validator = app()->make('validator')->make($data, [
+        $validator = app('validator')->make($data, [
             'fields.field-1' => 'combined_fields_max:25,fields.field-2,fields.field-3',
         ]);
 
@@ -125,7 +125,7 @@ class CombinedFieldsMaxRuleTest extends TestCase
         ];
 
         /** @var Validator $validator */
-        $validator = app()->make('validator')->make($data, [
+        $validator = app('validator')->make($data, [
             'fields.field-1' => 'combined_fields_max:25,fields.field-2,fields.field-3',
         ]);
 
@@ -154,7 +154,7 @@ class CombinedFieldsMaxRuleTest extends TestCase
         ];
 
         /** @var Validator $validator */
-        $validator = app()->make('validator')->make($data, [
+        $validator = app('validator')->make($data, [
             'data.attributes.recipient_address.street_1' => 'combined_fields_max:25,data.attributes.recipient_address.street_number,data.attributes.recipient_address.street_number_suffix',
         ]);
 
