@@ -10,7 +10,10 @@ use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Routing\UrlGenerator as LaravelUrlGenerator;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
+use MyParcelCom\Microservice\Rules\CombinedFieldsMaxRule;
+use MyParcelCom\Microservice\Rules\RequiredIfInternationalRule;
 use MyParcelCom\JsonApi\Http\Interfaces\RequestInterface;
 use MyParcelCom\JsonApi\Interfaces\UrlGeneratorInterface;
 use MyParcelCom\JsonApi\Transformers\AbstractTransformer;
@@ -78,5 +81,18 @@ class AppServiceProvider extends ServiceProvider
                 ->setSecret((string)config('address.service.secret'))
                 ->setClient(new Client());
         });
+    }
+
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot(): void
+    {
+        Validator::extend('combined_fields_max', CombinedFieldsMaxRule::class . '@validate');
+        Validator::replacer('combined_fields_max', CombinedFieldsMaxRule::class . '@placeholders');
+
+        Validator::extendImplicit('required_if_international', RequiredIfInternationalRule::class . '@validate');
     }
 }

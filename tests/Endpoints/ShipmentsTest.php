@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Tests\Endpoints;
 
+use function GuzzleHttp\json_decode;
 use Mockery;
-use MyParcelCom\Microservice\Http\ShipmentRequest;
-use MyParcelCom\Microservice\Tests\Mocks\ShipmentRequestMock;
 use MyParcelCom\Microservice\Tests\TestCase;
 use MyParcelCom\Microservice\Tests\Traits\CommunicatesWithCarrier;
 use MyParcelCom\Microservice\Tests\Traits\JsonApiAssertionsTrait;
@@ -34,10 +33,8 @@ class ShipmentsTest extends TestCase
         // TODO: Add carrier response stub for creating a shipment.
         // See the "Response Stubs" chapter in the readme for more info.
 
-        $data = \GuzzleHttp\json_decode(
-            file_get_contents(base_path('tests/Stubs/shipment-request.stub')),
-            true
-        );
+        $requestStub = file_get_contents(base_path('tests/Stubs/shipment-request.stub'));
+        $data = json_decode($requestStub, true);
 
         $this->assertJsonSchema(
             '/shipments',

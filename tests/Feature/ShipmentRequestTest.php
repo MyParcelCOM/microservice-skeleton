@@ -9,6 +9,7 @@ use Mockery;
 use MyParcelCom\Microservice\Http\ShipmentRequest;
 use MyParcelCom\Microservice\Tests\TestCase;
 use MyParcelCom\Microservice\Tests\Traits\CommunicatesWithCarrier;
+use function \GuzzleHttp\json_decode;
 
 class ShipmentRequestTest extends TestCase
 {
@@ -59,7 +60,7 @@ class ShipmentRequestTest extends TestCase
             'data.attributes.recipient_address.phone_number' => 'string|between:8,15|regex:/^\+?[0-9-]*$/',
             'data.attributes.service.code'                   => 'required|in:service-a,service-b,service-c',
             'data.attributes.items.*.item_weight'            => 'integer|min:1000',
-            'data.attributes.sender_address.email'            => 'required_without:data.attributes.sender_address.phone_number',
+            'data.attributes.sender_address.email'           => 'required_without:data.attributes.sender_address.phone_number',
         ]);
 
         $requestBody = $this->getShipmentRequestBody();
@@ -118,12 +119,9 @@ class ShipmentRequestTest extends TestCase
      */
     protected function getShipmentRequestBody(): array
     {
-        $data = \GuzzleHttp\json_decode(
-            file_get_contents(base_path('tests/Stubs/shipment-request.stub')),
-            true
-        );
+        $requestStub = file_get_contents(base_path('tests/Stubs/shipment-request.stub'));
 
-        return $data;
+        return json_decode($requestStub, true);
     }
 
     /**
