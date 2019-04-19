@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MyParcelCom\Microservice\Rules;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\Validator;
 
 class CombinedFieldsMaxRule implements CustomRuleInterface
@@ -44,7 +47,7 @@ class CombinedFieldsMaxRule implements CustomRuleInterface
         $maxLength = array_shift($parameters);
         $message = str_replace(':max', $maxLength, $message);
 
-        $listOfCustomAttributeNames = trans('validation.attributes');
+        $listOfCustomAttributeNames = Lang::get('validation.attributes');
 
         $niceAttributeNames = array_map(function ($attribute) use ($listOfCustomAttributeNames) {
             return Arr::get($listOfCustomAttributeNames, $attribute) ?? $attribute;
