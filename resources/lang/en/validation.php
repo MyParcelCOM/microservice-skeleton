@@ -194,6 +194,8 @@ return [
         'data.attributes.items.*.sku'                 => 'shipment item sku code',
         'data.attributes.items.*.description'         => 'shipment item description',
         'data.attributes.items.*.item_value'          => 'shipment item value',
+        'data.attributes.items.*.item_value.amount'   => 'shipment item value amount',
+        'data.attributes.items.*.item_value.currency' => 'shipment item value currency',
         'data.attributes.items.*.item_weight'         => 'shipment item weight',
         'data.attributes.items.*.quantity'            => 'shipment item quantity',
         'data.attributes.items.*.hs_code'             => 'shipment item hs code',
