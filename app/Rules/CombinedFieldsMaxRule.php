@@ -20,7 +20,7 @@ class CombinedFieldsMaxRule implements CustomRuleInterface
         $requestBody = $validator->getData();
 
         $otherParams = array_map(function ($param) use ($requestBody) {
-            return Arr::get($requestBody, $param);
+            return (string) Arr::get($requestBody, $param);
         }, $parameters);
 
         // Filter out empty strings.
