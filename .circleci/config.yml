@@ -1,24 +1,21 @@
 version: 2
+
 jobs:
   test:
     machine:
       image: circleci/classic:edge
-
     steps:
       - checkout
-
       - run:
           name: Setup environment variables
           command: |
             ./mp.sh
-
       - run:
           name: Setup dependencies
           command: |
             ./mp.sh up
             ./mp.sh composer install
             ./mp.sh schema bundle
-
       - run:
           name: Run tests
           command: |
@@ -29,31 +26,31 @@ jobs:
             fi
 
   build:
-    machine:
-      image: circleci/classic:edge
-
+    docker:
+      - image: myparcelcom/kubectl-aws
+        auth:
+          username: ${DOCKER_USER}
+          password: ${DOCKER_PASSWORD}
+    working_directory: ~/project
     steps:
       - checkout
-
+      - setup_remote_docker
       - run:
           name: Setup environment variables
           command: |
             ./mp.sh
-
       - run:
           name: Login to Docker Hub
           command: |
             docker login --username ${DOCKER_USER} --password ${DOCKER_PASSWORD}
-
       - run:
           name: Deploy to docker
           command: |
-            ./docker/build.sh ${CIRCLE_PROJECT_REPONAME##*-} develop
+            ./docker/build.sh ${CIRCLE_PROJECT_REPONAME##*-} ${image_tag}
 
   deploy_staging:
     machine:
       image: circleci/classic:edge
-
     steps:
       - run:
           name: Restarting app servers
@@ -115,30 +112,6 @@ jobs:
               kubectl apply -f kube/ingress.yaml
             fi
 
-  deploy_tag:
-    machine:
-      image: circleci/classic:edge
-
-    steps:
-      - checkout
-
-      - run:
-          name: Setup environment variables
-          command: |
-            ./mp.sh
-
-      - run:
-          name: Login to Docker Hub
-          command: |
-            docker login --username ${DOCKER_USER} --password ${DOCKER_PASSWORD}
-
-      - run:
-          name: Deploy to docker
-          command: |
-            TAG="$(git describe --exact-match --tags --abbrev=0 $(git rev-parse HEAD) 2>/dev/null)"
-            ./docker/build.sh ${CIRCLE_PROJECT_REPONAME##*-} $TAG
-            ./docker/build.sh ${CIRCLE_PROJECT_REPONAME##*-} latest
-
 workflows:
   version: 2
 
@@ -184,7 +157,7 @@ workflows:
               only: /^v\d+\.\d+\.\d+-?\d*$/
             branches:
               ignore: /.*/
-      - deploy_tag:
+      - build:
           requires:
             - test
           filters:
