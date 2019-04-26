@@ -46,7 +46,7 @@ jobs:
       - run:
           name: Deploy to docker
           command: |
-            ./docker/build.sh ${CIRCLE_PROJECT_REPONAME##*-} ${image_tag}
+            ./docker/build.sh ${CIRCLE_PROJECT_REPONAME##*-} $(image_tag)
 
   deploy_staging:
     machine:
