@@ -9,7 +9,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-    - host: ${CIRCLE_PROJECT_REPONAME}.${ENV_HOST}
+    - host: ${APP_DOMAIN}
       http:
         paths:
           - path: /

@@ -2,6 +2,9 @@ FROM ubuntu:18.04
 
 LABEL maintainer="MyParcel.com <info@myparcel.com>"
 
+COPY . /opt/app
+WORKDIR /opt/app
+
 # Install locales for terminal and php.
 RUN apt-get update \
     && apt-get install -y locales \
@@ -32,19 +35,20 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /etc/php/7.1/fpm/php-fpm.conf \
     && echo "daemon off;" >> /etc/nginx/nginx.conf \
     && sed -e 's/;clear_env = no/clear_env = no/' -i /etc/php/7.1/fpm/pool.d/www.conf \
-    && sed -e 's/error_reporting = E_ALL \& \~E_DEPRECATED \& \~E_STRICT/error_reporting = E_ALL/' -i /etc/php/7.1/cli/php.ini
+    && sed -e 's/error_reporting = E_ALL \& \~E_DEPRECATED \& \~E_STRICT/error_reporting = E_ALL/' -i /etc/php/7.1/cli/php.ini \
+    && composer install --no-dev
 
 # Copy config files.
-COPY conf/php-fpm.conf /etc/php/7.1/fpm/php-fpm.conf.template
-COPY conf/virtual_host /etc/nginx/sites-available/virtual_host.template
-COPY conf/supervisord.conf /etc/supervisor/conf.d/supervisord.conf.template
-COPY conf/xdebug.ini /etc/php/7.1/mods-available/xdebug.ini.template
+COPY ./docker/app/conf/php-fpm.conf /etc/php/7.1/fpm/php-fpm.conf.template
+COPY ./docker/app/conf/virtual_host /etc/nginx/sites-available/virtual_host.template
+COPY ./docker/app/conf/supervisord.conf /etc/supervisor/conf.d/supervisord.conf.template
+COPY ./docker/app/conf/xdebug.ini /etc/php/7.1/mods-available/xdebug.ini.template
 
 # Symlink the nginx conf.
 RUN ln -s /etc/nginx/sites-available/virtual_host /etc/nginx/sites-enabled/virtual_host
 
 # Copy entrypoint script.
-COPY entrypoint.sh /bin/entrypoint.sh
+COPY ./docker/app/entrypoint.sh /bin/entrypoint.sh
 
 # Set the environment variables.
 ENV APP_LOG_LEVEL notice
@@ -53,13 +57,10 @@ ENV XDEBUG_PORT 9000
 ENV XDEBUG_IDE_KEY myparcelcom_microservice
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
-WORKDIR /opt/app
-
 EXPOSE 443
 
 ENTRYPOINT ["/bin/entrypoint.sh"]
 
 CMD ["/usr/bin/supervisord"]
 
-COPY dist /opt/app
 RUN chown -R www-data: /opt/app
