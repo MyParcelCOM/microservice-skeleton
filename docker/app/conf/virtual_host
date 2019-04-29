@@ -5,7 +5,7 @@ server {
 
     include snippets/snakeoil.conf;
 
-    root /opt/microservice/public;
+    root /opt/app/public;
     index index.php;
 
     access_log /dev/stdout combined;
