@@ -48,7 +48,7 @@ RUN apt-get update \
     && composer install --no-dev
 
 # Copy swagger bundle
-COPY --from=bundles /build/carrier-specification/dist/swagger.json /opt/api/vendor/myparcelcom/carrier-specification/dist/swagger.json
+COPY --from=bundles /build/carrier-specification/dist/swagger.json /opt/app/vendor/myparcelcom/carrier-specification/dist/swagger.json
 
 # Copy config files.
 COPY ./docker/app/conf/php-fpm.conf /etc/php/7.1/fpm/php-fpm.conf.template
