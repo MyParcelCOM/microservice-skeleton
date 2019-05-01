@@ -1,3 +1,12 @@
+FROM node:11.12 as bundles
+
+WORKDIR /build
+
+RUN npm install -g json-refs \
+    && git clone https://github.com/MyParcelCOM/carrier-specification.git \
+    && mkdir -p carrier-specification/dist \
+    && json-refs resolve carrier-specification/schema.json -f > carrier-specification/dist/swagger.json
+
 FROM ubuntu:18.04
 
 LABEL maintainer="MyParcel.com <info@myparcel.com>"
@@ -37,6 +46,9 @@ RUN apt-get update \
     && sed -e 's/;clear_env = no/clear_env = no/' -i /etc/php/7.1/fpm/pool.d/www.conf \
     && sed -e 's/error_reporting = E_ALL \& \~E_DEPRECATED \& \~E_STRICT/error_reporting = E_ALL/' -i /etc/php/7.1/cli/php.ini \
     && composer install --no-dev
+
+# Copy swagger bundle
+COPY --from=bundles /build/carrier-specification/dist/swagger.json /opt/api/vendor/myparcelcom/carrier-specification/dist/swagger.json
 
 # Copy config files.
 COPY ./docker/app/conf/php-fpm.conf /etc/php/7.1/fpm/php-fpm.conf.template
