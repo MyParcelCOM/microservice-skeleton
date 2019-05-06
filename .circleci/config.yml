@@ -51,7 +51,7 @@ jobs:
           name: Deploy to docker
           command: |
             IMAGE_NAME="myparcelcom/${CIRCLE_PROJECT_REPONAME##*-}:$(image_tag)"
-            docker build -t ${IMAGE_NAME} -f docker/app/build.Dockerfile .
+            docker build -t ${IMAGE_NAME} --build-arg SPEC_BRANCH=${CIRCLE_BRANCH} -f docker/app/build.Dockerfile .
             docker push ${IMAGE_NAME}
 
   deploy_staging:

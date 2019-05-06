@@ -1,9 +1,11 @@
 FROM node:11.12 as bundles
 
+ARG SPEC_BRANCH="master"
+
 WORKDIR /build
 
 RUN npm install -g json-refs \
-    && git clone https://github.com/MyParcelCOM/carrier-specification.git \
+    && git clone --single-branch --branch ${SPEC_BRANCH} https://github.com/MyParcelCOM/carrier-specification.git \
     && mkdir -p carrier-specification/dist \
     && json-refs resolve carrier-specification/schema.json -f > carrier-specification/dist/swagger.json
 
