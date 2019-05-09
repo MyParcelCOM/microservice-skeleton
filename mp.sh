@@ -67,7 +67,9 @@ if [ $# -gt 0 ]; then
   # Run phpunit tests.
   elif [ "$1" == "test" ]; then
     shift 1
-    if [ "$1" == "skeleton" ]; then
+    if [ "$IGNORE_TESTS" == "true" ]; then
+      exit 0
+    elif [ "$1" == "skeleton" ]; then
       ${COMPOSE} run --rm microservice ./vendor/bin/phpunit --exclude-group Implementation
     elif [ "$1" == "pudo" ]; then
       ${COMPOSE} run --rm microservice ./vendor/bin/phpunit --group Endpoints:PickUpDropOff

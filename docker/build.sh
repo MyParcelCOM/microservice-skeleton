@@ -17,7 +17,7 @@ IMAGE_NAME=myparcelcom/${1}:${2}
 git archive --format=tar --worktree-attributes ${HASH} | tar -xf - -C ${DIST_ROOT}
 
 # Install composer dependencies for distribution
-./mp.sh microservice bash -c "(cd docker/${1}/dist; composer install --no-dev; chown -R ${UID}:${GROUPS} vendor)"
+./mp.sh microservice bash -c "(cd docker/app/dist; composer install --no-dev; chown -R ${UID}:${GROUPS} vendor)"
 
 # Bundle the json schema
 (cd ${DIST_ROOT}/vendor/myparcelcom/carrier-specification; ./mp.sh bundle)

@@ -22,16 +22,21 @@ jobs:
       - run:
           name: Run tests
           command: |
-            ./mp.sh test skeleton
-            if [ "$(head -n 3 build/report.junit.xml | grep 'errors="0"' | grep 'failures="0"')" == '' ]; then exit 1; else exit 0; fi
+            if [ "${CIRCLE_PROJECT_REPONAME##*-}" != "skeleton" ]; then
+              ./mp.sh test --no-coverage
+            else
+              ./mp.sh test skeleton --no-coverage
+            fi
 
   build:
-    machine:
-      image: circleci/classic:edge
-
+    docker:
+      - image: myparcelcom/kubectl-aws
+        auth:
+          username: ${DOCKER_USER}
+          password: ${DOCKER_PASSWORD}
     steps:
       - checkout
-
+      - setup_remote_docker
       - run:
           name: Setup environment variables
           command: |
@@ -45,7 +50,9 @@ jobs:
       - run:
           name: Deploy to docker
           command: |
-            ./docker/build.sh ${CIRCLE_PROJECT_REPONAME##*-} develop
+            IMAGE_NAME="myparcelcom/${CIRCLE_PROJECT_REPONAME##*-}:$(image_tag)"
+            docker build -t ${IMAGE_NAME} --build-arg SPEC_BRANCH=${CIRCLE_BRANCH} -f docker/app/build.Dockerfile .
+            docker push ${IMAGE_NAME}
 
   deploy_staging:
     machine:
@@ -87,7 +94,6 @@ jobs:
           name: Process templates
           command: |
             export NS=$(env_namespace)
-            export ENV_HOST=$(env_host)
             export IMAGE_NAME=${CIRCLE_PROJECT_REPONAME##*-}
             export IMAGE_TAG=$(image_tag)
 
@@ -108,33 +114,9 @@ jobs:
             kubectl apply -f kube/deployment.yaml
             kubectl apply -f kube/service.yaml
 
-            if [ "$(env_name)" != "production" ]; then
+            if [[ "$(env_namespace)" = "develop" ]] || [[ "$(env_namespace)" = "staging" ]]; then
               kubectl apply -f kube/ingress.yaml
             fi
-
-  deploy_tag:
-    machine:
-      image: circleci/classic:edge
-
-    steps:
-      - checkout
-
-      - run:
-          name: Setup environment variables
-          command: |
-            ./mp.sh
-
-      - run:
-          name: Login to Docker Hub
-          command: |
-            docker login --username ${DOCKER_USER} --password ${DOCKER_PASSWORD}
-
-      - run:
-          name: Deploy to docker
-          command: |
-            TAG="$(git describe --exact-match --tags --abbrev=0 $(git rev-parse HEAD) 2>/dev/null)"
-            ./docker/build.sh ${CIRCLE_PROJECT_REPONAME##*-} $TAG
-            ./docker/build.sh ${CIRCLE_PROJECT_REPONAME##*-} latest
 
 workflows:
   version: 2
@@ -153,19 +135,23 @@ workflows:
       - test:
           filters:
             branches:
-              only: develop
+              only:
+                - master
+                - develop
       - build:
           requires:
             - test
           filters:
             branches:
-              only: develop
+              only:
+                - master
+                - develop
       - deploy_staging:
           requires:
             - build
           filters:
             branches:
-              only: develop
+              only: master
       - deploy:
           requires:
             - build
@@ -181,7 +167,7 @@ workflows:
               only: /^v\d+\.\d+\.\d+-?\d*$/
             branches:
               ignore: /.*/
-      - deploy_tag:
+      - build:
           requires:
             - test
           filters:

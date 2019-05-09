@@ -6,7 +6,7 @@ services:
       context: ./docker/app
       dockerfile: Dockerfile
     image: myparcelcom/microservice:v4-dev
-    working_dir: /opt/microservice
+    working_dir: /opt/app
     environment:
       - APP_DOMAIN=$APP_DOMAIN
       - APP_LOG_LEVEL=$APP_LOG_LEVEL
@@ -16,7 +16,7 @@ services:
     ports:
       - $APP_PORT:443
     volumes:
-      - .:/opt/microservice
+      - .:/opt/app
       - composercache:/.composer/cache
     networks:
       - default
