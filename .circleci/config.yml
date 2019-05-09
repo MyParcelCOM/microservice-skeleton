@@ -1,38 +1,36 @@
 version: '2.1'
 jobs:
   test:
-    machine:
-      image: circleci/classic:edge
-
+    docker:
+      - image: myparcelcom/build-utils
+        auth:
+          username: ${DOCKER_USER}
+          password: ${DOCKER_PASSWORD}
     steps:
       - checkout
-
+      - setup_remote_docker
       - run:
           name: Setup environment variables
           command: |
             ./mp.sh
-
       - run:
-          name: Login to Docker Hub
+          name: Build test image
           command: |
-            docker login --username ${DOCKER_USER} --password ${DOCKER_PASSWORD}
-
-      - run:
-          name: Setup dependencies
-          command: |
-            ./mp.sh up
-            ./mp.sh composer install
-            ./mp.sh schema bundle
-
+            docker build -t test-image -f docker/app/build.Dockerfile .
       - run:
           name: Run tests
           command: |
-            if [ "${CIRCLE_PROJECT_REPONAME##*-}" != "skeleton" ]; then
-              ./mp.sh test --no-coverage
+            if [ "$IGNORE_TESTS" == "true" ]; then
+              exit 0
+            elif [ "${CIRCLE_PROJECT_REPONAME##*-}" != "skeleton" ]; then
+              docker run -it --rm test-image \
+                /bin/bash \
+                -c 'composer install; vendor/bin/phpunit --no-coverage'
             else
-              ./mp.sh test skeleton --no-coverage
+              docker run -it --rm test-image \
+                /bin/bash \
+                -c 'composer install; vendor/bin/phpunit --exclude-group Implementation --no-coverage'
             fi
-
   build:
     docker:
       - image: myparcelcom/build-utils
