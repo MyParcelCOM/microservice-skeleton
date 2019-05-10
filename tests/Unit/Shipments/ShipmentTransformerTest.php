@@ -109,6 +109,7 @@ class ShipmentTransformerTest extends TestCase
             'getFiles'                 => [],
             'getCustoms'               => $customs,
             'getItems'                 => [$shipmentItem],
+            'getMyparcelcomShipmentId' => 'bbacd0c7-9ec5-42df-9870-443b8e1a7155',
         ]);
 
         $this->minimalShipment = Mockery::mock(Shipment::class, [
@@ -129,6 +130,7 @@ class ShipmentTransformerTest extends TestCase
             'getFiles'                 => [],
             'getCustoms'               => null,
             'getItems'                 => [],
+            'getMyparcelcomShipmentId' => 'bbacd0c7-9ec5-42df-9870-443b8e1a7155',
         ]);
     }
 
@@ -162,7 +164,7 @@ class ShipmentTransformerTest extends TestCase
     public function testGetAttributes()
     {
         $this->assertEquals([
-            'recipient_address'   => [
+            'recipient_address'       => [
                 'street_1'             => 'First Street',
                 'street_2'             => 'Second Street',
                 'street_number'        => 69,
@@ -177,7 +179,7 @@ class ShipmentTransformerTest extends TestCase
                 'email'                => 'john@expertsexchange.com',
                 'phone_number'         => '1337-9001',
             ],
-            'sender_address'      => [
+            'sender_address'          => [
                 'street_1'             => 'First Street',
                 'street_2'             => 'Second Street',
                 'street_number'        => 69,
@@ -192,7 +194,7 @@ class ShipmentTransformerTest extends TestCase
                 'email'                => 'john@expertsexchange.com',
                 'phone_number'         => '1337-9001',
             ],
-            'return_address'      => [
+            'return_address'          => [
                 'street_1'             => 'First Street',
                 'street_2'             => 'Second Street',
                 'street_number'        => 69,
@@ -207,7 +209,7 @@ class ShipmentTransformerTest extends TestCase
                 'email'                => 'john@expertsexchange.com',
                 'phone_number'         => '1337-9001',
             ],
-            'pickup_location'     => [
+            'pickup_location'         => [
                 'code'    => 'aaaa',
                 'address' => [
                     'street_1'             => 'First Street',
@@ -225,28 +227,28 @@ class ShipmentTransformerTest extends TestCase
                     'phone_number'         => '1337-9001',
                 ],
             ],
-            'description'         => 'descending ription',
-            'barcode'             => '3SBARCODE',
-            'tracking_code'       => 'TR4CK1NGC0D3',
-            'tracking_url'        => 'https://track.me/TR4CK1NGC0D3',
-            'service'             => [
+            'description'             => 'descending ription',
+            'barcode'                 => '3SBARCODE',
+            'tracking_code'           => 'TR4CK1NGC0D3',
+            'tracking_url'            => 'https://track.me/TR4CK1NGC0D3',
+            'service'                 => [
                 'code' => 'nl300',
                 'name' => 'noname',
             ],
-            'physical_properties' => [
+            'physical_properties'     => [
                 'height' => 1,
                 'width'  => 2,
                 'length' => 3,
                 'volume' => 4,
                 'weight' => 5,
             ],
-            'options'             => [
+            'options'                 => [
                 [
                     'name' => 'plx name me',
                     'code' => 'somecode',
                 ],
             ],
-            'items'               => [
+            'items'                   => [
                 [
                     'sku'                 => '01284ASD',
                     'description'         => 'priceless Ming vase from some dynasty',
@@ -259,12 +261,13 @@ class ShipmentTransformerTest extends TestCase
                     ],
                 ],
             ],
-            'customs'             => [
+            'customs'                 => [
                 'content_type'   => Customs::CONTENT_TYPE_DOCUMENTS,
                 'invoice_number' => 'V01C3',
                 'incoterm'       => Customs::INCOTERM_DELIVERED_AT_PLACE,
                 'non_delivery'   => Customs::NON_DELIVERY_ABANDON,
             ],
+            'myparcelcom_shipment_id' => 'bbacd0c7-9ec5-42df-9870-443b8e1a7155',
         ], $this->shipmentTransformer->getAttributes($this->shipment));
     }
 
@@ -377,6 +380,7 @@ class ShipmentTransformerTest extends TestCase
                         'incoterm'       => Customs::INCOTERM_DELIVERED_AT_PLACE,
                         'non_delivery'   => Customs::NON_DELIVERY_ABANDON,
                     ],
+                    'myparcelcom_shipment_id' => 'bbacd0c7-9ec5-42df-9870-443b8e1a7155',
                     'tracking_code'       => 'TR4CK1NGC0D3',
                     'tracking_url'        => 'https://track.me/TR4CK1NGC0D3',
                 ],
@@ -442,6 +446,7 @@ class ShipmentTransformerTest extends TestCase
                         'code' => 'nl300',
                         'name' => 'noname',
                     ],
+                    'myparcelcom_shipment_id' => 'bbacd0c7-9ec5-42df-9870-443b8e1a7155',
                 ],
             ],
             $this->shipmentTransformer->transform($this->minimalShipment)
