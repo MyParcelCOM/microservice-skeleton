@@ -164,4 +164,14 @@ class ShipmentTest extends TestCase
         $this->assertTrue($shipment->isTrackTraceEnabled());
         $this->assertFalse($shipment->setTrackTraceEnabled(false)->isTrackTraceEnabled());
     }
+
+    /** @test */
+    public function testItSetsMyparcelcomShipmentId()
+    {
+        $shipment = new Shipment();
+
+        $myparcelcomShipmentId = 'bbacd0c7-9ec5-42df-9870-443b8e1a7155';
+
+        $this->assertEquals($myparcelcomShipmentId, $shipment->setMyparcelcomShipmentId($myparcelcomShipmentId)->getMyparcelcomShipmentId());
+    }
 }

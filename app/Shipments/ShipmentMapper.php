@@ -27,6 +27,11 @@ class ShipmentMapper implements MapperInterface
     {
         $attributes = $data['attributes'];
 
+        // Map myparcelcom shipment id
+        if (isset($attributes['myparcelcom_shipment_id'])) {
+            $shipment->setMyparcelcomShipmentId($attributes['myparcelcom_shipment_id']);
+        }
+
         // Map addresses.
         $shipment->setRecipientAddress(
             $this->mapAddress($attributes['recipient_address'], new Address())
@@ -54,19 +59,19 @@ class ShipmentMapper implements MapperInterface
             $shipment->setPhysicalProperties(new PhysicalProperties());
         }
         if (isset($attributes['physical_properties']['weight'])) {
-            $shipment->getPhysicalProperties()->setWeight((int)$attributes['physical_properties']['weight']);
+            $shipment->getPhysicalProperties()->setWeight((int) $attributes['physical_properties']['weight']);
         }
         if (isset($attributes['physical_properties']['width'])) {
-            $shipment->getPhysicalProperties()->setWidth((int)$attributes['physical_properties']['width']);
+            $shipment->getPhysicalProperties()->setWidth((int) $attributes['physical_properties']['width']);
         }
         if (isset($attributes['physical_properties']['height'])) {
-            $shipment->getPhysicalProperties()->setHeight((int)$attributes['physical_properties']['height']);
+            $shipment->getPhysicalProperties()->setHeight((int) $attributes['physical_properties']['height']);
         }
         if (isset($attributes['physical_properties']['length'])) {
-            $shipment->getPhysicalProperties()->setLength((int)$attributes['physical_properties']['length']);
+            $shipment->getPhysicalProperties()->setLength((int) $attributes['physical_properties']['length']);
         }
         if (isset($attributes['physical_properties']['volume'])) {
-            $shipment->getPhysicalProperties()->setVolume((float)$attributes['physical_properties']['volume']);
+            $shipment->getPhysicalProperties()->setVolume((float) $attributes['physical_properties']['volume']);
         }
 
         if (isset($attributes['options'])) {
@@ -141,7 +146,7 @@ class ShipmentMapper implements MapperInterface
     protected function mapAddress(array $data, Address $address): Address
     {
         if (isset($data['street_1'])) {
-            $address->setStreet1((string)$data['street_1']);
+            $address->setStreet1((string) $data['street_1']);
         }
         if (isset($data['street_2'])) {
             $address->setStreet2($data['street_2']);

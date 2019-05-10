@@ -62,6 +62,9 @@ class Shipment
     /** @var bool */
     protected $trackTraceEnabled = true;
 
+    /** @var string */
+    protected $myparcelcomShipmentId;
+
     /**
      * @return string
      */
@@ -409,5 +412,24 @@ class Shipment
     public function isTrackTraceEnabled(): bool
     {
         return $this->trackTraceEnabled;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMyparcelcomShipmentId(): string
+    {
+        return $this->myparcelcomShipmentId;
+    }
+
+    /**
+     * @param string $myparcelcomShipmentId
+     * @return $this
+     */
+    public function setMyparcelcomShipmentId(string $myparcelcomShipmentId): self
+    {
+        $this->myparcelcomShipmentId = $myparcelcomShipmentId;
+
+        return $this;
     }
 }
