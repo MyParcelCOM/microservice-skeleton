@@ -51,7 +51,14 @@ jobs:
           name: Deploy to docker
           command: |
             IMAGE_NAME="myparcelcom/${CIRCLE_PROJECT_REPONAME##*-}:$(image_tag)"
-            docker build -t ${IMAGE_NAME} --build-arg SPEC_BRANCH=${CIRCLE_BRANCH} -f docker/app/build.Dockerfile .
+
+            # When deploying a tag, CIRCLE_BRANCH is empty so we grab the spec version from CIRCLE_TAG
+            SPEC_BRANCH=${CIRCLE_BRANCH}
+            if [ "${SPEC_BRANCH}" == "" ]; then
+              SPEC_BRANCH=${CIRCLE_TAG%%-*}
+            fi
+
+            docker build -t ${IMAGE_NAME} --build-arg SPEC_BRANCH=${SPEC_BRANCH} -f docker/app/build.Dockerfile .
             docker push ${IMAGE_NAME}
 
   deploy_staging:
