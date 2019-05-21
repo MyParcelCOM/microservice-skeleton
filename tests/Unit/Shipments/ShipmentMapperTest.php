@@ -172,6 +172,12 @@ class ShipmentMapperTest extends TestCase
                 });
 
                 return $shipment;
+            })
+            ->shouldReceive('setMyparcelcomShipmentId')
+            ->andReturnUsing(function (string $id) use ($shipment) {
+                $this->assertEquals('bbacd0c7-9ec5-42df-9870-443b8e1a7155', $id);
+
+                return $shipment;
             });
 
         $mapper->map($data['data'], $shipment);
