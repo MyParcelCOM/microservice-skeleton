@@ -139,9 +139,13 @@ workflows:
           requires:
             - build
           filters:
+            tags:
+              only: /^v\d+\.\d+\.\d+-?\d*$/
+      - deploy:
+          requires:
+            - build
+          filters:
             branches:
               only:
                 - master
                 - develop
-            tags:
-              only: /^v\d+\.\d+\.\d+-?\d*$/
