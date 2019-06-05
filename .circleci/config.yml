@@ -1,4 +1,4 @@
-version: 2
+version: '2.1'
 jobs:
   test:
     machine:
@@ -61,6 +61,12 @@ jobs:
         auth:
           username: ${DOCKER_USER}
           password: ${DOCKER_PASSWORD}
+    parameters:
+      is_sandbox:
+        type: string
+        default: "false"
+    environment:
+      IS_SANDBOX: <<parameters.is_sandbox>>
     steps:
       - checkout
       - run:
@@ -99,8 +105,6 @@ jobs:
             fi
 
 workflows:
-  version: 2
-
   test:
     jobs:
       - test:
@@ -118,6 +122,8 @@ workflows:
               only:
                 - master
                 - develop
+            tags:
+              only: /^v\d+\.\d+\.\d+-?\d*$/
       - build:
           requires:
             - test
@@ -126,6 +132,17 @@ workflows:
               only:
                 - master
                 - develop
+            tags:
+              only: /^v\d+\.\d+\.\d+-?\d*$/
+      - deploy:
+          is_sandbox: "true"
+          requires:
+            - build
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v\d+\.\d+\.\d+-?\d*$/
       - deploy:
           requires:
             - build
@@ -134,20 +151,3 @@ workflows:
               only:
                 - master
                 - develop
-
-  build_and_deploy_tag:
-    jobs:
-      - test:
-          filters:
-            tags:
-              only: /^v\d+\.\d+\.\d+-?\d*$/
-            branches:
-              ignore: /.*/
-      - build:
-          requires:
-            - test
-          filters:
-            tags:
-              only: /^v\d+\.\d+\.\d+-?\d*$/
-            branches:
-              ignore: /.*/
