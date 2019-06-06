@@ -151,3 +151,5 @@ workflows:
               only:
                 - master
                 - develop
+            tags:
+              only: /^v\d+\.\d+\.\d+-?\d*$/
