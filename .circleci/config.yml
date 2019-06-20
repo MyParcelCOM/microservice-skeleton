@@ -13,6 +13,11 @@ jobs:
             ./mp.sh
 
       - run:
+          name: Login to Docker Hub
+          command: |
+            docker login --username ${DOCKER_USER} --password ${DOCKER_PASSWORD}
+
+      - run:
           name: Setup dependencies
           command: |
             ./mp.sh up
