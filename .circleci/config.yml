@@ -16,7 +16,7 @@ jobs:
       - run:
           name: Build test image
           command: |
-            docker build -t test-image -f docker/app/build.Dockerfile .
+            docker build -t test-image --build-arg SPEC_BRANCH=$(spec_ref) -f docker/app/build.Dockerfile .
       - run:
           name: Run tests
           command: |
