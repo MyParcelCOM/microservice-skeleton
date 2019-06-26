@@ -35,7 +35,7 @@ jobs:
 
   build:
     docker:
-      - image: myparcelcom/kubectl-aws
+      - image: myparcelcom/build-utils
         auth:
           username: ${DOCKER_USER}
           password: ${DOCKER_PASSWORD}
@@ -62,7 +62,7 @@ jobs:
 
   deploy:
     docker:
-      - image: myparcelcom/kubectl-aws
+      - image: myparcelcom/build-utils
         auth:
           username: ${DOCKER_USER}
           password: ${DOCKER_PASSWORD}
