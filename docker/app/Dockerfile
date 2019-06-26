@@ -13,6 +13,7 @@ WORKDIR /opt/app
 
 RUN composer install --no-dev \
     && new_cert \
+    && a2ensite default-ssl \
     && fix_laravel_permissions \
     && rm -f .env
 
