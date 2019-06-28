@@ -22,13 +22,13 @@ class JsonSchemaServiceProvider extends ServiceProvider
     {
         $this->app->singleton('schema', function () {
             return json_decode(file_get_contents(
-                base_path(config('transformer.schemas.carrier'))
+                config('transformer.schemas.carrier')
             ));
         });
 
         $this->app->singleton(Validator::class, function (Container $app) {
             $schemaStorage = new SchemaStorage();
-            $schemaStorage->addSchema('file://' . config('transformer.schemas.carrier'), $app->make('schema'));
+            $schemaStorage->addSchema(config('transformer.schemas.carrier'), $app->make('schema'));
 
             return new Validator(new Factory($schemaStorage));
         });

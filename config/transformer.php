@@ -35,7 +35,7 @@ return [
     */
 
     'schemas' => [
-        'carrier' => env('SCHEMA_DIR', 'vendor/myparcelcom/carrier-specification') . '/dist/swagger.json',
+        'carrier' => env('SCHEMA_DIR'),
     ],
 
 ];
