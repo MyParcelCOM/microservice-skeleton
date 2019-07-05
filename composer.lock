@@ -1202,16 +1202,16 @@
         },
         {
             "name": "myparcelcom/json-api",
-            "version": "v0.7.3",
+            "version": "v0.7.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MyParcelCOM/json-api.git",
-                "reference": "8e424dc824991445bc0c17b2505ace13fcee863d"
+                "reference": "d0df4eec06894bc9759de4a218130289825845a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MyParcelCOM/json-api/zipball/8e424dc824991445bc0c17b2505ace13fcee863d",
-                "reference": "8e424dc824991445bc0c17b2505ace13fcee863d",
+                "url": "https://api.github.com/repos/MyParcelCOM/json-api/zipball/d0df4eec06894bc9759de4a218130289825845a2",
+                "reference": "d0df4eec06894bc9759de4a218130289825845a2",
                 "shasum": ""
             },
             "require": {
@@ -1238,7 +1238,7 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "MyParcel.com shared library with JSON API related exceptions, interfaces, traits and utility classes.",
             "homepage": "https://www.myparcel.com",
-            "time": "2019-06-28T16:08:23+00:00"
+            "time": "2019-07-05T11:51:36+00:00"
         },
         {
             "name": "nesbot/carbon",
