@@ -7,6 +7,27 @@ namespace MyParcelCom\Microservice\Http;
 class ShipmentRequest extends FormRequest
 {
     /**
+     * Define callback functions to apply to the request data.
+     * The original values will be overwritten by the callbacks.
+     * By default all spaces will be removed from phone numbers.
+     *
+     * @return array
+     */
+    protected function sanitization(): array
+    {
+        $stripSpaces = function ($value) {
+            return str_replace(' ', '', $value);
+        };
+
+        return [
+            'data.attributes.recipient_address.phone_number'       => $stripSpaces,
+            'data.attributes.return_address.phone_number'          => $stripSpaces,
+            'data.attributes.sender_address.phone_number'          => $stripSpaces,
+            'data.attributes.pickup_location.address.phone_number' => $stripSpaces,
+        ];
+    }
+
+    /**
      * Define the validation rules that apply to the request.
      * For example: [
      *   'data.attributes.description                   => 'required|string',
