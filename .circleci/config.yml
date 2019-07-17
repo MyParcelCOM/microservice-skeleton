@@ -13,6 +13,11 @@ jobs:
             ./mp.sh
 
       - run:
+          name: Login to Docker Hub
+          command: |
+            docker login --username ${DOCKER_USER} --password ${DOCKER_PASSWORD}
+
+      - run:
           name: Setup dependencies
           command: |
             ./mp.sh up
@@ -30,7 +35,7 @@ jobs:
 
   build:
     docker:
-      - image: myparcelcom/kubectl-aws
+      - image: myparcelcom/build-utils
         auth:
           username: ${DOCKER_USER}
           password: ${DOCKER_PASSWORD}
@@ -52,12 +57,12 @@ jobs:
           command: |
             IMAGE_NAME="myparcelcom/${CIRCLE_PROJECT_REPONAME##*-}:$(image_tag)"
 
-            docker build -t ${IMAGE_NAME} --build-arg SPEC_BRANCH=$(spec_ref) -f docker/app/build.Dockerfile .
+            docker build -t ${IMAGE_NAME} --build-arg CARRIER_SPEC_BRANCH=$(spec_ref) -f docker/app/Dockerfile .
             docker push ${IMAGE_NAME}
 
   deploy:
     docker:
-      - image: myparcelcom/kubectl-aws
+      - image: myparcelcom/build-utils
         auth:
           username: ${DOCKER_USER}
           password: ${DOCKER_PASSWORD}
