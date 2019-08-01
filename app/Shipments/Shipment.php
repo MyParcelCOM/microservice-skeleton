@@ -65,6 +65,9 @@ class Shipment
     /** @var string */
     protected $myparcelcomShipmentId;
 
+    /** @var string */
+    protected $labelMimeType;
+
     /**
      * @return string
      */
@@ -431,5 +434,24 @@ class Shipment
         $this->myparcelcomShipmentId = $myparcelcomShipmentId;
 
         return $this;
+    }
+
+    /**
+     * @param string $labelMimeType
+     * @return $this
+     */
+    public function setLabelMimeType(string $labelMimeType): self
+    {
+        $this->labelMimeType = $labelMimeType;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLabelMimeType(): string
+    {
+        return $this->labelMimeType;
     }
 }

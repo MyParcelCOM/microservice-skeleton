@@ -174,4 +174,13 @@ class ShipmentTest extends TestCase
 
         $this->assertEquals($myparcelcomShipmentId, $shipment->setMyparcelcomShipmentId($myparcelcomShipmentId)->getMyparcelcomShipmentId());
     }
+
+    /** @test */
+    public function testItSetsAndGetsLabelMimeType()
+    {
+        $shipment = new Shipment();
+        $shipment->setLabelMimeType('application/zpl');
+
+        $this->assertEquals('application/zpl', $shipment->getLabelMimeType());
+    }
 }
