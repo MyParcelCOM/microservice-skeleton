@@ -95,6 +95,7 @@ jobs:
             envsubst < kube/configmap.template.yaml > kube/configmap.yaml
             envsubst < kube/secrets.template.yaml > kube/secrets.yaml
             envsubst < kube/deployment.template.yaml > kube/deployment.yaml
+            envsubst < kube/autoscaling.template.yaml > kube/autoscaling.yaml
             envsubst < kube/service.template.yaml > kube/service.yaml
             envsubst < kube/ingress.template.yaml > kube/ingress.yaml
       - run:
@@ -103,6 +104,7 @@ jobs:
             kubectl apply -f kube/configmap.yaml
             kubectl apply -f kube/secrets.yaml
             kubectl apply -f kube/deployment.yaml
+            kubectl apply -f kube/autoscaling.yaml
             kubectl apply -f kube/service.yaml
 
             if [[ "$(env_namespace)" = "develop" ]] || [[ "$(env_namespace)" = "staging" ]]; then
