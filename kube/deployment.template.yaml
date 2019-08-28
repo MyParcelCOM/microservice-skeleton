@@ -7,7 +7,7 @@ metadata:
     app: ${CIRCLE_PROJECT_REPONAME}
     revision: ${CIRCLE_SHA1}
 spec:
-  replicas: 1
+  replicas: ${REPLICAS}
   selector:
     matchLabels:
       app: ${CIRCLE_PROJECT_REPONAME}
@@ -28,6 +28,10 @@ spec:
                 name: ${CIRCLE_PROJECT_REPONAME}-config
             - secretRef:
                 name: ${CIRCLE_PROJECT_REPONAME}-secrets
+          resources:
+            requests:
+              memory: ${RESOURCES_REQ_MEM}
+              cpu: ${RESOURCES_REQ_CPU}
       imagePullSecrets:
         - name: docker-hub
   strategy:
