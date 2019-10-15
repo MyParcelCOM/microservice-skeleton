@@ -15,14 +15,14 @@ class ShipmentRequestTest extends TestCase
 {
     use CommunicatesWithCarrier;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
         $this->bindCarrierApiGatewayMock();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
         Mockery::close();

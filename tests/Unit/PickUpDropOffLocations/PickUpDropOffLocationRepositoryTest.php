@@ -16,7 +16,7 @@ class PickUpDropOffLocationRepositoryTest extends TestCase
     /** @var PickUpDropOffLocationRepository */
     private $pickUpDropOffLocationRepository;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -27,7 +27,7 @@ class PickUpDropOffLocationRepositoryTest extends TestCase
             ->setCarrierApiGateway(new CarrierApiGatewayMock());
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
 

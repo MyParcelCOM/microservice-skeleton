@@ -19,7 +19,7 @@ class ShipmentsTest extends TestCase
     use CommunicatesWithCarrier;
     use JsonApiAssertionsTrait;
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
         Mockery::close();

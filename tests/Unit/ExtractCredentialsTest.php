@@ -15,7 +15,7 @@ class ExtractCredentialsTest extends TestCase
 {
     use CommunicatesWithCarrier;
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
         Mockery::close();

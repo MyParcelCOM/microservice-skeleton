@@ -29,7 +29,7 @@ class ShipmentTransformerTest extends TestCase
     /** @var Shipment */
     private $minimalShipment;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -134,7 +134,7 @@ class ShipmentTransformerTest extends TestCase
         ]);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
 

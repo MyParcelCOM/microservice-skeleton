@@ -20,7 +20,7 @@ class StatusTransformerTest extends TestCase
     /** @var Status */
     private $status;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -39,7 +39,7 @@ class StatusTransformerTest extends TestCase
         ]);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
         Mockery::close();

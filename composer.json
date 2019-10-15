@@ -7,18 +7,18 @@
   ],
   "type": "project",
   "require": {
-    "php": ">=7.1",
-    "fideloper/proxy": "~3.3",
+    "php": ">=7.2",
+    "ext-json": "*",
+    "fideloper/proxy": "^4.0",
     "guzzlehttp/guzzle": "^6.3",
-    "illuminate/redis": "5.5.*",
-    "intouch/laravel-newrelic": "~2.0",
+    "intouch/laravel-newrelic": "^2.2.2",
     "justinrainbow/json-schema": "^5.2",
-    "laravel/framework": "5.5.*",
+    "laravel/framework": "5.8.*",
     "laravel/tinker": "~1.0",
     "myparcelcom/json-api": "^0.7.0",
-    "predis/predis": "~1.0",
+    "predis/predis": "^1.1",
     "tecnickcom/tc-lib-barcode": "^1.15",
-    "vlucas/phpdotenv": "~2.2"
+    "vlucas/phpdotenv": "^3.3"
   },
   "require-dev": {
     "mockery/mockery": "^1.2",
