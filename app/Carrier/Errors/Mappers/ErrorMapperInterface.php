@@ -7,8 +7,7 @@ use MyParcelCom\JsonApi\Exceptions\Interfaces\MultiErrorInterface;
 interface ErrorMapperInterface
 {
     /**
-     * Determines whether or not given response
-     * contains errors that should be mapped.
+     * Determines whether or not given response contains errors that should be mapped.
      *
      * @param mixed $response
      * @return bool
@@ -16,8 +15,7 @@ interface ErrorMapperInterface
     public function hasErrors($response): bool;
 
     /**
-     * Parses errors in given response and maps
-     * it to a MultiErrorInterface.
+     * Parses errors in given response and maps it to a MultiErrorInterface.
      *
      * @param mixed $response
      * @return MultiErrorInterface|null

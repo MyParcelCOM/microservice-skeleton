@@ -32,7 +32,7 @@ trait JsonApiAssertionsTrait
         }
 
         // Check for old spec.
-        if (isset($this->schema->swagger) && (int)$this->schema->swagger === 2) {
+        if (isset($this->schema->swagger) && (int) $this->schema->swagger === 2) {
             return $this->schema->paths->{$schemaPath}->{strtolower($method)}->responses->{$status}->schema;
         }
 

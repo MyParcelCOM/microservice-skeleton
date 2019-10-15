@@ -19,8 +19,7 @@ use MyParcelCom\JsonApi\Exceptions\InvalidInputException;
 abstract class AbstractErrorMapper implements ErrorMapperInterface
 {
     /**
-     * Parses errors in given response and maps
-     * it to a MultiErrorInterface.
+     * Parses errors in given response and maps it to a MultiErrorInterface.
      *
      * @param mixed $response
      * @return MultiErrorInterface|null
@@ -37,11 +36,7 @@ abstract class AbstractErrorMapper implements ErrorMapperInterface
         $errors = [];
 
         foreach ($errorMessages as $error) {
-            $this->addError(
-                $errors,
-                $error['description'],
-                $error['code']
-            );
+            $this->addError($errors, $error['description'], $error['code']);
         }
 
         if (empty($errors)) {
@@ -55,15 +50,13 @@ abstract class AbstractErrorMapper implements ErrorMapperInterface
 
     /**
      * Parse response and return array with error(s).
-     * Every array element (in other words; every error) should
-     * contain a "description" and "code" key. For example:
+     * Every array element (in other words; every error) should contain a "description" and "code" key. For example:
      * [
      *      [
      *          'description'   => 'Invalid email address',
      *          'code'          => '1337'
      *      ]
      * ]
-     *
      *
      * @param mixed $response
      * @return array
@@ -96,8 +89,7 @@ abstract class AbstractErrorMapper implements ErrorMapperInterface
         }
 
         // If the request contains input errors
-        if (
-            in_array(InvalidInputContextError::class, $errorClasses)
+        if (in_array(InvalidInputContextError::class, $errorClasses)
             || in_array(InvalidInputError::class, $errorClasses)
             || in_array(MissingInputError::class, $errorClasses)
         ) {
@@ -113,11 +105,8 @@ abstract class AbstractErrorMapper implements ErrorMapperInterface
      * @param string                     $code
      * @return self
      */
-    protected function addError(
-        array &$errors,
-        string $message,
-        string $code = ''
-    ): self {
+    protected function addError(array &$errors, string $message, string $code = ''): self
+    {
         $error = $this->mapError($message, $code);
         if ($error === null) {
             return $this;

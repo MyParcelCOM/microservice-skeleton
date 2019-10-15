@@ -9,7 +9,7 @@ use Mockery;
 use MyParcelCom\Microservice\Http\ShipmentRequest;
 use MyParcelCom\Microservice\Tests\TestCase;
 use MyParcelCom\Microservice\Tests\Traits\CommunicatesWithCarrier;
-use function \GuzzleHttp\json_decode;
+use function GuzzleHttp\json_decode;
 
 class ShipmentRequestTest extends TestCase
 {

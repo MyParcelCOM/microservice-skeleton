@@ -9,16 +9,12 @@ use Illuminate\Support\Collection;
 use MyParcelCom\JsonApi\Resources\CollectionResources;
 use MyParcelCom\JsonApi\Resources\Interfaces\ResourcesInterface;
 use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
-use MyParcelCom\Microservice\Geo\GeoService;
 use Psr\SimpleCache\CacheInterface;
 
 class PickUpDropOffLocationRepository
 {
     /** @var CarrierApiGatewayInterface */
     protected $carrierApiGateway;
-
-    /** @var GeoService */
-    protected $geoService;
 
     /** @var CacheInterface */
     protected $cache;
@@ -46,45 +42,7 @@ class PickUpDropOffLocationRepository
         // TODO: Filter pudo points by passed categories.
         // TODO: Map data to PickUpDropOffLocation objects.
         // TODO: Put PickUpDropOffLocation objects in an object that implements ResourcesInterface.
-        // TODO: Use the method `updatePosition()` to update the position values of a pudo point with coordinates.
         // TODO: Cache the collection of pudo locations using the method `setCachedLocations()`
-    }
-
-    /**
-     * @param PickUpDropOffLocation $location
-     * @param null|string           $sourceCountryCode
-     * @param null|string           $sourcePostalCode
-     * @param null|string           $sourceStreet
-     * @param int|null              $sourceStreetNumber
-     * @return PickUpDropOffLocation
-     */
-    protected function updatePosition(PickUpDropOffLocation $location, ?string $sourceCountryCode, ?string $sourcePostalCode, ?string $sourceStreet, ?int $sourceStreetNumber)
-    {
-        $position = $location->getPosition() ?: new Position();
-
-        if ($position->getLatitude() === null || $position->getLongitude() === null) {
-            $address = $location->getAddress();
-            $addressPosition = $this->geoService->getPositionForAddress(
-                $address->getCountryCode(),
-                $address->getPostalCode(),
-                $address->getStreet1(),
-                $address->getStreetNumber(),
-                $address->getStreetNumberSuffix()
-            );
-
-            $position->setLatitude($addressPosition->getLatitude());
-            $position->setLongitude($addressPosition->getLongitude());
-        }
-
-        if ($location->getDistance() === null) {
-            $sourcePosition = $this->geoService->getPositionForAddress($sourceCountryCode, $sourcePostalCode, $sourceStreet, $sourceStreetNumber);
-
-            $location->setDistance(
-                $this->geoService->getDistance($sourcePosition, $position)
-            );
-        }
-
-        return $location->setPosition($position);
     }
 
     /**
@@ -93,14 +51,12 @@ class PickUpDropOffLocationRepository
      * @param null|string $postalCode
      * @param null|string $street
      * @param int|null    $streetNumber
-     * @return void
      */
     protected function setCachedLocations(Collection $locations, ?string $countryCode, ?string $postalCode, ?string $street, ?int $streetNumber): void
     {
         $key = $this->getCacheKey($countryCode, $postalCode, $street, $streetNumber);
 
-        // Cache for a week.
-        $this->cache->set($key, $locations, new DateInterval("P1W"));
+        $this->cache->set($key, $locations, new DateInterval('P1W'));
     }
 
     /**
@@ -147,17 +103,6 @@ class PickUpDropOffLocationRepository
     public function setCarrierApiGateway(CarrierApiGatewayInterface $gateway): self
     {
         $this->carrierApiGateway = $gateway;
-
-        return $this;
-    }
-
-    /**
-     * @param GeoService $geoService
-     * @return $this
-     */
-    public function setGeoService(GeoService $geoService): self
-    {
-        $this->geoService = $geoService;
 
         return $this;
     }

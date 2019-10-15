@@ -279,7 +279,7 @@ class ShipmentTransformerTest extends TestCase
                 'id'         => 'shipment-id',
                 'type'       => 'shipments',
                 'attributes' => [
-                    'recipient_address'   => [
+                    'recipient_address'       => [
                         'street_1'             => 'First Street',
                         'street_2'             => 'Second Street',
                         'street_number'        => 69,
@@ -294,7 +294,7 @@ class ShipmentTransformerTest extends TestCase
                         'email'                => 'john@expertsexchange.com',
                         'phone_number'         => '1337-9001',
                     ],
-                    'return_address'      => [
+                    'return_address'          => [
                         'street_1'             => 'First Street',
                         'street_2'             => 'Second Street',
                         'street_number'        => 69,
@@ -309,7 +309,7 @@ class ShipmentTransformerTest extends TestCase
                         'email'                => 'john@expertsexchange.com',
                         'phone_number'         => '1337-9001',
                     ],
-                    'sender_address'      => [
+                    'sender_address'          => [
                         'street_1'             => 'First Street',
                         'street_2'             => 'Second Street',
                         'street_number'        => 69,
@@ -324,7 +324,7 @@ class ShipmentTransformerTest extends TestCase
                         'email'                => 'john@expertsexchange.com',
                         'phone_number'         => '1337-9001',
                     ],
-                    'pickup_location'     => [
+                    'pickup_location'         => [
                         'code'    => 'aaaa',
                         'address' => [
                             'street_1'             => 'First Street',
@@ -342,26 +342,26 @@ class ShipmentTransformerTest extends TestCase
                             'phone_number'         => '1337-9001',
                         ],
                     ],
-                    'description'         => 'descending ription',
-                    'barcode'             => '3SBARCODE',
-                    'service'             => [
+                    'description'             => 'descending ription',
+                    'barcode'                 => '3SBARCODE',
+                    'service'                 => [
                         'code' => 'nl300',
                         'name' => 'noname',
                     ],
-                    'physical_properties' => [
+                    'physical_properties'     => [
                         'height' => 1,
                         'width'  => 2,
                         'length' => 3,
                         'volume' => 4,
                         'weight' => 5,
                     ],
-                    'options'             => [
+                    'options'                 => [
                         [
                             'name' => 'plx name me',
                             'code' => 'somecode',
                         ],
                     ],
-                    'items'               => [
+                    'items'                   => [
                         [
                             'sku'                 => '01284ASD',
                             'description'         => 'priceless Ming vase from some dynasty',
@@ -374,15 +374,15 @@ class ShipmentTransformerTest extends TestCase
                             ],
                         ],
                     ],
-                    'customs'             => [
+                    'customs'                 => [
                         'content_type'   => Customs::CONTENT_TYPE_DOCUMENTS,
                         'invoice_number' => 'V01C3',
                         'incoterm'       => Customs::INCOTERM_DELIVERED_AT_PLACE,
                         'non_delivery'   => Customs::NON_DELIVERY_ABANDON,
                     ],
                     'myparcelcom_shipment_id' => 'bbacd0c7-9ec5-42df-9870-443b8e1a7155',
-                    'tracking_code'       => 'TR4CK1NGC0D3',
-                    'tracking_url'        => 'https://track.me/TR4CK1NGC0D3',
+                    'tracking_code'           => 'TR4CK1NGC0D3',
+                    'tracking_url'            => 'https://track.me/TR4CK1NGC0D3',
                 ],
             ],
             $this->shipmentTransformer->transform($this->shipment)
@@ -397,7 +397,7 @@ class ShipmentTransformerTest extends TestCase
                 'id'         => 'shipment-id',
                 'type'       => 'shipments',
                 'attributes' => [
-                    'recipient_address' => [
+                    'recipient_address'       => [
                         'street_1'             => 'First Street',
                         'street_2'             => 'Second Street',
                         'street_number'        => 69,
@@ -412,7 +412,7 @@ class ShipmentTransformerTest extends TestCase
                         'email'                => 'john@expertsexchange.com',
                         'phone_number'         => '1337-9001',
                     ],
-                    'return_address'    => [
+                    'return_address'          => [
                         'street_1'             => 'First Street',
                         'street_2'             => 'Second Street',
                         'street_number'        => 69,
@@ -427,7 +427,7 @@ class ShipmentTransformerTest extends TestCase
                         'email'                => 'john@expertsexchange.com',
                         'phone_number'         => '1337-9001',
                     ],
-                    'sender_address'    => [
+                    'sender_address'          => [
                         'street_1'             => 'First Street',
                         'street_2'             => 'Second Street',
                         'street_number'        => 69,
@@ -442,7 +442,7 @@ class ShipmentTransformerTest extends TestCase
                         'email'                => 'john@expertsexchange.com',
                         'phone_number'         => '1337-9001',
                     ],
-                    'service'           => [
+                    'service'                 => [
                         'code' => 'nl300',
                         'name' => 'noname',
                     ],
