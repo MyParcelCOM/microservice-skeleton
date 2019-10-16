@@ -15,7 +15,7 @@
     "justinrainbow/json-schema": "^5.2",
     "laravel/framework": "5.8.*",
     "laravel/tinker": "~1.0",
-    "myparcelcom/json-api": "^0.7.0",
+    "myparcelcom/json-api": "^0.8.4",
     "predis/predis": "^1.1",
     "tecnickcom/tc-lib-barcode": "^1.15",
     "vlucas/phpdotenv": "^3.3"
