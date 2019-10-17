@@ -1,6 +1,7 @@
 /.env
 /.idea
 /build
+/composer.lock
 /docker/app/dist/*
 !/docker/app/dist/.gitkeep
 /vendor

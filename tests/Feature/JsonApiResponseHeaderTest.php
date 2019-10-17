@@ -11,7 +11,7 @@ class JsonApiResponseHeaderTest extends TestCase
 {
     use CommunicatesWithCarrier;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

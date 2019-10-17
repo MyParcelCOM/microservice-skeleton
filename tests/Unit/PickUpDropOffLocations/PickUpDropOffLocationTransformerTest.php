@@ -24,7 +24,7 @@ class PickUpDropOffLocationTransformerTest extends TestCase
     /** @var PickUpDropOffLocation */
     private $pickUpDropOffLocation;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -75,7 +75,7 @@ class PickUpDropOffLocationTransformerTest extends TestCase
         ]);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
 

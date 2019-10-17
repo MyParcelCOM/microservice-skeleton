@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Tests\Endpoints;
 
-use function GuzzleHttp\json_decode;
 use Mockery;
 use MyParcelCom\Microservice\Tests\TestCase;
 use MyParcelCom\Microservice\Tests\Traits\CommunicatesWithCarrier;
 use MyParcelCom\Microservice\Tests\Traits\JsonApiAssertionsTrait;
+use function GuzzleHttp\json_decode;
 
 /**
  * @group Endpoints:Shipment
@@ -19,7 +19,7 @@ class ShipmentsTest extends TestCase
     use CommunicatesWithCarrier;
     use JsonApiAssertionsTrait;
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
         Mockery::close();

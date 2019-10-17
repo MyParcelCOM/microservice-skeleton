@@ -9,20 +9,20 @@ use Mockery;
 use MyParcelCom\Microservice\Http\ShipmentRequest;
 use MyParcelCom\Microservice\Tests\TestCase;
 use MyParcelCom\Microservice\Tests\Traits\CommunicatesWithCarrier;
-use function \GuzzleHttp\json_decode;
+use function GuzzleHttp\json_decode;
 
 class ShipmentRequestTest extends TestCase
 {
     use CommunicatesWithCarrier;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
         $this->bindCarrierApiGatewayMock();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
         Mockery::close();

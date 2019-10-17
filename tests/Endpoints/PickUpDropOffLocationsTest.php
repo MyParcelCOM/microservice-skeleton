@@ -20,7 +20,7 @@ class PickUpDropOffLocationsTest extends TestCase
     use CommunicatesWithCarrier;
     use JsonApiAssertionsTrait;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

@@ -6,6 +6,8 @@ namespace MyParcelCom\Microservice\Exceptions;
 
 use Exception;
 use GuzzleHttp\Exception\RequestException;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use MyParcelCom\JsonApi\Errors\InvalidInputError;
 use MyParcelCom\JsonApi\Errors\MissingInputError;
@@ -28,15 +30,15 @@ class Handler extends ExceptionHandler
     ];
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param Exception                $exception
-     * @return \Illuminate\Http\JsonResponse
+     * @param Request   $request
+     * @param Exception $exception
+     * @return JsonResponse
      */
     public function render($request, Exception $exception)
     {
         if ($exception instanceof RequestException && ($response = $exception->getResponse()) !== null) {
             $carrierResponse = json_decode($response->getBody()->getContents(), true)
-                ?? ['response_body' => (string)$response->getBody()];
+                ?? ['response_body' => (string) $response->getBody()];
 
             $exception = new CarrierApiException(
                 $this->mapStatusCode($response->getStatusCode()),
@@ -59,7 +61,7 @@ class Handler extends ExceptionHandler
     private function mapStatusCode($statusCode)
     {
         // When allowed, use the carrier status code.
-        if (in_array((int)$statusCode, self::ALLOWED_STATUS_CODES)) {
+        if (in_array((int) $statusCode, self::ALLOWED_STATUS_CODES)) {
             return $statusCode;
         }
 

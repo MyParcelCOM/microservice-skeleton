@@ -5,33 +5,28 @@ declare(strict_types=1);
 namespace MyParcelCom\Microservice\Providers;
 
 use Com\Tecnick\Barcode\Barcode;
-use GuzzleHttp\Client;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Routing\ResponseFactory;
-use Illuminate\Routing\UrlGenerator as LaravelUrlGenerator;
+use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
-use MyParcelCom\Microservice\Rules\CombinedFieldsMaxRule;
-use MyParcelCom\Microservice\Rules\RequiredIfInternationalRule;
 use MyParcelCom\JsonApi\Http\Interfaces\RequestInterface;
 use MyParcelCom\JsonApi\Interfaces\UrlGeneratorInterface;
 use MyParcelCom\JsonApi\Transformers\AbstractTransformer;
 use MyParcelCom\JsonApi\Transformers\TransformerFactory;
 use MyParcelCom\Microservice\Exceptions\Handler;
-use MyParcelCom\Microservice\Geo\GeoService;
 use MyParcelCom\Microservice\Http\Request;
-use MyParcelCom\Microservice\Routing\UrlGenerator;
+use MyParcelCom\Microservice\Rules\CombinedFieldsMaxRule;
+use MyParcelCom\Microservice\Rules\RequiredIfInternationalRule;
 use MyParcelCom\Microservice\Shipments\ShipmentMapper;
 
 class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->app->alias('request', Request::class);
         $this->app->alias('request', RequestInterface::class);
@@ -39,10 +34,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(ExceptionHandler::class, function (Container $app) {
             $handler = (new Handler($app))
                 ->setResponseFactory($app->make(ResponseFactory::class))
-                ->setDebug((bool)config('app.debug'));
+                ->setDebug((bool) config('app.debug'));
 
             if (config('app.links.contact_page') !== null) {
-                $handler->setContactLink((string)config('app.links.contact_page'));
+                $handler->setContactLink((string) config('app.links.contact_page'));
             }
 
             if (extension_loaded('newrelic')) {
@@ -52,8 +47,6 @@ class AppServiceProvider extends ServiceProvider
 
             return $handler;
         });
-
-        $this->app->singleton(LaravelUrlGenerator::class, UrlGenerator::class);
 
         $this->app->singleton(UrlGeneratorInterface::class, UrlGenerator::class);
 
@@ -73,20 +66,10 @@ class AppServiceProvider extends ServiceProvider
             return (new ShipmentMapper())
                 ->setBarcodeGenerator($app->make(Barcode::class));
         });
-
-        $this->app->singleton(GeoService::class, function (Container $app) {
-            return (new GeoService())
-                ->setCache($app->make('cache.store'))
-                ->setBaseUrl((string)config('address.service.url'))
-                ->setSecret((string)config('address.service.secret'))
-                ->setClient(new Client());
-        });
     }
 
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
     public function boot(): void
     {
