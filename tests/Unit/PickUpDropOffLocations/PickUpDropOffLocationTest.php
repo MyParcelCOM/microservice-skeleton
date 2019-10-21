@@ -15,7 +15,7 @@ class PickUpDropOffLocationTest extends TestCase
     /** @var PickUpDropOffLocation */
     private $location;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->location = new PickUpDropOffLocation();

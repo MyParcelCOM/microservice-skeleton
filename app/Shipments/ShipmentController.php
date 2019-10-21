@@ -6,6 +6,7 @@ namespace MyParcelCom\Microservice\Shipments;
 
 use Illuminate\Http\JsonResponse;
 use MyParcelCom\JsonApi\Exceptions\InvalidJsonSchemaException;
+use MyParcelCom\JsonApi\Transformers\TransformerException;
 use MyParcelCom\JsonApi\Transformers\TransformerService;
 use MyParcelCom\Microservice\Http\Controllers\Controller;
 use MyParcelCom\Microservice\Http\JsonRequestValidator;
@@ -20,10 +21,9 @@ class ShipmentController extends Controller
      * @param ShipmentRepository   $repository
      * @param ShipmentRequest      $request
      * @param TransformerService   $transformerService
-     *
      * @return JsonResponse
      * @throws InvalidJsonSchemaException
-     * @throws \MyParcelCom\JsonApi\Transformers\TransformerException
+     * @throws TransformerException
      */
     public function create(
         JsonRequestValidator $jsonRequestValidator,

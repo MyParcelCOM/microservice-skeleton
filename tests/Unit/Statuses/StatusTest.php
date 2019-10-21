@@ -12,7 +12,7 @@ class StatusTest extends TestCase
     /** @var Status */
     private $status;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->status = new Status();

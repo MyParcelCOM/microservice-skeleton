@@ -13,7 +13,7 @@ class OpeningHourTest extends TestCase
     /** @var OpeningHour */
     private $openingHour;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->openingHour = new OpeningHour();
