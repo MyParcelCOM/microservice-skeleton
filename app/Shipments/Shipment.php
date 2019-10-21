@@ -448,9 +448,9 @@ class Shipment
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLabelMimeType(): string
+    public function getLabelMimeType(): ?string
     {
         return $this->labelMimeType;
     }
