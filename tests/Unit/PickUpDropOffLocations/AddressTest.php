@@ -12,7 +12,7 @@ class AddressTest extends TestCase
     /** @var Address */
     private $address;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->address = new Address();
