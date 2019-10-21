@@ -118,9 +118,9 @@ class ShipmentItem
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getItemValueAmount(): int
+    public function getItemValueAmount(): ?int
     {
         return $this->itemValueAmount;
     }
@@ -137,9 +137,9 @@ class ShipmentItem
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getItemValueCurrency(): string
+    public function getItemValueCurrency(): ?string
     {
         return $this->itemValueCurrency;
     }
