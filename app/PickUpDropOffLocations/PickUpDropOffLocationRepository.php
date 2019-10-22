@@ -24,6 +24,7 @@ class PickUpDropOffLocationRepository
      * @param string      $postalCode
      * @param string|null $street
      * @param string|null $streetNumber
+     * @param array       $categories
      * @return ResourcesInterface
      */
     public function getAll(

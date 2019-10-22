@@ -23,6 +23,7 @@ trait JsonApiAssertionsTrait
      * @param string $schemaPath
      * @param string $method
      * @param int    $status
+     * @param string $accept
      * @return stdClass
      */
     protected function getSchema(string $schemaPath, string $method = 'get', int $status = 200, string $accept = 'application/vnd.api+json'): stdClass

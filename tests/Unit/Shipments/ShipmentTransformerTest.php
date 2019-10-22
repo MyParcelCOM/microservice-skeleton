@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Tests\Unit\Shipments;
 
+use Illuminate\Routing\UrlGenerator;
 use Mockery;
-use MyParcelCom\JsonApi\Interfaces\UrlGeneratorInterface;
 use MyParcelCom\JsonApi\Transformers\TransformerException;
 use MyParcelCom\JsonApi\Transformers\TransformerFactory;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
@@ -17,6 +17,7 @@ use MyParcelCom\Microservice\Shipments\Shipment;
 use MyParcelCom\Microservice\Shipments\ShipmentItem;
 use MyParcelCom\Microservice\Shipments\ShipmentTransformer;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 class ShipmentTransformerTest extends TestCase
 {
@@ -33,8 +34,6 @@ class ShipmentTransformerTest extends TestCase
     {
         parent::setUp();
 
-        /** @var UrlGeneratorInterface $urlGenerator */
-        $urlGenerator = Mockery::mock(UrlGeneratorInterface::class, ['route' => 'url']);
         /** @var TransformerFactory $transformerFactory */
         $transformerFactory = Mockery::mock(TransformerFactory::class);
 
@@ -90,7 +89,7 @@ class ShipmentTransformerTest extends TestCase
         ]);
 
         $this->shipmentTransformer = (new ShipmentTransformer($transformerFactory))
-            ->setUrlGenerator($urlGenerator);
+            ->setUrlGenerator(Mockery::mock(UrlGenerator::class, ['route' => 'url']));
         $this->shipment = Mockery::mock(Shipment::class, [
             'getId'                    => 'shipment-id',
             'getRecipientAddress'      => $address,
@@ -457,6 +456,6 @@ class ShipmentTransformerTest extends TestCase
     public function testTransformInvalidModel()
     {
         $this->expectException(TransformerException::class);
-        $this->shipmentTransformer->transform(new \stdClass());
+        $this->shipmentTransformer->transform(new stdClass());
     }
 }
