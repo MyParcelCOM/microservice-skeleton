@@ -22,12 +22,6 @@ class ShipmentRequestTest extends TestCase
         $this->bindCarrierApiGatewayMock();
     }
 
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-        Mockery::close();
-    }
-
     /** @test */
     public function testItReturnsAnErrorIfValidationFails()
     {

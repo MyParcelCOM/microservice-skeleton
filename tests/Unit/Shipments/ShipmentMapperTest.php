@@ -156,17 +156,17 @@ class ShipmentMapperTest extends TestCase
             })
             ->shouldReceive('setItems')
             ->andReturnUsing(function (array $items) use ($shipment) {
-                $this->assertInternalType('array', $items);
+                $this->assertIsArray($items);
                 array_walk($items, function (ShipmentItem $item) {
                     $this->assertInstanceOf(ShipmentItem::class, $item);
                     $this->assertNotNull($item->getSku());
                     $this->assertNotNull($item->getDescription());
                     $this->assertNotNull($item->getHsCode());
-                    $this->assertInternalType('integer', $item->getItemWeight());
-                    $this->assertInternalType('integer', $item->getItemValueAmount());
+                    $this->assertIsInt($item->getItemWeight());
+                    $this->assertIsInt($item->getItemValueAmount());
                     $this->assertNotNull($item->getItemValueAmount());
                     $this->assertNotNull($item->getItemValueCurrency());
-                    $this->assertInternalType('integer', $item->getQuantity());
+                    $this->assertIsInt($item->getQuantity());
                     $this->assertNotNull($item->getQuantity());
                     $this->assertNotNull($item->getOriginCountryCode());
                 });

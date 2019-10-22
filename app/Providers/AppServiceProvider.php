@@ -12,7 +12,6 @@ use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use MyParcelCom\JsonApi\Http\Interfaces\RequestInterface;
-use MyParcelCom\JsonApi\Interfaces\UrlGeneratorInterface;
 use MyParcelCom\JsonApi\Transformers\AbstractTransformer;
 use MyParcelCom\JsonApi\Transformers\TransformerFactory;
 use MyParcelCom\Microservice\Exceptions\Handler;
@@ -48,14 +47,12 @@ class AppServiceProvider extends ServiceProvider
             return $handler;
         });
 
-        $this->app->singleton(UrlGeneratorInterface::class, UrlGenerator::class);
-
         $this->app->singleton(TransformerFactory::class, function (Container $app) {
             return (new TransformerFactory())
                 ->setDependencies([
                     AbstractTransformer::class => [
                         'setUrlGenerator' => function () use ($app) {
-                            return $app->make(UrlGeneratorInterface::class);
+                            return $app->make(UrlGenerator::class);
                         },
                     ],
                 ])
@@ -75,7 +72,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Validator::extend('combined_fields_max', CombinedFieldsMaxRule::class . '@validate');
         Validator::replacer('combined_fields_max', CombinedFieldsMaxRule::class . '@placeholders');
-
         Validator::extendImplicit('required_if_international', RequiredIfInternationalRule::class . '@validate');
     }
 }

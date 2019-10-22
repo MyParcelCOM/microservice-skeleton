@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace MyParcelCom\Microservice\Tests\Unit\PickUpDropOffLocations;
 
 use Carbon\Carbon;
+use Illuminate\Routing\UrlGenerator;
 use Mockery;
-use MyParcelCom\JsonApi\Interfaces\UrlGeneratorInterface;
 use MyParcelCom\JsonApi\Transformers\TransformerException;
 use MyParcelCom\JsonApi\Transformers\TransformerFactory;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
@@ -15,6 +15,7 @@ use MyParcelCom\Microservice\PickUpDropOffLocations\PickUpDropOffLocation;
 use MyParcelCom\Microservice\PickUpDropOffLocations\PickUpDropOffLocationTransformer;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Position;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 class PickUpDropOffLocationTransformerTest extends TestCase
 {
@@ -28,13 +29,11 @@ class PickUpDropOffLocationTransformerTest extends TestCase
     {
         parent::setUp();
 
-        /** @var UrlGeneratorInterface $urlGenerator */
-        $urlGenerator = Mockery::mock(UrlGeneratorInterface::class, ['route' => 'url']);
         /** @var TransformerFactory $transformerFactory */
         $transformerFactory = Mockery::mock(TransformerFactory::class);
 
         $this->pickUpDropOffLocationTransformer = (new PickUpDropOffLocationTransformer($transformerFactory))
-            ->setUrlGenerator($urlGenerator);
+            ->setUrlGenerator(Mockery::mock(UrlGenerator::class, ['route' => 'url']));
 
         $address = Mockery::mock(Address::class, [
             'getStreet1'            => 'First Street',
@@ -139,12 +138,12 @@ class PickUpDropOffLocationTransformerTest extends TestCase
     public function testGetIdWithInvalidModel()
     {
         $this->expectException(TransformerException::class);
-        $this->pickUpDropOffLocationTransformer->getId(Mockery::mock(\stdClass::class));
+        $this->pickUpDropOffLocationTransformer->getId(new stdClass());
     }
 
     public function testGetAttributesWithInvalidModel()
     {
         $this->expectException(TransformerException::class);
-        $this->pickUpDropOffLocationTransformer->getAttributes(Mockery::mock(\stdClass::class));
+        $this->pickUpDropOffLocationTransformer->getAttributes(new stdClass());
     }
 }
