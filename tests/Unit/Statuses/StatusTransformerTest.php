@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Tests\Unit\Statuses;
 
+use Illuminate\Routing\UrlGenerator;
 use Mockery;
-use MyParcelCom\JsonApi\Interfaces\UrlGeneratorInterface;
 use MyParcelCom\JsonApi\Transformers\TransformerException;
 use MyParcelCom\JsonApi\Transformers\TransformerFactory;
 use MyParcelCom\Microservice\Statuses\Status;
 use MyParcelCom\Microservice\Statuses\StatusTransformer;
-use MyParcelCom\Microservice\Tests\TestCase;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
 class StatusTransformerTest extends TestCase
 {
@@ -20,17 +21,15 @@ class StatusTransformerTest extends TestCase
     /** @var Status */
     private $status;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
-        /** @var UrlGeneratorInterface $urlGenerator */
-        $urlGenerator = Mockery::mock(UrlGeneratorInterface::class, ['route' => 'url']);
         /** @var TransformerFactory $transformerFactory */
         $transformerFactory = Mockery::mock(TransformerFactory::class);
 
         $this->statusTransformer = (new StatusTransformer($transformerFactory))
-            ->setUrlGenerator($urlGenerator);
+            ->setUrlGenerator(Mockery::mock(UrlGenerator::class, ['route' => 'url']));
         $this->status = Mockery::mock(Status::class, [
             'getId'          => 'w',
             'getCode'        => 'u',
@@ -39,7 +38,7 @@ class StatusTransformerTest extends TestCase
         ]);
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
         Mockery::close();
@@ -66,12 +65,12 @@ class StatusTransformerTest extends TestCase
     public function testGetIdWithInvalidModel()
     {
         $this->expectException(TransformerException::class);
-        $this->statusTransformer->getId(Mockery::mock(\stdClass::class));
+        $this->statusTransformer->getId(new stdClass());
     }
 
     public function testGetAttributesWithInvalidModel()
     {
         $this->expectException(TransformerException::class);
-        $this->statusTransformer->getAttributes(Mockery::mock(\stdClass::class));
+        $this->statusTransformer->getAttributes(new stdClass());
     }
 }

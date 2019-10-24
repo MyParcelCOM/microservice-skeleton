@@ -10,9 +10,7 @@ use MyParcelCom\Microservice\Http\Controllers\Controller;
 
 class CredentialController extends Controller
 {
-    /**
-     * @var CarrierApiGatewayInterface
-     */
+    /** @var CarrierApiGatewayInterface */
     protected $carrierApiGateway;
 
     /**
@@ -30,7 +28,6 @@ class CredentialController extends Controller
      */
     public function validateCredentials(): JsonResponse
     {
-
         // TODO: implement validation check
         // Some carriers may have dedicated endpoints
         // for this. Otherwise you could try a random

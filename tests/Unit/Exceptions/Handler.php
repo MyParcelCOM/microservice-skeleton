@@ -12,10 +12,16 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Mockery;
 use MyParcelCom\Microservice\Exceptions\Handler;
-use MyParcelCom\Microservice\Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class HandlerTest extends TestCase
 {
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+        Mockery::close();
+    }
+
     /** @test */
     public function testItTransformsAValidationExceptionIntoAMultiErrorException()
     {

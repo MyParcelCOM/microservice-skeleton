@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace MyParcelCom\Microservice\Tests\Unit\Statuses;
 
 use MyParcelCom\Microservice\Statuses\Status;
-use MyParcelCom\Microservice\Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class StatusTest extends TestCase
 {
     /** @var Status */
     private $status;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->status = new Status();

@@ -20,17 +20,20 @@ class Customs
 
     /** @var string */
     protected $contentType;
+
     /** @var null|string */
     protected $invoiceNumber;
+
     /** @var string */
     private $nonDelivery;
+
     /** @var string */
     private $incoterm;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getContentType(): string
+    public function getContentType(): ?string
     {
         return $this->contentType;
     }
@@ -47,7 +50,7 @@ class Customs
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getInvoiceNumber(): ?string
     {
@@ -66,9 +69,9 @@ class Customs
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getNonDelivery(): string
+    public function getNonDelivery(): ?string
     {
         return $this->nonDelivery;
     }
@@ -85,9 +88,9 @@ class Customs
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getIncoterm(): string
+    public function getIncoterm(): ?string
     {
         return $this->incoterm;
     }

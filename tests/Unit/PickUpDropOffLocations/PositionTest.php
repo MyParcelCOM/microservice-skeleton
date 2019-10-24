@@ -12,7 +12,7 @@ class PositionTest extends TestCase
     /** @var Position */
     private $position;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->position = new Position();

@@ -23,6 +23,7 @@ trait JsonApiAssertionsTrait
      * @param string $schemaPath
      * @param string $method
      * @param int    $status
+     * @param string $accept
      * @return stdClass
      */
     protected function getSchema(string $schemaPath, string $method = 'get', int $status = 200, string $accept = 'application/vnd.api+json'): stdClass
@@ -32,7 +33,7 @@ trait JsonApiAssertionsTrait
         }
 
         // Check for old spec.
-        if (isset($this->schema->swagger) && (int)$this->schema->swagger === 2) {
+        if (isset($this->schema->swagger) && (int) $this->schema->swagger === 2) {
             return $this->schema->paths->{$schemaPath}->{strtolower($method)}->responses->{$status}->schema;
         }
 

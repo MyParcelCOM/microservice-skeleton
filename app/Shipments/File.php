@@ -38,9 +38,9 @@ class File
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getMimeType(): string
+    public function getMimeType(): ?string
     {
         return $this->mimeType;
     }
@@ -57,9 +57,9 @@ class File
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getExtension(): string
+    public function getExtension(): ?string
     {
         return $this->extension;
     }

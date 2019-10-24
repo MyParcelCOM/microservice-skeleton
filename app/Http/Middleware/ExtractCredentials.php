@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MyParcelCom\Microservice\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
 use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
 
 class ExtractCredentials
@@ -23,8 +24,8 @@ class ExtractCredentials
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure                 $next
+     * @param Request $request
+     * @param Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
