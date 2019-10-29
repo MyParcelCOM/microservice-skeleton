@@ -4,18 +4,11 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Shipments;
 
-use Com\Tecnick\Barcode\Barcode;
 use MyParcelCom\JsonApi\Interfaces\MapperInterface;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 
 class ShipmentMapper implements MapperInterface
 {
-    protected const PRINTCODE_WIDTH = 299;
-    protected const PRINTCODE_HEIGHT = 95;
-
-    /** @var Barcode */
-    protected $barcodeGenerator;
-
     /**
      * Maps given data to given model and returns the model.
      *
@@ -247,16 +240,5 @@ class ShipmentMapper implements MapperInterface
         }
 
         return $item;
-    }
-
-    /**
-     * @param Barcode $barcodeGenerator
-     * @return $this
-     */
-    public function setBarcodeGenerator(Barcode $barcodeGenerator): self
-    {
-        $this->barcodeGenerator = $barcodeGenerator;
-
-        return $this;
     }
 }
