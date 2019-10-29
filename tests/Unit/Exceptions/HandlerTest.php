@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Exceptions;
+namespace MyParcelCom\Microservice\Tests\Unit\Exceptions;
 
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -30,7 +30,7 @@ class HandlerTest extends TestCase
 
         $responseFactoryMock = Mockery::mock(ResponseFactory::class);
         $responseFactoryMock->shouldReceive('json')->andReturnUsing(function ($response) {
-            $this->assertArraySubset([
+            $this->assertEquals([
                 'errors' => [
                     [
                         'title'  => 'Missing input',
