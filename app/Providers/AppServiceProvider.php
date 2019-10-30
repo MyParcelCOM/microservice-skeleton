@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Providers;
 
-use Com\Tecnick\Barcode\Barcode;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -18,7 +17,6 @@ use MyParcelCom\Microservice\Exceptions\Handler;
 use MyParcelCom\Microservice\Http\Request;
 use MyParcelCom\Microservice\Rules\CombinedFieldsMaxRule;
 use MyParcelCom\Microservice\Rules\RequiredIfInternationalRule;
-use MyParcelCom\Microservice\Shipments\ShipmentMapper;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -57,11 +55,6 @@ class AppServiceProvider extends ServiceProvider
                     ],
                 ])
                 ->setMapping(config('transformer.mapping'));
-        });
-
-        $this->app->singleton(ShipmentMapper::class, function (Container $app) {
-            return (new ShipmentMapper())
-                ->setBarcodeGenerator($app->make(Barcode::class));
         });
     }
 

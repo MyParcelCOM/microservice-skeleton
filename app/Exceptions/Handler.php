@@ -73,7 +73,6 @@ class Handler extends ExceptionHandler
         return Response::HTTP_INTERNAL_SERVER_ERROR;
     }
 
-
     /**
      * @param ValidationException $exception
      * @return InvalidInputException
