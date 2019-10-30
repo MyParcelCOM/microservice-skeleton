@@ -39,7 +39,6 @@ class JsonRequestValidator
             $schema = $parameters[array_search('body', array_column($parameters, 'in'))]->schema;
         }
 
-
         $postData = json_decode($this->request->getContent());
 
         $this->validator->validate($postData, $schema);
