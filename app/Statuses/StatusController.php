@@ -16,10 +16,13 @@ class StatusController extends Controller
      * @param StatusRepository   $statusRepository
      * @param TransformerService $transformerService
      * @return JsonResponse
-     * @internal param Shipment $shipment
      */
-    public function getStatuses(string $shipmentId, string $trackingCode, StatusRepository $statusRepository, TransformerService $transformerService): JsonResponse
-    {
+    public function getStatuses(
+        string $shipmentId,
+        string $trackingCode,
+        StatusRepository $statusRepository,
+        TransformerService $transformerService
+    ): JsonResponse {
         $statuses = $statusRepository->getStatuses($shipmentId, $trackingCode);
 
         return new JsonResponse(

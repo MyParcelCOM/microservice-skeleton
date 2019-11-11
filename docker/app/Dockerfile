@@ -1,4 +1,4 @@
-# Stage 1: Build swagger bundles for api and carrier specifications
+# Stage 1: Build swagger bundles for carrier specification
 FROM myparcelcom/specs-builder:latest as bundles
 
 ARG CARRIER_SPEC_BRANCH="master"
