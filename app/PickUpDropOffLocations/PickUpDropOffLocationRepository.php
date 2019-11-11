@@ -53,16 +53,20 @@ class PickUpDropOffLocationRepository
      * @param null|string $street
      * @param int|null    $streetNumber
      */
-    protected function setCachedLocations(Collection $locations, ?string $countryCode, ?string $postalCode, ?string $street, ?int $streetNumber): void
-    {
+    protected function setCachedLocations(
+        Collection $locations,
+        ?string $countryCode,
+        ?string $postalCode,
+        ?string $street,
+        ?int $streetNumber
+    ): void {
         $key = $this->getCacheKey($countryCode, $postalCode, $street, $streetNumber);
 
         $this->cache->set($key, $locations, new DateInterval('P1W'));
     }
 
     /**
-     * Get the cached locations for given address. If no locations are cached
-     * return `null`.
+     * Get the cached locations for given address. If no locations are cached return `null`.
      *
      * @param null|string $countryCode
      * @param null|string $postalCode
@@ -70,8 +74,12 @@ class PickUpDropOffLocationRepository
      * @param int|null    $streetNumber
      * @return Collection|null
      */
-    protected function getCachedLocations(?string $countryCode, ?string $postalCode, ?string $street, ?int $streetNumber): ?Collection
-    {
+    protected function getCachedLocations(
+        ?string $countryCode,
+        ?string $postalCode,
+        ?string $street,
+        ?int $streetNumber
+    ): ?Collection {
         $key = $this->getCacheKey($countryCode, $postalCode, $street, $streetNumber);
 
         return $this->cache->get($key);
