@@ -9,7 +9,7 @@ class Status
     /** @var string */
     protected $id;
 
-    /** @var string */
+    /** @var string|null */
     protected $code;
 
     /** @var string */
@@ -46,10 +46,10 @@ class Status
     }
 
     /**
-     * @param string $code
+     * @param string|null $code
      * @return $this
      */
-    public function setCode(string $code): self
+    public function setCode(?string $code): self
     {
         $this->code = $code;
 

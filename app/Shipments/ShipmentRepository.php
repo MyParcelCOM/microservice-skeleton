@@ -17,8 +17,7 @@ class ShipmentRepository
     protected $carrierApiGateway;
 
     /**
-     * Makes a shipment and persists it (by sending it to the PostNL api)
-     * from the shipment data posted.
+     * Makes a shipment from the posted shipment data and persists it (by sending it to the carrier api).
      *
      * @param array $data
      * @param array $meta
