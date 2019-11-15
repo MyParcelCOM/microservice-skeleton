@@ -17,6 +17,7 @@
     "laravel/tinker": "^1.0",
     "myparcelcom/json-api": "^0.9.0",
     "predis/predis": "^1.1",
+    "rollbar/rollbar-laravel": "4.*",
     "vlucas/phpdotenv": "^3.3"
   },
   "require-dev": {
