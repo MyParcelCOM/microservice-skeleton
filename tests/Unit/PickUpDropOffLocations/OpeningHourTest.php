@@ -22,8 +22,7 @@ class OpeningHourTest extends TestCase
     /** @test */
     public function testDay(): void
     {
-        $this->assertNull($this->openingHour->getDay(), '`getDay()` should return `null` when not set');
-        $this->assertEquals('yesterday', $this->openingHour->setDay('yesterday')->getDay(), '`getDay()` did not return set value');
+        $this->assertEquals('yesterday', $this->openingHour->setDay('yesterday')->getDay());
     }
 
     /** @test */
@@ -31,7 +30,7 @@ class OpeningHourTest extends TestCase
     {
         $today = new DateTime();
         $this->assertNull($this->openingHour->getOpen(), '`getOpen()` should return `null` when not set');
-        $this->assertEquals($today, $this->openingHour->setOpen($today)->getOpen(), '`getOpen()` did not return set value');
+        $this->assertEquals($today, $this->openingHour->setOpen($today)->getOpen());
     }
 
     /** @test */
@@ -39,6 +38,6 @@ class OpeningHourTest extends TestCase
     {
         $today = new DateTime();
         $this->assertNull($this->openingHour->getClosed(), '`getClosed()` should return `null` when not set');
-        $this->assertEquals($today, $this->openingHour->setClosed($today)->getClosed(), '`getClosed()` did not return set value');
+        $this->assertEquals($today, $this->openingHour->setClosed($today)->getClosed());
     }
 }

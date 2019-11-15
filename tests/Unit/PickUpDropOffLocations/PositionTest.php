@@ -22,13 +22,13 @@ class PositionTest extends TestCase
     public function testLatitude(): void
     {
         $this->assertNull($this->position->getLatitude(), '`getLatitude()` should return `null` when not set');
-        $this->assertEquals(13.37, $this->position->setLatitude(13.37)->getLatitude(), '`getLatitude()` did not return set value');
+        $this->assertEquals(13.37, $this->position->setLatitude(13.37)->getLatitude());
     }
 
     /** @test */
     public function testLongitude(): void
     {
         $this->assertNull($this->position->getLongitude(), '`getLongitude()` should return `null` when not set');
-        $this->assertEquals(13.37, $this->position->setLongitude(13.37)->getLongitude(), '`getLongitude()` did not return set value');
+        $this->assertEquals(13.37, $this->position->setLongitude(13.37)->getLongitude());
     }
 }
