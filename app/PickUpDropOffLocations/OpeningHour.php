@@ -8,7 +8,7 @@ use DateTime;
 
 class OpeningHour
 {
-    /** @var string */
+    /** @var string|null */
     protected $day;
 
     /** @var DateTime|null */
@@ -18,9 +18,9 @@ class OpeningHour
     protected $closed;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDay(): string
+    public function getDay(): ?string
     {
         return $this->day;
     }

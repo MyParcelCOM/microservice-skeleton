@@ -22,6 +22,7 @@ class OpeningHourTest extends TestCase
     /** @test */
     public function testDay(): void
     {
+        $this->assertNull($this->openingHour->getDay(), '`getDay()` should return `null` when not set');
         $this->assertEquals('yesterday', $this->openingHour->setDay('yesterday')->getDay());
     }
 
