@@ -54,10 +54,10 @@ class Address
     }
 
     /**
-     * @param string $street1
+     * @param string|null $street1
      * @return $this
      */
-    public function setStreet1(string $street1): self
+    public function setStreet1(?string $street1): self
     {
         $this->street1 = $street1;
 
@@ -73,10 +73,10 @@ class Address
     }
 
     /**
-     * @param string $street2
+     * @param string|null $street2
      * @return $this
      */
-    public function setStreet2(string $street2): self
+    public function setStreet2(?string $street2): self
     {
         $this->street2 = $street2;
 
@@ -92,10 +92,10 @@ class Address
     }
 
     /**
-     * @param int $streetNumber
-     * @return Address
+     * @param int|null $streetNumber
+     * @return $this
      */
-    public function setStreetNumber(int $streetNumber): self
+    public function setStreetNumber(?int $streetNumber): self
     {
         $this->streetNumber = $streetNumber;
 
@@ -111,10 +111,10 @@ class Address
     }
 
     /**
-     * @param string $streetNumberSuffix
+     * @param string|null $streetNumberSuffix
      * @return $this
      */
-    public function setStreetNumberSuffix(string $streetNumberSuffix): self
+    public function setStreetNumberSuffix(?string $streetNumberSuffix): self
     {
         $this->streetNumberSuffix = $streetNumberSuffix;
 
@@ -130,10 +130,10 @@ class Address
     }
 
     /**
-     * @param string $postalCode
+     * @param string|null $postalCode
      * @return $this
      */
-    public function setPostalCode(string $postalCode): self
+    public function setPostalCode(?string $postalCode): self
     {
         $this->postalCode = $postalCode;
 
@@ -149,10 +149,10 @@ class Address
     }
 
     /**
-     * @param string $city
+     * @param string|null $city
      * @return $this
      */
-    public function setCity(string $city): self
+    public function setCity(?string $city): self
     {
         $this->city = $city;
 
@@ -168,10 +168,10 @@ class Address
     }
 
     /**
-     * @param string $regionCode
+     * @param string|null $regionCode
      * @return $this
      */
-    public function setRegionCode(string $regionCode): self
+    public function setRegionCode(?string $regionCode): self
     {
         $this->regionCode = $regionCode;
 
@@ -187,10 +187,10 @@ class Address
     }
 
     /**
-     * @param string $countryCode
+     * @param string|null $countryCode
      * @return $this
      */
-    public function setCountryCode(string $countryCode): self
+    public function setCountryCode(?string $countryCode): self
     {
         $this->countryCode = $countryCode;
 
@@ -206,6 +206,17 @@ class Address
     }
 
     /**
+     * @param string|null $firstName
+     * @return $this
+     */
+    public function setFirstName(?string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    /**
      * @return string|null
      */
     public function getLastName(): ?string
@@ -214,21 +225,10 @@ class Address
     }
 
     /**
-     * @param string $firstName
+     * @param string|null $lastName
      * @return $this
      */
-    public function setFirstName(string $firstName): self
-    {
-        $this->firstName = $firstName;
-
-        return $this;
-    }
-
-    /**
-     * @param string $lastName
-     * @return $this
-     */
-    public function setLastName(string $lastName): self
+    public function setLastName(?string $lastName): self
     {
         $this->lastName = $lastName;
 
@@ -244,10 +244,10 @@ class Address
     }
 
     /**
-     * @param string $company
+     * @param string|null $company
      * @return $this
      */
-    public function setCompany(string $company): self
+    public function setCompany(?string $company): self
     {
         $this->company = $company;
 
@@ -263,10 +263,10 @@ class Address
     }
 
     /**
-     * @param string $email
+     * @param string|null $email
      * @return $this
      */
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
 
@@ -282,10 +282,10 @@ class Address
     }
 
     /**
-     * @param string $phoneNumber
+     * @param string|null $phoneNumber
      * @return $this
      */
-    public function setPhoneNumber(string $phoneNumber): self
+    public function setPhoneNumber(?string $phoneNumber): self
     {
         $this->phoneNumber = $phoneNumber;
 

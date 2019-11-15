@@ -9,7 +9,7 @@ class Option
     /** @var string */
     protected $code;
 
-    /** @var string */
+    /** @var string|null */
     protected $name;
 
     /**
@@ -40,10 +40,10 @@ class Option
     }
 
     /**
-     * @param string $name
+     * @param string|null $name
      * @return $this
      */
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 

@@ -9,10 +9,10 @@ class File
     /** @var string */
     private $type;
 
-    /** @var string */
+    /** @var string|null */
     private $mimeType;
 
-    /** @var string */
+    /** @var string|null */
     private $extension;
 
     /** @var string */
@@ -46,10 +46,10 @@ class File
     }
 
     /**
-     * @param string $mimeType
+     * @param string|null $mimeType
      * @return $this
      */
-    public function setMimeType(string $mimeType): self
+    public function setMimeType(?string $mimeType): self
     {
         $this->mimeType = $mimeType;
 
@@ -65,10 +65,10 @@ class File
     }
 
     /**
-     * @param string $extension
+     * @param string|null $extension
      * @return $this
      */
-    public function setExtension(string $extension): self
+    public function setExtension(?string $extension): self
     {
         $this->extension = $extension;
 
