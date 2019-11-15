@@ -8,13 +8,13 @@ use DateTime;
 
 class OpeningHour
 {
-    /** @var string */
+    /** @var string|null */
     protected $day;
 
-    /** @var DateTime */
+    /** @var DateTime|null */
     protected $open;
 
-    /** @var DateTime */
+    /** @var DateTime|null */
     protected $closed;
 
     /**
@@ -45,10 +45,10 @@ class OpeningHour
     }
 
     /**
-     * @param DateTime $open
+     * @param DateTime|null $open
      * @return $this
      */
-    public function setOpen(DateTime $open): self
+    public function setOpen(?DateTime $open): self
     {
         $this->open = $open;
 
@@ -64,10 +64,10 @@ class OpeningHour
     }
 
     /**
-     * @param DateTime $closed
+     * @param DateTime|null $closed
      * @return $this
      */
-    public function setClosed(DateTime $closed): self
+    public function setClosed(?DateTime $closed): self
     {
         $this->closed = $closed;
 

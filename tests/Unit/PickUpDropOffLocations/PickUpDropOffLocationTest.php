@@ -25,7 +25,7 @@ class PickUpDropOffLocationTest extends TestCase
     public function testId(): void
     {
         $this->assertNull($this->location->getId(), '`getId()` should return `null` when not set');
-        $this->assertEquals('woeid', $this->location->setId('woeid')->getId(), '`getId()` did not return set value');
+        $this->assertEquals('woeid', $this->location->setId('woeid')->getId());
     }
 
     /** @test */
@@ -43,7 +43,7 @@ class PickUpDropOffLocationTest extends TestCase
     {
         $address = (new Address())->setFirstName('Tini')->setLastName('Plini');
         $this->assertNull($this->location->getAddress(), '`getAddress()` should return `null` when not set');
-        $this->assertEquals($address, $this->location->setAddress($address)->getAddress(), '`getAddress()` did not return set value');
+        $this->assertEquals($address, $this->location->setAddress($address)->getAddress());
     }
 
     /** @test */
@@ -51,7 +51,7 @@ class PickUpDropOffLocationTest extends TestCase
     {
         $openingHour = (new OpeningHour())->setDay('good day sir');
         $this->assertEmpty($this->location->getOpeningHours(), '`getOpeningHours()` should return `[]` when not set');
-        $this->assertEquals([$openingHour], $this->location->setOpeningHours($openingHour)->getOpeningHours(), '`getOpeningHours()` did not return set value');
+        $this->assertEquals([$openingHour], $this->location->setOpeningHours($openingHour)->getOpeningHours());
     }
 
     /** @test */
@@ -59,13 +59,13 @@ class PickUpDropOffLocationTest extends TestCase
     {
         $position = (new Position())->setLatitude(52.306085);
         $this->assertNull($this->location->getPosition(), '`getPosition()` should return `null` when not set');
-        $this->assertEquals($position, $this->location->setPosition($position)->getPosition(), '`getPosition()` did not return set value');
+        $this->assertEquals($position, $this->location->setPosition($position)->getPosition());
     }
 
     /** @test */
     public function testDistance(): void
     {
         $this->assertNull($this->location->getDistance(), '`getDistance()` should return `null` when not set');
-        $this->assertEquals(1337, $this->location->setDistance(1337)->getDistance(), '`getDistance()` did not return set value');
+        $this->assertEquals(1337, $this->location->setDistance(1337)->getDistance());
     }
 }

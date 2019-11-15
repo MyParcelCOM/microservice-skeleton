@@ -8,6 +8,9 @@ use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 
 class Shipment
 {
+    public const LABEL_MIME_TYPE_PDF = 'application/pdf';
+    public const LABEL_MIME_TYPE_ZPL = 'application/zpl';
+
     /** @var string */
     protected $id;
 
@@ -20,22 +23,22 @@ class Shipment
     /** @var Address */
     protected $returnAddress;
 
-    /** @var string */
+    /** @var string|null */
     protected $pickupLocationCode;
 
-    /** @var Address */
+    /** @var Address|null */
     protected $pickupLocationAddress;
 
-    /** @var string */
+    /** @var string|null */
     protected $description;
 
-    /** @var string */
+    /** @var string|null */
     protected $trackingCode;
 
-    /** @var string */
+    /** @var string|null */
     protected $trackingUrl;
 
-    /** @var string */
+    /** @var string|null */
     protected $barcode;
 
     /** @var int */
@@ -53,7 +56,7 @@ class Shipment
     /** @var File[] */
     protected $files = [];
 
-    /** @var Customs */
+    /** @var Customs|null */
     protected $customs;
 
     /** @var ShipmentItem[] */
@@ -66,7 +69,7 @@ class Shipment
     protected $myparcelcomShipmentId;
 
     /** @var string */
-    protected $labelMimeType;
+    protected $labelMimeType = self::LABEL_MIME_TYPE_PDF;
 
     /**
      * @return string
@@ -153,10 +156,10 @@ class Shipment
     }
 
     /**
-     * @param string $pickupLocationCode
+     * @param string|null $pickupLocationCode
      * @return $this
      */
-    public function setPickupLocationCode(string $pickupLocationCode): self
+    public function setPickupLocationCode(?string $pickupLocationCode): self
     {
         $this->pickupLocationCode = $pickupLocationCode;
 
@@ -172,10 +175,10 @@ class Shipment
     }
 
     /**
-     * @param Address $pickupLocationAddress
+     * @param Address|null $pickupLocationAddress
      * @return $this
      */
-    public function setPickupLocationAddress(Address $pickupLocationAddress): self
+    public function setPickupLocationAddress(?Address $pickupLocationAddress): self
     {
         $this->pickupLocationAddress = $pickupLocationAddress;
 
@@ -191,10 +194,10 @@ class Shipment
     }
 
     /**
-     * @param string $description
+     * @param string|null $description
      * @return $this
      */
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 
@@ -210,10 +213,10 @@ class Shipment
     }
 
     /**
-     * @param string $barcode
+     * @param string|null $barcode
      * @return $this
      */
-    public function setBarcode(string $barcode): self
+    public function setBarcode(?string $barcode): self
     {
         $this->barcode = $barcode;
 
@@ -229,10 +232,10 @@ class Shipment
     }
 
     /**
-     * @param string $trackingCode
+     * @param string|null $trackingCode
      * @return $this
      */
-    public function setTrackingCode(string $trackingCode): self
+    public function setTrackingCode(?string $trackingCode): self
     {
         $this->trackingCode = $trackingCode;
 
@@ -248,10 +251,10 @@ class Shipment
     }
 
     /**
-     * @param string $trackingUrl
+     * @param string|null $trackingUrl
      * @return $this
      */
-    public function setTrackingUrl(string $trackingUrl): self
+    public function setTrackingUrl(?string $trackingUrl): self
     {
         $this->trackingUrl = $trackingUrl;
 
@@ -346,10 +349,10 @@ class Shipment
     }
 
     /**
-     * @param Customs $customs
+     * @param Customs|null $customs
      * @return $this
      */
-    public function setCustoms(Customs $customs): self
+    public function setCustoms(?Customs $customs): self
     {
         $this->customs = $customs;
 
@@ -448,9 +451,9 @@ class Shipment
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getLabelMimeType(): ?string
+    public function getLabelMimeType(): string
     {
         return $this->labelMimeType;
     }

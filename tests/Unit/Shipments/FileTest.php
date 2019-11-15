@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MyParcelCom\Microservice\Tests\Unit\Shipments;
 
 use MyParcelCom\Microservice\Shipments\File;
+use MyParcelCom\Microservice\Shipments\Shipment;
 use PHPUnit\Framework\TestCase;
 
 class FileTest extends TestCase
@@ -20,7 +21,8 @@ class FileTest extends TestCase
     public function testMimeType()
     {
         $file = new File();
-        $this->assertEquals('application/pdf', $file->setMimeType('application/pdf')->getMimeType());
+        $file->setMimeType(Shipment::LABEL_MIME_TYPE_PDF);
+        $this->assertEquals(Shipment::LABEL_MIME_TYPE_PDF, $file->getMimeType());
     }
 
     /** @test */

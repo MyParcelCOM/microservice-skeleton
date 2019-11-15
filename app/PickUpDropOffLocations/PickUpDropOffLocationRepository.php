@@ -48,9 +48,9 @@ class PickUpDropOffLocationRepository
 
     /**
      * @param Collection  $locations
-     * @param null|string $countryCode
-     * @param null|string $postalCode
-     * @param null|string $street
+     * @param string|null $countryCode
+     * @param string|null $postalCode
+     * @param string|null $street
      * @param int|null    $streetNumber
      */
     protected function setCachedLocations(
@@ -68,9 +68,9 @@ class PickUpDropOffLocationRepository
     /**
      * Get the cached locations for given address. If no locations are cached return `null`.
      *
-     * @param null|string $countryCode
-     * @param null|string $postalCode
-     * @param null|string $street
+     * @param string|null $countryCode
+     * @param string|null $postalCode
+     * @param string|null $street
      * @param int|null    $streetNumber
      * @return Collection|null
      */
@@ -88,9 +88,9 @@ class PickUpDropOffLocationRepository
     /**
      * Return the cache key for the given address.
      *
-     * @param null|string $countryCode
-     * @param null|string $postalCode
-     * @param null|string $street
+     * @param string|null $countryCode
+     * @param string|null $postalCode
+     * @param string|null $street
      * @param int|null    $streetNumber
      * @return string
      */
