@@ -6,35 +6,35 @@ namespace MyParcelCom\Microservice\Shipments;
 
 class ShipmentItem
 {
-    /** @var string */
+    /** @var string|null */
     protected $sku;
 
     /** @var string */
     protected $description;
 
-    /** @var string */
+    /** @var string|null */
     protected $hsCode;
 
     /** @var int */
     protected $quantity;
 
-    /** @var int */
+    /** @var int|null */
     protected $itemValueAmount;
 
-    /** @var string */
+    /** @var string|null */
     protected $itemValueCurrency;
 
-    /** @var string */
+    /** @var string|null */
     protected $originCountryCode;
 
-    /** @var int */
+    /** @var int|null */
     protected $itemWeight;
 
     /**
-     * @param string $sku
+     * @param string|null $sku
      * @return $this
      */
-    public function setSku(string $sku): self
+    public function setSku(?string $sku): self
     {
         $this->sku = $sku;
 
@@ -69,10 +69,10 @@ class ShipmentItem
     }
 
     /**
-     * @param string $hsCode
+     * @param string|null $hsCode
      * @return $this
      */
-    public function setHsCode(string $hsCode): self
+    public function setHsCode(?string $hsCode): self
     {
         $this->hsCode = $hsCode;
 
@@ -107,10 +107,10 @@ class ShipmentItem
     }
 
     /**
-     * @param int $amount
+     * @param int|null $amount
      * @return $this
      */
-    public function setItemValueAmount(int $amount): self
+    public function setItemValueAmount(?int $amount): self
     {
         $this->itemValueAmount = $amount;
 
@@ -126,10 +126,10 @@ class ShipmentItem
     }
 
     /**
-     * @param string $currency
+     * @param string|null $currency
      * @return $this
      */
-    public function setItemValueCurrency(string $currency): self
+    public function setItemValueCurrency(?string $currency): self
     {
         $this->itemValueCurrency = $currency;
 
@@ -145,10 +145,10 @@ class ShipmentItem
     }
 
     /**
-     * @param string $countryCode
+     * @param string|null $countryCode
      * @return $this
      */
-    public function setOriginCountryCode(string $countryCode): self
+    public function setOriginCountryCode(?string $countryCode): self
     {
         $this->originCountryCode = $countryCode;
 
@@ -172,10 +172,10 @@ class ShipmentItem
     }
 
     /**
-     * @param int $itemWeight
+     * @param int|null $itemWeight
      * @return $this
      */
-    public function setItemWeight(int $itemWeight): self
+    public function setItemWeight(?int $itemWeight): self
     {
         $this->itemWeight = $itemWeight;
 

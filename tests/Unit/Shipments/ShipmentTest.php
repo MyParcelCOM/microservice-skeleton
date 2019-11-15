@@ -17,6 +17,16 @@ use PHPUnit\Framework\TestCase;
 
 class ShipmentTest extends TestCase
 {
+    /** @var Shipment */
+    protected $shipment;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->shipment = new Shipment();
+    }
+
     protected function tearDown(): void
     {
         parent::tearDown();
@@ -27,160 +37,138 @@ class ShipmentTest extends TestCase
     /** @test */
     public function testId()
     {
-        $shipment = new Shipment();
-        $this->assertEquals('id-yourself', $shipment->setId('id-yourself')->getId());
+        $this->assertEquals('id-yourself', $this->shipment->setId('id-yourself')->getId());
     }
 
     /** @test */
     public function testRecipientAddress()
     {
-        $shipment = new Shipment();
         $address = Mockery::mock(Address::class);
-        $this->assertEquals($address, $shipment->setRecipientAddress($address)->getRecipientAddress());
+        $this->assertEquals($address, $this->shipment->setRecipientAddress($address)->getRecipientAddress());
     }
 
     /** @test */
     public function testReturnAddress()
     {
-        $shipment = new Shipment();
         $address = Mockery::mock(Address::class);
-        $this->assertEquals($address, $shipment->setReturnAddress($address)->getReturnAddress());
+        $this->assertEquals($address, $this->shipment->setReturnAddress($address)->getReturnAddress());
     }
 
     /** @test */
     public function testSenderAddress()
     {
-        $shipment = new Shipment();
         $address = Mockery::mock(Address::class);
-        $this->assertEquals($address, $shipment->setSenderAddress($address)->getSenderAddress());
+        $this->assertEquals($address, $this->shipment->setSenderAddress($address)->getSenderAddress());
     }
 
     /** @test */
     public function testPickupLocationCode()
     {
-        $shipment = new Shipment();
-        $this->assertEquals('A124', $shipment->setPickupLocationCode('A124')->getPickupLocationCode());
+        $this->assertEquals('A124', $this->shipment->setPickupLocationCode('A124')->getPickupLocationCode());
     }
 
     /** @test */
     public function testPickupLocationAddress()
     {
-        $shipment = new Shipment();
         $address = Mockery::mock(Address::class);
-        $this->assertEquals($address, $shipment->setPickupLocationAddress($address)->getPickupLocationAddress());
+        $this->assertEquals($address, $this->shipment->setPickupLocationAddress($address)->getPickupLocationAddress());
     }
 
     /** @test */
     public function testDescription()
     {
-        $shipment = new Shipment();
-        $this->assertEquals('Some sort of description', $shipment->setDescription('Some sort of description')->getDescription());
+        $this->assertEquals('Some sort of', $this->shipment->setDescription('Some sort of')->getDescription());
     }
 
     /** @test */
     public function testBarcode()
     {
-        $shipment = new Shipment();
-        $this->assertEquals('S3JEWEETWEL', $shipment->setBarcode('S3JEWEETWEL')->getBarcode());
+        $this->assertEquals('S3JEWEETWEL', $this->shipment->setBarcode('S3JEWEETWEL')->getBarcode());
     }
 
     /** @test */
     public function testService()
     {
-        $shipment = new Shipment();
         $service = Mockery::mock(Service::class);
-        $this->assertEquals($service, $shipment->setService($service)->getService());
+        $this->assertEquals($service, $this->shipment->setService($service)->getService());
     }
 
     /** @test */
     public function testOptions()
     {
-        $shipment = new Shipment();
         $options = [
             Mockery::mock(Option::class),
             Mockery::mock(Option::class),
         ];
-        $this->assertEquals($options, $shipment->setOptions($options)->getOptions());
+        $this->assertEquals($options, $this->shipment->setOptions($options)->getOptions());
 
         $option = Mockery::mock(Option::class);
         $options[] = $option;
-        $this->assertEquals($options, $shipment->addOption($option)->getOptions());
+        $this->assertEquals($options, $this->shipment->addOption($option)->getOptions());
     }
 
     /** @test */
     public function testPhysicalProperties()
     {
-        $shipment = new Shipment();
         $physicalProperties = Mockery::mock(PhysicalProperties::class);
-        $this->assertEquals($physicalProperties, $shipment->setPhysicalProperties($physicalProperties)->getPhysicalProperties());
+        $this->assertEquals($physicalProperties, $this->shipment->setPhysicalProperties($physicalProperties)->getPhysicalProperties());
     }
 
     /** @test */
     public function testFiles()
     {
-        $shipment = new Shipment();
         $file = Mockery::mock(File::class);
         $files = [$file];
-        $this->assertEquals($files, $shipment->addFile($file)->getFiles());
+        $this->assertEquals($files, $this->shipment->addFile($file)->getFiles());
     }
 
     /** @test */
     public function testCustoms()
     {
-        $shipment = new Shipment();
         $customs = Mockery::mock(Customs::class);
-        $this->assertEquals($customs, $shipment->setCustoms($customs)->getCustoms());
+        $this->assertEquals($customs, $this->shipment->setCustoms($customs)->getCustoms());
     }
 
     /** @test */
     public function testItems()
     {
-        $shipment = new Shipment();
-
-        $this->assertEmpty($shipment->getItems());
+        $this->assertEmpty($this->shipment->getItems());
 
         $items = [
             Mockery::mock(ShipmentItem::class),
             Mockery::mock(ShipmentItem::class),
             Mockery::mock(ShipmentItem::class),
         ];
-
-        $shipment->setItems($items);
-        $this->assertCount(3, $shipment->getItems());
-        $this->assertEquals($items, $shipment->getItems());
+        $this->shipment->setItems($items);
+        $this->assertEquals($items, $this->shipment->getItems());
 
         $item = Mockery::mock(ShipmentItem::class);
         $items[] = $item;
-        $shipment->addItem($item);
-        $this->assertCount(4, $shipment->getItems());
-        $this->assertEquals($items, $shipment->getItems());
+        $this->shipment->addItem($item);
+        $this->assertEquals($items, $this->shipment->getItems());
     }
 
     /** @test */
     public function testTrackTraceEnabled()
     {
-        $shipment = new Shipment();
-
-        $this->assertTrue($shipment->isTrackTraceEnabled());
-        $this->assertFalse($shipment->setTrackTraceEnabled(false)->isTrackTraceEnabled());
+        $this->assertTrue($this->shipment->isTrackTraceEnabled());
+        $this->assertFalse($this->shipment->setTrackTraceEnabled(false)->isTrackTraceEnabled());
     }
 
     /** @test */
     public function testItSetsMyparcelcomShipmentId()
     {
-        $shipment = new Shipment();
+        $id = 'bbacd0c7-9ec5-42df-9870-443b8e1a7155';
 
-        $myparcelcomShipmentId = 'bbacd0c7-9ec5-42df-9870-443b8e1a7155';
-
-        $this->assertEquals($myparcelcomShipmentId, $shipment->setMyparcelcomShipmentId($myparcelcomShipmentId)->getMyparcelcomShipmentId());
+        $this->assertEquals($id, $this->shipment->setMyparcelcomShipmentId($id)->getMyparcelcomShipmentId());
     }
 
     /** @test */
     public function testItSetsAndGetsLabelMimeType()
     {
-        $shipment = new Shipment();
-        $shipment->setLabelMimeType('application/zpl');
+        $this->assertEquals(Shipment::LABEL_MIME_TYPE_PDF, $this->shipment->getLabelMimeType());
 
-        $this->assertEquals('application/zpl', $shipment->getLabelMimeType());
+        $this->shipment->setLabelMimeType(Shipment::LABEL_MIME_TYPE_ZPL);
+        $this->assertEquals(Shipment::LABEL_MIME_TYPE_ZPL, $this->shipment->getLabelMimeType());
     }
 }

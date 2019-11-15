@@ -21,14 +21,14 @@ class PickUpDropOffLocation
     /** @var OpeningHour[] */
     protected $openingHours = [];
 
-    /** @var Position */
+    /** @var Position|null */
     protected $position;
 
-    /** @var int */
+    /** @var int|null */
     protected $distance;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getId(): ?string
     {
@@ -112,10 +112,10 @@ class PickUpDropOffLocation
     }
 
     /**
-     * @param Position $position
+     * @param Position|null $position
      * @return $this
      */
-    public function setPosition(Position $position): self
+    public function setPosition(?Position $position): self
     {
         $this->position = $position;
 

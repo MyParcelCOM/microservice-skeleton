@@ -9,7 +9,7 @@ class Service
     /** @var string */
     protected $code;
 
-    /** @var string */
+    /** @var string|null */
     protected $name;
 
     /**
@@ -40,10 +40,10 @@ class Service
     }
 
     /**
-     * @param string $name
-     * @return $this
+     * @param string|null $name
+     * @return Service
      */
-    public function setName(string $name): Service
+    public function setName(?string $name): Service
     {
         $this->name = $name;
 

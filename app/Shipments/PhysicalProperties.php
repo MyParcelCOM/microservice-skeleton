@@ -6,16 +6,16 @@ namespace MyParcelCom\Microservice\Shipments;
 
 class PhysicalProperties
 {
-    /** @var int */
+    /** @var int|null */
     protected $height;
 
-    /** @var int */
+    /** @var int|null */
     protected $width;
 
-    /** @var int */
+    /** @var int|null */
     protected $length;
 
-    /** @var float */
+    /** @var float|null */
     protected $volume;
 
     /** @var int */
@@ -30,10 +30,10 @@ class PhysicalProperties
     }
 
     /**
-     * @param int $height
+     * @param int|null $height
      * @return $this
      */
-    public function setHeight(int $height): self
+    public function setHeight(?int $height): self
     {
         $this->height = $height;
 
@@ -49,10 +49,10 @@ class PhysicalProperties
     }
 
     /**
-     * @param int $width
+     * @param int|null $width
      * @return $this
      */
-    public function setWidth(int $width): self
+    public function setWidth(?int $width): self
     {
         $this->width = $width;
 
@@ -68,10 +68,10 @@ class PhysicalProperties
     }
 
     /**
-     * @param int $length
+     * @param int|null $length
      * @return $this
      */
-    public function setLength(int $length): self
+    public function setLength(?int $length): self
     {
         $this->length = $length;
 
@@ -87,10 +87,10 @@ class PhysicalProperties
     }
 
     /**
-     * @param float $volume
+     * @param float|null $volume
      * @return $this
      */
-    public function setVolume(float $volume): self
+    public function setVolume(?float $volume): self
     {
         $this->volume = $volume;
 

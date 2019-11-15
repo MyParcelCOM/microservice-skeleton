@@ -19,7 +19,7 @@ class Status
     protected $timestamp;
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getId(): ?string
     {
@@ -38,7 +38,7 @@ class Status
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getCode(): ?string
     {
@@ -57,7 +57,7 @@ class Status
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getDescription(): ?string
     {
@@ -76,7 +76,7 @@ class Status
     }
 
     /**
-     * @return null|int
+     * @return int|null
      */
     public function getTimestamp(): ?int
     {

@@ -18,16 +18,16 @@ class Customs
     const INCOTERM_DELIVERED_AT_PLACE = 'DAP';
     const INCOTERM_DUTY_DELIVERY_PAID = 'DDP';
 
-    /** @var string */
+    /** @var string|null */
     protected $contentType;
 
-    /** @var null|string */
+    /** @var string|null */
     protected $invoiceNumber;
 
-    /** @var string */
+    /** @var string|null */
     private $nonDelivery;
 
-    /** @var string */
+    /** @var string|null */
     private $incoterm;
 
     /**
@@ -39,10 +39,10 @@ class Customs
     }
 
     /**
-     * @param string $contentType
+     * @param string|null $contentType
      * @return $this
      */
-    public function setContentType(string $contentType): self
+    public function setContentType(?string $contentType): self
     {
         $this->contentType = $contentType;
 
@@ -58,7 +58,7 @@ class Customs
     }
 
     /**
-     * @param null|string $invoiceNumber
+     * @param string|null $invoiceNumber
      * @return $this
      */
     public function setInvoiceNumber(?string $invoiceNumber): self
@@ -77,10 +77,10 @@ class Customs
     }
 
     /**
-     * @param string $nonDelivery
+     * @param string|null $nonDelivery
      * @return $this
      */
-    public function setNonDelivery(string $nonDelivery): self
+    public function setNonDelivery(?string $nonDelivery): self
     {
         $this->nonDelivery = $nonDelivery;
 
@@ -96,10 +96,10 @@ class Customs
     }
 
     /**
-     * @param string $incoterm
+     * @param string|null $incoterm
      * @return $this
      */
-    public function setIncoterm(string $incoterm): self
+    public function setIncoterm(?string $incoterm): self
     {
         $this->incoterm = $incoterm;
 

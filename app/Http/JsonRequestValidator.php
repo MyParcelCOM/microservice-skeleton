@@ -24,7 +24,7 @@ class JsonRequestValidator
      *
      * @param string      $schemaPath
      * @param string|null $method
-     * @param null|int    $status
+     * @param int|null    $status
      * @throws InvalidJsonSchemaException
      */
     public function validate(string $schemaPath, string $method = null, ?int $status = 200): void
