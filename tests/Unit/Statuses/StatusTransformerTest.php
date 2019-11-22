@@ -6,7 +6,7 @@ namespace MyParcelCom\Microservice\Tests\Unit\Statuses;
 
 use Illuminate\Routing\UrlGenerator;
 use Mockery;
-use MyParcelCom\JsonApi\Transformers\TransformerException;
+use MyParcelCom\JsonApi\Exceptions\ModelTypeException;
 use MyParcelCom\JsonApi\Transformers\TransformerFactory;
 use MyParcelCom\Microservice\Statuses\Status;
 use MyParcelCom\Microservice\Statuses\StatusTransformer;
@@ -64,13 +64,13 @@ class StatusTransformerTest extends TestCase
 
     public function testGetIdWithInvalidModel()
     {
-        $this->expectException(TransformerException::class);
+        $this->expectException(ModelTypeException::class);
         $this->statusTransformer->getId(new stdClass());
     }
 
     public function testGetAttributesWithInvalidModel()
     {
-        $this->expectException(TransformerException::class);
+        $this->expectException(ModelTypeException::class);
         $this->statusTransformer->getAttributes(new stdClass());
     }
 }
