@@ -186,7 +186,7 @@ class Shipment
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getDescription(): ?string
     {

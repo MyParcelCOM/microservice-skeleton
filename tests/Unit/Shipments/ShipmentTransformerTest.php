@@ -6,7 +6,7 @@ namespace MyParcelCom\Microservice\Tests\Unit\Shipments;
 
 use Illuminate\Routing\UrlGenerator;
 use Mockery;
-use MyParcelCom\JsonApi\Transformers\TransformerException;
+use MyParcelCom\JsonApi\Exceptions\ModelTypeException;
 use MyParcelCom\JsonApi\Transformers\TransformerFactory;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 use MyParcelCom\Microservice\Shipments\Customs;
@@ -455,7 +455,7 @@ class ShipmentTransformerTest extends TestCase
     /** @test */
     public function testTransformInvalidModel()
     {
-        $this->expectException(TransformerException::class);
+        $this->expectException(ModelTypeException::class);
         $this->shipmentTransformer->transform(new stdClass());
     }
 }

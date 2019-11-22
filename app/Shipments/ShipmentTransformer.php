@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Shipments;
 
+use MyParcelCom\JsonApi\Exceptions\ModelTypeException;
 use MyParcelCom\JsonApi\Transformers\AbstractTransformer;
-use MyParcelCom\JsonApi\Transformers\TransformerException;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 
 class ShipmentTransformer extends AbstractTransformer
@@ -117,14 +117,12 @@ class ShipmentTransformer extends AbstractTransformer
 
     /**
      * @param Shipment $shipment
-     * @throws TransformerException
+     * @throws ModelTypeException
      */
     protected function validateModel($shipment): void
     {
         if (!$shipment instanceof Shipment) {
-            throw new TransformerException(
-                'Invalid model supplied, expected instance of `Shipment`, got: ' . get_class($shipment)
-            );
+            throw new ModelTypeException($shipment, 'shipments');
         }
     }
 }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Statuses;
 
+use MyParcelCom\JsonApi\Exceptions\ModelTypeException;
 use MyParcelCom\JsonApi\Transformers\AbstractTransformer;
-use MyParcelCom\JsonApi\Transformers\TransformerException;
 
 class StatusTransformer extends AbstractTransformer
 {
@@ -32,22 +32,21 @@ class StatusTransformer extends AbstractTransformer
         $this->validateModel($status);
 
         return array_filter([
-            'myparcelcom_code' => $status->getCode(),
-            'description'      => $status->getDescription(),
-            'timestamp'        => $status->getTimestamp(),
-        ]);
+                'myparcelcom_code' => $status->getCode(),
+            ]) + [
+                'description' => $status->getDescription(),
+                'timestamp'   => $status->getTimestamp(),
+            ];
     }
 
     /**
      * @param Status $status
-     * @throws TransformerException
+     * @throws ModelTypeException
      */
     protected function validateModel($status): void
     {
         if (!$status instanceof Status) {
-            throw new TransformerException(
-                'Invalid model supplied, expected instance of `Status`, got `' . get_class($status) . '`'
-            );
+            throw new ModelTypeException($status, 'statuses');
         }
     }
 }
