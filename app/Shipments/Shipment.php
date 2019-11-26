@@ -71,6 +71,9 @@ class Shipment
     /** @var string */
     protected $labelMimeType = self::LABEL_MIME_TYPE_PDF;
 
+    /** @var null|string */
+    protected $channel;
+
     /**
      * @return string
      */
@@ -456,5 +459,24 @@ class Shipment
     public function getLabelMimeType(): string
     {
         return $this->labelMimeType;
+    }
+
+    /**
+     * @param null|string $channel
+     * @return $this
+     */
+    public function setChannel(?string $channel): self
+    {
+        $this->channel = $channel;
+
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getChannel(): ?string
+    {
+        return $this->channel;
     }
 }
