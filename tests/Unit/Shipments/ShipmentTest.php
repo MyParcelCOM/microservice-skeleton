@@ -171,4 +171,11 @@ class ShipmentTest extends TestCase
         $this->shipment->setLabelMimeType(Shipment::LABEL_MIME_TYPE_ZPL);
         $this->assertEquals(Shipment::LABEL_MIME_TYPE_ZPL, $this->shipment->getLabelMimeType());
     }
+
+    /** @test */
+    public function testItSetsAndGetsChannel()
+    {
+        $this->shipment->setChannel('eBay');
+        $this->assertEquals('eBay', $this->shipment->getChannel());
+    }
 }

@@ -88,6 +88,10 @@ class ShipmentMapper implements MapperInterface
             );
         }
 
+        if (isset($attributes['channel'])) {
+            $shipment->setChannel($attributes['channel']);
+        }
+
         return $shipment;
     }
 

@@ -85,7 +85,8 @@
         "invoice_number": "876543",
         "non_delivery": "return",
         "incoterm": "DDP"
-      }
+      },
+      "channel": "Amazon"
     }
   },
   "meta": {

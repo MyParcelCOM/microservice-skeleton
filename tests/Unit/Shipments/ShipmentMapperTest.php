@@ -178,6 +178,12 @@ class ShipmentMapperTest extends TestCase
                 $this->assertEquals('bbacd0c7-9ec5-42df-9870-443b8e1a7155', $id);
 
                 return $shipment;
+            })
+            ->shouldReceive('setChannel')
+            ->andReturnUsing(function (string $channel) use ($shipment) {
+                $this->assertEquals('Amazon', $channel);
+
+                return $shipment;
             });
 
         $mapper->map($data['data'], $shipment);
