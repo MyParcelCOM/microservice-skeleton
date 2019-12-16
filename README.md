@@ -16,6 +16,7 @@ It basically comes down to the following:
 - [TODOs](#todos)
 - [Response Stubs](#response-stubs)
 - [Error handling](#error-handling)
+- [Carrier specific shipment requirements](#carrier-specific-shipment-requirements)
 - [Things to keep in mind](#things-to-keep-in-mind)
 - [Commands](#commands)
 - [Composer commands](#composer-commands)

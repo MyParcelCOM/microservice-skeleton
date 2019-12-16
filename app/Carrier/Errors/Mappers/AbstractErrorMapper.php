@@ -43,9 +43,7 @@ abstract class AbstractErrorMapper implements ErrorMapperInterface
             return null;
         }
 
-        $exception = $this->determineException($errors);
-
-        return $exception;
+        return $this->determineException($errors);
     }
 
     /**
