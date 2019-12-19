@@ -13,6 +13,7 @@ use MyParcelCom\JsonApi\Errors\InvalidInputError;
 use MyParcelCom\JsonApi\Errors\MissingInputError;
 use MyParcelCom\JsonApi\ExceptionHandler;
 use MyParcelCom\JsonApi\Exceptions\CarrierApiException;
+use MyParcelCom\JsonApi\Exceptions\Interfaces\MultiErrorInterface;
 use MyParcelCom\JsonApi\Exceptions\InvalidInputException;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -45,6 +46,13 @@ class Handler extends ExceptionHandler
                 $carrierResponse,
                 $exception
             );
+        }
+
+        if ($exception instanceof MultiErrorInterface) {
+            foreach ($exception->getErrors() as $index => $error) {
+                $errorNo = $index + 1;
+                $this->newrelic->addCustomParameter("response.error_${errorNo}", $error->getDetail());
+            }
         }
 
         if ($exception instanceof ValidationException) {
