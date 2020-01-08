@@ -27,7 +27,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            if [ "${CIRCLE_PROJECT_REPONAME##*-}" != "skeleton" ]; then
+            if [ "${CIRCLE_PROJECT_REPONAME##microservice-}" != "skeleton" ]; then
               ./mp.sh test --no-coverage
             else
               ./mp.sh test skeleton --no-coverage
@@ -55,7 +55,7 @@ jobs:
       - run:
           name: Deploy to docker
           command: |
-            IMAGE_NAME="myparcelcom/${CIRCLE_PROJECT_REPONAME##*-}:$(image_tag)"
+            IMAGE_NAME="myparcelcom/${CIRCLE_PROJECT_REPONAME##microservice-}:$(image_tag)"
 
             docker build -t ${IMAGE_NAME} --build-arg CARRIER_SPEC_BRANCH=$(spec_ref) -f docker/app/Dockerfile .
             docker push ${IMAGE_NAME}
@@ -85,7 +85,7 @@ jobs:
           name: Process templates
           command: |
             export NS=$(env_namespace)
-            export IMAGE_NAME=${CIRCLE_PROJECT_REPONAME##*-}
+            export IMAGE_NAME=${CIRCLE_PROJECT_REPONAME##microservice-}
             export IMAGE_TAG=$(image_tag)
 
             eval $(aws-ssm-params ${NS}) # fetch global settings

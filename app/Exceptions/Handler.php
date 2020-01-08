@@ -48,7 +48,7 @@ class Handler extends ExceptionHandler
             );
         }
 
-        if ($exception instanceof MultiErrorInterface) {
+        if ($exception instanceof MultiErrorInterface && $this->newrelic) {
             foreach ($exception->getErrors() as $index => $error) {
                 $errorNo = $index + 1;
                 $this->newrelic->addCustomParameter("response.error_${errorNo}", $error->getDetail());
