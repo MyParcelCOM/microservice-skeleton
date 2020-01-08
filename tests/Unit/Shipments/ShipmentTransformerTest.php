@@ -93,6 +93,7 @@ class ShipmentTransformerTest extends TestCase
         $this->shipment = Mockery::mock(Shipment::class, [
             'getId'                    => 'shipment-id',
             'getRecipientAddress'      => $address,
+            'getRecipientTaxNumber'    => 'H111111-11',
             'getSenderAddress'         => $address,
             'getReturnAddress'         => $address,
             'getPickupLocationCode'    => 'aaaa',
