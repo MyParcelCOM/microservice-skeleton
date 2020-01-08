@@ -93,9 +93,9 @@ class ShipmentTransformerTest extends TestCase
         $this->shipment = Mockery::mock(Shipment::class, [
             'getId'                    => 'shipment-id',
             'getRecipientAddress'      => $address,
-            'getRecipientTaxNumber'    => 'H111111-11',
             'getSenderAddress'         => $address,
             'getReturnAddress'         => $address,
+            'getRecipientTaxNumber'    => 'H111111-11',
             'getPickupLocationCode'    => 'aaaa',
             'getPickupLocationAddress' => $address,
             'getDescription'           => 'descending ription',
@@ -117,6 +117,7 @@ class ShipmentTransformerTest extends TestCase
             'getRecipientAddress'      => $address,
             'getSenderAddress'         => $address,
             'getReturnAddress'         => $address,
+            'getRecipientTaxNumber'    => null,
             'getPickupLocationCode'    => null,
             'getPickupLocationAddress' => null,
             'getDescription'           => null,
@@ -414,7 +415,6 @@ class ShipmentTransformerTest extends TestCase
                         'email'                => 'john@expertsexchange.com',
                         'phone_number'         => '1337-9001',
                     ],
-                    'recipient_tax_number'    => 'H111111-11',
                     'return_address'          => [
                         'street_1'             => 'First Street',
                         'street_2'             => 'Second Street',
