@@ -34,6 +34,7 @@ class ShipmentTransformer extends AbstractTransformer
 
         return array_filter([
             'recipient_address'       => $this->transformAddress($shipment->getRecipientAddress()),
+            'recipient_tax_number'    => $shipment->getRecipientTaxNumber(),
             'sender_address'          => $this->transformAddress($shipment->getSenderAddress()),
             'return_address'          => $this->transformAddress($shipment->getReturnAddress()),
             'pickup_location'         => $shipment->getPickupLocationCode() === null ? null : [

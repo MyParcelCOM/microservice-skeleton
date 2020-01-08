@@ -177,6 +177,7 @@ return [
         'data.attributes.pickup_location.address.email'                => 'pickup location address email address',
         'data.attributes.pickup_location.address.phone_number'         => 'pickup location address phone number',
 
+        'data.attributes.recipient_tax_number' => 'shipment\'s recipient tax number',
         'data.attributes.description' => 'shipment\'s description',
 
         'data.attributes.service.code' => 'used service code',

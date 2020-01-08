@@ -15,6 +15,7 @@
         "last_name": "Doe",
         "phone_number": "+31 234 567 890"
       },
+      "recipient_tax_number": "H111111-11",
       "sender_address": {
         "street_1": "Streeterino",
         "street_number": 622,
