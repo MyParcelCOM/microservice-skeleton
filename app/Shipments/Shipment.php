@@ -17,6 +17,9 @@ class Shipment
     /** @var Address */
     protected $recipientAddress;
 
+    /** @var string|null */
+    protected $recipientTaxNumber;
+
     /** @var Address */
     protected $senderAddress;
 
@@ -478,5 +481,21 @@ class Shipment
     public function getChannel(): ?string
     {
         return $this->channel;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getRecipientTaxNumber(): ?string
+    {
+        return $this->recipientTaxNumber;
+    }
+
+    /**
+     * @param string|null $recipientTaxNumber
+     */
+    public function setRecipientTaxNumber(?string $recipientTaxNumber): void
+    {
+        $this->recipientTaxNumber = $recipientTaxNumber;
     }
 }
