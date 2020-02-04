@@ -6,6 +6,7 @@ metadata:
   labels:
     app: ${CIRCLE_PROJECT_REPONAME}
     revision: ${CIRCLE_SHA1}
+    build: "${CIRCLE_BUILD_NUM}"
 spec:
   replicas: ${REPLICAS}
   selector:
@@ -16,6 +17,7 @@ spec:
       labels:
         app: ${CIRCLE_PROJECT_REPONAME}
         revision: ${CIRCLE_SHA1}
+        build: "${CIRCLE_BUILD_NUM}"
     spec:
       containers:
         - name: ${CIRCLE_PROJECT_REPONAME}
