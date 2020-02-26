@@ -41,7 +41,12 @@ class ShipmentController extends Controller
         );
     }
 
-    public function void(){
+    /**
+     * @param string $shipmentId
+     * @return JsonResponse
+     */
+    public function void(string $shipmentId)
+    {
         $voidedSuccess = false; // TODO: implement void / cancel functionality if necessary
 
         return new JsonResponse(
