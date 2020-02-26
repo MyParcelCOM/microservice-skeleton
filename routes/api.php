@@ -21,6 +21,7 @@ Route::get('/', function () {
 Route::get('/pickup-dropoff-locations/{countryCode}/{postalCode}', PickUpDropOffLocationController::class . '@getAll');
 
 Route::get('/shipments/{shipmentId}/statuses/{trackingCode}', StatusController::class . '@getStatuses');
+Route::get('/shipments/{shipmentId}', ShipmentController::class . '@void');
 Route::post('/shipments', ShipmentController::class . '@create');
 
 Route::get('/validate-credentials', CredentialController::class . '@validateCredentials');
