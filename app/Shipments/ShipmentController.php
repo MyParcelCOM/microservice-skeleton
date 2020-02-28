@@ -40,4 +40,17 @@ class ShipmentController extends Controller
             JsonResponse::HTTP_CREATED
         );
     }
+
+    /**
+     * @param string $shipmentId
+     * @return JsonResponse
+     */
+    public function void(string $shipmentId)
+    {
+        $voidedSuccess = false; // TODO: implement void / cancel functionality if necessary
+
+        return new JsonResponse(
+            '', $voidedSuccess ? JsonResponse::HTTP_NO_CONTENT : JsonResponse::HTTP_LOCKED
+        );
+    }
 }
