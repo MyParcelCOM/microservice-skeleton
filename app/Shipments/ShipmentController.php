@@ -47,10 +47,12 @@ class ShipmentController extends Controller
      */
     public function void(string $shipmentId)
     {
-        $voidedSuccess = false; // TODO: implement void / cancel functionality if necessary
+        // TODO: implement void / cancel functionality or return true if the carrier does not charge for unused labels.
+        $voided = false;
 
         return new JsonResponse(
-            '', $voidedSuccess ? JsonResponse::HTTP_NO_CONTENT : JsonResponse::HTTP_LOCKED
+            '',
+            $voided ? JsonResponse::HTTP_NO_CONTENT : JsonResponse::HTTP_LOCKED
         );
     }
 }
