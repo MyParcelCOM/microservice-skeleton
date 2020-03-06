@@ -29,12 +29,9 @@ class CredentialController extends Controller
     public function validateCredentials(): JsonResponse
     {
         // TODO: implement validation check
-        // Some carriers may have dedicated endpoints
-        // for this. Otherwise you could try a random
-        // GET endpoint and see if it comes up with
-        // any erroneous status codes related to
-        // invalid credentials
-        $valid = true;
+        // Some carriers may have dedicated endpoints for this. Otherwise you could try one of their GET endpoints and
+        // see if it comes up with any erroneous status codes related to invalid credentials.
+        $valid = false;
 
         if (!$valid) {
             return $this->invalidResponse('Credentials given are invalid');
