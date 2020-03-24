@@ -18,4 +18,8 @@ return [
      */
     'name_provider' => '{controller}',
 
+    /*
+     * When set to true this option will enable New Relic transaction tracking to start automatically
+     */
+    'auto_enable'   => (bool) env('NEWRELIC_AUTO_ENABLE', false),
 ];
