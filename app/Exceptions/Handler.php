@@ -62,6 +62,15 @@ class Handler extends ExceptionHandler
         return parent::render($request, $exception);
     }
 
+    public function report(Exception $e): void
+    {
+        if (!config('newrelic.auto_enable') && $this->newrelic) {
+            $this->newrelic->startTransaction(config('app.name'));
+        }
+
+        parent::report($e);
+    }
+
     /**
      * @param $statusCode
      * @return int
