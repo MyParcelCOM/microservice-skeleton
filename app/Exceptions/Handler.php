@@ -65,6 +65,10 @@ class Handler extends ExceptionHandler
     public function report(Exception $e): void
     {
         if ($this->shouldntReport($e)) {
+            if ($this->newrelic) {
+                $this->newrelic->ignoreTransaction();
+                $this->newrelic->ignoreApdex();
+            }
             return;
         }
 
