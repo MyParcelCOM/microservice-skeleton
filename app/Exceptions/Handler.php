@@ -64,6 +64,10 @@ class Handler extends ExceptionHandler
 
     public function report(Exception $e): void
     {
+        if ($this->shouldntReport($e)) {
+            return;
+        }
+
         if (!config('newrelic.auto_enable') && $this->newrelic) {
             $this->newrelic->startTransaction(config('app.name'));
         }
