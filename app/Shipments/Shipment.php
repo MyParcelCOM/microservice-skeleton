@@ -23,6 +23,9 @@ class Shipment
     /** @var Address */
     protected $senderAddress;
 
+    /** @var string|null */
+    protected $senderTaxNumber;
+
     /** @var Address */
     protected $returnAddress;
 
@@ -497,5 +500,21 @@ class Shipment
     public function setRecipientTaxNumber(?string $recipientTaxNumber): void
     {
         $this->recipientTaxNumber = $recipientTaxNumber;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSenderTaxNumber(): ?string
+    {
+        return $this->senderTaxNumber;
+    }
+
+    /**
+     * @param string|null $senderTaxNumber
+     */
+    public function setSenderTaxNumber(?string $senderTaxNumber): void
+    {
+        $this->senderTaxNumber = $senderTaxNumber;
     }
 }
