@@ -18,7 +18,9 @@
     "myparcelcom/json-api": "^0.9.1",
     "predis/predis": "^1.1",
     "rollbar/rollbar-laravel": "4.*",
-    "vlucas/phpdotenv": "^3.3"
+    "vlucas/phpdotenv": "^3.3",
+    "jukylin/jaeger-php": "^2.0",
+    "opentracing/opentracing": "1.0.0-beta5"
   },
   "require-dev": {
     "mockery/mockery": "^1.2",
@@ -45,5 +47,6 @@
     "preferred-install": "dist",
     "sort-packages": true,
     "optimize-autoloader": true
-  }
+  },
+  "minimum-stability": "beta"
 }
