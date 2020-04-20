@@ -38,10 +38,17 @@ return [
         ],
 
         'rollbar' => [
-            'driver' => 'monolog',
-            'handler' => Rollbar\Laravel\MonologHandler::class,
-            'access_token' => env('ROLLBAR_TOKEN'),
-            'level' => 'debug',
+            'driver'                   => 'monolog',
+            'handler'                  => Rollbar\Laravel\MonologHandler::class,
+            'access_token'             => env('ROLLBAR_TOKEN'),
+            'level'                    => env('ROLLBAR_LOG_LEVEL', 'error'),
+            'include_raw_request_body' => true,
+            'scrub_fields'             => [
+                'X-MYPARCELCOM-CREDENTIALS',
+                'X-MYPARCELCOM-SECRET',
+                'HTTP_X_MYPARCELCOM_CREDENTIALS',
+                'HTTP_X_MYPARCELCOM_SECRET',
+            ],
         ],
 
         'null' => [
