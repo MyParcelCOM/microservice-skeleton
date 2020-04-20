@@ -17,6 +17,7 @@ use MyParcelCom\Microservice\Exceptions\Handler;
 use MyParcelCom\Microservice\Http\Request;
 use MyParcelCom\Microservice\Rules\CombinedFieldsMaxRule;
 use MyParcelCom\Microservice\Rules\RequiredIfInternationalRule;
+use Psr\Log\LoggerInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,15 +32,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(ExceptionHandler::class, function (Container $app) {
             $handler = (new Handler($app))
                 ->setResponseFactory($app->make(ResponseFactory::class))
-                ->setDebug((bool) config('app.debug'));
+                ->setDebug((bool) config('app.debug'))
+                ->setLogger($app->make(LoggerInterface::class));
 
             if (config('app.links.contact_page') !== null) {
                 $handler->setContactLink((string) config('app.links.contact_page'));
-            }
-
-            if (extension_loaded('newrelic')) {
-                newrelic_set_appname(config('app.name'));
-                $handler->setNewrelic($app->make('newrelic'));
             }
 
             return $handler;

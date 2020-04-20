@@ -170,6 +170,7 @@ return [
         Illuminate\Hashing\HashServiceProvider::class,
         Illuminate\Queue\QueueServiceProvider::class,
         Illuminate\Redis\RedisServiceProvider::class,
+        Illuminate\Session\SessionServiceProvider::class, // Rollbar doesn't work without sessions.
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
@@ -177,7 +178,7 @@ return [
         /*
          * Package Service Providers...
          */
-        Intouch\LaravelNewrelic\NewrelicServiceProvider::class,
+        Rollbar\Laravel\RollbarServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -220,7 +221,6 @@ return [
         'Storage'   => Illuminate\Support\Facades\Storage::class,
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
-        'Newrelic'  => Intouch\LaravelNewrelic\Facades\Newrelic::class,
     ],
 
 ];
