@@ -94,6 +94,7 @@ class ShipmentTransformerTest extends TestCase
             'getId'                    => 'shipment-id',
             'getRecipientAddress'      => $address,
             'getSenderAddress'         => $address,
+            'getSenderTaxNumber'       => 'G666666-66',
             'getReturnAddress'         => $address,
             'getRecipientTaxNumber'    => 'H111111-11',
             'getPickupLocationCode'    => 'aaaa',
@@ -116,6 +117,7 @@ class ShipmentTransformerTest extends TestCase
             'getId'                    => 'shipment-id',
             'getRecipientAddress'      => $address,
             'getSenderAddress'         => $address,
+            'getSenderTaxNumber'       => null,
             'getReturnAddress'         => $address,
             'getRecipientTaxNumber'    => null,
             'getPickupLocationCode'    => null,
@@ -196,6 +198,7 @@ class ShipmentTransformerTest extends TestCase
                 'email'                => 'john@expertsexchange.com',
                 'phone_number'         => '1337-9001',
             ],
+            'sender_tax_number'       => 'G666666-66',
             'return_address'          => [
                 'street_1'             => 'First Street',
                 'street_2'             => 'Second Street',
@@ -312,6 +315,7 @@ class ShipmentTransformerTest extends TestCase
                         'email'                => 'john@expertsexchange.com',
                         'phone_number'         => '1337-9001',
                     ],
+                    'sender_tax_number'       => 'G666666-66',
                     'sender_address'          => [
                         'street_1'             => 'First Street',
                         'street_2'             => 'Second Street',

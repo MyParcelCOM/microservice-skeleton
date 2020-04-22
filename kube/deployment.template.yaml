@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: ${CIRCLE_PROJECT_REPONAME}
   namespace: ${NS}
+  annotations:
+    sidecar.jaegertracing.io/inject: "${JAEGER_INSTANCE}"
   labels:
     app: ${CIRCLE_PROJECT_REPONAME}
     revision: ${CIRCLE_SHA1}

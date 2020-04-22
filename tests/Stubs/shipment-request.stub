@@ -25,6 +25,7 @@
         "company": "Acme Jewelry Co.",
         "email": "john@doe.com"
       },
+      "sender_tax_number": "G666666-66",
       "return_address": {
         "street_1": "Baker Street",
         "street_number": 221,

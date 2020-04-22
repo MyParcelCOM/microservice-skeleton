@@ -20,21 +20,6 @@ require __DIR__ . '/../vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
-| Disable New Relic transactions
-|--------------------------------------------------------------------------
-|
-| Unless explicitly enabled with (NEWRELIC_AUTO_ENABLE=true)
-| the automatic transaction logging will be disabled here.
-|
-*/
-
-if (!env('NEWRELIC_AUTO_ENABLE', false) && extension_loaded('newrelic')) {
-    newrelic_ignore_transaction();
-    newrelic_ignore_apdex();
-}
-
-/*
-|--------------------------------------------------------------------------
 | Turn On The Lights
 |--------------------------------------------------------------------------
 |
