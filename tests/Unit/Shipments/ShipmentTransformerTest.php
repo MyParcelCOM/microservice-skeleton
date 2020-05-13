@@ -59,11 +59,12 @@ class ShipmentTransformerTest extends TestCase
         ]);
 
         $physicalProperties = Mockery::mock(PhysicalProperties::class, [
-            'getHeight' => 1,
-            'getWidth'  => 2,
-            'getLength' => 3,
-            'getVolume' => 4,
-            'getWeight' => 5,
+            'getHeight'           => 1,
+            'getWidth'            => 2,
+            'getLength'           => 3,
+            'getVolume'           => 4,
+            'getWeight'           => 5,
+            'getVolumetricWeight' => 6,
         ]);
 
         $option = Mockery::mock(Option::class, [
@@ -241,11 +242,12 @@ class ShipmentTransformerTest extends TestCase
                 'name' => 'noname',
             ],
             'physical_properties'     => [
-                'height' => 1,
-                'width'  => 2,
-                'length' => 3,
-                'volume' => 4,
-                'weight' => 5,
+                'height'            => 1,
+                'width'             => 2,
+                'length'            => 3,
+                'volume'            => 4,
+                'weight'            => 5,
+                'volumetric_weight' => 6,
             ],
             'options'                 => [
                 [
@@ -356,11 +358,12 @@ class ShipmentTransformerTest extends TestCase
                         'name' => 'noname',
                     ],
                     'physical_properties'     => [
-                        'height' => 1,
-                        'width'  => 2,
-                        'length' => 3,
-                        'volume' => 4,
-                        'weight' => 5,
+                        'height'            => 1,
+                        'width'             => 2,
+                        'length'            => 3,
+                        'volume'            => 4,
+                        'weight'            => 5,
+                        'volumetric_weight' => 6,
                     ],
                     'options'                 => [
                         [

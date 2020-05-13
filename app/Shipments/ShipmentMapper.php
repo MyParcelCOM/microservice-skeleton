@@ -66,6 +66,9 @@ class ShipmentMapper implements MapperInterface
         if (isset($attributes['physical_properties']['volume'])) {
             $shipment->getPhysicalProperties()->setVolume((float) $attributes['physical_properties']['volume']);
         }
+        if (isset($attributes['physical_properties']['volumetric_weight'])) {
+            $shipment->getPhysicalProperties()->setVolumetricWeight((int) $attributes['physical_properties']['volumetric_weight']);
+        }
 
         if (isset($attributes['options'])) {
             $this->mapOptions($attributes['options'], $shipment);

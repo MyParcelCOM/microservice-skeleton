@@ -57,11 +57,12 @@ class ShipmentTransformer extends AbstractTransformer
                 ];
             }, $shipment->getOptions()),
             'physical_properties'     => $shipment->getPhysicalProperties() === null ? null : [
-                'height' => $shipment->getPhysicalProperties()->getHeight(),
-                'width'  => $shipment->getPhysicalProperties()->getWidth(),
-                'length' => $shipment->getPhysicalProperties()->getLength(),
-                'volume' => $shipment->getPhysicalProperties()->getVolume(),
-                'weight' => $shipment->getPhysicalProperties()->getWeight(),
+                'height'            => $shipment->getPhysicalProperties()->getHeight(),
+                'width'             => $shipment->getPhysicalProperties()->getWidth(),
+                'length'            => $shipment->getPhysicalProperties()->getLength(),
+                'volume'            => $shipment->getPhysicalProperties()->getVolume(),
+                'weight'            => $shipment->getPhysicalProperties()->getWeight(),
+                'volumetric_weight' => $shipment->getPhysicalProperties()->getVolumetricWeight(),
             ],
             'files'                   => array_map(function (File $file) {
                 return [
