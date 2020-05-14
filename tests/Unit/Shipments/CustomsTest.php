@@ -4,19 +4,11 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Tests\Unit\Shipments;
 
-use Mockery;
 use MyParcelCom\Microservice\Shipments\Customs;
 use PHPUnit\Framework\TestCase;
 
 class CustomsTest extends TestCase
 {
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-
-        Mockery::close();
-    }
-
     /** @test */
     public function testContentType()
     {
