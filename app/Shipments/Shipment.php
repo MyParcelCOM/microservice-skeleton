@@ -47,9 +47,6 @@ class Shipment
     /** @var string|null */
     protected $barcode;
 
-    /** @var int */
-    protected $weight;
-
     /** @var Service */
     protected $service;
 

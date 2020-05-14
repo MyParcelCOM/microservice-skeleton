@@ -34,8 +34,16 @@ class StatusTransformer extends AbstractTransformer
         return array_filter([
                 'myparcelcom_code' => $status->getCode(),
             ]) + [
-                'description' => $status->getDescription(),
-                'timestamp'   => $status->getTimestamp(),
+                'description'         => $status->getDescription(),
+                'timestamp'           => $status->getTimestamp(),
+                'physical_properties' => $status->getPhysicalProperties() === null ? null : array_filter([
+                    'height'            => $status->getPhysicalProperties()->getHeight(),
+                    'width'             => $status->getPhysicalProperties()->getWidth(),
+                    'length'            => $status->getPhysicalProperties()->getLength(),
+                    'volume'            => $status->getPhysicalProperties()->getVolume(),
+                    'weight'            => $status->getPhysicalProperties()->getWeight(),
+                    'volumetric_weight' => $status->getPhysicalProperties()->getVolumetricWeight(),
+                ]),
             ];
     }
 

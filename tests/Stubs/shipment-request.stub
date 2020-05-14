@@ -48,7 +48,8 @@
         "height": 100,
         "width": 200,
         "length": 250,
-        "volume": 5
+        "volume": 5.5,
+        "volumetric_weight": 17
       },
       "options": [
         {

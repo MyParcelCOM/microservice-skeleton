@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Tests\Unit\Statuses;
 
+use MyParcelCom\Microservice\Shipments\PhysicalProperties;
 use MyParcelCom\Microservice\Statuses\Status;
 use PHPUnit\Framework\TestCase;
 
@@ -44,5 +45,12 @@ class StatusTest extends TestCase
     {
         $this->assertNull($this->status->getTimestamp(), '`getTimestamp()` should return `null` when not set');
         $this->assertEquals(9000, $this->status->setTimestamp(9000)->getTimestamp());
+    }
+
+    /** @test */
+    public function testPhysicalProperties()
+    {
+        $physicalProperties = new PhysicalProperties();
+        $this->assertEquals($physicalProperties, $this->status->setPhysicalProperties($physicalProperties)->getPhysicalProperties());
     }
 }
