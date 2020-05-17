@@ -21,7 +21,7 @@ class PhysicalProperties
     /** @var int */
     protected $weight;
 
-    /** @var int */
+    /** @var int|null */
     protected $volumetricWeight;
 
     /**
@@ -120,18 +120,18 @@ class PhysicalProperties
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getVolumetricWeight(): int
+    public function getVolumetricWeight(): ?int
     {
         return $this->volumetricWeight;
     }
 
     /**
-     * @param int $volumetricWeight
+     * @param int|null $volumetricWeight
      * @return $this
      */
-    public function setVolumetricWeight(int $volumetricWeight): self
+    public function setVolumetricWeight(?int $volumetricWeight): self
     {
         $this->volumetricWeight = $volumetricWeight;
 
