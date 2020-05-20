@@ -50,6 +50,13 @@ class PhysicalPropertiesTest extends TestCase
     }
 
     /** @test */
+    public function testVolumetricWeight()
+    {
+        $physicalProperties = new PhysicalProperties();
+        $this->assertEquals(17, $physicalProperties->setVolumetricWeight(17)->getVolumetricWeight());
+    }
+
+    /** @test */
     public function testUninitializedWeight()
     {
         $physicalProperties = new PhysicalProperties();

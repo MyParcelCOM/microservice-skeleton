@@ -59,7 +59,13 @@ class ShipmentMapperTest extends TestCase
             })
             ->shouldReceive('setVolume')
             ->andReturnUsing(function ($volume) use ($physicalProperties) {
-                $this->assertEquals(5, $volume);
+                $this->assertEquals(5.5, $volume);
+
+                return $physicalProperties;
+            })
+            ->shouldReceive('setVolumetricWeight')
+            ->andReturnUsing(function ($volumetricWeight) use ($physicalProperties) {
+                $this->assertEquals(17, $volumetricWeight);
 
                 return $physicalProperties;
             });

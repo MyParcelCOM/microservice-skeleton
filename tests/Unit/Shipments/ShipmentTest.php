@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Tests\Unit\Shipments;
 
-use Mockery;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 use MyParcelCom\Microservice\Shipments\Customs;
 use MyParcelCom\Microservice\Shipments\File;
@@ -27,13 +26,6 @@ class ShipmentTest extends TestCase
         $this->shipment = new Shipment();
     }
 
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-
-        Mockery::close();
-    }
-
     /** @test */
     public function testId()
     {
@@ -43,21 +35,21 @@ class ShipmentTest extends TestCase
     /** @test */
     public function testRecipientAddress()
     {
-        $address = Mockery::mock(Address::class);
+        $address = new Address();
         $this->assertEquals($address, $this->shipment->setRecipientAddress($address)->getRecipientAddress());
     }
 
     /** @test */
     public function testReturnAddress()
     {
-        $address = Mockery::mock(Address::class);
+        $address = new Address();
         $this->assertEquals($address, $this->shipment->setReturnAddress($address)->getReturnAddress());
     }
 
     /** @test */
     public function testSenderAddress()
     {
-        $address = Mockery::mock(Address::class);
+        $address = new Address();
         $this->assertEquals($address, $this->shipment->setSenderAddress($address)->getSenderAddress());
     }
 
@@ -70,7 +62,7 @@ class ShipmentTest extends TestCase
     /** @test */
     public function testPickupLocationAddress()
     {
-        $address = Mockery::mock(Address::class);
+        $address = new Address();
         $this->assertEquals($address, $this->shipment->setPickupLocationAddress($address)->getPickupLocationAddress());
     }
 
@@ -89,7 +81,7 @@ class ShipmentTest extends TestCase
     /** @test */
     public function testService()
     {
-        $service = Mockery::mock(Service::class);
+        $service = new Service();
         $this->assertEquals($service, $this->shipment->setService($service)->getService());
     }
 
@@ -97,12 +89,12 @@ class ShipmentTest extends TestCase
     public function testOptions()
     {
         $options = [
-            Mockery::mock(Option::class),
-            Mockery::mock(Option::class),
+            new Option(),
+            new Option(),
         ];
         $this->assertEquals($options, $this->shipment->setOptions($options)->getOptions());
 
-        $option = Mockery::mock(Option::class);
+        $option = new Option();
         $options[] = $option;
         $this->assertEquals($options, $this->shipment->addOption($option)->getOptions());
     }
@@ -110,14 +102,14 @@ class ShipmentTest extends TestCase
     /** @test */
     public function testPhysicalProperties()
     {
-        $physicalProperties = Mockery::mock(PhysicalProperties::class);
+        $physicalProperties = new PhysicalProperties();
         $this->assertEquals($physicalProperties, $this->shipment->setPhysicalProperties($physicalProperties)->getPhysicalProperties());
     }
 
     /** @test */
     public function testFiles()
     {
-        $file = Mockery::mock(File::class);
+        $file = new File();
         $files = [$file];
         $this->assertEquals($files, $this->shipment->addFile($file)->getFiles());
     }
@@ -125,7 +117,7 @@ class ShipmentTest extends TestCase
     /** @test */
     public function testCustoms()
     {
-        $customs = Mockery::mock(Customs::class);
+        $customs = new Customs();
         $this->assertEquals($customs, $this->shipment->setCustoms($customs)->getCustoms());
     }
 
@@ -135,14 +127,13 @@ class ShipmentTest extends TestCase
         $this->assertEmpty($this->shipment->getItems());
 
         $items = [
-            Mockery::mock(ShipmentItem::class),
-            Mockery::mock(ShipmentItem::class),
-            Mockery::mock(ShipmentItem::class),
+            new ShipmentItem(),
+            new ShipmentItem(),
         ];
         $this->shipment->setItems($items);
         $this->assertEquals($items, $this->shipment->getItems());
 
-        $item = Mockery::mock(ShipmentItem::class);
+        $item = new ShipmentItem();
         $items[] = $item;
         $this->shipment->addItem($item);
         $this->assertEquals($items, $this->shipment->getItems());

@@ -56,13 +56,14 @@ class ShipmentTransformer extends AbstractTransformer
                     'name' => $option->getName(),
                 ];
             }, $shipment->getOptions()),
-            'physical_properties'     => $shipment->getPhysicalProperties() === null ? null : [
-                'height' => $shipment->getPhysicalProperties()->getHeight(),
-                'width'  => $shipment->getPhysicalProperties()->getWidth(),
-                'length' => $shipment->getPhysicalProperties()->getLength(),
-                'volume' => $shipment->getPhysicalProperties()->getVolume(),
-                'weight' => $shipment->getPhysicalProperties()->getWeight(),
-            ],
+            'physical_properties'     => $shipment->getPhysicalProperties() === null ? null : array_filter([
+                'height'            => $shipment->getPhysicalProperties()->getHeight(),
+                'width'             => $shipment->getPhysicalProperties()->getWidth(),
+                'length'            => $shipment->getPhysicalProperties()->getLength(),
+                'volume'            => $shipment->getPhysicalProperties()->getVolume(),
+                'weight'            => $shipment->getPhysicalProperties()->getWeight(),
+                'volumetric_weight' => $shipment->getPhysicalProperties()->getVolumetricWeight(),
+            ]),
             'files'                   => array_map(function (File $file) {
                 return [
                     'resource_type' => $file->getType(),
@@ -84,12 +85,12 @@ class ShipmentTransformer extends AbstractTransformer
                     ],
                 ];
             }, $shipment->getItems()),
-            'customs'                 => $shipment->getCustoms() === null ? null : [
+            'customs'                 => $shipment->getCustoms() === null ? null : array_filter([
                 'content_type'   => $shipment->getCustoms()->getContentType(),
                 'invoice_number' => $shipment->getCustoms()->getInvoiceNumber(),
                 'non_delivery'   => $shipment->getCustoms()->getNonDelivery(),
                 'incoterm'       => $shipment->getCustoms()->getIncoterm(),
-            ],
+            ]),
             'myparcelcom_shipment_id' => $shipment->getMyparcelcomShipmentId(),
         ]);
     }

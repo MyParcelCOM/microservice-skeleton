@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Statuses;
 
+use MyParcelCom\Microservice\Shipments\PhysicalProperties;
+
 class Status
 {
     /** @var string */
@@ -17,6 +19,9 @@ class Status
 
     /** @var int */
     protected $timestamp;
+
+    /** @var PhysicalProperties */
+    protected $physicalProperties;
 
     /**
      * @return string|null
@@ -90,6 +95,25 @@ class Status
     public function setTimestamp(int $timestamp): self
     {
         $this->timestamp = $timestamp;
+
+        return $this;
+    }
+
+    /**
+     * @return PhysicalProperties|null
+     */
+    public function getPhysicalProperties(): ?PhysicalProperties
+    {
+        return $this->physicalProperties;
+    }
+
+    /**
+     * @param PhysicalProperties $physicalProperties
+     * @return $this
+     */
+    public function setPhysicalProperties(PhysicalProperties $physicalProperties): self
+    {
+        $this->physicalProperties = $physicalProperties;
 
         return $this;
     }
