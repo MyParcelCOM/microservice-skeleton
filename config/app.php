@@ -187,6 +187,8 @@ return [
         MyParcelCom\Microservice\Providers\RepositoryServiceProvider::class,
         MyParcelCom\Microservice\Providers\RouteServiceProvider::class,
         MyParcelCom\Microservice\Providers\JsonSchemaServiceProvider::class,
+        MyParcelCom\Microservice\Providers\JaegerServiceProvider::class,
+        MyParcelCom\Microservice\Providers\EventServiceProvider::class,
     ],
 
     /*
