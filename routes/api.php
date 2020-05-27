@@ -22,6 +22,8 @@ Route::get('/pickup-dropoff-locations/{countryCode}/{postalCode}', PickUpDropOff
 
 Route::get('/shipments/{shipmentId}/statuses/{trackingCode}', StatusController::class . '@getStatuses');
 Route::delete('/shipments/{shipmentId}', ShipmentController::class . '@void');
-Route::post('/shipments', ShipmentController::class . '@create');
-
+Route::post('/shipments', [
+    'uses' => ShipmentController::class . '@create',
+    'as'   => 'create-shipment',
+]);
 Route::get('/validate-credentials', CredentialController::class . '@validateCredentials');
