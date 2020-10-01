@@ -20,7 +20,7 @@ class StatusRepository
     public function getStatuses(string $shipmentId, string $trackingCode): ResourcesInterface
     {
         // TODO: Get statuses for given shipment/tracking_code from carrier (use CarrierApiGateway).
-        // TODO: Map data to Status objects.
+        // TODO: Map data to Status objects. Convert timestamp to UTC.
         // TODO: Put Status objects in an object that implements ResourcesInterface
     }
 
