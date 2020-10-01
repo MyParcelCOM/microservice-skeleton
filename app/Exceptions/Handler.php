@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Exceptions;
 
-use Exception;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -15,6 +14,7 @@ use MyParcelCom\JsonApi\ExceptionHandler;
 use MyParcelCom\JsonApi\Exceptions\CarrierApiException;
 use MyParcelCom\JsonApi\Exceptions\InvalidInputException;
 use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -31,10 +31,10 @@ class Handler extends ExceptionHandler
 
     /**
      * @param Request   $request
-     * @param Exception $exception
+     * @param Throwable $exception
      * @return JsonResponse
      */
-    public function render($request, Exception $exception)
+    public function render($request, Throwable $exception)
     {
         if ($exception instanceof RequestException && ($response = $exception->getResponse()) !== null) {
             $carrierResponse = json_decode($response->getBody()->getContents(), true)
