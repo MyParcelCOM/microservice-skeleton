@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\PickUpDropOffLocations;
 
+use MyParcelCom\JsonApi\Exceptions\ModelTypeException;
 use MyParcelCom\JsonApi\Transformers\AbstractTransformer;
-use MyParcelCom\JsonApi\Transformers\TransformerException;
 
 class PickUpDropOffLocationTransformer extends AbstractTransformer
 {
@@ -83,14 +83,12 @@ class PickUpDropOffLocationTransformer extends AbstractTransformer
 
     /**
      * @param PickUpDropOffLocation $pickUpDropOffLocation
-     * @throws TransformerException
+     * @throws ModelTypeException
      */
     protected function validateModel($pickUpDropOffLocation): void
     {
         if (!$pickUpDropOffLocation instanceof PickUpDropOffLocation) {
-            throw new TransformerException(
-                'Invalid model supplied, expected instance of `PickUpDropOffLocation`, got=> ' . get_class($pickUpDropOffLocation)
-            );
+            throw new ModelTypeException($pickUpDropOffLocation, PickUpDropOffLocation::class);
         }
     }
 }

@@ -7,7 +7,7 @@ namespace MyParcelCom\Microservice\Tests\Unit\PickUpDropOffLocations;
 use Carbon\Carbon;
 use Illuminate\Routing\UrlGenerator;
 use Mockery;
-use MyParcelCom\JsonApi\Transformers\TransformerException;
+use MyParcelCom\JsonApi\Exceptions\ModelTypeException;
 use MyParcelCom\JsonApi\Transformers\TransformerFactory;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 use MyParcelCom\Microservice\PickUpDropOffLocations\OpeningHour;
@@ -137,13 +137,13 @@ class PickUpDropOffLocationTransformerTest extends TestCase
 
     public function testGetIdWithInvalidModel()
     {
-        $this->expectException(TransformerException::class);
+        $this->expectException(ModelTypeException::class);
         $this->pickUpDropOffLocationTransformer->getId(new stdClass());
     }
 
     public function testGetAttributesWithInvalidModel()
     {
-        $this->expectException(TransformerException::class);
+        $this->expectException(ModelTypeException::class);
         $this->pickUpDropOffLocationTransformer->getAttributes(new stdClass());
     }
 }

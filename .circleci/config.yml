@@ -2,28 +2,23 @@ version: '2.1'
 jobs:
   test:
     machine:
-      image: circleci/classic:edge
-
+      image: ubuntu-1604:202007-01
     steps:
       - checkout
-
       - run:
           name: Setup environment variables
           command: |
             ./mp.sh
-
       - run:
           name: Login to Docker Hub
           command: |
             docker login --username ${DOCKER_USER} --password ${DOCKER_PASSWORD}
-
       - run:
           name: Setup dependencies
           command: |
             ./mp.sh up
             ./mp.sh composer install
             ./mp.sh schema bundle
-
       - run:
           name: Run tests
           command: |
@@ -46,12 +41,10 @@ jobs:
           name: Setup environment variables
           command: |
             ./mp.sh
-
       - run:
           name: Login to Docker Hub
           command: |
             docker login --username ${DOCKER_USER} --password ${DOCKER_PASSWORD}
-
       - run:
           name: Deploy to docker
           command: |
