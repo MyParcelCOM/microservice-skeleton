@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: docker/app/Dockerfile
-    image: myparcelcom/microservice:v6-dev
+    image: myparcelcom/microservice:v7-dev
     working_dir: /opt/app
     environment:
       - APP_DOMAIN=$APP_DOMAIN

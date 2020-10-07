@@ -6,7 +6,7 @@ namespace MyParcelCom\Microservice\Tests;
 
 use Illuminate\Contracts\Http\Kernel as HttpKernel;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use Illuminate\Foundation\Testing\TestResponse;
+use Illuminate\Testing\TestResponse;
 use MyParcelCom\Microservice\Http\Request;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
