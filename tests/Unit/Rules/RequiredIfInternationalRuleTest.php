@@ -14,7 +14,7 @@ class RequiredIfInternationalRuleTest extends TestCase
     /** @test */
     public function testValidationDoesNotFailForDomesticShipmentsWithInternationalRules()
     {
-        $requestStub = file_get_contents(base_path('tests/Stubs/shipment-request.stub'));
+        $requestStub = file_get_contents(base_path('tests/Stubs/shipment-request.json'));
         $requestData = json_decode($requestStub, true);
 
         // The sender address country code in shipment-request is GB.
@@ -35,7 +35,7 @@ class RequiredIfInternationalRuleTest extends TestCase
     /** @test */
     public function testItValidatesInternationalShipmentsBasedOnInternationalRequirements()
     {
-        $requestStub = file_get_contents(base_path('tests/Stubs/shipment-request.stub'));
+        $requestStub = file_get_contents(base_path('tests/Stubs/shipment-request.json'));
         $requestData = json_decode($requestStub, true);
 
         Arr::forget($requestData, 'data.attributes.description');

@@ -13,6 +13,9 @@ class ShipmentItem
     protected $description;
 
     /** @var string|null */
+    protected $imageUrl;
+
+    /** @var string|null */
     protected $hsCode;
 
     /** @var int */
@@ -66,6 +69,25 @@ class ShipmentItem
     public function getDescription(): string
     {
         return $this->description;
+    }
+
+    /**
+     * @param string|null $imageUrl
+     * @return $this
+     */
+    public function setImageUrl(?string $imageUrl): self
+    {
+        $this->image_url = $imageUrl;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getImageUrl(): ?string
+    {
+        return $this->image_url;
     }
 
     /**

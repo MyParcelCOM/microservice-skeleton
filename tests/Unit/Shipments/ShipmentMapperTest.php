@@ -29,7 +29,7 @@ class ShipmentMapperTest extends TestCase
     {
         $mapper = new ShipmentMapper();
 
-        $data = json_decode(file_get_contents(base_path('tests/Stubs/shipment-request.stub')), true);
+        $data = json_decode(file_get_contents(base_path('tests/Stubs/shipment-request.json')), true);
 
         $physicalProperties = Mockery::mock(PhysicalProperties::class);
         $physicalProperties
@@ -167,6 +167,7 @@ class ShipmentMapperTest extends TestCase
                     $this->assertInstanceOf(ShipmentItem::class, $item);
                     $this->assertNotNull($item->getSku());
                     $this->assertNotNull($item->getDescription());
+                    $this->assertNotNull($item->getImageUrl());
                     $this->assertNotNull($item->getHsCode());
                     $this->assertIsInt($item->getItemWeight());
                     $this->assertIsInt($item->getItemValueAmount());

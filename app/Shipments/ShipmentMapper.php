@@ -229,6 +229,9 @@ class ShipmentMapper implements MapperInterface
         if (isset($data['description'])) {
             $item->setDescription($data['description']);
         }
+        if (isset($data['image_url'])) {
+            $item->setImageUrl($data['image_url']);
+        }
         if (isset($data['item_value'])) {
             $item->setItemValueAmount($data['item_value']['amount']);
             $item->setItemValueCurrency($data['item_value']['currency']);

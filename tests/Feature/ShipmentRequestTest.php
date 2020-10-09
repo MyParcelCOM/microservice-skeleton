@@ -113,7 +113,7 @@ class ShipmentRequestTest extends TestCase
      */
     protected function getShipmentRequestBody(): array
     {
-        $requestStub = file_get_contents(base_path('tests/Stubs/shipment-request.stub'));
+        $requestStub = file_get_contents(base_path('tests/Stubs/shipment-request.json'));
 
         return json_decode($requestStub, true);
     }

@@ -75,6 +75,7 @@ class ShipmentTransformerTest extends TestCase
         $shipmentItem = Mockery::mock(ShipmentItem::class, [
             'getSku'               => '01284ASD',
             'getDescription'       => 'priceless Ming vase from some dynasty',
+            'getImageUrl'          => '//get.rich',
             'getQuantity'          => 12,
             'getHsCode'            => '9801.00.60',
             'getOriginCountryCode' => 'CN',
@@ -259,6 +260,7 @@ class ShipmentTransformerTest extends TestCase
                 [
                     'sku'                 => '01284ASD',
                     'description'         => 'priceless Ming vase from some dynasty',
+                    'image_url'           => '//get.rich',
                     'quantity'            => 12,
                     'hs_code'             => '9801.00.60',
                     'origin_country_code' => 'CN',
@@ -375,6 +377,7 @@ class ShipmentTransformerTest extends TestCase
                         [
                             'sku'                 => '01284ASD',
                             'description'         => 'priceless Ming vase from some dynasty',
+                            'image_url'           => '//get.rich',
                             'quantity'            => 12,
                             'hs_code'             => '9801.00.60',
                             'origin_country_code' => 'CN',
