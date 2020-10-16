@@ -13,6 +13,7 @@ use MyParcelCom\JsonApi\Errors\MissingInputError;
 use MyParcelCom\JsonApi\ExceptionHandler;
 use MyParcelCom\JsonApi\Exceptions\CarrierApiException;
 use MyParcelCom\JsonApi\Exceptions\InvalidInputException;
+use MyParcelCom\Microservice\Events\ExceptionOccurred;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
@@ -36,6 +37,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        // Fire an event to let the rest of the application know that an exception has occurred.
+        // Primary usecase is to close any lingering Jaeger spans,
+        // that couldn't be closed because an exception interrupted the flow.
+        event(ExceptionOccurred::class);
+
         if ($exception instanceof RequestException && ($response = $exception->getResponse()) !== null) {
             $carrierResponse = json_decode($response->getBody()->getContents(), true)
                 ?? ['response_body' => (string) $response->getBody()];

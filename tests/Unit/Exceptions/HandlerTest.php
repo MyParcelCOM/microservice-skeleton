@@ -9,10 +9,12 @@ use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\Support\MessageBag;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Validation\ValidationException;
 use Mockery;
+use MyParcelCom\Microservice\Events\ExceptionOccurred;
 use MyParcelCom\Microservice\Exceptions\Handler;
-use PHPUnit\Framework\TestCase;
+use MyParcelCom\Microservice\Tests\TestCase;
 
 class HandlerTest extends TestCase
 {
@@ -70,5 +72,25 @@ class HandlerTest extends TestCase
         $validationException->validator = $validator;
 
         $handler->render($requestMock, $validationException);
+    }
+
+    /** @test */
+    public function testItFiresAnEventWhenAnExceptionIsHandled()
+    {
+        Event::fake([ExceptionOccurred::class]);
+
+        $containerMock = Mockery::mock(Container::class);
+
+        $responseFactory = Mockery::mock(ResponseFactory::class);
+        $responseFactory->shouldReceive('json')->once();
+
+        $handler = new Handler($containerMock);
+        $handler->setResponseFactory($responseFactory);
+
+        $request = Mockery::mock(Request::class);
+        $exception = Mockery::mock(\Exception::class);
+
+        $handler->render($request, $exception);
+        Event::assertDispatched(ExceptionOccurred::class);
     }
 }
