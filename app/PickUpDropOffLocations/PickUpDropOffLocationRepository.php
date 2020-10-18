@@ -36,14 +36,14 @@ class PickUpDropOffLocationRepository
     ): ResourcesInterface {
         // Return the locations if they are cached.
         if (($locations = $this->getCachedLocations($countryCode, $postalCode, $street, $streetNumber))) {
-            return new CollectionResources($locations);
+            return new CollectionResources($this->filterLocationsByCategories($locations, $categories));
         }
 
         // TODO: Get the pudo points from carrier (use CarrierApiGateway).
-        // TODO: Filter pudo points by passed categories.
         // TODO: Map data to PickUpDropOffLocation objects.
         // TODO: Put PickUpDropOffLocation objects in an object that implements ResourcesInterface.
         // TODO: Cache the collection of pudo locations using the method `setCachedLocations()`
+        // TODO: Return pudo points filtered by passed categories using the method `filterLocationsByCategories()`
     }
 
     /**
@@ -103,6 +103,27 @@ class PickUpDropOffLocationRepository
             $street,
             $streetNumber,
         ]);
+    }
+
+    /**
+     * @param Collection $locations
+     * @param array      $categories
+     * @return mixed
+     */
+    private function filterLocationsByCategories(Collection $locations, array $categories)
+    {
+        if (!$categories) {
+            return $locations;
+        }
+
+        return $locations->filter(function (PickUpDropOffLocation $location) use ($categories) {
+            foreach ($categories as $category) {
+                if (in_array($category, $location->getCategories())) {
+                    return true;
+                }
+            }
+            return false;
+        });
     }
 
     /**
