@@ -61,6 +61,7 @@
         {
           "sku": "13657za",
           "description": "XBox 360",
+          "image_url": "//no.windows",
           "item_value": {
             "amount": 30000,
             "currency": "EUR"
@@ -73,6 +74,7 @@
         {
           "sku": "654324re",
           "description": "Playstation 2",
+          "image_url": "//pc.master.race",
           "item_value": {
             "amount": 20000,
             "currency": "EUR"

@@ -17,6 +17,13 @@ class ShipmentItemTest extends TestCase
     }
 
     /** @test */
+    public function testImageUrl()
+    {
+        $item = new ShipmentItem();
+        $this->assertEquals('//get.some', $item->setImageUrl('//get.some')->getImageUrl());
+    }
+
+    /** @test */
     public function testHsCode()
     {
         $item = new ShipmentItem();

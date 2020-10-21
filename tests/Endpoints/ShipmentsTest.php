@@ -26,7 +26,7 @@ class ShipmentsTest extends TestCase
         // TODO: Add carrier response stub for creating a shipment.
         // See the "Response Stubs" chapter in the readme for more info.
 
-        $requestStub = file_get_contents(base_path('tests/Stubs/shipment-request.stub'));
+        $requestStub = file_get_contents(base_path('tests/Stubs/shipment-request.json'));
         $data = json_decode($requestStub, true);
 
         $this->assertJsonSchema(

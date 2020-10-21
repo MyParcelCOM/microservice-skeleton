@@ -76,6 +76,7 @@ class ShipmentTransformer extends AbstractTransformer
                 return [
                     'sku'                 => $item->getSku(),
                     'description'         => $item->getDescription(),
+                    'image_url'           => $item->getImageUrl(),
                     'quantity'            => $item->getQuantity(),
                     'hs_code'             => $item->getHsCode(),
                     'origin_country_code' => $item->getOriginCountryCode(),

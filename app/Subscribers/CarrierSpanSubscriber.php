@@ -8,6 +8,7 @@ use Illuminate\Events\Dispatcher;
 use Jaeger\Jaeger;
 use Jaeger\Scope;
 use MyParcelCom\Microservice\Events\FailedCarrierApiRequest;
+use MyParcelCom\Microservice\Events\ExceptionOccurred;
 use MyParcelCom\Microservice\Events\MakingCarrierApiRequest;
 use MyParcelCom\Microservice\Events\SuccessfulCarrierApiRequest;
 use OpenTracing\Reference;
@@ -47,8 +48,15 @@ class CarrierSpanSubscriber
 
     public function end(): void
     {
+        $this->closeSpan();
+    }
+
+    public function closeSpan(): void
+    {
         if (self::$scope) {
             self::$scope->close();
+
+            self::$scope = null;
         }
     }
 
@@ -72,6 +80,11 @@ class CarrierSpanSubscriber
         $events->listen(
             FailedCarrierApiRequest::class,
             self::class . '@end'
+        );
+
+        $events->listen(
+            ExceptionOccurred::class,
+            self::class . '@closeSpan'
         );
     }
 

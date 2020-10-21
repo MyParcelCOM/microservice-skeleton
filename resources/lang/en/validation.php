@@ -195,6 +195,7 @@ return [
 
         'data.attributes.items.*.sku'                 => 'shipment item sku code',
         'data.attributes.items.*.description'         => 'shipment item description',
+        'data.attributes.items.*.image_url'           => 'shipment item image URL',
         'data.attributes.items.*.item_value'          => 'shipment item value',
         'data.attributes.items.*.item_value.amount'   => 'shipment item value amount',
         'data.attributes.items.*.item_value.currency' => 'shipment item value currency',
