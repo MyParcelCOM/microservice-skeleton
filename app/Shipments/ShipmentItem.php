@@ -77,7 +77,7 @@ class ShipmentItem
      */
     public function setImageUrl(?string $imageUrl): self
     {
-        $this->image_url = $imageUrl;
+        $this->imageUrl = $imageUrl;
 
         return $this;
     }
@@ -87,7 +87,7 @@ class ShipmentItem
      */
     public function getImageUrl(): ?string
     {
-        return $this->image_url;
+        return $this->imageUrl;
     }
 
     /**
