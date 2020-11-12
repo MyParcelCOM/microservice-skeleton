@@ -38,6 +38,12 @@ class Shipment
     /** @var string|null */
     protected $description;
 
+    /** @var int|null */
+    protected $totalValueAmount;
+
+    /** @var string|null */
+    protected $totalValueCurrency;
+
     /** @var string|null */
     protected $trackingCode;
 
@@ -493,10 +499,13 @@ class Shipment
 
     /**
      * @param string|null $recipientTaxNumber
+     * @return $this
      */
-    public function setRecipientTaxNumber(?string $recipientTaxNumber): void
+    public function setRecipientTaxNumber(?string $recipientTaxNumber): self
     {
         $this->recipientTaxNumber = $recipientTaxNumber;
+
+        return $this;
     }
 
     /**
@@ -509,9 +518,83 @@ class Shipment
 
     /**
      * @param string|null $senderTaxNumber
+     * @return $this
      */
-    public function setSenderTaxNumber(?string $senderTaxNumber): void
+    public function setSenderTaxNumber(?string $senderTaxNumber): self
     {
         $this->senderTaxNumber = $senderTaxNumber;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getTotalValueAmount(): ?int
+    {
+        return $this->totalValueAmount;
+    }
+
+    /**
+     * @param int|null $totalValueAmount
+     * @return $this
+     */
+    public function setTotalValueAmount(?int $totalValueAmount): self
+    {
+        $this->totalValueAmount = $totalValueAmount;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTotalValueCurrency(): ?string
+    {
+        return $this->totalValueCurrency;
+    }
+
+    /**
+     * @param string|null $totalValueCurrency
+     * @return $this
+     */
+    public function setTotalValueCurrency(?string $totalValueCurrency): self
+    {
+        $this->totalValueCurrency = $totalValueCurrency;
+
+        return $this;
+    }
+
+    /**
+     * Total value based on attributes.total_value with fallback to a sum of all attributes.items.*.item_value
+     * @return array|null
+     */
+    public function getTotalValue(): ?array
+    {
+        if ($this->getTotalValueAmount()) {
+            return [
+                'amount'   => $this->getTotalValueAmount(),
+                'currency' => $this->getTotalValueCurrency(),
+            ];
+        }
+
+        $totalItemValue = 0;
+        $totalItemCurrency = '';
+
+        foreach ($this->getItems() as $item) {
+            if ($item->getItemValueAmount()) {
+                $totalItemValue += intval($item->getItemValueAmount());
+                $totalItemCurrency = $item->getItemValueCurrency();
+            }
+        }
+
+        if ($totalItemValue) {
+            return [
+                'amount'   => $totalItemValue,
+                'currency' => $totalItemCurrency,
+            ];
+        }
+
+        return null;
     }
 }

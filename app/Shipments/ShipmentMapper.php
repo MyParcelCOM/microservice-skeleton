@@ -79,11 +79,6 @@ class ShipmentMapper implements MapperInterface
             $this->mapCustoms($attributes['customs'], $shipment);
         }
 
-        // Map optional data.
-        if (isset($attributes['description'])) {
-            $shipment->setDescription($attributes['description']);
-        }
-
         // Map items information.
         if (!empty($attributes['items'])) {
             $shipment->setItems(
@@ -91,8 +86,26 @@ class ShipmentMapper implements MapperInterface
             );
         }
 
+        // Map optional data.
+        if (isset($attributes['description'])) {
+            $shipment->setDescription($attributes['description']);
+        }
+
+        if (isset($attributes['total_value'])) {
+            $shipment->setTotalValueAmount($attributes['total_value']['amount']);
+            $shipment->setTotalValueCurrency($attributes['total_value']['currency']);
+        }
+
         if (isset($attributes['channel'])) {
             $shipment->setChannel($attributes['channel']);
+        }
+
+        if (isset($attributes['recipient_tax_number'])) {
+            $shipment->setRecipientTaxNumber($attributes['recipient_tax_number']);
+        }
+
+        if (isset($attributes['sender_tax_number'])) {
+            $shipment->setSenderTaxNumber($attributes['sender_tax_number']);
         }
 
         return $shipment;
