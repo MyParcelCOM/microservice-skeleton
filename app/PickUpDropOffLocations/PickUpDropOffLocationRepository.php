@@ -24,6 +24,7 @@ class PickUpDropOffLocationRepository
      * @param string      $postalCode
      * @param string|null $street
      * @param string|null $streetNumber
+     * @param string|null $city
      * @param array       $categories
      * @return ResourcesInterface
      */
@@ -32,10 +33,11 @@ class PickUpDropOffLocationRepository
         string $postalCode,
         ?string $street = null,
         ?string $streetNumber = null,
+        ?string $city = null,
         array $categories = []
     ): ResourcesInterface {
         // Return the locations if they are cached.
-        if (($locations = $this->getCachedLocations($countryCode, $postalCode, $street, $streetNumber))) {
+        if (($locations = $this->getCachedLocations($countryCode, $postalCode, $street, $streetNumber, $city))) {
             return new CollectionResources($this->filterLocationsByCategories($locations, $categories));
         }
 
@@ -51,16 +53,18 @@ class PickUpDropOffLocationRepository
      * @param string|null $countryCode
      * @param string|null $postalCode
      * @param string|null $street
-     * @param int|null    $streetNumber
+     * @param string|null $streetNumber
+     * @param string|null $city
      */
     protected function setCachedLocations(
         Collection $locations,
         ?string $countryCode,
         ?string $postalCode,
         ?string $street,
-        ?int $streetNumber
+        ?string $streetNumber,
+        ?string $city
     ): void {
-        $key = $this->getCacheKey($countryCode, $postalCode, $street, $streetNumber);
+        $key = $this->getCacheKey($countryCode, $postalCode, $street, $streetNumber, $city);
 
         $this->cache->set($key, $locations, new DateInterval('P1W'));
     }
@@ -71,16 +75,18 @@ class PickUpDropOffLocationRepository
      * @param string|null $countryCode
      * @param string|null $postalCode
      * @param string|null $street
-     * @param int|null    $streetNumber
+     * @param string|null $streetNumber
+     * @param string|null $city
      * @return Collection|null
      */
     protected function getCachedLocations(
         ?string $countryCode,
         ?string $postalCode,
         ?string $street,
-        ?int $streetNumber
+        ?string $streetNumber,
+        ?string $city
     ): ?Collection {
-        $key = $this->getCacheKey($countryCode, $postalCode, $street, $streetNumber);
+        $key = $this->getCacheKey($countryCode, $postalCode, $street, $streetNumber, $city);
 
         return $this->cache->get($key);
     }
@@ -91,18 +97,25 @@ class PickUpDropOffLocationRepository
      * @param string|null $countryCode
      * @param string|null $postalCode
      * @param string|null $street
-     * @param int|null    $streetNumber
+     * @param string|null $streetNumber
+     * @param string|null $city
      * @return string
      */
-    protected function getCacheKey(?string $countryCode, ?string $postalCode, ?string $street, ?int $streetNumber): string
-    {
-        return implode('_', [
+    protected function getCacheKey(
+        ?string $countryCode,
+        ?string $postalCode,
+        ?string $street,
+        ?string $streetNumber,
+        ?string $city
+    ): string {
+        return implode('_', array_filter([
             'pudo_locations',
             $countryCode,
             $postalCode,
             $street,
             $streetNumber,
-        ]);
+            $city,
+        ]));
     }
 
     /**
