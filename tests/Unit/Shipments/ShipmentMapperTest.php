@@ -191,6 +191,30 @@ class ShipmentMapperTest extends TestCase
                 $this->assertEquals('Amazon', $channel);
 
                 return $shipment;
+            })
+            ->shouldReceive('setSenderTaxNumber')
+            ->andReturnUsing(function (string $senderTaxNumber) use ($shipment) {
+                $this->assertEquals('G666666-66', $senderTaxNumber);
+
+                return $shipment;
+            })
+            ->shouldReceive('setRecipientTaxNumber')
+            ->andReturnUsing(function (string $recipientTaxNumber) use ($shipment) {
+                $this->assertEquals('H111111-11', $recipientTaxNumber);
+
+                return $shipment;
+            })
+            ->shouldReceive('setTotalValueAmount')
+            ->andReturnUsing(function (int $totalValueAmount) use ($shipment) {
+                $this->assertEquals(42, $totalValueAmount);
+
+                return $shipment;
+            })
+            ->shouldReceive('setTotalValueCurrency')
+            ->andReturnUsing(function (string $totalValueCurrency) use ($shipment) {
+                $this->assertEquals('EUR', $totalValueCurrency);
+
+                return $shipment;
             });
 
         $mapper->map($data['data'], $shipment);

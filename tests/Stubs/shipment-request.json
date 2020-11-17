@@ -39,6 +39,10 @@
         "email": "s.holmes@holmesinvestigations.com"
       },
       "description": "order #8008135",
+      "total_value": {
+        "amount": 42,
+        "currency": "EUR"
+      },
       "service": {
         "code": "service-a01",
         "name": "Parcel to Parcelshop"

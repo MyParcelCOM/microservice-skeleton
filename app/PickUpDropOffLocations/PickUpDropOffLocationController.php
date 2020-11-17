@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MyParcelCom\Microservice\PickUpDropOffLocations;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Arr;
 use MyParcelCom\JsonApi\Transformers\TransformerService;
 use MyParcelCom\Microservice\Http\Controllers\Controller;
 use MyParcelCom\Microservice\Http\Request;
@@ -19,15 +20,14 @@ class PickUpDropOffLocationController extends Controller
         string $postalCode
     ): JsonResponse {
         $filters = $request->getFilter();
-        $categories = isset($filters['categories'])
-            ? explode(',', $filters['categories'])
-            : [];
+        $categories = array_filter(explode(',', Arr::get($filters, 'categories', '')));
 
         $pudoLocations = $pickUpDropOffLocationRepository->getAll(
             $countryCode,
             $postalCode,
             $request->query('street', null),
             $request->query('street_number', null),
+            $request->query('city', null),
             $categories
         );
 

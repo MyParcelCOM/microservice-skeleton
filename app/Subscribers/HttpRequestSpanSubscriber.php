@@ -85,7 +85,7 @@ class HttpRequestSpanSubscriber
         try {
             $this->config->flush();
         } catch (Throwable $e) {
-            Log::critical($e);
+            Log::critical($e->getMessage());
         }
     }
 

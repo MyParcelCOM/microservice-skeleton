@@ -169,4 +169,46 @@ class ShipmentTest extends TestCase
         $this->shipment->setChannel('eBay');
         $this->assertEquals('eBay', $this->shipment->getChannel());
     }
+
+    /** @test */
+    public function testSenderTaxNumber()
+    {
+        $this->assertEquals('74X', $this->shipment->setSenderTaxNumber('74X')->getSenderTaxNumber());
+    }
+
+    /** @test */
+    public function testRecipientTaxNumber()
+    {
+        $this->assertEquals('74X', $this->shipment->setRecipientTaxNumber('74X')->getRecipientTaxNumber());
+    }
+
+    /** @test */
+    public function testTotalValue()
+    {
+        $this->assertNull($this->shipment->getTotalValue());
+
+        $this->assertEquals(42, $this->shipment->setTotalValueAmount(42)->getTotalValueAmount());
+        $this->assertEquals('EUR', $this->shipment->setTotalValueCurrency('EUR')->getTotalValueCurrency());
+
+        $this->assertEquals([
+            'amount'   => 42,
+            'currency' => 'EUR',
+        ], $this->shipment->getTotalValue());
+    }
+
+    /** @test */
+    public function testTotalValueBasedOnItems()
+    {
+        $this->assertNull($this->shipment->getTotalValue());
+
+        $this->shipment->setItems([
+            (new ShipmentItem())->setItemValueAmount(1)->setItemValueCurrency('FOO'),
+            (new ShipmentItem())->setItemValueAmount(2)->setItemValueCurrency('BAR'),
+        ]);
+
+        $this->assertEquals([
+            'amount'   => 3,
+            'currency' => 'BAR',
+        ], $this->shipment->getTotalValue());
+    }
 }
