@@ -583,7 +583,7 @@ class Shipment
 
         foreach ($this->getItems() as $item) {
             if ($item->getItemValueAmount()) {
-                $totalItemValue += intval($item->getItemValueAmount());
+                $totalItemValue += $item->getItemValueAmount();
                 $totalItemCurrency = $item->getItemValueCurrency();
             }
         }
