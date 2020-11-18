@@ -92,7 +92,7 @@ class ShipmentMapper implements MapperInterface
         }
 
         if (isset($attributes['total_value'])) {
-            $shipment->setTotalValueAmount($attributes['total_value']['amount']);
+            $shipment->setTotalValueAmount((int) $attributes['total_value']['amount']);
             $shipment->setTotalValueCurrency($attributes['total_value']['currency']);
         }
 
