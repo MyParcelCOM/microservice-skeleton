@@ -26,8 +26,10 @@ class ValidateCredentialsTest extends TestCase
             '/validate-credentials',
             '/validate-credentials',
             [
-                'foo'  => 'bar',
-                'some' => 'credentials',
+                'X-MYPARCELCOM-SECRET'      => config('app.secret'),
+                'X-MYPARCELCOM-CREDENTIALS' => \GuzzleHttp\json_encode([
+                    'api_key' => 'invalid',
+                ]),
             ],
             [],
             'get',
