@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Tests\Mocks;
 
+use GuzzleHttp\Promise\Create;
 use GuzzleHttp\Promise\PromiseInterface;
 use Mockery;
 use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
 use PHPUnit\Framework\Exception;
 use Psr\Http\Message\ResponseInterface;
-use function GuzzleHttp\Promise\promise_for;
 
 class CarrierApiGatewayMock implements CarrierApiGatewayInterface
 {
@@ -18,7 +18,7 @@ class CarrierApiGatewayMock implements CarrierApiGatewayInterface
      */
     public function get(string $url, array $queryParams = [], array $headers = []): PromiseInterface
     {
-        return promise_for(Mockery::mock(ResponseInterface::class, [
+        return Create::promiseFor(Mockery::mock(ResponseInterface::class, [
             'getBody' => $this->getResponseStub('get', $url),
             'getCode' => 200,
         ]));
@@ -56,7 +56,7 @@ class CarrierApiGatewayMock implements CarrierApiGatewayInterface
      */
     public function post(string $url, array $data, array $queryParams = [], array $headers = []): PromiseInterface
     {
-        return promise_for(Mockery::mock(ResponseInterface::class, [
+        return Create::promiseFor(Mockery::mock(ResponseInterface::class, [
             'getBody' => $this->getResponseStub('post', $url),
             'getCode' => 200,
         ]));

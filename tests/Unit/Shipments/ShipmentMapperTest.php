@@ -91,8 +91,8 @@ class ShipmentMapperTest extends TestCase
             ->andReturnUsing(function (Address $address) use ($shipment) {
                 $this->assertEquals('Acme Jewelry Co.', $address->getCompany());
                 $this->assertEquals('1GL HF1', $address->getPostalCode());
-                $this->assertEquals('john@doe.com', $address->getEmail());
-                $this->assertNull($address->getPhoneNumber());
+                $this->assertEquals('john@acme.com', $address->getEmail());
+                $this->assertEquals('+31 234 567 890', $address->getPhoneNumber());
                 $this->assertNull($address->getFirstName());
                 $this->assertNull($address->getLastName());
                 $this->assertEquals('GB', $address->getCountryCode());
@@ -127,7 +127,7 @@ class ShipmentMapperTest extends TestCase
             ->andReturnUsing(function (Address $address) use ($shipment) {
                 $this->assertNull($address->getCompany());
                 $this->assertEquals('2131BC', $address->getPostalCode());
-                $this->assertNull($address->getEmail());
+                $this->assertEquals('john@doe.com', $address->getEmail());
                 $this->assertEquals('+31 234 567 890', $address->getPhoneNumber());
                 $this->assertEquals('John', $address->getFirstName());
                 $this->assertEquals('Doe', $address->getLastName());
@@ -156,7 +156,7 @@ class ShipmentMapperTest extends TestCase
             ->andReturnUsing(function (Customs $customs) use ($shipment) {
                 $this->assertEquals('gifts', $customs->getContentType());
                 $this->assertEquals('876543', $customs->getInvoiceNumber());
-                $this->assertEquals('DDP', $customs->getIncoterm());
+                $this->assertEquals('DAP', $customs->getIncoterm());
 
                 return $shipment;
             })
