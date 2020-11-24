@@ -2,6 +2,6 @@
 
 namespace MyParcelCom\Microservice\Events;
 
-class FailedCarrierApiRequest
+class FailedCarrierApiRequest extends CompletedCarrierApiRequest
 {
 }
