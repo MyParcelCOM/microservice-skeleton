@@ -98,6 +98,7 @@ class ShipmentMapperTest extends TestCase
                 $this->assertEquals('GB', $address->getCountryCode());
                 $this->assertEquals('Bamsterbam', $address->getCity());
                 $this->assertNull($address->getRegionCode());
+                $this->assertNull($address->getStateCode());
                 $this->assertNull($address->getStreetNumberSuffix());
                 $this->assertEquals(622, $address->getStreetNumber());
                 $this->assertNull($address->getStreet2());
@@ -116,6 +117,7 @@ class ShipmentMapperTest extends TestCase
                 $this->assertEquals('GB', $address->getCountryCode());
                 $this->assertEquals('London', $address->getCity());
                 $this->assertNull($address->getRegionCode());
+                $this->assertNull($address->getStateCode());
                 $this->assertNull($address->getStreetNumberSuffix());
                 $this->assertEquals(221, $address->getStreetNumber());
                 $this->assertNull($address->getStreet2());
@@ -134,6 +136,7 @@ class ShipmentMapperTest extends TestCase
                 $this->assertEquals('NL', $address->getCountryCode());
                 $this->assertEquals('Amsterdam', $address->getCity());
                 $this->assertNull($address->getRegionCode());
+                $this->assertNull($address->getStateCode());
                 $this->assertEquals('A', $address->getStreetNumberSuffix());
                 $this->assertEquals(679, $address->getStreetNumber());
                 $this->assertEquals('Room 3', $address->getStreet2());

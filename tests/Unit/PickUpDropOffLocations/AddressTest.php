@@ -68,6 +68,13 @@ class AddressTest extends TestCase
     }
 
     /** @test */
+    public function testStateCode(): void
+    {
+        $this->assertNull($this->address->getStateCode(), '`getRegionCode()` should return `null` when not set');
+        $this->assertEquals('XXX', $this->address->setStateCode('XXX')->getStateCode());
+    }
+
+    /** @test */
     public function testCountryCode(): void
     {
         $this->assertNull($this->address->getCountryCode(), '`getCountryCode()` should return `null` when not set');

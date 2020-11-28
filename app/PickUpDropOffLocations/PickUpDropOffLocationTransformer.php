@@ -53,6 +53,7 @@ class PickUpDropOffLocationTransformer extends AbstractTransformer
                 'postal_code'          => $address->getPostalCode(),
                 'city'                 => $address->getCity(),
                 'region_code'          => $address->getRegionCode(),
+                'state_code'           => $address->getStateCode(),
                 'country_code'         => $address->getCountryCode(),
                 'first_name'           => $address->getFirstName(),
                 'last_name'            => $address->getLastName(),
