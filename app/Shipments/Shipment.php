@@ -80,7 +80,7 @@ class Shipment
     /** @var string */
     protected $labelMimeType = self::LABEL_MIME_TYPE_PDF;
 
-    /** @var null|string */
+    /** @var string|null */
     protected $channel;
 
     /**
@@ -471,7 +471,7 @@ class Shipment
     }
 
     /**
-     * @param null|string $channel
+     * @param string|null $channel
      * @return $this
      */
     public function setChannel(?string $channel): self
@@ -482,7 +482,7 @@ class Shipment
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getChannel(): ?string
     {
@@ -583,7 +583,7 @@ class Shipment
 
         foreach ($this->getItems() as $item) {
             if ($item->getItemValueAmount()) {
-                $totalItemValue += $item->getItemValueAmount();
+                $totalItemValue += $item->getItemValueAmount() * $item->getQuantity();
                 $totalItemCurrency = $item->getItemValueCurrency();
             }
         }

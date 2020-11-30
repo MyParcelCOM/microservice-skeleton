@@ -202,12 +202,12 @@ class ShipmentTest extends TestCase
         $this->assertNull($this->shipment->getTotalValue());
 
         $this->shipment->setItems([
-            (new ShipmentItem())->setItemValueAmount(1)->setItemValueCurrency('FOO'),
-            (new ShipmentItem())->setItemValueAmount(2)->setItemValueCurrency('BAR'),
+            (new ShipmentItem())->setQuantity(2)->setItemValueAmount(4)->setItemValueCurrency('FOO'),
+            (new ShipmentItem())->setQuantity(3)->setItemValueAmount(5)->setItemValueCurrency('BAR'),
         ]);
 
         $this->assertEquals([
-            'amount'   => 3,
+            'amount'   => 23,
             'currency' => 'BAR',
         ], $this->shipment->getTotalValue());
     }

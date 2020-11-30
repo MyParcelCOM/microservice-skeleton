@@ -179,6 +179,9 @@ class ShipmentMapper implements MapperInterface
         if (isset($data['region_code'])) {
             $address->setRegionCode($data['region_code']);
         }
+        if (isset($data['state_code'])) {
+            $address->setStateCode($data['state_code']);
+        }
         if (isset($data['country_code'])) {
             $address->setCountryCode($data['country_code']);
         }

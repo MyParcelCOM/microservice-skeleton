@@ -31,8 +31,7 @@ trait CommunicatesWithCarrier
     }
 
     /**
-     * Binds a mock object to the CarrierApiGatewayInterface in the dependency
-     * container.
+     * Binds a mock object to the CarrierApiGatewayInterface in the dependency container.
      */
     protected function bindCarrierApiGatewayMock()
     {
