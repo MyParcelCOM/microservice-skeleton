@@ -33,6 +33,7 @@ class ShipmentTransformer extends AbstractTransformer
         $this->validateModel($shipment);
 
         return array_filter([
+            'myparcelcom_shipment_id' => $shipment->getMyparcelcomShipmentId(),
             'recipient_address'       => $this->transformAddress($shipment->getRecipientAddress()),
             'recipient_tax_number'    => $shipment->getRecipientTaxNumber(),
             'sender_address'          => $this->transformAddress($shipment->getSenderAddress()),
@@ -96,7 +97,6 @@ class ShipmentTransformer extends AbstractTransformer
                 'non_delivery'   => $shipment->getCustoms()->getNonDelivery(),
                 'incoterm'       => $shipment->getCustoms()->getIncoterm(),
             ]),
-            'myparcelcom_shipment_id' => $shipment->getMyparcelcomShipmentId(),
         ]);
     }
 
@@ -114,6 +114,7 @@ class ShipmentTransformer extends AbstractTransformer
             'postal_code'          => $address->getPostalCode(),
             'city'                 => $address->getCity(),
             'region_code'          => $address->getRegionCode(),
+            'state_code'           => $address->getStateCode(),
             'country_code'         => $address->getCountryCode(),
             'first_name'           => $address->getFirstName(),
             'last_name'            => $address->getLastName(),

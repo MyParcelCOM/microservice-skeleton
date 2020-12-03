@@ -7,6 +7,7 @@ namespace MyParcelCom\Microservice\Subscribers;
 use Illuminate\Events\Dispatcher;
 use Jaeger\Jaeger;
 use Jaeger\Scope;
+use MyParcelCom\Microservice\Events\CompletedCarrierApiRequest;
 use MyParcelCom\Microservice\Events\ExceptionOccurred;
 use MyParcelCom\Microservice\Events\FailedCarrierApiRequest;
 use MyParcelCom\Microservice\Events\MakingCarrierApiRequest;
@@ -46,7 +47,7 @@ class CarrierSpanSubscriber
         );
     }
 
-    public function end(): void
+    public function end(CompletedCarrierApiRequest $event): void
     {
         $this->closeSpan();
     }

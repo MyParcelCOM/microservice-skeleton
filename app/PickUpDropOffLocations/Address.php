@@ -6,44 +6,47 @@ namespace MyParcelCom\Microservice\PickUpDropOffLocations;
 
 class Address
 {
-    /** @var string */
+    /** @var string|null */
     protected $street1;
 
-    /** @var string */
+    /** @var string|null */
     protected $street2;
 
-    /** @var int */
+    /** @var int|null */
     protected $streetNumber;
 
-    /** @var string */
+    /** @var string|null */
     protected $streetNumberSuffix;
 
-    /** @var string */
-    protected $countryCode;
-
-    /** @var string */
-    protected $firstName;
-
-    /** @var string */
-    protected $lastName;
-
-    /** @var string */
-    protected $city;
-
-    /** @var string */
+    /** @var string|null */
     protected $postalCode;
 
-    /** @var string */
-    protected $phoneNumber;
+    /** @var string|null */
+    protected $city;
 
-    /** @var string */
+    /** @var string|null */
     protected $regionCode;
 
-    /** @var string */
+    /** @var string|null */
+    protected $stateCode;
+
+    /** @var string|null */
+    protected $countryCode;
+
+    /** @var string|null */
+    protected $firstName;
+
+    /** @var string|null */
+    protected $lastName;
+
+    /** @var string|null */
+    protected $company;
+
+    /** @var string|null */
     protected $email;
 
-    /** @var string */
-    protected $company;
+    /** @var string|null */
+    protected $phoneNumber;
 
     /**
      * @return string|null
@@ -174,6 +177,25 @@ class Address
     public function setRegionCode(?string $regionCode): self
     {
         $this->regionCode = $regionCode;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getStateCode(): ?string
+    {
+        return $this->stateCode;
+    }
+
+    /**
+     * @param string|null $stateCode
+     * @return $this
+     */
+    public function setStateCode(?string $stateCode): self
+    {
+        $this->stateCode = $stateCode;
 
         return $this;
     }
