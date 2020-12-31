@@ -1,12 +1,13 @@
+ARG REGISTRY=docker.io
 # Stage 1: Build swagger bundles for carrier specification
-FROM myparcelcom/specs-builder:latest as bundles
+FROM ${REGISTRY}/myparcelcom/specs-builder:latest as bundles
 
 ARG CARRIER_SPEC_BRANCH="master"
 
 RUN build_carrier_spec
 
 # Stage 2: Build a php based image with an apache web server
-FROM myparcelcom/php:7.3-apache
+FROM ${REGISTRY}/myparcelcom/php:7.3-apache
 
 COPY . /opt/app
 WORKDIR /opt/app
