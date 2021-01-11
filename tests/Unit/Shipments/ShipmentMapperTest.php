@@ -160,6 +160,8 @@ class ShipmentMapperTest extends TestCase
                 $this->assertEquals('gifts', $customs->getContentType());
                 $this->assertEquals('876543', $customs->getInvoiceNumber());
                 $this->assertEquals('DAP', $customs->getIncoterm());
+                $this->assertEquals(98765, $customs->getShippingValueAmount());
+                $this->assertEquals('GBP', $customs->getShippingValueCurrency());
 
                 return $shipment;
             })

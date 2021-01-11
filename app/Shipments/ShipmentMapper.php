@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Shipments;
 
+use Illuminate\Support\Arr;
 use MyParcelCom\JsonApi\Interfaces\MapperInterface;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 
@@ -224,6 +225,10 @@ class ShipmentMapper implements MapperInterface
         }
         if (isset($data['incoterm'])) {
             $customs->setIncoterm($data['incoterm']);
+        }
+        if (isset($data['shipping_value'])) {
+            $customs->setShippingValueAmount(Arr::get($data, 'shipping_value.amount'));
+            $customs->setShippingValueCurrency(Arr::get($data, 'shipping_value.currency'));
         }
 
         $shipment->setCustoms($customs);

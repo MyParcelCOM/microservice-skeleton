@@ -95,7 +95,11 @@
         "content_type": "gifts",
         "invoice_number": "876543",
         "non_delivery": "return",
-        "incoterm": "DAP"
+        "incoterm": "DAP",
+        "shipping_value": {
+          "amount": 98765,
+          "currency": "GBP"
+        }
       },
       "channel": "Amazon"
     }

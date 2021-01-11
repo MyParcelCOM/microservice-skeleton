@@ -43,4 +43,20 @@ class CustomsTest extends TestCase
         $customs = new Customs();
         $this->assertEquals(Customs::NON_DELIVERY_RETURN, $customs->setNonDelivery(Customs::NON_DELIVERY_RETURN)->getNonDelivery());
     }
+
+
+    /** @test */
+    public function testShippingValue()
+    {
+        $customs = new Customs();
+
+        $this->assertNull($customs->getShippingValueAmount());
+        $this->assertNull($customs->getShippingValueCurrency());
+
+        $customs->setShippingValueAmount(12345);
+        $customs->setShippingValueCurrency('GBP');
+
+        $this->assertEquals(12345, $customs->getShippingValueAmount());
+        $this->assertEquals('GBP', $customs->getShippingValueCurrency());
+    }
 }

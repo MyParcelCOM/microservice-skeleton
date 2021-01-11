@@ -30,6 +30,12 @@ class Customs
     /** @var string|null */
     private $incoterm;
 
+    /** @var int|null */
+    private $shippingValueAmount;
+
+    /** @var string|null */
+    private $shippingValueCurrency;
+
     /**
      * @return string|null
      */
@@ -102,6 +108,45 @@ class Customs
     public function setIncoterm(?string $incoterm): self
     {
         $this->incoterm = $incoterm;
+
+        return $this;
+    }
+
+
+    /**
+     * @return int|null
+     */
+    public function getShippingValueAmount(): ?int
+    {
+        return $this->shippingValueAmount;
+    }
+
+    /**
+     * @param int|null $shippingValueAmount
+     * @return $this
+     */
+    public function setShippingValueAmount(?int $shippingValueAmount): self
+    {
+        $this->shippingValueAmount = $shippingValueAmount;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getShippingValueCurrency(): ?string
+    {
+        return $this->shippingValueCurrency;
+    }
+
+    /**
+     * @param string|null $shippingValueCurrency
+     * @return $this
+     */
+    public function setShippingValueCurrency(?string $shippingValueCurrency): self
+    {
+        $this->shippingValueCurrency = $shippingValueCurrency;
 
         return $this;
     }
