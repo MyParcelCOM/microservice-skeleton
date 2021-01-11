@@ -85,10 +85,12 @@ class ShipmentTransformerTest extends TestCase
         ]);
 
         $customs = Mockery::mock(Customs::class, [
-            'getContentType'   => Customs::CONTENT_TYPE_DOCUMENTS,
-            'getInvoiceNumber' => 'V01C3',
-            'getNonDelivery'   => Customs::NON_DELIVERY_ABANDON,
-            'getIncoterm'      => Customs::INCOTERM_DELIVERED_AT_PLACE,
+            'getContentType'           => Customs::CONTENT_TYPE_DOCUMENTS,
+            'getInvoiceNumber'         => 'V01C3',
+            'getNonDelivery'           => Customs::NON_DELIVERY_ABANDON,
+            'getIncoterm'              => Customs::INCOTERM_DELIVERED_AT_PLACE,
+            'getShippingValueAmount'   => 6456,
+            'getShippingValueCurrency' => 'EUR',
         ]);
 
         $this->shipmentTransformer = (new ShipmentTransformer($transformerFactory))
@@ -288,6 +290,10 @@ class ShipmentTransformerTest extends TestCase
                 'invoice_number' => 'V01C3',
                 'incoterm'       => Customs::INCOTERM_DELIVERED_AT_PLACE,
                 'non_delivery'   => Customs::NON_DELIVERY_ABANDON,
+                'shipping_value' => [
+                    'amount'   => 6456,
+                    'currency' => 'EUR',
+                ],
             ],
             'myparcelcom_shipment_id' => 'bbacd0c7-9ec5-42df-9870-443b8e1a7155',
         ], $this->shipmentTransformer->getAttributes($this->shipment));
@@ -413,6 +419,10 @@ class ShipmentTransformerTest extends TestCase
                         'invoice_number' => 'V01C3',
                         'incoterm'       => Customs::INCOTERM_DELIVERED_AT_PLACE,
                         'non_delivery'   => Customs::NON_DELIVERY_ABANDON,
+                        'shipping_value' => [
+                            'amount'   => 6456,
+                            'currency' => 'EUR',
+                        ],
                     ],
                     'myparcelcom_shipment_id' => 'bbacd0c7-9ec5-42df-9870-443b8e1a7155',
                     'tracking_code'           => 'TR4CK1NGC0D3',
