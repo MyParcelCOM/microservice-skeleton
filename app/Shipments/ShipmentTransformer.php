@@ -96,6 +96,11 @@ class ShipmentTransformer extends AbstractTransformer
                 'invoice_number' => $shipment->getCustoms()->getInvoiceNumber(),
                 'non_delivery'   => $shipment->getCustoms()->getNonDelivery(),
                 'incoterm'       => $shipment->getCustoms()->getIncoterm(),
+                'shipping_value' => $shipment->getCustoms()->getShippingValueAmount() ?
+                    [
+                        'amount'   => $shipment->getCustoms()->getShippingValueAmount(),
+                        'currency' => $shipment->getCustoms()->getShippingValueCurrency(),
+                    ] : null,
             ]),
         ]);
     }
