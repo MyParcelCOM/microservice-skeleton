@@ -44,7 +44,6 @@ class CustomsTest extends TestCase
         $this->assertEquals(Customs::NON_DELIVERY_RETURN, $customs->setNonDelivery(Customs::NON_DELIVERY_RETURN)->getNonDelivery());
     }
 
-
     /** @test */
     public function testShippingValue()
     {
@@ -58,5 +57,35 @@ class CustomsTest extends TestCase
 
         $this->assertEquals(12345, $customs->getShippingValueAmount());
         $this->assertEquals('GBP', $customs->getShippingValueCurrency());
+    }
+
+    /** @test */
+    public function testTotalTax()
+    {
+        $customs = new Customs();
+
+        $this->assertNull($customs->getTotalTaxAmount());
+        $this->assertNull($customs->getTotalTaxCurrency());
+
+        $customs->setTotalTaxAmount(58008);
+        $customs->setTotalTaxCurrency('EUR');
+
+        $this->assertEquals(58008, $customs->getTotalTaxAmount());
+        $this->assertEquals('EUR', $customs->getTotalTaxCurrency());
+    }
+
+    /** @test */
+    public function testTotalDuty()
+    {
+        $customs = new Customs();
+
+        $this->assertNull($customs->getTotalDutyAmount());
+        $this->assertNull($customs->getTotalDutyCurrency());
+
+        $customs->setTotalDutyAmount(737);
+        $customs->setTotalDutyCurrency('USD');
+
+        $this->assertEquals(737, $customs->getTotalDutyAmount());
+        $this->assertEquals('USD', $customs->getTotalDutyCurrency());
     }
 }
