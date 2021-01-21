@@ -33,6 +33,18 @@ class ShipmentItem
     /** @var int|null */
     protected $itemWeight;
 
+    /** @var int|null */
+    protected $itemTaxAmount;
+
+    /** @var string|null */
+    protected $itemTaxCurrency;
+
+    /** @var int|null */
+    protected $itemDutyAmount;
+
+    /** @var string|null */
+    protected $itemDutyCurrency;
+
     /**
      * @param string|null $sku
      * @return $this
@@ -200,6 +212,82 @@ class ShipmentItem
     public function setItemWeight(?int $itemWeight): self
     {
         $this->itemWeight = $itemWeight;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getItemTaxAmount(): ?int
+    {
+        return $this->itemTaxAmount;
+    }
+
+    /**
+     * @param int|null $itemTaxAmount
+     * @return $this
+     */
+    public function setItemTaxAmount(?int $itemTaxAmount): self
+    {
+        $this->itemTaxAmount = $itemTaxAmount;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getItemTaxCurrency(): ?string
+    {
+        return $this->itemTaxCurrency;
+    }
+
+    /**
+     * @param string|null $itemTaxCurrency
+     * @return $this
+     */
+    public function setItemTaxCurrency(?string $itemTaxCurrency): self
+    {
+        $this->itemTaxCurrency = $itemTaxCurrency;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getItemDutyAmount(): ?int
+    {
+        return $this->itemDutyAmount;
+    }
+
+    /**
+     * @param int|null $itemDutyAmount
+     * @return $this
+     */
+    public function setItemDutyAmount(?int $itemDutyAmount): self
+    {
+        $this->itemDutyAmount = $itemDutyAmount;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getItemDutyCurrency(): ?string
+    {
+        return $this->itemDutyCurrency;
+    }
+
+    /**
+     * @param string|null $itemDutyCurrency
+     * @return $this
+     */
+    public function setItemDutyCurrency(?string $itemDutyCurrency): self
+    {
+        $this->itemDutyCurrency = $itemDutyCurrency;
 
         return $this;
     }

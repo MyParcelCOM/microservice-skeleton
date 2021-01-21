@@ -19,10 +19,10 @@ class Customs
     const INCOTERM_DUTY_DELIVERY_PAID = 'DDP';
 
     /** @var string|null */
-    protected $contentType;
+    private $contentType;
 
     /** @var string|null */
-    protected $invoiceNumber;
+    private $invoiceNumber;
 
     /** @var string|null */
     private $nonDelivery;
@@ -35,6 +35,18 @@ class Customs
 
     /** @var string|null */
     private $shippingValueCurrency;
+
+    /** @var int|null */
+    private $totalTaxAmount;
+
+    /** @var string|null */
+    private $totalTaxCurrency;
+
+    /** @var int|null */
+    private $totalDutyAmount;
+
+    /** @var string|null */
+    private $totalDutyCurrency;
 
     /**
      * @return string|null
@@ -112,7 +124,6 @@ class Customs
         return $this;
     }
 
-
     /**
      * @return int|null
      */
@@ -147,6 +158,82 @@ class Customs
     public function setShippingValueCurrency(?string $shippingValueCurrency): self
     {
         $this->shippingValueCurrency = $shippingValueCurrency;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getTotalTaxAmount(): ?int
+    {
+        return $this->totalTaxAmount;
+    }
+
+    /**
+     * @param int|null $totalTaxAmount
+     * @return $this
+     */
+    public function setTotalTaxAmount(?int $totalTaxAmount): self
+    {
+        $this->totalTaxAmount = $totalTaxAmount;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTotalTaxCurrency(): ?string
+    {
+        return $this->totalTaxCurrency;
+    }
+
+    /**
+     * @param string|null $totalTaxCurrency
+     * @return $this
+     */
+    public function setTotalTaxCurrency(?string $totalTaxCurrency): self
+    {
+        $this->totalTaxCurrency = $totalTaxCurrency;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getTotalDutyAmount(): ?int
+    {
+        return $this->totalDutyAmount;
+    }
+
+    /**
+     * @param int|null $totalDutyAmount
+     * @return $this
+     */
+    public function setTotalDutyAmount(?int $totalDutyAmount): self
+    {
+        $this->totalDutyAmount = $totalDutyAmount;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTotalDutyCurrency(): ?string
+    {
+        return $this->totalDutyCurrency;
+    }
+
+    /**
+     * @param string|null $totalDutyCurrency
+     * @return $this
+     */
+    public function setTotalDutyCurrency(?string $totalDutyCurrency): self
+    {
+        $this->totalDutyCurrency = $totalDutyCurrency;
 
         return $this;
     }

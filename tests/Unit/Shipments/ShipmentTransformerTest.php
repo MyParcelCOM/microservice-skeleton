@@ -82,6 +82,10 @@ class ShipmentTransformerTest extends TestCase
             'getOriginCountryCode' => 'CN',
             'getItemValueAmount'   => 100000000,
             'getItemValueCurrency' => 'USD',
+            'getItemTaxAmount'     => 8008,
+            'getItemTaxCurrency'   => 'EUR',
+            'getItemDutyAmount'    => 707,
+            'getItemDutyCurrency'  => 'USD',
         ]);
 
         $customs = Mockery::mock(Customs::class, [
@@ -91,6 +95,10 @@ class ShipmentTransformerTest extends TestCase
             'getIncoterm'              => Customs::INCOTERM_DELIVERED_AT_PLACE,
             'getShippingValueAmount'   => 6456,
             'getShippingValueCurrency' => 'EUR',
+            'getTotalTaxAmount'        => 58008,
+            'getTotalTaxCurrency'      => 'EUR',
+            'getTotalDutyAmount'       => 737,
+            'getTotalDutyCurrency'     => 'USD',
         ]);
 
         $this->shipmentTransformer = (new ShipmentTransformer($transformerFactory))
@@ -283,6 +291,14 @@ class ShipmentTransformerTest extends TestCase
                         'amount'   => 100000000,
                         'currency' => 'USD',
                     ],
+                    'item_tax'            => [
+                        'amount'   => 8008,
+                        'currency' => 'EUR',
+                    ],
+                    'item_duty'           => [
+                        'amount'   => 707,
+                        'currency' => 'USD',
+                    ],
                 ],
             ],
             'customs'                 => [
@@ -293,6 +309,14 @@ class ShipmentTransformerTest extends TestCase
                 'shipping_value' => [
                     'amount'   => 6456,
                     'currency' => 'EUR',
+                ],
+                'total_tax'      => [
+                    'amount'   => 58008,
+                    'currency' => 'EUR',
+                ],
+                'total_duty'     => [
+                    'amount'   => 737,
+                    'currency' => 'USD',
                 ],
             ],
             'myparcelcom_shipment_id' => 'bbacd0c7-9ec5-42df-9870-443b8e1a7155',
@@ -412,6 +436,14 @@ class ShipmentTransformerTest extends TestCase
                                 'amount'   => 100000000,
                                 'currency' => 'USD',
                             ],
+                            'item_tax'            => [
+                                'amount'   => 8008,
+                                'currency' => 'EUR',
+                            ],
+                            'item_duty'           => [
+                                'amount'   => 707,
+                                'currency' => 'USD',
+                            ],
                         ],
                     ],
                     'customs'                 => [
@@ -422,6 +454,14 @@ class ShipmentTransformerTest extends TestCase
                         'shipping_value' => [
                             'amount'   => 6456,
                             'currency' => 'EUR',
+                        ],
+                        'total_tax'      => [
+                            'amount'   => 58008,
+                            'currency' => 'EUR',
+                        ],
+                        'total_duty'     => [
+                            'amount'   => 737,
+                            'currency' => 'USD',
                         ],
                     ],
                     'myparcelcom_shipment_id' => 'bbacd0c7-9ec5-42df-9870-443b8e1a7155',
