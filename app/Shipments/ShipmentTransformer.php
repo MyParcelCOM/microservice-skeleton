@@ -85,18 +85,18 @@ class ShipmentTransformer extends AbstractTransformer
                     'quantity'            => $item->getQuantity(),
                     'hs_code'             => $item->getHsCode(),
                     'origin_country_code' => $item->getOriginCountryCode(),
-                    'item_value'          => $item->getItemValueAmount() ? [
+                    'item_value'          => $item->getItemValueAmount() === null ? null : [
                         'amount'   => $item->getItemValueAmount(),
                         'currency' => $item->getItemValueCurrency(),
-                    ] : null,
-                    'item_tax'            => $item->getItemTaxAmount() ? [
+                    ],
+                    'item_tax'            => $item->getItemTaxAmount() === null ? null : [
                         'amount'   => $item->getItemTaxAmount(),
                         'currency' => $item->getItemTaxCurrency(),
-                    ] : null,
-                    'item_duty'           => $item->getItemDutyAmount() ? [
+                    ],
+                    'item_duty'           => $item->getItemDutyAmount() === null ? null : [
                         'amount'   => $item->getItemDutyAmount(),
                         'currency' => $item->getItemDutyCurrency(),
-                    ] : null,
+                    ],
                 ]);
             }, $shipment->getItems()),
             'customs'                 => $shipment->getCustoms() === null ? null : array_filter([
@@ -104,18 +104,18 @@ class ShipmentTransformer extends AbstractTransformer
                 'invoice_number' => $shipment->getCustoms()->getInvoiceNumber(),
                 'non_delivery'   => $shipment->getCustoms()->getNonDelivery(),
                 'incoterm'       => $shipment->getCustoms()->getIncoterm(),
-                'shipping_value' => $shipment->getCustoms()->getShippingValueAmount() ? [
+                'shipping_value' => $shipment->getCustoms()->getShippingValueAmount() === null ? null : [
                     'amount'   => $shipment->getCustoms()->getShippingValueAmount(),
                     'currency' => $shipment->getCustoms()->getShippingValueCurrency(),
-                ] : null,
-                'total_tax'      => $shipment->getCustoms()->getTotalTaxAmount() ? [
+                ],
+                'total_tax'      => $shipment->getCustoms()->getTotalTaxAmount() === null ? null : [
                     'amount'   => $shipment->getCustoms()->getTotalTaxAmount(),
                     'currency' => $shipment->getCustoms()->getTotalTaxCurrency(),
-                ] : null,
-                'total_duty'     => $shipment->getCustoms()->getTotalDutyAmount() ? [
+                ],
+                'total_duty'     => $shipment->getCustoms()->getTotalDutyAmount() === null ? null : [
                     'amount'   => $shipment->getCustoms()->getTotalDutyAmount(),
                     'currency' => $shipment->getCustoms()->getTotalDutyCurrency(),
-                ] : null,
+                ],
             ]),
         ]);
     }
