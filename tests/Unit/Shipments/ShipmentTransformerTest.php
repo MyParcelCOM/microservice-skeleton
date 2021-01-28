@@ -82,10 +82,10 @@ class ShipmentTransformerTest extends TestCase
             'getOriginCountryCode' => 'CN',
             'getItemValueAmount'   => 100000000,
             'getItemValueCurrency' => 'USD',
-            'getItemTaxAmount'     => 8008,
-            'getItemTaxCurrency'   => 'EUR',
-            'getItemDutyAmount'    => 707,
-            'getItemDutyCurrency'  => 'USD',
+            'getTaxAmount'         => 8008,
+            'getTaxCurrency'       => 'EUR',
+            'getDutyAmount'        => 707,
+            'getDutyCurrency'      => 'USD',
         ]);
 
         $customs = Mockery::mock(Customs::class, [
@@ -291,11 +291,11 @@ class ShipmentTransformerTest extends TestCase
                         'amount'   => 100000000,
                         'currency' => 'USD',
                     ],
-                    'item_tax'            => [
+                    'tax'                 => [
                         'amount'   => 8008,
                         'currency' => 'EUR',
                     ],
-                    'item_duty'           => [
+                    'duty'                => [
                         'amount'   => 707,
                         'currency' => 'USD',
                     ],
@@ -436,11 +436,11 @@ class ShipmentTransformerTest extends TestCase
                                 'amount'   => 100000000,
                                 'currency' => 'USD',
                             ],
-                            'item_tax'            => [
+                            'tax'                 => [
                                 'amount'   => 8008,
                                 'currency' => 'EUR',
                             ],
-                            'item_duty'           => [
+                            'duty'                => [
                                 'amount'   => 707,
                                 'currency' => 'USD',
                             ],

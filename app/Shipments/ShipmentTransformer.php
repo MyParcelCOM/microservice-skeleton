@@ -89,13 +89,13 @@ class ShipmentTransformer extends AbstractTransformer
                         'amount'   => $item->getItemValueAmount(),
                         'currency' => $item->getItemValueCurrency(),
                     ],
-                    'item_tax'            => $item->getItemTaxAmount() === null ? null : [
-                        'amount'   => $item->getItemTaxAmount(),
-                        'currency' => $item->getItemTaxCurrency(),
+                    'tax'                 => $item->getTaxAmount() === null ? null : [
+                        'amount'   => $item->getTaxAmount(),
+                        'currency' => $item->getTaxCurrency(),
                     ],
-                    'item_duty'           => $item->getItemDutyAmount() === null ? null : [
-                        'amount'   => $item->getItemDutyAmount(),
-                        'currency' => $item->getItemDutyCurrency(),
+                    'duty'                => $item->getDutyAmount() === null ? null : [
+                        'amount'   => $item->getDutyAmount(),
+                        'currency' => $item->getDutyCurrency(),
                     ],
                 ]);
             }, $shipment->getItems()),
