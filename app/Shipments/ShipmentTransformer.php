@@ -78,29 +78,44 @@ class ShipmentTransformer extends AbstractTransformer
                 ];
             }, $shipment->getFiles()),
             'items'                   => array_map(function (ShipmentItem $item) {
-                return [
+                return array_filter([
                     'sku'                 => $item->getSku(),
                     'description'         => $item->getDescription(),
                     'image_url'           => $item->getImageUrl(),
                     'quantity'            => $item->getQuantity(),
                     'hs_code'             => $item->getHsCode(),
                     'origin_country_code' => $item->getOriginCountryCode(),
-                    'item_value'          => [
+                    'item_value'          => $item->getItemValueAmount() === null ? null : [
                         'amount'   => $item->getItemValueAmount(),
                         'currency' => $item->getItemValueCurrency(),
                     ],
-                ];
+                    'tax'                 => $item->getTaxAmount() === null ? null : [
+                        'amount'   => $item->getTaxAmount(),
+                        'currency' => $item->getTaxCurrency(),
+                    ],
+                    'duty'                => $item->getDutyAmount() === null ? null : [
+                        'amount'   => $item->getDutyAmount(),
+                        'currency' => $item->getDutyCurrency(),
+                    ],
+                ]);
             }, $shipment->getItems()),
             'customs'                 => $shipment->getCustoms() === null ? null : array_filter([
                 'content_type'   => $shipment->getCustoms()->getContentType(),
                 'invoice_number' => $shipment->getCustoms()->getInvoiceNumber(),
                 'non_delivery'   => $shipment->getCustoms()->getNonDelivery(),
                 'incoterm'       => $shipment->getCustoms()->getIncoterm(),
-                'shipping_value' => $shipment->getCustoms()->getShippingValueAmount() ?
-                    [
-                        'amount'   => $shipment->getCustoms()->getShippingValueAmount(),
-                        'currency' => $shipment->getCustoms()->getShippingValueCurrency(),
-                    ] : null,
+                'shipping_value' => $shipment->getCustoms()->getShippingValueAmount() === null ? null : [
+                    'amount'   => $shipment->getCustoms()->getShippingValueAmount(),
+                    'currency' => $shipment->getCustoms()->getShippingValueCurrency(),
+                ],
+                'total_tax'      => $shipment->getCustoms()->getTotalTaxAmount() === null ? null : [
+                    'amount'   => $shipment->getCustoms()->getTotalTaxAmount(),
+                    'currency' => $shipment->getCustoms()->getTotalTaxCurrency(),
+                ],
+                'total_duty'     => $shipment->getCustoms()->getTotalDutyAmount() === null ? null : [
+                    'amount'   => $shipment->getCustoms()->getTotalDutyAmount(),
+                    'currency' => $shipment->getCustoms()->getTotalDutyCurrency(),
+                ],
             ]),
         ]);
     }

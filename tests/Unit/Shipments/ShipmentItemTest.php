@@ -75,4 +75,34 @@ class ShipmentItemTest extends TestCase
         $this->assertNull($item->getItemWeight());
         $this->assertEquals(37, $item->setItemWeight(37)->getItemWeight());
     }
+
+    /** @test */
+    public function testTax()
+    {
+        $item = new ShipmentItem();
+
+        $this->assertNull($item->getTaxAmount());
+        $this->assertNull($item->getTaxCurrency());
+
+        $item->setTaxAmount(8008);
+        $item->setTaxCurrency('EUR');
+
+        $this->assertEquals(8008, $item->getTaxAmount());
+        $this->assertEquals('EUR', $item->getTaxCurrency());
+    }
+
+    /** @test */
+    public function testDuty()
+    {
+        $item = new ShipmentItem();
+
+        $this->assertNull($item->getDutyAmount());
+        $this->assertNull($item->getDutyCurrency());
+
+        $item->setDutyAmount(707);
+        $item->setDutyCurrency('USD');
+
+        $this->assertEquals(707, $item->getDutyAmount());
+        $this->assertEquals('USD', $item->getDutyCurrency());
+    }
 }
