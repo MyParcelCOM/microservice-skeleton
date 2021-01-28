@@ -34,16 +34,16 @@ class ShipmentItem
     protected $itemWeight;
 
     /** @var int|null */
-    protected $itemTaxAmount;
+    protected $taxAmount;
 
     /** @var string|null */
-    protected $itemTaxCurrency;
+    protected $taxCurrency;
 
     /** @var int|null */
-    protected $itemDutyAmount;
+    protected $dutyAmount;
 
     /** @var string|null */
-    protected $itemDutyCurrency;
+    protected $dutyCurrency;
 
     /**
      * @param string|null $sku
@@ -219,18 +219,18 @@ class ShipmentItem
     /**
      * @return int|null
      */
-    public function getItemTaxAmount(): ?int
+    public function getTaxAmount(): ?int
     {
-        return $this->itemTaxAmount;
+        return $this->taxAmount;
     }
 
     /**
-     * @param int|null $itemTaxAmount
+     * @param int|null $taxAmount
      * @return $this
      */
-    public function setItemTaxAmount(?int $itemTaxAmount): self
+    public function setTaxAmount(?int $taxAmount): self
     {
-        $this->itemTaxAmount = $itemTaxAmount;
+        $this->taxAmount = $taxAmount;
 
         return $this;
     }
@@ -238,18 +238,18 @@ class ShipmentItem
     /**
      * @return string|null
      */
-    public function getItemTaxCurrency(): ?string
+    public function getTaxCurrency(): ?string
     {
-        return $this->itemTaxCurrency;
+        return $this->taxCurrency;
     }
 
     /**
-     * @param string|null $itemTaxCurrency
+     * @param string|null $taxCurrency
      * @return $this
      */
-    public function setItemTaxCurrency(?string $itemTaxCurrency): self
+    public function setTaxCurrency(?string $taxCurrency): self
     {
-        $this->itemTaxCurrency = $itemTaxCurrency;
+        $this->taxCurrency = $taxCurrency;
 
         return $this;
     }
@@ -257,18 +257,18 @@ class ShipmentItem
     /**
      * @return int|null
      */
-    public function getItemDutyAmount(): ?int
+    public function getDutyAmount(): ?int
     {
-        return $this->itemDutyAmount;
+        return $this->dutyAmount;
     }
 
     /**
-     * @param int|null $itemDutyAmount
+     * @param int|null $dutyAmount
      * @return $this
      */
-    public function setItemDutyAmount(?int $itemDutyAmount): self
+    public function setDutyAmount(?int $dutyAmount): self
     {
-        $this->itemDutyAmount = $itemDutyAmount;
+        $this->dutyAmount = $dutyAmount;
 
         return $this;
     }
@@ -276,18 +276,18 @@ class ShipmentItem
     /**
      * @return string|null
      */
-    public function getItemDutyCurrency(): ?string
+    public function getDutyCurrency(): ?string
     {
-        return $this->itemDutyCurrency;
+        return $this->dutyCurrency;
     }
 
     /**
-     * @param string|null $itemDutyCurrency
+     * @param string|null $dutyCurrency
      * @return $this
      */
-    public function setItemDutyCurrency(?string $itemDutyCurrency): self
+    public function setDutyCurrency(?string $dutyCurrency): self
     {
-        $this->itemDutyCurrency = $itemDutyCurrency;
+        $this->dutyCurrency = $dutyCurrency;
 
         return $this;
     }
