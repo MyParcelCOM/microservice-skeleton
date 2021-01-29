@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: docker/app/Dockerfile
+      args:
+        REGISTRY: ${REGISTRY}
     image: myparcelcom/microservice:v7-dev
     working_dir: /opt/app
     environment:
