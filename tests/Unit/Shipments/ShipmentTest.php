@@ -211,4 +211,21 @@ class ShipmentTest extends TestCase
             'currency' => 'BAR',
         ], $this->shipment->getTotalValue());
     }
+
+    public function testTaxIdentificationNumbers()
+    {
+        $this->assertEquals([], $this->shipment->getTaxIdentificationNumbers());
+
+        $taxIdentificationNumber = [
+            'country_code' => 'GB',
+            'number'       => 'XI123456789',
+            'type'         => 'eori',
+        ];
+
+        $this->shipment->setTaxIdentificationNumbers([$taxIdentificationNumber]);
+
+        $this->assertEquals([$taxIdentificationNumber], $this->shipment->getTaxIdentificationNumbers());
+        $this->assertEquals('XI123456789', $this->shipment->getTaxIdentificationNumber('eori', 'GB'));
+        $this->assertNull($this->shipment->getTaxIdentificationNumber('eori', 'GG'));
+    }
 }

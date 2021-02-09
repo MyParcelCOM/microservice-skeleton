@@ -83,6 +83,9 @@ class Shipment
     /** @var string|null */
     protected $channel;
 
+    /** @var array */
+    protected $taxIdentificationNumbers = [];
+
     /**
      * @return string
      */
@@ -593,6 +596,41 @@ class Shipment
                 'amount'   => $totalItemValue,
                 'currency' => $totalItemCurrency,
             ];
+        }
+
+        return null;
+    }
+
+    /**
+     * @param array $taxIdentificationNumbers
+     * @return $this
+     */
+    public function setTaxIdentificationNumbers(array $taxIdentificationNumbers): self
+    {
+        $this->taxIdentificationNumbers = $taxIdentificationNumbers;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTaxIdentificationNumbers(): array
+    {
+        return $this->taxIdentificationNumbers;
+    }
+
+    /**
+     * @param string $type
+     * @param string $countryCode
+     * @return string|null
+     */
+    public function getTaxIdentificationNumber(string $type, string $countryCode): ?string
+    {
+        foreach ($this->taxIdentificationNumbers as $number) {
+            if ($number['type'] === $type && $number['country_code'] === $countryCode) {
+                return $number['number'];
+            }
         }
 
         return null;

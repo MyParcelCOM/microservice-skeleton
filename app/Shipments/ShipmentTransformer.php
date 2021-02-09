@@ -33,35 +33,36 @@ class ShipmentTransformer extends AbstractTransformer
         $this->validateModel($shipment);
 
         return array_filter([
-            'myparcelcom_shipment_id' => $shipment->getMyparcelcomShipmentId(),
-            'recipient_address'       => $this->transformAddress($shipment->getRecipientAddress()),
-            'recipient_tax_number'    => $shipment->getRecipientTaxNumber(),
-            'sender_address'          => $this->transformAddress($shipment->getSenderAddress()),
-            'sender_tax_number'       => $shipment->getSenderTaxNumber(),
-            'return_address'          => $this->transformAddress($shipment->getReturnAddress()),
-            'pickup_location'         => $shipment->getPickupLocationCode() === null ? null : [
+            'myparcelcom_shipment_id'    => $shipment->getMyparcelcomShipmentId(),
+            'recipient_address'          => $this->transformAddress($shipment->getRecipientAddress()),
+            'recipient_tax_number'       => $shipment->getRecipientTaxNumber(),
+            'sender_address'             => $this->transformAddress($shipment->getSenderAddress()),
+            'sender_tax_number'          => $shipment->getSenderTaxNumber(),
+            'tax_identification_numbers' => $shipment->getTaxIdentificationNumbers(),
+            'return_address'             => $this->transformAddress($shipment->getReturnAddress()),
+            'pickup_location'            => $shipment->getPickupLocationCode() === null ? null : [
                 'code'    => $shipment->getPickupLocationCode(),
                 'address' => $this->transformAddress($shipment->getPickupLocationAddress()),
             ],
-            'description'             => $shipment->getDescription(),
-            'total_value'             => $shipment->getTotalValueAmount() === null ? null : [
+            'description'                => $shipment->getDescription(),
+            'total_value'                => $shipment->getTotalValueAmount() === null ? null : [
                 'amount'   => $shipment->getTotalValueAmount(),
                 'currency' => $shipment->getTotalValueCurrency(),
             ],
-            'barcode'                 => $shipment->getBarcode(),
-            'tracking_code'           => $shipment->getTrackingCode(),
-            'tracking_url'            => $shipment->getTrackingUrl(),
-            'service'                 => [
+            'barcode'                    => $shipment->getBarcode(),
+            'tracking_code'              => $shipment->getTrackingCode(),
+            'tracking_url'               => $shipment->getTrackingUrl(),
+            'service'                    => [
                 'code' => $shipment->getService()->getCode(),
                 'name' => $shipment->getService()->getName(),
             ],
-            'options'                 => array_map(function (Option $option) {
+            'options'                    => array_map(function (Option $option) {
                 return [
                     'code' => $option->getCode(),
                     'name' => $option->getName(),
                 ];
             }, $shipment->getOptions()),
-            'physical_properties'     => $shipment->getPhysicalProperties() === null ? null : array_filter([
+            'physical_properties'        => $shipment->getPhysicalProperties() === null ? null : array_filter([
                 'height'            => $shipment->getPhysicalProperties()->getHeight(),
                 'width'             => $shipment->getPhysicalProperties()->getWidth(),
                 'length'            => $shipment->getPhysicalProperties()->getLength(),
@@ -69,7 +70,7 @@ class ShipmentTransformer extends AbstractTransformer
                 'weight'            => $shipment->getPhysicalProperties()->getWeight(),
                 'volumetric_weight' => $shipment->getPhysicalProperties()->getVolumetricWeight(),
             ]),
-            'files'                   => array_map(function (File $file) {
+            'files'                      => array_map(function (File $file) {
                 return [
                     'resource_type' => $file->getType(),
                     'mime_type'     => $file->getMimeType(),
@@ -77,7 +78,7 @@ class ShipmentTransformer extends AbstractTransformer
                     'data'          => $file->getData(),
                 ];
             }, $shipment->getFiles()),
-            'items'                   => array_map(function (ShipmentItem $item) {
+            'items'                      => array_map(function (ShipmentItem $item) {
                 return array_filter([
                     'sku'                 => $item->getSku(),
                     'description'         => $item->getDescription(),
@@ -99,7 +100,7 @@ class ShipmentTransformer extends AbstractTransformer
                     ],
                 ]);
             }, $shipment->getItems()),
-            'customs'                 => $shipment->getCustoms() === null ? null : array_filter([
+            'customs'                    => $shipment->getCustoms() === null ? null : array_filter([
                 'content_type'   => $shipment->getCustoms()->getContentType(),
                 'invoice_number' => $shipment->getCustoms()->getInvoiceNumber(),
                 'non_delivery'   => $shipment->getCustoms()->getNonDelivery(),
