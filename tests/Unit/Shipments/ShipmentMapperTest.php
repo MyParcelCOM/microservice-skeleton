@@ -209,6 +209,18 @@ class ShipmentMapperTest extends TestCase
 
                 return $shipment;
             })
+            ->shouldReceive('setTaxIdentificationNumbers')
+            ->andReturnUsing(function (array $taxIdentificationNumbers) use ($shipment) {
+                $this->assertEquals([
+                    [
+                        'country_code' => 'GB',
+                        'number'       => 'XI123456789',
+                        'type'         => 'eori',
+                    ]
+                ], $taxIdentificationNumbers);
+
+                return $shipment;
+            })
             ->shouldReceive('setTotalValueAmount')
             ->andReturnUsing(function (int $totalValueAmount) use ($shipment) {
                 $this->assertEquals(42, $totalValueAmount);
