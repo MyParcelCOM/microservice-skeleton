@@ -28,6 +28,13 @@
         "email": "john@acme.com"
       },
       "sender_tax_number": "G666666-66",
+      "tax_identification_numbers": [
+        {
+          "country_code": "GB",
+          "number": "XI123456789",
+          "type": "eori"
+        }
+      ],
       "return_address": {
         "street_1": "Baker Street",
         "street_number": 221,
