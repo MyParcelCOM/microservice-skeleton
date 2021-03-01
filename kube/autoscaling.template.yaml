@@ -27,7 +27,7 @@ metadata:
   name: ${CIRCLE_PROJECT_REPONAME}
   namespace: ${NS}
 spec:
-  minAvailable: ${API_PDB_MIN_AVAILABLE}
+  minAvailable: ${PDB_MIN_AVAILABLE}
   selector:
     matchLabels:
       app: ${CIRCLE_PROJECT_REPONAME}
