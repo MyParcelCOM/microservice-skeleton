@@ -25,5 +25,8 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::middleware('api')
             ->group(base_path('routes/api.php'));
+
+        Route::prefix('')
+            ->group(base_path('routes/healthz.php'));
     }
 }
