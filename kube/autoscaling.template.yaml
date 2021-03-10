@@ -20,3 +20,14 @@ spec:
         target:
           type: Utilization
           averageUtilization: ${AVERAGE_CPU_UTILIZATION_PERCENTAGE}
+---
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: ${CIRCLE_PROJECT_REPONAME}
+  namespace: ${NS}
+spec:
+  minAvailable: ${PDB_MIN_AVAILABLE}
+  selector:
+    matchLabels:
+      app: ${CIRCLE_PROJECT_REPONAME}

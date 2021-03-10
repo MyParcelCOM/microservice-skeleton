@@ -23,8 +23,6 @@ class Kernel extends HttpKernel
     protected $middleware = [
         CheckForMaintenanceMode::class,
         ValidatePostSize::class,
-        VerifySecret::class,
-        ExtractCredentials::class,
         JsonApiResponseHeader::class,
     ];
 
@@ -34,6 +32,9 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middlewareGroups = [
-        'api' => [],
+        'api' => [
+            VerifySecret::class,
+            ExtractCredentials::class,
+        ],
     ];
 }

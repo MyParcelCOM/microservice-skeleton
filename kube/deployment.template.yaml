@@ -36,8 +36,18 @@ spec:
             requests:
               memory: ${RESOURCES_REQ_MEM}
               cpu: ${RESOURCES_REQ_CPU}
-      imagePullSecrets:
-        - name: docker-hub
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 10
   strategy:
     type: RollingUpdate
     rollingUpdate:
