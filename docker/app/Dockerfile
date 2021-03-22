@@ -20,5 +20,3 @@ RUN composer install --no-dev \
 
 # Copy swagger bundle
 COPY --from=bundles /build/carrier-specification/dist/swagger.json /opt/app/vendor/myparcelcom/carrier-specification/dist/swagger.json
-
-ENV XDEBUG_IDE_KEY myparcelcom_microservice

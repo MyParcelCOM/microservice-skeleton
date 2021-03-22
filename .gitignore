@@ -1,4 +1,5 @@
 /.env
+/.env.xdebug
 /.idea
 /build
 /composer.lock

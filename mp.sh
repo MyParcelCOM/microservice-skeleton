@@ -19,6 +19,18 @@ function createMicronet {
 
 ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
+# Check if the file with environment variables for Xdebug exists, otherwise copy the default file.
+if [ ! -f ${ROOT_DIR}/.env.xdebug ]; then
+  if [ ! -f ${ROOT_DIR}/.env.xdebug.dist ]; then
+    echo -e "\033[0;97;101m Unable to locate .env.xdebug.dist file \033[0m" >&2
+    exit 1
+  fi
+
+  cp -a ${ROOT_DIR}/.env.xdebug.dist ${ROOT_DIR}/.env.xdebug
+
+  echo -e "\033[0;30;47m .env.xdebug file has been created \033[0m"
+fi
+
 # Check if the file with environment variables exists, otherwise copy the default file.
 if [ ! -f ${ROOT_DIR}/.env ]; then
   if [ ! -f ${ROOT_DIR}/.env.dist ]; then
