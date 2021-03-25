@@ -9,11 +9,11 @@ services:
         REGISTRY: ${REGISTRY}
     image: myparcelcom/microservice:v7-dev
     working_dir: /opt/app
+    env_file: .env.xdebug
     environment:
+      - APP_ENV=$APP_ENV
       - APP_DOMAIN=$APP_DOMAIN
       - APP_LOG_LEVEL=$APP_LOG_LEVEL
-      - XDEBUG_IDE_KEY=$XDEBUG_IDE_KEY
-      - XDEBUG_PORT=$XDEBUG_PORT
     ports:
       - $APP_PORT:443
     volumes:

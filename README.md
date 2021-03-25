@@ -22,6 +22,7 @@ It basically comes down to the following:
 - [Composer commands](#composer-commands)
 - [Xdebug](#xdebug)
 - [PhpStorm setup](#phpstorm-setup)
+- [Visual Studio Code setup](#visual-studio-code-setup)
 
 ### Installation
 The project uses Docker to run a local development environment. To install Docker, follow the steps in the [documentation](https://docs.myparcel.com/development/docker/).
@@ -108,9 +109,11 @@ alias mp="./mp.sh"
 ```
 
 ### Xdebug
-To use Xdebug from your IDE you only have to configure the IDE. The used configuration can be found in `docker/app/conf/xdebug.ini`. Below are the steps to setup **PhpStorm**.
+To use Xdebug from your IDE you only have to configure the IDE. The used configuration can be found in `.env.xdebug`.
 
 #### PhpStorm setup
+Below are the steps to setup **Xdebug** on **PhpStorm**.
+
 1. Go to `Settings -> Languages & Frameworks -> PHP -> Servers` and add a new server.
     1. Set a fancy name.
     2. For host and port use the address you use on your local machine to reach the api.
@@ -120,4 +123,38 @@ To use Xdebug from your IDE you only have to configure the IDE. The used configu
 2. Go to `Run -> Edit configurations` and add a new `PHP Remote Debug` configuration.
     1. Set a fancy name.
     2. Choose your previously created server.
-    3. Set the Ide key to the `XDEBUG_IDE_KEY` in your `.env`.
+    3. Set the IDE key to the `XDEBUG_IDE_KEY` in your `.env.xdebug`.
+
+#### Visual Studio Code setup
+Below are the steps to setup **Xdebug** on **Visual Studio Code**.
+
+1. Install the `felixfbecker.php-debug` extension (you can use the integrated marketplace).
+2. Go to the `Run` tab (`Ctrl-Shift-D`).
+3. Create a `launch.json` configuration file and make it similar to this example:
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Listen for XDebug on Docker App",
+            "type": "php",
+            "request": "launch",
+            "port": 9003,
+            "pathMappings": {
+                "/opt/app": "${workspaceFolder}"
+            },
+            "hostname": "localhost",
+            "xdebugSettings": {
+                "max_data": 65535,
+                "show_hidden": 1,
+                "max_children": 100,
+                "max_depth": 5
+            }
+        }
+    ]
+}
+```
+4. Check your `.env.xdebug` file and modify `XDEBUG_CONFIG` if necessary (the default configuration should work fine for WSL2/Docker).
+5. You should be good to go. Start the debugger (`F5`) and test it out.
+
+*Additional notes regarding `launch.json` file: Setting `hostname` to `localhost` is needed for WSL2/Docker at least. All `xdebugSettings` can be found here: https://xdebug.org/docs/dbgp#feature-names*
