@@ -49,7 +49,7 @@ jobs:
       - run:
           name: Deploy to docker
           command: |
-            IMAGE_NAME="${ECR_REGISTRY}/myparcelcom/${CIRCLE_PROJECT_REPONAME}:$(image_tag)"
+            IMAGE_NAME="${ECR_REGISTRY}/myparcelcom/${CIRCLE_PROJECT_REPONAME}:$(image_tag --next-gen)"
 
             docker build \
               -t ${IMAGE_NAME} \
@@ -57,53 +57,6 @@ jobs:
               --build-arg REGISTRY=${ECR_REGISTRY} \
               -f docker/app/Dockerfile .
             docker push ${IMAGE_NAME}
-
-  deploy:
-    docker:
-      - image: myparcelcom/build-utils
-        auth:
-          username: ${DOCKER_CLOUD_USER}
-          password: ${DOCKER_CLOUD_PASSWORD}
-    parameters:
-      is_sandbox:
-        type: string
-        default: "false"
-    environment:
-      IS_SANDBOX: <<parameters.is_sandbox>>
-    steps:
-      - checkout
-      - run:
-          name: Bootstrap AWS EKS and kubectl
-          command: kubectl-config
-      - run:
-          name: Process templates
-          command: |
-            export NS=$(env_namespace)
-            export IMAGE_NAME=${CIRCLE_PROJECT_REPONAME}
-            export IMAGE_TAG=$(image_tag)
-
-            eval $(aws-ssm-params ${NS}) # fetch global settings
-            eval $(aws-ssm-params ${NS}/${CIRCLE_PROJECT_REPONAME}) # fetch project settings
-            $(cat kube/secrets.template.yaml | yq -r '.data | keys[]' | encode_secrets) # base64 encode secrets
-
-            envsubst < kube/configmap.template.yaml > kube/configmap.yaml
-            envsubst < kube/secrets.template.yaml > kube/secrets.yaml
-            envsubst < kube/deployment.template.yaml > kube/deployment.yaml
-            envsubst < kube/autoscaling.template.yaml > kube/autoscaling.yaml
-            envsubst < kube/service.template.yaml > kube/service.yaml
-            envsubst < kube/ingress.template.yaml > kube/ingress.yaml
-      - run:
-          name: Deploy
-          command: |
-            kubectl apply -f kube/configmap.yaml
-            kubectl apply -f kube/secrets.yaml
-            kubectl apply -f kube/deployment.yaml
-            kubectl apply -f kube/autoscaling.yaml
-            kubectl apply -f kube/service.yaml
-
-            if [[ "$(env_namespace)" = "develop" ]] || [[ "$(env_namespace)" = "staging" ]]; then
-              kubectl apply -f kube/ingress.yaml
-            fi
 
 workflows:
   test:
@@ -131,27 +84,6 @@ workflows:
           context: [ "aws", "docker_cloud" ]
           requires:
             - test
-          filters:
-            branches:
-              only:
-                - master
-                - develop
-            tags:
-              only: /^v\d+\.\d+\.\d+-?\d*$/
-      - deploy:
-          context: [ "aws", "docker_cloud" ]
-          is_sandbox: "true"
-          requires:
-            - build
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v\d+\.\d+\.\d+-?\d*$/
-      - deploy:
-          context: [ "aws", "docker_cloud" ]
-          requires:
-            - build
           filters:
             branches:
               only:
