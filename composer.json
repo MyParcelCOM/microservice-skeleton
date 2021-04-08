@@ -15,6 +15,7 @@
     "justinrainbow/json-schema": "^5.2",
     "laravel/framework": "^7.0",
     "laravel/tinker": "^2.0",
+    "myparcelcom/concurrency-safe-migrations": "^0.1.2",
     "myparcelcom/json-api": "^1.0.10",
     "opentracing/opentracing": "1.0.0-beta5",
     "predis/predis": "^1.1",
