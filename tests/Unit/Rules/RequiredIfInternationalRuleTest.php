@@ -7,6 +7,7 @@ namespace MyParcelCom\Microservice\Tests\Unit\Rules;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\Validator;
 use MyParcelCom\Microservice\Tests\TestCase;
+
 use function GuzzleHttp\json_decode;
 
 class RequiredIfInternationalRuleTest extends TestCase

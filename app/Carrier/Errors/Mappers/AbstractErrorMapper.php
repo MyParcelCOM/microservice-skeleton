@@ -87,7 +87,8 @@ abstract class AbstractErrorMapper implements ErrorMapperInterface
         }
 
         // If the request contains input errors
-        if (in_array(InvalidInputContextError::class, $errorClasses)
+        if (
+            in_array(InvalidInputContextError::class, $errorClasses)
             || in_array(InvalidInputError::class, $errorClasses)
             || in_array(MissingInputError::class, $errorClasses)
         ) {
