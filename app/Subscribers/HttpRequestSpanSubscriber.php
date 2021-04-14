@@ -19,7 +19,9 @@ use OpenTracing\Reference;
 use OpenTracing\SpanContext;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
+
 use function in_array;
+
 use const OpenTracing\Formats\TEXT_MAP;
 
 class HttpRequestSpanSubscriber
