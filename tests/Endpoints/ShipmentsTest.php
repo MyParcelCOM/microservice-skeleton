@@ -7,6 +7,7 @@ namespace MyParcelCom\Microservice\Tests\Endpoints;
 use MyParcelCom\Microservice\Tests\TestCase;
 use MyParcelCom\Microservice\Tests\Traits\CommunicatesWithCarrier;
 use MyParcelCom\Microservice\Tests\Traits\JsonApiAssertionsTrait;
+
 use function GuzzleHttp\json_decode;
 
 /**

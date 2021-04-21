@@ -8,7 +8,9 @@ use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\ServiceProvider;
 use Jaeger\Config;
 use Jaeger\Jaeger;
+
 use function config;
+
 use const Jaeger\Constants\PROPAGATOR_ZIPKIN;
 
 class JaegerServiceProvider extends ServiceProvider

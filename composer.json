@@ -15,6 +15,7 @@
     "justinrainbow/json-schema": "^5.2",
     "laravel/framework": "^7.0",
     "laravel/tinker": "^2.0",
+    "myparcelcom/concurrency-safe-migrations": "^0.1.2",
     "myparcelcom/json-api": "^1.0.10",
     "opentracing/opentracing": "1.0.0-beta5",
     "predis/predis": "^1.1",
@@ -38,8 +39,8 @@
     }
   },
   "scripts": {
-    "check-style": "vendor/bin/phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 --warning-severity=6 app tests",
-    "fix-style": "vendor/bin/phpcbf -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 --warning-severity=6 app tests",
+    "check-style": "vendor/bin/phpcs -p --standard=PSR12 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 --warning-severity=6 app tests",
+    "fix-style": "vendor/bin/phpcbf -p --standard=PSR12 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 --warning-severity=6 app tests",
     "test": "vendor/bin/phpunit"
   },
   "config": {
