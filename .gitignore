@@ -1,6 +1,7 @@
 /.env
 /.env.xdebug
 /.idea
+/.vscode
 /build
 /composer.lock
 /docker/app/dist/*

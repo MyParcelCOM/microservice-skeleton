@@ -28,6 +28,26 @@ class ShipmentRequest extends FormRequest
     }
 
     /**
+     * More intrusive sanitization rules should only modify the request data
+     * after validation has already occured.
+     *
+     * @return array
+     */
+    protected function sanitizationAfterValidation(): array
+    {
+        return [
+            // Examples:
+            // ---------
+            // 'data.attributes.description' => new MaxCharsSanitization(123),
+            // new MaxCharsCombinedSanitization(123, [
+            //     'data.attributes.recipient_address.street_1',
+            //     'data.attributes.recipient_address.street_number',
+            // ]),
+            // 'data.attributes.physical_properties.weight' => new WithinRangeSanitization(0, 12345),
+        ];
+    }
+
+    /**
      * Define the validation rules that apply to the request.
      * For example: [
      *   'data.attributes.description                   => 'required|string',
