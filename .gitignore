@@ -3,6 +3,7 @@
 /.idea
 /.vscode
 /build
+/composer.lock
 /docker/app/dist/*
 !/docker/app/dist/.gitkeep
 /vendor
