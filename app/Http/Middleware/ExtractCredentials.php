@@ -39,7 +39,6 @@ class ExtractCredentials
             ->when([ShipmentRequest::class, ShipmentRepository::class])
             ->needs('$suspendValidation')
             ->give(function () use ($credentials) {
-                // FIXME: Get this value from somewhere else
                 return Arr::get($credentials, 'suspend_validation', false);
             });
 
