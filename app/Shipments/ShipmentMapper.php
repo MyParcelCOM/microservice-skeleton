@@ -164,7 +164,7 @@ class ShipmentMapper implements MapperInterface
     protected function mapAddress(array $data, Address $address): Address
     {
         if (isset($data['street_1'])) {
-            $address->setStreet1((string) $data['street_1']);
+            $address->setStreet1((string) $data['street_1'], !isset($data['street_number']));
         }
         if (isset($data['street_2'])) {
             $address->setStreet2($data['street_2']);

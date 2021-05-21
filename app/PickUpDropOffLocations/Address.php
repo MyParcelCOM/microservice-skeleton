@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\PickUpDropOffLocations;
 
+use Illuminate\Support\Arr;
+use VIISON\AddressSplitter\AddressSplitter;
+use VIISON\AddressSplitter\Exceptions\SplittingException;
+
 class Address
 {
     /** @var string|null */
@@ -60,8 +64,19 @@ class Address
      * @param string|null $street1
      * @return $this
      */
-    public function setStreet1(?string $street1): self
+    public function setStreet1(?string $street1, bool $combined = false): self
     {
+        if ($street1 && $combined) {
+            try {
+                $addressBreakdown = AddressSplitter::splitAddress($street1);
+                $street1 = $addressBreakdown['streetName'];
+                $this->setStreetNumber((int) Arr::get($addressBreakdown, 'houseNumberParts.base'));
+                $this->setStreetNumberSuffix(Arr::get($addressBreakdown, 'houseNumberParts.extension'));
+            } catch (SplittingException $e) {
+                // cannot split address, ignore
+            }
+        }
+
         $this->street1 = $street1;
 
         return $this;
