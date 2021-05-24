@@ -19,7 +19,8 @@
     "myparcelcom/json-api": "^1.0.10",
     "opentracing/opentracing": "1.0.0-beta5",
     "predis/predis": "^1.1",
-    "rollbar/rollbar-laravel": "^6.0"
+    "rollbar/rollbar-laravel": "^6.0",
+    "viison/address-splitter": "^0.3.4"
   },
   "require-dev": {
     "mockery/mockery": "^1.3",
