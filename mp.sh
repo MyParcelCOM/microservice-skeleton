@@ -50,7 +50,7 @@ if [ $# -gt 0 ]; then
   createMicronet
 
   # Check if services are running.
-  RUNNING=$(${COMPOSE} ps -q)
+  RUNNING=$(${COMPOSE} ps --services --filter status=running)
 
   # Start services.
   if [ "$1" == "up" ]; then
