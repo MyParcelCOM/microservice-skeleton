@@ -10,23 +10,10 @@ use MyParcelCom\Microservice\Http\Controllers\Controller;
 
 class CredentialController extends Controller
 {
-    /** @var CarrierApiGatewayInterface */
-    protected $carrierApiGateway;
-
     /**
-     * @param CarrierApiGatewayInterface $carrierApiGateway
+     * Validates credentials provided in the X-MYPARCELCOM-CREDENTIALS header.
      */
-    public function __construct(CarrierApiGatewayInterface $carrierApiGateway)
-    {
-        $this->carrierApiGateway = $carrierApiGateway;
-    }
-
-    /**
-     * Validates credentials in the header
-     *
-     * @return JsonResponse
-     */
-    public function validateCredentials(): JsonResponse
+    public function validateCredentials(CarrierApiGatewayInterface $carrierApiGateway): JsonResponse
     {
         // TODO: implement validation check
         // Some carriers may have dedicated endpoints for this. Otherwise you could try one of their GET endpoints and
@@ -37,6 +24,11 @@ class CredentialController extends Controller
             return $this->invalidResponse('Credentials given are invalid');
         }
 
+        return $this->validResponse();
+    }
+
+    private function validResponse(): JsonResponse
+    {
         return new JsonResponse([
             'data' => [
                 'valid' => true,
@@ -44,12 +36,7 @@ class CredentialController extends Controller
         ], JsonResponse::HTTP_OK);
     }
 
-    /**
-     * @param string $message
-     * @param int    $statusCode
-     * @return JsonResponse
-     */
-    protected function invalidResponse(string $message = '', $statusCode = JsonResponse::HTTP_BAD_REQUEST): JsonResponse
+    private function invalidResponse(string $message = '', $statusCode = JsonResponse::HTTP_BAD_REQUEST): JsonResponse
     {
         return new JsonResponse([
             'data' => [
