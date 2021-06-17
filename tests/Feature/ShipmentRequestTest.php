@@ -6,9 +6,12 @@ namespace MyParcelCom\Microservice\Tests\Feature;
 
 use Illuminate\Support\Arr;
 use Mockery;
+use Mockery\MockInterface;
 use MyParcelCom\Microservice\Http\ShipmentRequest;
+use MyParcelCom\Microservice\Rules\Sanitization\MaxCharsSanitization;
 use MyParcelCom\Microservice\Tests\TestCase;
 use MyParcelCom\Microservice\Tests\Traits\CommunicatesWithCarrier;
+use Symfony\Component\HttpFoundation\ParameterBag;
 
 use function GuzzleHttp\json_decode;
 
@@ -109,6 +112,34 @@ class ShipmentRequestTest extends TestCase
         ]);
     }
 
+    /** @test */
+    public function testItSanitizesIncomingData()
+    {
+        $parameters = $this->getShipmentRequestBody();
+        data_set($parameters, 'data.attributes.description', '1234');
+
+        $request = $this->getShipmentRequestMock();
+        $request
+            // No sanitization first time, but do apply sanitization second time
+            ->shouldReceive('sanitizationAfterValidation')
+            ->andReturn([], [
+                'data.attributes.description' => new MaxCharsSanitization(3),
+            ])
+            ->shouldReceive('getInputSource')
+            ->andReturn(new ParameterBag($parameters));
+
+        $request->query = new ParameterBag([]);
+        $request->files = new ParameterBag([]);
+
+        /** @var ShipmentRequest $request */
+
+        // First time it should not be sanitized
+        $this->assertEquals('1234', data_get($request->all(), 'data.attributes.description'));
+
+        // Second time it should be sanitized
+        $this->assertEquals('123', data_get($request->all(), 'data.attributes.description'));
+    }
+
     /**
      * @return array
      */
@@ -125,9 +156,25 @@ class ShipmentRequestTest extends TestCase
     protected function registerShipmentRequestWithRules(array $rules = []): void
     {
         $this->app->singleton(ShipmentRequest::class, function () use ($rules) {
-            return Mockery::mock(ShipmentRequest::class, [
-                'rules' => $rules,
-            ])->makePartial();
+            $mock = $this->getShipmentRequestMock();
+            $mock->shouldReceive('rules')->andReturn($rules);
+
+            return $mock;
         });
+    }
+
+    /**
+     * @return MockInterface
+     */
+    private function getShipmentRequestMock()
+    {
+        /** @var MockInterface */
+        $mock = Mockery::mock(ShipmentRequest::class);
+
+        // We need to mock a few protected methods
+        // Because we want to simulate a few extra sanitization rules
+        $mock->shouldAllowMockingProtectedMethods();
+
+        return $mock->makePartial();
     }
 }

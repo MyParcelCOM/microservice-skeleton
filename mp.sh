@@ -42,7 +42,7 @@ if [ ! -f ${ROOT_DIR}/.env ]; then
 
   echo -e "\033[0;30;47m .env file has been created \033[0m"
 fi
-export $(cat ${ROOT_DIR}/.env | xargs)
+IFS=$'\n' && export $(grep -v '^#' ${ROOT_DIR}/.env | xargs -0) && unset IFS
 
 COMPOSE="docker-compose"
 
@@ -50,7 +50,7 @@ if [ $# -gt 0 ]; then
   createMicronet
 
   # Check if services are running.
-  RUNNING=$(${COMPOSE} ps -q)
+  RUNNING=$(${COMPOSE} ps --services --filter status=running)
 
   # Start services.
   if [ "$1" == "up" ]; then

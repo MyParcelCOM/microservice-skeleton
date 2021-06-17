@@ -64,6 +64,16 @@ When building a microservice, these rules should be added to make sure the reque
 The rules should be added to the `shipmentRules()` method in the `/app/Http/ShipmentRequest.php` file.
 For more information on Laravel's form request validation, see their documentation [here](https://laravel.com/docs/5.5/validation#form-request-validation).
 
+#### Sanitization
+When we pass `suspend_validation` in the `X-MYPARCELCOM-CREDENTIALS` header, this means that we want to bypass validation and always try to send the request.
+
+It is a good idea to at least perform some sanitization in this case.
+These sanitization rules should be added to the `sanitization()` or `sanitizationAfterValidation()` methods in the `/app/Http/ShipmentRequest.php` file.
+
+The `sanitization()` rules will be processed first, after that the `shipmentRules()` will be validated, and finally the `sanitizationAferValidation()` rules will be processed. Why is this useful? You might want to strip spaces from the phone number before validating the length of the field for example.
+
+However, if you need to do more intrusive sanitization, like limiting the amount of characters to the max. allowed characters, then you should do this in `sanitizationAfterValidation()` (because validation should fail if you're **not** using `suspend_validation` in this case).
+
 ### Things to keep in mind
 - Labels must be returned as a base64 encoded string. If the carrier already returns a base64 encoded string make sure you don't encode it twice. The base64 encoded string should decode to a A6 sized PDF in landscape format. If the label is in portrait orientation rotate it 270 degrees so the top is on the left.
 - If the microservice needs to store data (logs, labels, service tables, etc.) make sure to save it in `storage/`.
