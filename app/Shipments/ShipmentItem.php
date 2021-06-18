@@ -309,7 +309,7 @@ class ShipmentItem
      */
     public function setVatPercentage(?int $vatPercentage): self
     {
-        $this->vatPercentage =$vatPercentage;
+        $this->vatPercentage = $vatPercentage;
 
         return $this;
     }
