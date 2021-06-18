@@ -32,11 +32,17 @@ class WithinRangeSanitization implements SanitizationInterface
      */
     public function sanitize(string $key, array $parameters): array
     {
-        $value = Arr::get($parameters, $key);
-        if ($value) {
-            $value = max($value, $this->minValue);
-            $value = min($value, $this->maxValue);
-            Arr::set($parameters, $key, $value);
+        $values = data_get($parameters, $key);
+        if ($values) {
+            if (!is_array($values)) {
+                $values = [$values];
+            }
+            foreach ($values as $index => $singleValue) {
+                $singleKey = str_replace('*', $index, $key);
+                $singleValue = max($singleValue, $this->minValue);
+                $singleValue = min($singleValue, $this->maxValue);
+                Arr::set($parameters, $singleKey, $singleValue);
+            }
         }
         return $parameters;
     }

@@ -28,9 +28,15 @@ class MaxCharsSanitization implements SanitizationInterface
      */
     public function sanitize(string $key, array $parameters): array
     {
-        $value = Arr::get($parameters, $key);
-        if ($value) {
-            Arr::set($parameters, $key, substr($value, 0, $this->maxChars));
+        $values = data_get($parameters, $key);
+        if ($values) {
+            if (!is_array($values)) {
+                $values = [$values];
+            }
+            foreach ($values as $index => $singleValue) {
+                $singleKey = str_replace('*', $index, $key);
+                Arr::set($parameters, $singleKey, substr($singleValue, 0, $this->maxChars));
+            }
         }
         return $parameters;
     }
