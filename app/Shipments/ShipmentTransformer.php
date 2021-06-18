@@ -98,7 +98,7 @@ class ShipmentTransformer extends AbstractTransformer
                         'amount'   => $item->getDutyAmount(),
                         'currency' => $item->getDutyCurrency(),
                     ],
-                    'vat_percentage'      => $item->getVatPercentage() === null ? null : $item->getVatPercentage(),
+                    'vat_percentage'      => $item->getVatPercentage(),
                 ]);
             }, $shipment->getItems()),
             'customs'                    => $shipment->getCustoms() === null ? null : array_filter([
