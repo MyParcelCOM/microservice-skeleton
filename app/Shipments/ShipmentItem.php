@@ -45,6 +45,9 @@ class ShipmentItem
     /** @var string|null */
     protected $dutyCurrency;
 
+    /** @var integer|null */
+    protected $vatPercentage;
+
     /**
      * @param string|null $sku
      * @return $this
@@ -288,6 +291,25 @@ class ShipmentItem
     public function setDutyCurrency(?string $dutyCurrency): self
     {
         $this->dutyCurrency = $dutyCurrency;
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getVatPercentage(): ?int
+    {
+        return $this->vatPercentage;
+    }
+
+    /**
+     * @param int|null $vatPercentage
+     * @return $this
+     */
+    public function setVatPercentage(?int $vatPercentage): self
+    {
+        $this->vatPercentage =$vatPercentage;
 
         return $this;
     }

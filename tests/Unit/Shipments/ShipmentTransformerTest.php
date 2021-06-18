@@ -86,6 +86,7 @@ class ShipmentTransformerTest extends TestCase
             'getTaxCurrency'       => 'EUR',
             'getDutyAmount'        => 707,
             'getDutyCurrency'      => 'USD',
+            'getVatPercentage'     => 30,
         ]);
 
         $customs = Mockery::mock(Customs::class, [
@@ -314,6 +315,7 @@ class ShipmentTransformerTest extends TestCase
                         'amount'   => 707,
                         'currency' => 'USD',
                     ],
+                    'vat_percentage' => 30,
                 ],
             ],
             'customs'                    => [
@@ -466,6 +468,7 @@ class ShipmentTransformerTest extends TestCase
                                 'amount'   => 707,
                                 'currency' => 'USD',
                             ],
+                            'vat_percentage' => 30,
                         ],
                     ],
                     'customs'                    => [
