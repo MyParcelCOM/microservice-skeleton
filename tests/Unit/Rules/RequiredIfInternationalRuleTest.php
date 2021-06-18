@@ -49,6 +49,6 @@ class RequiredIfInternationalRuleTest extends TestCase
         // For a international shipment, description is required, and so the validator fails.
         $this->assertFalse($validator->passes());
         $errors = $validator->errors()->get('data.attributes.description');
-        $this->assertEquals('The shipment\'s description is required for international shipments.', reset($errors));
+        $this->assertEquals('The shipment description is required for international shipments.', reset($errors));
     }
 }
