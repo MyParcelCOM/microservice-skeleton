@@ -5,33 +5,27 @@ declare(strict_types=1);
 namespace MyParcelCom\Microservice\Subscribers;
 
 use Illuminate\Events\Dispatcher;
-use Jaeger\Jaeger;
-use Jaeger\Scope;
 use MyParcelCom\Microservice\Events\CompletedCarrierApiRequest;
 use MyParcelCom\Microservice\Events\ExceptionOccurred;
 use MyParcelCom\Microservice\Events\FailedCarrierApiRequest;
 use MyParcelCom\Microservice\Events\MakingCarrierApiRequest;
 use MyParcelCom\Microservice\Events\SuccessfulCarrierApiRequest;
 use OpenTracing\Reference;
+use OpenTracing\Scope;
+use OpenTracing\Tracer;
 
 class CarrierSpanSubscriber
 {
-    /**
-     * @var Jaeger
-     */
-    protected $tracer;
+    private Tracer $tracer;
 
-    /**
-     * @var Scope
-     */
-    private static $scope;
+    private static ?Scope $scope = null;
 
     /**
      * Create the event listener.
      *
-     * @param Jaeger $tracer
+     * @param Tracer $tracer
      */
-    public function __construct(Jaeger $tracer)
+    public function __construct(Tracer $tracer)
     {
         $this->tracer = $tracer;
     }
