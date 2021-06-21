@@ -38,7 +38,7 @@ class WithinRangeSanitization implements SanitizationInterface
                 $values = [$values];
             }
             foreach ($values as $index => $singleValue) {
-                $singleKey = str_replace('*', $index, $key);
+                $singleKey = str_replace('*', (string) $index, $key);
                 $singleValue = max($singleValue, $this->minValue);
                 $singleValue = min($singleValue, $this->maxValue);
                 Arr::set($parameters, $singleKey, $singleValue);

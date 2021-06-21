@@ -49,7 +49,7 @@ class MaxCharsCombinedSanitization implements SanitizationInterface
         foreach ($itemKeys as $itemKey) {
             $currLen = 0;
             foreach ($this->fieldKeys as $fieldKey) {
-                $fieldKey = str_replace('*', $itemKey, $fieldKey);
+                $fieldKey = str_replace('*', (string) $itemKey, $fieldKey);
                 if ($origValue = data_get($parameters, $fieldKey)) {
                     // Limit to max length, keeping in mind combined length
                     // Typecast to string, because it might be an integer (example: street number)

@@ -34,7 +34,7 @@ class MaxCharsSanitization implements SanitizationInterface
                 $values = [$values];
             }
             foreach ($values as $index => $singleValue) {
-                $singleKey = str_replace('*', $index, $key);
+                $singleKey = str_replace('*', (string) $index, $key);
                 Arr::set($parameters, $singleKey, substr($singleValue, 0, $this->maxChars));
             }
         }

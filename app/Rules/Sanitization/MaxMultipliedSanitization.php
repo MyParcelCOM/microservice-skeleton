@@ -45,14 +45,14 @@ class MaxMultipliedSanitization implements SanitizationInterface
         foreach ($itemKeys as $itemKey) {
             // Multiply all values
             $multiplied = array_reduce($this->fieldKeys, function ($carry, $field) use ($parameters, $itemKey) {
-                $field = str_replace('*', $itemKey, $field);
+                $field = str_replace('*', (string) $itemKey, $field);
                 return $carry * Arr::get($parameters, $field, 1);
             }, 1);
 
             // Correct individual fields if needed
             if ($multiplied > $this->maxMultiplied) {
                 foreach ($this->fieldKeys as $field) {
-                    $field = str_replace('*', $itemKey, $field);
+                    $field = str_replace('*', (string) $itemKey, $field);
                     Arr::set($parameters, $field, strval(floor($this->maxMultiplied ** (1.0 / count($this->fieldKeys)))));
                 }
             }

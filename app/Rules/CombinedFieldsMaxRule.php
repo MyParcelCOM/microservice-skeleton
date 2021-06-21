@@ -45,7 +45,7 @@ class CombinedFieldsMaxRule implements CustomRuleInterface
     public function placeholders(string $message, string $attribute, string $rule, array $parameters): string
     {
         $maxLength = array_shift($parameters);
-        $message = str_replace(':max', $maxLength, $message);
+        $message = str_replace(':max', (string) $maxLength, $message);
 
         $listOfCustomAttributeNames = Lang::get('validation.attributes');
 
