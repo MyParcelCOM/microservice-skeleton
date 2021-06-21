@@ -12,11 +12,10 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
-use Jaeger\Config;
-use Jaeger\Jaeger;
-use Jaeger\Scope;
+use OpenTracing\Scope;
 use OpenTracing\Reference;
 use OpenTracing\SpanContext;
+use OpenTracing\Tracer;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
@@ -26,37 +25,20 @@ use const OpenTracing\Formats\TEXT_MAP;
 
 class HttpRequestSpanSubscriber
 {
-    /**
-     * @var Jaeger
-     */
-    protected $tracer;
+    private Tracer $tracer;
+    private Request $request;
 
-    /**
-     * @var Config
-     */
-    private $config;
-
-    /**
-     * @var Request
-     */
-    private $request;
-
-    /**
-     * @var Scope
-     */
-    private static $scope;
+    private static ?Scope $scope = null;
 
     /**
      * Create the event listener.
      *
-     * @param Jaeger  $tracer
-     * @param Config  $config
+     * @param Tracer  $tracer
      * @param Request $request
      */
-    public function __construct(Jaeger $tracer, Config $config, Request $request)
+    public function __construct(Tracer $tracer, Request $request)
     {
         $this->tracer = $tracer;
-        $this->config = $config;
         $this->request = $request;
     }
 
@@ -70,8 +52,10 @@ class HttpRequestSpanSubscriber
             return;
         }
 
-        $scope = $this->tracer->startActiveSpan($this->getOperationName($event), $this->getSpanOptions());
-        $scope->getSpan()->startTime = (int) (LARAVEL_START * 1000000);
+        $scope = $this->tracer->startActiveSpan(
+            $this->getOperationName($event),
+            $this->getSpanOptions()
+        );
         $scope->getSpan()->setTag('type', 'http');
 
         self::$scope = $scope;
@@ -85,7 +69,7 @@ class HttpRequestSpanSubscriber
         }
 
         try {
-            $this->config->flush();
+            $this->tracer->flush();
         } catch (Throwable $e) {
             Log::critical($e->getMessage());
         }
@@ -136,9 +120,16 @@ class HttpRequestSpanSubscriber
 
     private function getSpanOptions(): array
     {
-        $spanContext = $this->extractJaegerSpanContext($this->tracer);
+        $spanOptions = [
+            'start_time' => (int) (LARAVEL_START * 1000000),
+        ];
 
-        return ($spanContext) ? [Reference::CHILD_OF => $spanContext] : [];
+        $spanContext = $this->extractJaegerSpanContext($this->tracer);
+        if ($spanContext) {
+            $spanOptions[Reference::CHILD_OF] = $spanContext;
+        }
+
+        return $spanOptions;
     }
 
     private function getOperationName(RouteMatched $event): string
@@ -146,7 +137,7 @@ class HttpRequestSpanSubscriber
         return $event->request->getMethod() . ' ' . Route::currentRouteAction();
     }
 
-    private function extractJaegerSpanContext(Jaeger $tracer): ?SpanContext
+    private function extractJaegerSpanContext(Tracer $tracer): ?SpanContext
     {
         $contextCarrier = (new Collection($this->request->headers))->map(static function ($value) {
             return Arr::first($value);
