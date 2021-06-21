@@ -7,7 +7,7 @@ ARG CARRIER_SPEC_BRANCH="master"
 RUN build_carrier_spec
 
 # Stage 2: Build a php based image with an apache web server
-FROM ${REGISTRY}/myparcelcom/php:7.4-apache
+FROM ${REGISTRY}/myparcelcom/php:8.0-apache
 
 COPY . /opt/app
 WORKDIR /opt/app
