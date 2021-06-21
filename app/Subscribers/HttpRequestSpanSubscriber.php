@@ -54,7 +54,7 @@ class HttpRequestSpanSubscriber
 
         $scope = $this->tracer->startActiveSpan(
             $this->getOperationName($event),
-            $this->getSpanOptions() + ['start_time' => (int) (LARAVEL_START * 1000000)]
+            $this->getSpanOptions()
         );
         $scope->getSpan()->setTag('type', 'http');
 
@@ -120,9 +120,16 @@ class HttpRequestSpanSubscriber
 
     private function getSpanOptions(): array
     {
-        $spanContext = $this->extractJaegerSpanContext($this->tracer);
+        $spanOptions = [
+            'start_time' => (int) (LARAVEL_START * 1000000),
+        ];
 
-        return ($spanContext) ? [Reference::CHILD_OF => $spanContext] : [];
+        $spanContext = $this->extractJaegerSpanContext($this->tracer);
+        if ($spanContext) {
+            $spanOptions[Reference::CHILD_OF] = $spanContext;
+        }
+
+        return $spanOptions;
     }
 
     private function getOperationName(RouteMatched $event): string
