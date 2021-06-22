@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Providers;
 
+use GuzzleHttp\Client as HttpClient;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -13,6 +14,8 @@ use Illuminate\Support\ServiceProvider;
 use MyParcelCom\JsonApi\Http\Interfaces\RequestInterface;
 use MyParcelCom\JsonApi\Transformers\AbstractTransformer;
 use MyParcelCom\JsonApi\Transformers\TransformerFactory;
+use MyParcelCom\Microservice\Carrier\CarrierApiGateway;
+use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
 use MyParcelCom\Microservice\Exceptions\Handler;
 use MyParcelCom\Microservice\Http\Request;
 use MyParcelCom\Microservice\Rules\CombinedFieldsMaxRule;
@@ -41,6 +44,10 @@ class AppServiceProvider extends ServiceProvider
 
             return $handler;
         });
+
+        $this->app->singleton(CarrierApiGatewayInterface::class, CarrierApiGateway::class);
+
+        $this->app->singleton(HttpClient::class);
 
         $this->app->singleton(TransformerFactory::class, function (Container $app) {
             return (new TransformerFactory())

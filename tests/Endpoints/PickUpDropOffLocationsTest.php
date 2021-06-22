@@ -24,7 +24,7 @@ class PickUpDropOffLocationsTest extends TestCase
     {
         parent::setUp();
 
-        $this->bindCarrierApiGatewayMock();
+        $this->bindHttpClientMock();
     }
 
     /** @test */
