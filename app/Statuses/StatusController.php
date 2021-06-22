@@ -24,8 +24,19 @@ class StatusController extends Controller
         StatusRepository $statusRepository,
         TransformerService $transformerService
     ): JsonResponse {
+        $page = array_merge(
+            ['size' => 100, 'number' => 1],
+            request()->input('page') ?? []
+        );
         $statuses = $statusRepository->getStatuses($shipmentId, $trackingCode);
-        $paginator = (new Paginator('', 100))->setMaxPageSize(100);
+
+        $paginator = (
+            new Paginator(
+                '/' . request()->path(),
+                (int) $page['size'],
+                (int) $page['number']
+            )
+        )->setMaxPageSize((int) $page['size']);
 
         return new JsonResponse(
             $transformerService->setPaginator($paginator)->transformResources($statuses)
