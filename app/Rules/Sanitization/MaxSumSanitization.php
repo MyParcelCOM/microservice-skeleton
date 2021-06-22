@@ -45,14 +45,14 @@ class MaxSumSanitization implements SanitizationInterface
         foreach ($itemKeys as $itemKey) {
             // Sum all values
             $sum = array_reduce($this->fieldKeys, function ($carry, $field) use ($parameters, $itemKey) {
-                $field = str_replace('*', $itemKey, $field);
+                $field = str_replace('*', (string) $itemKey, $field);
                 return $carry + data_get($parameters, $field, 0);
             }, 0);
 
             // Correct individual fields if needed
             if ($sum > $this->maxSum) {
                 foreach ($this->fieldKeys as $field) {
-                    $field = str_replace('*', $itemKey, $field);
+                    $field = str_replace('*', (string) $itemKey, $field);
                     Arr::set($parameters, $field, strval(floor($this->maxSum / count($this->fieldKeys))));
                 }
             }
