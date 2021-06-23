@@ -21,21 +21,23 @@ class JaegerServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(Tracer::class, static function () {
-            $config = new Config(
-                [
-                    'sampler'     => [
-                        'type'  => SAMPLER_TYPE_CONST,
-                        'param' => true,
+            if (config('jaeger.enabled')) {
+                $config = new Config(
+                    [
+                        'sampler'     => [
+                            'type'  => SAMPLER_TYPE_CONST,
+                            'param' => true,
+                        ],
+                        'logging'     => false,
+                        'local_agent' => [
+                            'reporting_host' => config('jaeger.agent_host'),
+                            'reporting_port' => config('jaeger.agent_port'),
+                        ],
                     ],
-                    'logging'     => false,
-                    'local_agent' => [
-                        'reporting_host' => config('jaeger.agent_host'),
-                        'reporting_port' => config('jaeger.agent_port'),
-                    ],
-                ],
-                config('jaeger.server_name'),
-            );
-            $config->initializeTracer();
+                    config('jaeger.server_name'),
+                );
+                $config->initializeTracer();
+            }
 
             return GlobalTracer::get();
         });
