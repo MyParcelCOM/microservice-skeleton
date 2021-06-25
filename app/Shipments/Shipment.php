@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Shipments;
 
+use JetBrains\PhpStorm\Pure;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 
 class Shipment
@@ -12,79 +13,79 @@ class Shipment
     public const LABEL_MIME_TYPE_ZPL = 'application/zpl';
 
     /** @var string */
-    protected $id;
+    protected string $id;
 
     /** @var Address */
-    protected $recipientAddress;
-
-    /** @var string|null */
-    protected $recipientTaxNumber;
-
-    /** @var Address */
-    protected $senderAddress;
-
-    /** @var string|null */
-    protected $senderTaxNumber;
-
-    /** @var Address */
-    protected $returnAddress;
-
-    /** @var string|null */
-    protected $pickupLocationCode;
-
-    /** @var Address|null */
-    protected $pickupLocationAddress;
-
-    /** @var string|null */
-    protected $description;
-
-    /** @var int|null */
-    protected $totalValueAmount;
-
-    /** @var string|null */
-    protected $totalValueCurrency;
-
-    /** @var string|null */
-    protected $trackingCode;
-
-    /** @var string|null */
-    protected $trackingUrl;
-
-    /** @var string|null */
-    protected $barcode;
-
-    /** @var Service */
-    protected $service;
-
-    /** @var Option[] */
-    protected $options = [];
-
-    /** @var PhysicalProperties */
-    protected $physicalProperties;
-
-    /** @var File[] */
-    protected $files = [];
-
-    /** @var Customs|null */
-    protected $customs;
-
-    /** @var ShipmentItem[] */
-    protected $items = [];
-
-    /** @var bool */
-    protected $trackTraceEnabled = true;
-
-    /** @var string */
-    protected $myparcelcomShipmentId;
-
-    /** @var string */
-    protected $labelMimeType = self::LABEL_MIME_TYPE_PDF;
-
-    /** @var string|null */
-    protected $channel;
+    protected Address $recipientAddress;
 
     /** @var array */
-    protected $taxIdentificationNumbers = [];
+    protected array $recipientTaxNumbers;
+
+    /** @var Address */
+    protected Address $senderAddress;
+
+    /** @var array */
+    protected array $senderTaxNumbers;
+
+    /** @var Address */
+    protected Address $returnAddress;
+
+    /** @var string|null */
+    protected ?string $pickupLocationCode;
+
+    /** @var Address|null */
+    protected ?Address $pickupLocationAddress;
+
+    /** @var string|null */
+    protected ?string $description;
+
+    /** @var int|null */
+    protected ?int $totalValueAmount;
+
+    /** @var string|null */
+    protected ?string $totalValueCurrency;
+
+    /** @var string|null */
+    protected ?string $trackingCode;
+
+    /** @var string|null */
+    protected ?string $trackingUrl;
+
+    /** @var string|null */
+    protected ?string $barcode;
+
+    /** @var Service */
+    protected Service $service;
+
+    /** @var Option[] */
+    protected array $options = [];
+
+    /** @var PhysicalProperties */
+    protected PhysicalProperties $physicalProperties;
+
+    /** @var File[] */
+    protected array $files = [];
+
+    /** @var Customs|null */
+    protected ?Customs $customs;
+
+    /** @var ShipmentItem[] */
+    protected array $items = [];
+
+    /** @var bool */
+    protected bool $trackTraceEnabled = true;
+
+    /** @var string */
+    protected string $myparcelcomShipmentId;
+
+    /** @var string */
+    protected string $labelMimeType = self::LABEL_MIME_TYPE_PDF;
+
+    /** @var string|null */
+    protected ?string $channel;
+
+    /** @var array */
+    protected array $taxIdentificationNumbers = [];
 
     /**
      * @return string
@@ -220,7 +221,7 @@ class Shipment
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getBarcode(): ?string
     {
@@ -493,39 +494,39 @@ class Shipment
     }
 
     /**
-     * @return string|null
+     * @return array
      */
-    public function getRecipientTaxNumber(): ?string
+    public function getRecipientTaxNumbers(): array
     {
-        return $this->recipientTaxNumber;
+        return $this->recipientTaxNumbers;
     }
 
     /**
-     * @param string|null $recipientTaxNumber
+     * @param array $recipientTaxNumbers
      * @return $this
      */
-    public function setRecipientTaxNumber(?string $recipientTaxNumber): self
+    public function setRecipientTaxNumbers(array $recipientTaxNumbers): self
     {
-        $this->recipientTaxNumber = $recipientTaxNumber;
+        $this->recipientTaxNumbers = $recipientTaxNumbers;
 
         return $this;
     }
 
     /**
-     * @return string|null
+     * @return array
      */
-    public function getSenderTaxNumber(): ?string
+    public function getSenderTaxNumbers(): array
     {
-        return $this->senderTaxNumber;
+        return $this->senderTaxNumbers;
     }
 
     /**
-     * @param string|null $senderTaxNumber
+     * @param array $senderTaxNumbers
      * @return $this
      */
-    public function setSenderTaxNumber(?string $senderTaxNumber): self
+    public function setSenderTaxNumbers(array $senderTaxNumbers): self
     {
-        $this->senderTaxNumber = $senderTaxNumber;
+        $this->senderTaxNumbers = $senderTaxNumbers;
 
         return $this;
     }

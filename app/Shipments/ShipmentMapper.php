@@ -101,12 +101,12 @@ class ShipmentMapper implements MapperInterface
             $shipment->setChannel($attributes['channel']);
         }
 
-        if (isset($attributes['recipient_tax_number'])) {
-            $shipment->setRecipientTaxNumber($attributes['recipient_tax_number']);
+        if (isset($attributes['recipient_tax_identification_numbers'])) {
+            $shipment->setRecipientTaxNumbers($attributes['recipient_tax_identification_numbers']);
         }
 
-        if (isset($attributes['sender_tax_number'])) {
-            $shipment->setSenderTaxNumber($attributes['sender_tax_number']);
+        if (isset($attributes['sender_tax_identification_numbers'])) {
+            $shipment->setSenderTaxNumbers($attributes['sender_tax_identification_numbers']);
         }
 
         if (isset($attributes['tax_identification_numbers'])) {
