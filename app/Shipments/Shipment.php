@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Shipments;
 
-use JetBrains\PhpStorm\Pure;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 
 class Shipment
