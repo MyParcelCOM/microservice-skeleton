@@ -213,8 +213,8 @@ class ShipmentMapperTest extends TestCase
             ->andReturnUsing(function (array $recipientTaxIdentificationNumbers) use ($shipment) {
                 $this->assertEquals([
                     [
-                        'country_code' => 'GB',
-                        'number'       => 'XI123456789',
+                        'country_code' => 'NL',
+                        'number'       => 'YI123456789',
                         'type'         => 'eori',
                     ]
                 ], $recipientTaxIdentificationNumbers);
