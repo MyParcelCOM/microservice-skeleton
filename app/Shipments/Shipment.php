@@ -20,11 +20,17 @@ class Shipment
     /** @var string|null */
     protected $recipientTaxNumber;
 
+    /** @var array */
+    protected $recipientTaxIdentificationNumbers;
+
     /** @var Address */
     protected $senderAddress;
 
     /** @var string|null */
     protected $senderTaxNumber;
+
+    /** @var array */
+    protected $senderTaxIdentificationNumbers;
 
     /** @var Address */
     protected $returnAddress;
@@ -220,7 +226,7 @@ class Shipment
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getBarcode(): ?string
     {
@@ -494,6 +500,7 @@ class Shipment
 
     /**
      * @return string|null
+     * @deprecated
      */
     public function getRecipientTaxNumber(): ?string
     {
@@ -501,10 +508,11 @@ class Shipment
     }
 
     /**
-     * @param string|null $recipientTaxNumber
+     * @param string $recipientTaxNumber
      * @return $this
+     * @deprecated
      */
-    public function setRecipientTaxNumber(?string $recipientTaxNumber): self
+    public function setRecipientTaxNumber(string $recipientTaxNumber): self
     {
         $this->recipientTaxNumber = $recipientTaxNumber;
 
@@ -512,7 +520,27 @@ class Shipment
     }
 
     /**
+     * @return array
+     */
+    public function getRecipientTaxIdentificationNumbers(): array
+    {
+        return $this->recipientTaxIdentificationNumbers;
+    }
+
+    /**
+     * @param array $recipientTaxIdentificationNumbers
+     * @return $this
+     */
+    public function setRecipientTaxIdentificationNumbers(array $recipientTaxIdentificationNumbers): self
+    {
+        $this->recipientTaxIdentificationNumbers = $recipientTaxIdentificationNumbers;
+
+        return $this;
+    }
+
+    /**
      * @return string|null
+     * @deprecated
      */
     public function getSenderTaxNumber(): ?string
     {
@@ -520,12 +548,32 @@ class Shipment
     }
 
     /**
-     * @param string|null $senderTaxNumber
+     * @param string $senderTaxNumber
      * @return $this
+     * @deprecated
      */
-    public function setSenderTaxNumber(?string $senderTaxNumber): self
+    public function setSenderTaxNumber(string $senderTaxNumber): self
     {
         $this->senderTaxNumber = $senderTaxNumber;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getSenderTaxIdentificationNumbers(): array
+    {
+        return $this->senderTaxIdentificationNumbers;
+    }
+
+    /**
+     * @param array $senderTaxIdentificationNumbers
+     * @return $this
+     */
+    public function setSenderTaxIdentificationNumbers(array $senderTaxIdentificationNumbers): self
+    {
+        $this->senderTaxIdentificationNumbers = $senderTaxIdentificationNumbers;
 
         return $this;
     }
@@ -604,6 +652,7 @@ class Shipment
     /**
      * @param array $taxIdentificationNumbers
      * @return $this
+     * @deprecated
      */
     public function setTaxIdentificationNumbers(array $taxIdentificationNumbers): self
     {
@@ -614,6 +663,7 @@ class Shipment
 
     /**
      * @return array
+     * @deprecated
      */
     public function getTaxIdentificationNumbers(): array
     {
@@ -624,6 +674,7 @@ class Shipment
      * @param string $type
      * @param string $countryCode
      * @return string|null
+     * @deprecated
      */
     public function getTaxIdentificationNumber(string $type, string $countryCode): ?string
     {

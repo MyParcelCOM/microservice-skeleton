@@ -179,6 +179,8 @@ return [
 
         'data.attributes.recipient_tax_number'                      => 'recipient tax number',
         'data.attributes.sender_tax_number'                         => 'sender tax number',
+        'data.attributes.recipient_tax_identification_numbers'      => 'recipient tax identification numbers',
+        'data.attributes.sender_tax_identification_numbers'         => 'sender tax identification numbers',
         'data.attributes.tax_identification_numbers.*.country_code' => 'tax identification number country code',
         'data.attributes.tax_identification_numbers.*.number'       => 'tax identification number',
         'data.attributes.tax_identification_numbers.*.description'  => 'tax identification number description',

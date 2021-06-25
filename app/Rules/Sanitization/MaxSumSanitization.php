@@ -15,7 +15,7 @@ class MaxSumSanitization implements SanitizationInterface
 
     /**
      * @param int|float $maxSum
-     * @param array $fieldKeys
+     * @param array     $fieldKeys
      */
     public function __construct($maxSum, array $fieldKeys)
     {
@@ -27,7 +27,7 @@ class MaxSumSanitization implements SanitizationInterface
      * Sanitize the incoming data.
      *
      * @param string $key
-     * @param array $parameters
+     * @param array  $parameters
      * @return array $parameters
      */
     public function sanitize(string $key, array $parameters): array

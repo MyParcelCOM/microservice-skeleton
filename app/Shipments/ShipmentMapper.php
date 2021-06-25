@@ -109,6 +109,14 @@ class ShipmentMapper implements MapperInterface
             $shipment->setSenderTaxNumber($attributes['sender_tax_number']);
         }
 
+        if (isset($attributes['recipient_tax_identification_numbers'])) {
+            $shipment->setRecipientTaxIdentificationNumbers($attributes['recipient_tax_identification_numbers']);
+        }
+
+        if (isset($attributes['sender_tax_identification_numbers'])) {
+            $shipment->setSenderTaxIdentificationNumbers($attributes['sender_tax_identification_numbers']);
+        }
+
         if (isset($attributes['tax_identification_numbers'])) {
             $shipment->setTaxIdentificationNumbers($attributes['tax_identification_numbers']);
         }

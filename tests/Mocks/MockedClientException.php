@@ -13,10 +13,10 @@ class MockedClientException extends MockedClientResponse
     protected $message;
 
     /**
-     * @param string $method
-     * @param string $uri
+     * @param string  $method
+     * @param string  $uri
      * @param integer $code
-     * @param string $message
+     * @param string  $message
      */
     public function __construct(
         string $method,

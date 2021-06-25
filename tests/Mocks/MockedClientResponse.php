@@ -24,11 +24,11 @@ class MockedClientResponse
     protected $body;
 
     /**
-     * @param string $method
-     * @param string $uri
+     * @param string  $method
+     * @param string  $uri
      * @param integer $code
-     * @param string $body
-     * @param array $headers
+     * @param string  $body
+     * @param array   $headers
      */
     public function __construct(
         string $method,
