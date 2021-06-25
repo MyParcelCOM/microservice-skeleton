@@ -11,62 +11,86 @@ class Shipment
     public const LABEL_MIME_TYPE_PDF = 'application/pdf';
     public const LABEL_MIME_TYPE_ZPL = 'application/zpl';
 
-    protected string $id;
+    /** @var string */
+    protected $id;
 
-    protected Address $recipientAddress;
+    /** @var Address */
+    protected $recipientAddress;
 
-    protected array $recipientTaxIdentificationNumbers;
+    /** @var string|null */
+    protected $recipientTaxNumber;
 
-    protected ?string $recipientTaxNumber;
+    /** @var array */
+    protected $recipientTaxIdentificationNumbers;
 
-    protected Address $senderAddress;
+    /** @var Address */
+    protected $senderAddress;
 
-    protected array $senderTaxIdentificationNumbers;
+    /** @var string|null */
+    protected $senderTaxNumber;
 
-    protected ?string $senderTaxNumber;
+    /** @var array */
+    protected $senderTaxIdentificationNumbers;
 
-    protected Address $returnAddress;
+    /** @var Address */
+    protected $returnAddress;
 
-    protected ?string $pickupLocationCode;
+    /** @var string|null */
+    protected $pickupLocationCode;
 
-    protected ?Address $pickupLocationAddress;
+    /** @var Address|null */
+    protected $pickupLocationAddress;
 
-    protected ?string $description;
+    /** @var string|null */
+    protected $description;
 
-    protected ?int $totalValueAmount;
+    /** @var int|null */
+    protected $totalValueAmount;
 
-    protected ?string $totalValueCurrency;
+    /** @var string|null */
+    protected $totalValueCurrency;
 
-    protected ?string $trackingCode;
+    /** @var string|null */
+    protected $trackingCode;
 
-    protected ?string $trackingUrl;
+    /** @var string|null */
+    protected $trackingUrl;
 
-    protected ?string $barcode;
+    /** @var string|null */
+    protected $barcode;
 
-    protected Service $service;
+    /** @var Service */
+    protected $service;
 
     /** @var Option[] */
-    protected array $options = [];
+    protected $options = [];
 
-    protected PhysicalProperties $physicalProperties;
+    /** @var PhysicalProperties */
+    protected $physicalProperties;
 
     /** @var File[] */
-    protected array $files = [];
+    protected $files = [];
 
-    protected ?Customs $customs;
+    /** @var Customs|null */
+    protected $customs;
 
     /** @var ShipmentItem[] */
-    protected array $items = [];
+    protected $items = [];
 
-    protected bool $trackTraceEnabled = true;
+    /** @var bool */
+    protected $trackTraceEnabled = true;
 
-    protected string $myparcelcomShipmentId;
+    /** @var string */
+    protected $myparcelcomShipmentId;
 
-    protected string $labelMimeType = self::LABEL_MIME_TYPE_PDF;
+    /** @var string */
+    protected $labelMimeType = self::LABEL_MIME_TYPE_PDF;
 
-    protected ?string $channel;
+    /** @var string|null */
+    protected $channel;
 
-    protected array $taxIdentificationNumbers = [];
+    /** @var array */
+    protected $taxIdentificationNumbers = [];
 
     /**
      * @return string
