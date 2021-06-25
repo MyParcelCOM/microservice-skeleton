@@ -35,9 +35,11 @@ class ShipmentTransformer extends AbstractTransformer
         return array_filter([
             'myparcelcom_shipment_id'              => $shipment->getMyparcelcomShipmentId(),
             'recipient_address'                    => $this->transformAddress($shipment->getRecipientAddress()),
-            'recipient_tax_identification_numbers' => $shipment->getRecipientTaxNumbers(),
+            'recipient_tax_number'                 => $shipment->getRecipientTaxNumber(),
+            'recipient_tax_identification_numbers' => $shipment->getRecipientTaxIdentificationNumbers(),
             'sender_address'                       => $this->transformAddress($shipment->getSenderAddress()),
-            'sender_tax_identification_numbers'    => $shipment->getSenderTaxNumbers(),
+            'sender_tax_number'                    => $shipment->getSenderTaxNumber(),
+            'sender_tax_identification_numbers'    => $shipment->getSenderTaxIdentificationNumbers(),
             'tax_identification_numbers'           => $shipment->getTaxIdentificationNumbers(),
             'return_address'                       => $this->transformAddress($shipment->getReturnAddress()),
             'pickup_location'                      => $shipment->getPickupLocationCode() === null ? null : [

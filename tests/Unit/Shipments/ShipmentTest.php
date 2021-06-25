@@ -173,13 +173,41 @@ class ShipmentTest extends TestCase
     /** @test */
     public function testSenderTaxNumber()
     {
-        $this->assertEquals('74X', $this->shipment->setSenderTaxNumbers('74X')->getSenderTaxNumbers());
+        $this->assertEquals('74X', $this->shipment->setSenderTaxNumber('74X')->getSenderTaxNumber());
+    }
+
+    /** @test */
+    public function testSenderTaxIdentificationNumbers()
+    {
+        $taxIdentificationNumbers = [
+            [
+                'country_code' => 'GB',
+                'number'       => 'XI123456789',
+                'type'         => 'eori',
+            ],
+        ];
+        $this->assertEquals($taxIdentificationNumbers, $this->shipment->setSenderTaxIdentificationNumbers($taxIdentificationNumbers)->getSenderTaxIdentificationNumbers());
+
     }
 
     /** @test */
     public function testRecipientTaxNumber()
     {
-        $this->assertEquals('74X', $this->shipment->setRecipientTaxNumbers('74X')->getRecipientTaxNumbers());
+        $this->assertEquals('74X', $this->shipment->setRecipientTaxNumber('74X')->getRecipientTaxNumber());
+    }
+
+    /** @test */
+    public function testRecipientTaxIdentificationNumbers()
+    {
+        $taxIdentificationNumbers = [
+            [
+                'country_code' => 'GB',
+                'number'       => 'XI123456789',
+                'type'         => 'eori',
+            ],
+        ];
+        $this->assertEquals($taxIdentificationNumbers, $this->shipment->setRecipientTaxIdentificationNumbers($taxIdentificationNumbers)->getRecipientTaxIdentificationNumbers());
+
     }
 
     /** @test */

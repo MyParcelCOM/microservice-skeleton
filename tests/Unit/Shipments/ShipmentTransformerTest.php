@@ -105,73 +105,77 @@ class ShipmentTransformerTest extends TestCase
         $this->shipmentTransformer = (new ShipmentTransformer($transformerFactory))
             ->setUrlGenerator(Mockery::mock(UrlGenerator::class, ['route' => 'url']));
         $this->shipment = Mockery::mock(Shipment::class, [
-            'getId'                       => 'shipment-id',
-            'getRecipientAddress'         => $address,
-            'getSenderAddress'            => $address,
-            'getSenderTaxNumbers'         => [
+            'getId'                                => 'shipment-id',
+            'getRecipientAddress'                  => $address,
+            'getSenderAddress'                     => $address,
+            'getSenderTaxNumber'                   => 'G666666-66',
+            'getSenderTaxIdentificationNumbers'    => [
                 [
                     'country_code' => 'GB',
                     'number'       => 'XI123456789',
                     'type'         => 'eori',
                 ],
             ],
-            'getReturnAddress'            => $address,
-            'getRecipientTaxNumbers'      => [
+            'getReturnAddress'                     => $address,
+            'getRecipientTaxNumber'                => 'H111111-11',
+            'getRecipientTaxIdentificationNumbers' => [
                 [
                     'country_code' => 'NL',
                     'number'       => 'YI123456789',
                     'type'         => 'eori',
                 ],
             ],
-            'getTaxIdentificationNumbers' => [
+            'getTaxIdentificationNumbers'          => [
                 [
                     'country_code' => 'GB',
                     'number'       => 'XI123456789',
                     'type'         => 'eori',
                 ],
             ],
-            'getPickupLocationCode'       => 'aaaa',
-            'getPickupLocationAddress'    => $address,
-            'getDescription'              => 'descending ription',
-            'getTotalValueAmount'         => 42,
-            'getTotalValueCurrency'       => 'EUR',
-            'getBarcode'                  => '3SBARCODE',
-            'getTrackingCode'             => 'TR4CK1NGC0D3',
-            'getTrackingUrl'              => 'https://track.me/TR4CK1NGC0D3',
-            'getWeight'                   => 789,
-            'getService'                  => $service,
-            'getOptions'                  => [$option],
-            'getPhysicalProperties'       => $physicalProperties,
-            'getFiles'                    => [],
-            'getCustoms'                  => $customs,
-            'getItems'                    => [$shipmentItem],
-            'getMyparcelcomShipmentId'    => 'bbacd0c7-9ec5-42df-9870-443b8e1a7155',
+            'getPickupLocationCode'                => 'aaaa',
+            'getPickupLocationAddress'             => $address,
+            'getDescription'                       => 'descending ription',
+            'getTotalValueAmount'                  => 42,
+            'getTotalValueCurrency'                => 'EUR',
+            'getBarcode'                           => '3SBARCODE',
+            'getTrackingCode'                      => 'TR4CK1NGC0D3',
+            'getTrackingUrl'                       => 'https://track.me/TR4CK1NGC0D3',
+            'getWeight'                            => 789,
+            'getService'                           => $service,
+            'getOptions'                           => [$option],
+            'getPhysicalProperties'                => $physicalProperties,
+            'getFiles'                             => [],
+            'getCustoms'                           => $customs,
+            'getItems'                             => [$shipmentItem],
+            'getMyparcelcomShipmentId'             => 'bbacd0c7-9ec5-42df-9870-443b8e1a7155',
         ]);
 
         $this->minimalShipment = Mockery::mock(Shipment::class, [
-            'getId'                       => 'shipment-id',
-            'getRecipientAddress'         => $address,
-            'getSenderAddress'            => $address,
-            'getSenderTaxNumbers'         => [],
-            'getReturnAddress'            => $address,
-            'getRecipientTaxNumbers'      => [],
-            'getTaxIdentificationNumbers' => [],
-            'getPickupLocationCode'       => null,
-            'getPickupLocationAddress'    => null,
-            'getDescription'              => null,
-            'getTotalValueAmount'         => null,
-            'getTotalValueCurrency'       => null,
-            'getBarcode'                  => null,
-            'getTrackingCode'             => null,
-            'getTrackingUrl'              => null,
-            'getWeight'                   => 789,
-            'getService'                  => $service,
-            'getOptions'                  => [],
-            'getPhysicalProperties'       => null,
-            'getFiles'                    => [],
-            'getCustoms'                  => null,
-            'getItems'                    => [],
-            'getMyparcelcomShipmentId'    => 'bbacd0c7-9ec5-42df-9870-443b8e1a7155',
+            'getId'                                => 'shipment-id',
+            'getRecipientAddress'                  => $address,
+            'getSenderAddress'                     => $address,
+            'getSenderTaxNumber'                   => null,
+            'getSenderTaxIdentificationNumbers'    => [],
+            'getReturnAddress'                     => $address,
+            'getRecipientTaxNumber'                => null,
+            'getRecipientTaxIdentificationNumbers' => [],
+            'getTaxIdentificationNumbers'          => [],
+            'getPickupLocationCode'                => null,
+            'getPickupLocationAddress'             => null,
+            'getDescription'                       => null,
+            'getTotalValueAmount'                  => null,
+            'getTotalValueCurrency'                => null,
+            'getBarcode'                           => null,
+            'getTrackingCode'                      => null,
+            'getTrackingUrl'                       => null,
+            'getWeight'                            => 789,
+            'getService'                           => $service,
+            'getOptions'                           => [],
+            'getPhysicalProperties'                => null,
+            'getFiles'                             => [],
+            'getCustoms'                           => null,
+            'getItems'                             => [],
+            'getMyparcelcomShipmentId'             => 'bbacd0c7-9ec5-42df-9870-443b8e1a7155',
         ]);
     }
 
@@ -221,6 +225,7 @@ class ShipmentTransformerTest extends TestCase
                 'email'                => 'john@expertsexchange.com',
                 'phone_number'         => '1337-9001',
             ],
+            'recipient_tax_number'                 => 'H111111-11',
             'recipient_tax_identification_numbers' => [
                 [
                     'country_code' => 'NL',
@@ -244,6 +249,7 @@ class ShipmentTransformerTest extends TestCase
                 'email'                => 'john@expertsexchange.com',
                 'phone_number'         => '1337-9001',
             ],
+            'sender_tax_number'                    => 'G666666-66',
             'sender_tax_identification_numbers'    => [
                 [
                     'country_code' => 'GB',
@@ -388,6 +394,7 @@ class ShipmentTransformerTest extends TestCase
                         'email'                => 'john@expertsexchange.com',
                         'phone_number'         => '1337-9001',
                     ],
+                    'recipient_tax_number'                 => 'H111111-11',
                     'recipient_tax_identification_numbers' => [
                         [
                             'country_code' => 'NL',
@@ -411,6 +418,7 @@ class ShipmentTransformerTest extends TestCase
                         'email'                => 'john@expertsexchange.com',
                         'phone_number'         => '1337-9001',
                     ],
+                    'sender_tax_number'                    => 'G666666-66',
                     'sender_tax_identification_numbers'    => [
                         [
                             'country_code' => 'GB',
