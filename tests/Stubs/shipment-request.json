@@ -18,8 +18,8 @@
       },
       "recipient_tax_identification_numbers": [
         {
-          "country_code": "GB",
-          "number": "XI123456789",
+          "country_code": "NL",
+          "number": "YI123456789",
           "type": "eori"
         }
       ],

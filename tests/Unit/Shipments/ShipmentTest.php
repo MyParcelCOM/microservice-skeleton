@@ -187,7 +187,6 @@ class ShipmentTest extends TestCase
             ],
         ];
         $this->assertEquals($taxIdentificationNumbers, $this->shipment->setSenderTaxIdentificationNumbers($taxIdentificationNumbers)->getSenderTaxIdentificationNumbers());
-
     }
 
     /** @test */
@@ -207,7 +206,6 @@ class ShipmentTest extends TestCase
             ],
         ];
         $this->assertEquals($taxIdentificationNumbers, $this->shipment->setRecipientTaxIdentificationNumbers($taxIdentificationNumbers)->getRecipientTaxIdentificationNumbers());
-
     }
 
     /** @test */
