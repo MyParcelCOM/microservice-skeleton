@@ -27,7 +27,7 @@ class WithinRangeSanitization implements SanitizationInterface
      * Sanitize the incoming data.
      *
      * @param string $key
-     * @param array $parameters
+     * @param array  $parameters
      * @return array $parameters
      */
     public function sanitize(string $key, array $parameters): array

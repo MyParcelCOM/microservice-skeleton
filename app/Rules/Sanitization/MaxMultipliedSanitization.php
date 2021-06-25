@@ -15,7 +15,7 @@ class MaxMultipliedSanitization implements SanitizationInterface
 
     /**
      * @param int|float $maxMultiplued
-     * @param array $fieldKeys
+     * @param array     $fieldKeys
      */
     public function __construct($maxMultiplied, array $fieldKeys)
     {
@@ -27,7 +27,7 @@ class MaxMultipliedSanitization implements SanitizationInterface
      * Sanitize the incoming data.
      *
      * @param string $key
-     * @param array $parameters
+     * @param array  $parameters
      * @return array $parameters
      */
     public function sanitize(string $key, array $parameters): array

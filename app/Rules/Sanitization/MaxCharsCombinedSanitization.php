@@ -16,8 +16,8 @@ class MaxCharsCombinedSanitization implements SanitizationInterface
     private $spacer;
 
     /**
-     * @param int $maxChars
-     * @param array $fieldKeys
+     * @param int    $maxChars
+     * @param array  $fieldKeys
      * @param string $spacer
      */
     public function __construct(int $maxChars, array $fieldKeys, string $spacer = ' ')
@@ -31,7 +31,7 @@ class MaxCharsCombinedSanitization implements SanitizationInterface
      * Sanitize the incoming data.
      *
      * @param string $key
-     * @param array $parameters
+     * @param array  $parameters
      * @return array $parameters
      */
     public function sanitize(string $key, array $parameters): array

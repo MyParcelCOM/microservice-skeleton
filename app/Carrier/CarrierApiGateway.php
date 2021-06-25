@@ -70,7 +70,7 @@ class CarrierApiGateway implements CarrierApiGatewayInterface
     private function initRequestOptions(array $queryParams = [], array $headers = [], array $extraOptions = [])
     {
         return array_merge([
-            RequestOptions::QUERY => $queryParams,
+            RequestOptions::QUERY   => $queryParams,
             RequestOptions::HEADERS => $headers,
         ], $extraOptions);
     }
