@@ -520,7 +520,7 @@ class Shipment
         return $this;
     }
 
-    public function getRecipientTaxIdentificationNumbers(): array
+    public function getRecipientTaxIdentificationNumbers(): ?array
     {
         return $this->recipientTaxIdentificationNumbers;
     }
@@ -580,7 +580,7 @@ class Shipment
         return $this;
     }
 
-    public function getSenderTaxIdentificationNumbers(): array
+    public function getSenderTaxIdentificationNumbers(): ?array
     {
         return $this->senderTaxIdentificationNumbers;
     }
@@ -703,10 +703,10 @@ class Shipment
     }
 
     /**
-     * @return array
+     * @return array|null
      * @deprecated
      */
-    public function getTaxIdentificationNumbers(): array
+    public function getTaxIdentificationNumbers(): ?array
     {
         return $this->taxIdentificationNumbers;
     }
