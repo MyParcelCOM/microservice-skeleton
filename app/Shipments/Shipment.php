@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Shipments;
 
+use MyParcelCom\Microservice\Enums\TaxTypeEnum;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 
 class Shipment
@@ -519,23 +520,45 @@ class Shipment
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function getRecipientTaxIdentificationNumbers(): array
     {
         return $this->recipientTaxIdentificationNumbers;
     }
 
-    /**
-     * @param array $recipientTaxIdentificationNumbers
-     * @return $this
-     */
     public function setRecipientTaxIdentificationNumbers(array $recipientTaxIdentificationNumbers): self
     {
         $this->recipientTaxIdentificationNumbers = $recipientTaxIdentificationNumbers;
 
         return $this;
+    }
+
+    public function getRecipientTaxIdentificationNumber(TaxTypeEnum $type, array|string $countryCode = null): ?string
+    {
+        $countryCodes = is_string($countryCode) ? [$countryCode] : $countryCode;
+
+        foreach ($this->getRecipientTaxIdentificationNumbers() as $taxIdentificationNumber) {
+            if ($taxIdentificationNumber['type'] === $type->getValue()) {
+                if (empty($countryCodes) || in_array($taxIdentificationNumber['country_code'], $countryCodes)) {
+                    return $taxIdentificationNumber['number'];
+                }
+            }
+        }
+
+        // Check tax_identification_numbers (can be removed in the future)
+        foreach ($this->getTaxIdentificationNumbers() as $taxIdentificationNumber) {
+            if ($taxIdentificationNumber['type'] === $type->getValue()) {
+                if (empty($countryCodes) || in_array($taxIdentificationNumber['country_code'], $countryCodes)) {
+                    return $taxIdentificationNumber['number'];
+                }
+            }
+        }
+
+        // Check recipient_tax_number (can be removed in the future)
+        if (!empty($this->getRecipientTaxNumber())) {
+            return $this->getRecipientTaxNumber();
+        }
+
+        return null;
     }
 
     /**
@@ -559,23 +582,45 @@ class Shipment
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function getSenderTaxIdentificationNumbers(): array
     {
         return $this->senderTaxIdentificationNumbers;
     }
 
-    /**
-     * @param array $senderTaxIdentificationNumbers
-     * @return $this
-     */
     public function setSenderTaxIdentificationNumbers(array $senderTaxIdentificationNumbers): self
     {
         $this->senderTaxIdentificationNumbers = $senderTaxIdentificationNumbers;
 
         return $this;
+    }
+
+    public function getSenderTaxIdentificationNumber(TaxTypeEnum $type, array|string $countryCode = null): ?string
+    {
+        $countryCodes = is_string($countryCode) ? [$countryCode] : $countryCode;
+
+        foreach ($this->getSenderTaxIdentificationNumbers() as $taxIdentificationNumber) {
+            if ($taxIdentificationNumber['type'] === $type->getValue()) {
+                if (empty($countryCodes) || in_array($taxIdentificationNumber['country_code'], $countryCodes)) {
+                    return $taxIdentificationNumber['number'];
+                }
+            }
+        }
+
+        // Check tax_identification_numbers (can be removed in the future)
+        foreach ($this->getTaxIdentificationNumbers() as $taxIdentificationNumber) {
+            if ($taxIdentificationNumber['type'] === $type->getValue()) {
+                if (empty($countryCodes) || in_array($taxIdentificationNumber['country_code'], $countryCodes)) {
+                    return $taxIdentificationNumber['number'];
+                }
+            }
+        }
+
+        // Check sender_tax_number (can be removed in the future)
+        if (!empty($this->getSenderTaxNumber())) {
+            return $this->getSenderTaxNumber();
+        }
+
+        return null;
     }
 
     /**

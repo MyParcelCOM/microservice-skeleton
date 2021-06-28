@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Tests\Unit\Shipments;
 
+use MyParcelCom\Microservice\Enums\TaxTypeEnum;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 use MyParcelCom\Microservice\Shipments\Customs;
 use MyParcelCom\Microservice\Shipments\File;
@@ -190,6 +191,22 @@ class ShipmentTest extends TestCase
     }
 
     /** @test */
+    public function testSenderTaxIdentificationNumber()
+    {
+        $this->shipment->setSenderTaxIdentificationNumbers([
+            [
+                'country_code' => 'GB',
+                'number'       => 'XI123456789',
+                'type'         => 'eori',
+            ],
+        ]);
+        $this->assertEquals('XI123456789', $this->shipment->getSenderTaxIdentificationNumber(TaxTypeEnum::EORI(), 'GB'));
+        $this->assertEquals('XI123456789', $this->shipment->getSenderTaxIdentificationNumber(TaxTypeEnum::EORI()));
+        $this->assertNull($this->shipment->getSenderTaxIdentificationNumber(TaxTypeEnum::EORI(), 'NL'));
+        $this->assertNull($this->shipment->getSenderTaxIdentificationNumber(TaxTypeEnum::IOSS()));
+    }
+
+    /** @test */
     public function testRecipientTaxNumber()
     {
         $this->assertEquals('74X', $this->shipment->setRecipientTaxNumber('74X')->getRecipientTaxNumber());
@@ -206,6 +223,22 @@ class ShipmentTest extends TestCase
             ],
         ];
         $this->assertEquals($taxIdentificationNumbers, $this->shipment->setRecipientTaxIdentificationNumbers($taxIdentificationNumbers)->getRecipientTaxIdentificationNumbers());
+    }
+
+    /** @test */
+    public function testRecipientTaxIdentificationNumber()
+    {
+        $this->shipment->setRecipientTaxIdentificationNumbers([
+            [
+                'country_code' => 'GB',
+                'number'       => 'XI123456789',
+                'type'         => 'eori',
+            ],
+        ]);
+        $this->assertEquals('XI123456789', $this->shipment->getRecipientTaxIdentificationNumber(TaxTypeEnum::EORI(), 'GB'));
+        $this->assertEquals('XI123456789', $this->shipment->getRecipientTaxIdentificationNumber(TaxTypeEnum::EORI()));
+        $this->assertNull($this->shipment->getRecipientTaxIdentificationNumber(TaxTypeEnum::EORI(), 'NL'));
+        $this->assertNull($this->shipment->getRecipientTaxIdentificationNumber(TaxTypeEnum::IOSS()));
     }
 
     /** @test */
