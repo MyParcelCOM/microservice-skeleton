@@ -200,6 +200,7 @@ class ShipmentTest extends TestCase
                 'type'         => 'eori',
             ],
         ]);
+        $this->assertEquals('XI123456789', $this->shipment->getSenderTaxIdentificationNumber(TaxTypeEnum::EORI(), ...['GB', 'NL']));
         $this->assertEquals('XI123456789', $this->shipment->getSenderTaxIdentificationNumber(TaxTypeEnum::EORI(), 'GB'));
         $this->assertEquals('XI123456789', $this->shipment->getSenderTaxIdentificationNumber(TaxTypeEnum::EORI()));
         $this->assertNull($this->shipment->getSenderTaxIdentificationNumber(TaxTypeEnum::EORI(), 'NL'));
@@ -235,6 +236,7 @@ class ShipmentTest extends TestCase
                 'type'         => 'eori',
             ],
         ]);
+        $this->assertEquals('XI123456789', $this->shipment->getSenderTaxIdentificationNumber(TaxTypeEnum::EORI(), ...['GB', 'NL']));
         $this->assertEquals('XI123456789', $this->shipment->getRecipientTaxIdentificationNumber(TaxTypeEnum::EORI(), 'GB'));
         $this->assertEquals('XI123456789', $this->shipment->getRecipientTaxIdentificationNumber(TaxTypeEnum::EORI()));
         $this->assertNull($this->shipment->getRecipientTaxIdentificationNumber(TaxTypeEnum::EORI(), 'NL'));

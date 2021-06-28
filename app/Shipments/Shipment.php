@@ -532,10 +532,8 @@ class Shipment
         return $this;
     }
 
-    public function getRecipientTaxIdentificationNumber(TaxTypeEnum $type, array|string $countryCode = null): ?string
+    public function getRecipientTaxIdentificationNumber(TaxTypeEnum $type, string ...$countryCodes): ?string
     {
-        $countryCodes = is_string($countryCode) ? [$countryCode] : $countryCode;
-
         foreach ($this->getRecipientTaxIdentificationNumbers() as $taxIdentificationNumber) {
             if ($taxIdentificationNumber['type'] === $type->getValue()) {
                 if (empty($countryCodes) || in_array($taxIdentificationNumber['country_code'], $countryCodes)) {
@@ -594,10 +592,8 @@ class Shipment
         return $this;
     }
 
-    public function getSenderTaxIdentificationNumber(TaxTypeEnum $type, array|string $countryCode = null): ?string
+    public function getSenderTaxIdentificationNumber(TaxTypeEnum $type, string ...$countryCodes): ?string
     {
-        $countryCodes = is_string($countryCode) ? [$countryCode] : $countryCode;
-
         foreach ($this->getSenderTaxIdentificationNumbers() as $taxIdentificationNumber) {
             if ($taxIdentificationNumber['type'] === $type->getValue()) {
                 if (empty($countryCodes) || in_array($taxIdentificationNumber['country_code'], $countryCodes)) {
