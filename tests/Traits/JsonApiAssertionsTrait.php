@@ -45,7 +45,7 @@ trait JsonApiAssertionsTrait
     /**
      * @return Validator
      */
-    protected function getValidator()
+    protected function getValidator(): Validator
     {
         if (isset($this->validator)) {
             return $this->validator;

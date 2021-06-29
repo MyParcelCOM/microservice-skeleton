@@ -16,6 +16,13 @@
         "phone_number": "+31 234 567 890",
         "email": "john@doe.com"
       },
+      "recipient_tax_identification_numbers": [
+        {
+          "country_code": "NL",
+          "number": "YI123456789",
+          "type": "eori"
+        }
+      ],
       "recipient_tax_number": "H111111-11",
       "sender_address": {
         "street_1": "Streeterino",
@@ -27,6 +34,13 @@
         "phone_number": "+31 234 567 890",
         "email": "john@acme.com"
       },
+      "sender_tax_identification_numbers": [
+        {
+          "country_code": "GB",
+          "number": "XI123456789",
+          "type": "eori"
+        }
+      ],
       "sender_tax_number": "G666666-66",
       "tax_identification_numbers": [
         {

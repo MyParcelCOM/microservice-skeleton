@@ -20,7 +20,7 @@ class ValidateCredentialsTest extends TestCase
     /** @test */
     public function testItReturnsAnUnsuccessfulResponseWithInvalidCredentials()
     {
-        $this->bindCarrierApiGatewayMock();
+        $this->bindHttpClientMock();
 
         $this->assertJsonSchema(
             '/validate-credentials',
@@ -40,7 +40,7 @@ class ValidateCredentialsTest extends TestCase
     /** @test */
     public function testItReturnsASuccessfulResponseWithValidCredentials()
     {
-        $this->bindCarrierApiGatewayMock();
+        $this->bindHttpClientMock();
 
         $this->assertJsonSchema(
             '/validate-credentials',

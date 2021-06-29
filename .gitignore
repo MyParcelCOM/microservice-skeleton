@@ -8,3 +8,4 @@
 !/docker/app/dist/.gitkeep
 /vendor
 .DS_Store
+/docker-compose.override.yml

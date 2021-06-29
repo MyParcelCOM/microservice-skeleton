@@ -20,7 +20,7 @@ class StatusesTest extends TestCase
     /** @test */
     public function testGetStatuses()
     {
-        $this->bindCarrierApiGatewayMock();
+        $this->bindHttpClientMock();
 
         // TODO: Add carrier response stub for requesting a status.
         // See the "Response Stubs" chapter in the readme for more info.

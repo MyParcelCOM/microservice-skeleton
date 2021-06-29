@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Providers;
 
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\ServiceProvider;
 use Jaeger\Config;
-use Jaeger\Jaeger;
+use OpenTracing\GlobalTracer;
+use OpenTracing\Tracer;
 
 use function config;
 
-use const Jaeger\Constants\PROPAGATOR_ZIPKIN;
+use const Jaeger\SAMPLER_TYPE_CONST;
 
 class JaegerServiceProvider extends ServiceProvider
 {
@@ -20,20 +20,26 @@ class JaegerServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(Config::class, static function () {
-            $config = Config::getInstance()->gen128bit();
-            $config::$propagator = PROPAGATOR_ZIPKIN;
+        $this->app->singleton(Tracer::class, static function () {
+            if (config('jaeger.enabled')) {
+                $config = new Config(
+                    [
+                        'sampler'     => [
+                            'type'  => SAMPLER_TYPE_CONST,
+                            'param' => true,
+                        ],
+                        'logging'     => false,
+                        'local_agent' => [
+                            'reporting_host' => config('jaeger.agent_host'),
+                            'reporting_port' => config('jaeger.agent_port'),
+                        ],
+                    ],
+                    config('jaeger.server_name'),
+                );
+                $config->initializeTracer();
+            }
 
-            return $config;
-        });
-
-        $this->app->singleton(Jaeger::class, static function (Container $app) {
-            $config = $app->get(Config::class);
-
-            return $config->initTracer(
-                config('jaeger.server_name'),
-                config('jaeger.agent_host') . ':' . config('jaeger.agent_port')
-            );
+            return GlobalTracer::get();
         });
     }
 }

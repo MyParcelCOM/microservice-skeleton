@@ -23,7 +23,7 @@ class ShipmentRequestTest extends TestCase
     {
         parent::setUp();
 
-        $this->bindCarrierApiGatewayMock();
+        $this->bindHttpClientMock();
     }
 
     /** @test */
@@ -42,7 +42,7 @@ class ShipmentRequestTest extends TestCase
             'errors' => [
                 [
                     'title'  => 'Missing input',
-                    'detail' => 'The shipment\'s description is required.',
+                    'detail' => 'The shipment description is required.',
                     'source' => [
                         'pointer' => 'data/attributes/description',
                     ],
@@ -75,28 +75,28 @@ class ShipmentRequestTest extends TestCase
             'errors' => [
                 [
                     'title'  => 'Invalid input',
-                    'detail' => 'The recipient\'s phone number must be between 8 and 15 characters.',
+                    'detail' => 'The recipient phone number must be between 8 and 15 characters.',
                     'source' => [
                         'pointer' => 'data/attributes/recipient_address/phone_number',
                     ],
                 ],
                 [
                     'title'  => 'Invalid input',
-                    'detail' => 'The recipient\'s phone number is incorrectly formatted.',
+                    'detail' => 'The recipient phone number is incorrectly formatted.',
                     'source' => [
                         'pointer' => 'data/attributes/recipient_address/phone_number',
                     ],
                 ],
                 [
                     'title'  => 'Invalid input',
-                    'detail' => 'The used service code must be one of the following: service-a, service-b, service-c.',
+                    'detail' => 'The service code must be one of the following: service-a, service-b, service-c.',
                     'source' => [
                         'pointer' => 'data/attributes/service/code',
                     ],
                 ],
                 [
                     'title'  => 'Missing input',
-                    'detail' => 'The sender\'s email address is required when sender\'s phone number is not present.',
+                    'detail' => 'The sender email address is required when sender phone number is not present.',
                     'source' => [
                         'pointer' => 'data/attributes/sender_address/email',
                     ],

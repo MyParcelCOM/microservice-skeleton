@@ -16,7 +16,7 @@ class VerifySecretTest extends TestCase
     {
         parent::setUp();
 
-        $this->bindCarrierApiGatewayMock();
+        $this->bindHttpClientMock();
     }
 
     /** @test */

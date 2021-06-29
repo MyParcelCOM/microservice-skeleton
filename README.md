@@ -41,7 +41,7 @@ Persisting information such as the API url should be set in the `.env` file.
 There are several `TODO` comments added to the codebase to help you get started on what to implement. There are also several tests to check if everything is working as it is supposed to. The endpoint tests are the starting point to check if an endpoint does what is required from the carrier specification.
 
 #### Response Stubs
-The endpoint tests should not make actual calls to the carrier. They use a `CarrierApiGatewayMock` class to mock external calls. To make sure the tests do work with actual data, stubs must be created for the carrier responses.
+The endpoint tests should not make actual calls to the carrier. They use a `CarrierApiGatewayMock` or `HttpClientMock` class to mock external calls. To make sure the tests do work with actual data, stubs must be created for the carrier responses.
 
 To create the response stub, just make a call to the carrier's endpoint with your favorite API tool (like Postman). Copy and paste the entire response of the carrier into a file inside the `/tests/Stubs` directory. The file name should be equal to the url you accessed with the exception that all `/` characters are replaced with `-`. It should also be prefixed with the http method followed by another `-` and end in `.stub`.
 

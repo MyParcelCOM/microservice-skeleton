@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Tests\Traits;
 
+use GuzzleHttp\Client as HttpClient;
 use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
 use MyParcelCom\Microservice\Tests\Mocks\CarrierApiGatewayMock;
+use MyParcelCom\Microservice\Tests\Mocks\HttpClientMock;
 
 trait CommunicatesWithCarrier
 {
@@ -28,6 +30,23 @@ trait CommunicatesWithCarrier
     protected function getApiCredentials(): array
     {
         return config('services.carrier_credentials');
+    }
+
+    /**
+     * Binds a mock HttpClient in the service container.
+     * Also prepares mocked HTTP requests and exceptions.
+     *
+     * @param MockedClientResponse[] $mockedClientResponses
+     */
+    protected function bindHttpClientMock(array $mockedClientResponses = [])
+    {
+        $this->app->singleton(HttpClient::class, function () use ($mockedClientResponses) {
+            $httpClient = new HttpClientMock();
+            foreach ($mockedClientResponses as $mockedResponse) {
+                $httpClient->mockClientResponse($mockedResponse);
+            }
+            return $httpClient;
+        });
     }
 
     /**

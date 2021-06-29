@@ -17,7 +17,7 @@ class JsonApiResponseHeaderTest extends TestCase
     {
         parent::setUp();
 
-        $this->bindCarrierApiGatewayMock();
+        $this->bindHttpClientMock();
     }
 
     /** @test */
