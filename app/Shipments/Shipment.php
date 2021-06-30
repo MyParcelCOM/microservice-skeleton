@@ -22,7 +22,7 @@ class Shipment
     protected $recipientTaxNumber;
 
     /** @var array */
-    protected $recipientTaxIdentificationNumbers;
+    protected $recipientTaxIdentificationNumbers = [];
 
     /** @var Address */
     protected $senderAddress;
@@ -31,7 +31,7 @@ class Shipment
     protected $senderTaxNumber;
 
     /** @var array */
-    protected $senderTaxIdentificationNumbers;
+    protected $senderTaxIdentificationNumbers = [];
 
     /** @var Address */
     protected $returnAddress;
@@ -520,7 +520,7 @@ class Shipment
         return $this;
     }
 
-    public function getRecipientTaxIdentificationNumbers(): ?array
+    public function getRecipientTaxIdentificationNumbers(): array
     {
         return $this->recipientTaxIdentificationNumbers;
     }
@@ -580,7 +580,7 @@ class Shipment
         return $this;
     }
 
-    public function getSenderTaxIdentificationNumbers(): ?array
+    public function getSenderTaxIdentificationNumbers(): array
     {
         return $this->senderTaxIdentificationNumbers;
     }
@@ -703,10 +703,10 @@ class Shipment
     }
 
     /**
-     * @return array|null
+     * @return array
      * @deprecated
      */
-    public function getTaxIdentificationNumbers(): ?array
+    public function getTaxIdentificationNumbers(): array
     {
         return $this->taxIdentificationNumbers;
     }
@@ -719,7 +719,7 @@ class Shipment
      */
     public function getTaxIdentificationNumber(string $type, string $countryCode): ?string
     {
-        foreach ($this->taxIdentificationNumbers as $number) {
+        foreach ($this->getTaxIdentificationNumbers() as $number) {
             if ($number['type'] === $type && $number['country_code'] === $countryCode) {
                 return $number['number'];
             }

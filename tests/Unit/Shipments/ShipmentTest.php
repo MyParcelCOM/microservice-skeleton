@@ -187,6 +187,7 @@ class ShipmentTest extends TestCase
                 'type'         => 'eori',
             ],
         ];
+        $this->assertEquals([], $this->shipment->getSenderTaxIdentificationNumbers());
         $this->assertEquals($taxIdentificationNumbers, $this->shipment->setSenderTaxIdentificationNumbers($taxIdentificationNumbers)->getSenderTaxIdentificationNumbers());
     }
 
@@ -223,6 +224,7 @@ class ShipmentTest extends TestCase
                 'type'         => 'eori',
             ],
         ];
+        $this->assertEquals([], $this->shipment->getRecipientTaxIdentificationNumbers());
         $this->assertEquals($taxIdentificationNumbers, $this->shipment->setRecipientTaxIdentificationNumbers($taxIdentificationNumbers)->getRecipientTaxIdentificationNumbers());
     }
 
