@@ -21,7 +21,7 @@ use Throwable;
 
 use function in_array;
 
-use const OpenTracing\Formats\TEXT_MAP;
+use const OpenTracing\Formats\HTTP_HEADERS;
 
 class HttpRequestSpanSubscriber
 {
@@ -143,6 +143,6 @@ class HttpRequestSpanSubscriber
             return Arr::first($value);
         })->all();
 
-        return $tracer->extract(TEXT_MAP, $contextCarrier);
+        return $tracer->extract(HTTP_HEADERS, $contextCarrier);
     }
 }
