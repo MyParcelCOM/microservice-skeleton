@@ -551,9 +551,11 @@ class Shipment
             }
         }
 
-        // Check recipient_tax_number (can be removed in the future)
-        if (!empty($this->getRecipientTaxNumber())) {
-            return $this->getRecipientTaxNumber();
+        // Check recipient_tax_number, but only for previously supported EORI or VAT (can be removed in the future)
+        if (!empty($this->getRecipientTaxNumber()) && $type->getValue() !== TaxTypeEnum::IOSS) {
+            if (empty($countryCodes) || str_contains($this->getRecipientTaxNumber(), $countryCodes[0])) {
+                return $this->getRecipientTaxNumber();
+            }
         }
 
         return null;
@@ -611,9 +613,11 @@ class Shipment
             }
         }
 
-        // Check sender_tax_number (can be removed in the future)
-        if (!empty($this->getSenderTaxNumber())) {
-            return $this->getSenderTaxNumber();
+        // Check sender_tax_number, but only for previously supported EORI or VAT (can be removed in the future)
+        if (!empty($this->getSenderTaxNumber()) && $type->getValue() !== TaxTypeEnum::IOSS) {
+            if (empty($countryCodes) || str_contains($this->getSenderTaxNumber(), $countryCodes[0])) {
+                return $this->getSenderTaxNumber();
+            }
         }
 
         return null;

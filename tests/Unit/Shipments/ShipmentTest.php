@@ -175,6 +175,11 @@ class ShipmentTest extends TestCase
     public function testSenderTaxNumber()
     {
         $this->assertEquals('74X', $this->shipment->setSenderTaxNumber('74X')->getSenderTaxNumber());
+
+        $this->assertEquals('74X', $this->shipment->getSenderTaxIdentificationNumber(TaxTypeEnum::EORI()));
+        $this->assertEquals('74X', $this->shipment->getSenderTaxIdentificationNumber(TaxTypeEnum::EORI(), '74'));
+        $this->assertNull($this->shipment->getSenderTaxIdentificationNumber(TaxTypeEnum::EORI(), 'GB'));
+        $this->assertNull($this->shipment->getSenderTaxIdentificationNumber(TaxTypeEnum::IOSS()));
     }
 
     /** @test */
@@ -212,6 +217,11 @@ class ShipmentTest extends TestCase
     public function testRecipientTaxNumber()
     {
         $this->assertEquals('74X', $this->shipment->setRecipientTaxNumber('74X')->getRecipientTaxNumber());
+
+        $this->assertEquals('74X', $this->shipment->getRecipientTaxIdentificationNumber(TaxTypeEnum::EORI()));
+        $this->assertEquals('74X', $this->shipment->getRecipientTaxIdentificationNumber(TaxTypeEnum::EORI(), '74'));
+        $this->assertNull($this->shipment->getRecipientTaxIdentificationNumber(TaxTypeEnum::EORI(), 'GB'));
+        $this->assertNull($this->shipment->getRecipientTaxIdentificationNumber(TaxTypeEnum::IOSS()));
     }
 
     /** @test */
