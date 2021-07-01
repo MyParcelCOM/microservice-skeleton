@@ -22,7 +22,7 @@ class Shipment
     protected $recipientTaxNumber;
 
     /** @var array */
-    protected $recipientTaxIdentificationNumbers;
+    protected $recipientTaxIdentificationNumbers = [];
 
     /** @var Address */
     protected $senderAddress;
@@ -31,7 +31,7 @@ class Shipment
     protected $senderTaxNumber;
 
     /** @var array */
-    protected $senderTaxIdentificationNumbers;
+    protected $senderTaxIdentificationNumbers = [];
 
     /** @var Address */
     protected $returnAddress;
@@ -520,7 +520,7 @@ class Shipment
         return $this;
     }
 
-    public function getRecipientTaxIdentificationNumbers(): ?array
+    public function getRecipientTaxIdentificationNumbers(): array
     {
         return $this->recipientTaxIdentificationNumbers;
     }
@@ -551,8 +551,8 @@ class Shipment
             }
         }
 
-        // Check recipient_tax_number (can be removed in the future)
-        if (!empty($this->getRecipientTaxNumber())) {
+        // Check recipient_tax_number, but only for previously supported EORI or VAT (can be removed in the future)
+        if (!empty($this->getRecipientTaxNumber()) && $type->getValue() !== TaxTypeEnum::IOSS) {
             return $this->getRecipientTaxNumber();
         }
 
@@ -580,7 +580,7 @@ class Shipment
         return $this;
     }
 
-    public function getSenderTaxIdentificationNumbers(): ?array
+    public function getSenderTaxIdentificationNumbers(): array
     {
         return $this->senderTaxIdentificationNumbers;
     }
@@ -611,9 +611,12 @@ class Shipment
             }
         }
 
-        // Check sender_tax_number (can be removed in the future)
-        if (!empty($this->getSenderTaxNumber())) {
-            return $this->getSenderTaxNumber();
+        // Check sender_tax_number, but only for previously supported EORI or VAT (can be removed in the future)
+        if (!empty($this->getSenderTaxNumber()) && $type->getValue() !== TaxTypeEnum::IOSS) {
+            // We only operate in countries where the EORI and VAT start with the country code, so let's filter on that.
+            if (empty($countryCodes) || str_contains($this->getSenderTaxNumber(), $countryCodes[0])) {
+                return $this->getSenderTaxNumber();
+            }
         }
 
         return null;
@@ -703,10 +706,10 @@ class Shipment
     }
 
     /**
-     * @return array|null
+     * @return array
      * @deprecated
      */
-    public function getTaxIdentificationNumbers(): ?array
+    public function getTaxIdentificationNumbers(): array
     {
         return $this->taxIdentificationNumbers;
     }
@@ -719,7 +722,7 @@ class Shipment
      */
     public function getTaxIdentificationNumber(string $type, string $countryCode): ?string
     {
-        foreach ($this->taxIdentificationNumbers as $number) {
+        foreach ($this->getTaxIdentificationNumbers() as $number) {
             if ($number['type'] === $type && $number['country_code'] === $countryCode) {
                 return $number['number'];
             }

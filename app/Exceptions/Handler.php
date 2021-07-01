@@ -43,7 +43,7 @@ class Handler extends ExceptionHandler
         event(ExceptionOccurred::class);
 
         if ($exception instanceof RequestException && ($response = $exception->getResponse()) !== null) {
-            $carrierResponse = json_decode($response->getBody()->getContents(), true)
+            $carrierResponse = json_decode((string) $response->getBody(), true)
                 ?? ['response_body' => (string) $response->getBody()];
 
             $exception = new CarrierApiException(
