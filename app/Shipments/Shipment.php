@@ -553,9 +553,7 @@ class Shipment
 
         // Check recipient_tax_number, but only for previously supported EORI or VAT (can be removed in the future)
         if (!empty($this->getRecipientTaxNumber()) && $type->getValue() !== TaxTypeEnum::IOSS) {
-            if (empty($countryCodes) || str_contains($this->getRecipientTaxNumber(), $countryCodes[0])) {
-                return $this->getRecipientTaxNumber();
-            }
+            return $this->getRecipientTaxNumber();
         }
 
         return null;
@@ -615,6 +613,7 @@ class Shipment
 
         // Check sender_tax_number, but only for previously supported EORI or VAT (can be removed in the future)
         if (!empty($this->getSenderTaxNumber()) && $type->getValue() !== TaxTypeEnum::IOSS) {
+            // We only operate in countries where the EORI and VAT start with the country code, so let's filter on that.
             if (empty($countryCodes) || str_contains($this->getSenderTaxNumber(), $countryCodes[0])) {
                 return $this->getSenderTaxNumber();
             }

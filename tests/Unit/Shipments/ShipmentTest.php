@@ -220,7 +220,7 @@ class ShipmentTest extends TestCase
 
         $this->assertEquals('74X', $this->shipment->getRecipientTaxIdentificationNumber(TaxTypeEnum::EORI()));
         $this->assertEquals('74X', $this->shipment->getRecipientTaxIdentificationNumber(TaxTypeEnum::EORI(), '74'));
-        $this->assertNull($this->shipment->getRecipientTaxIdentificationNumber(TaxTypeEnum::EORI(), 'GB'));
+        $this->assertEquals('74X', $this->shipment->getRecipientTaxIdentificationNumber(TaxTypeEnum::EORI(), 'GB'));
         $this->assertNull($this->shipment->getRecipientTaxIdentificationNumber(TaxTypeEnum::IOSS()));
     }
 
