@@ -158,6 +158,10 @@ class ShipmentMapper implements MapperInterface
                 $option->setName($optionData['name']);
             }
 
+            if (isset($optionData['values'])) {
+                $option->setValues($optionData['values']);
+            }
+
             $shipment->addOption($option);
         });
 

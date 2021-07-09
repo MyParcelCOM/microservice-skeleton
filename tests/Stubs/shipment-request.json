@@ -82,6 +82,13 @@
         {
           "code": "delivery-day:sunday",
           "name": "Sunday Delivery"
+        },
+        {
+          "code": "pin-code",
+          "name": "Pin code",
+          "values": {
+            "pin": "1234"
+          }
         }
       ],
       "items": [

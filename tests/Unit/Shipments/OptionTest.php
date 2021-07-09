@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Tests\Unit\Shipments;
 
+use Error;
 use MyParcelCom\Microservice\Shipments\Option;
 use PHPUnit\Framework\TestCase;
-use TypeError;
 
 class OptionTest extends TestCase
 {
@@ -21,7 +21,7 @@ class OptionTest extends TestCase
     public function testUninitializedCode()
     {
         $option = new Option();
-        $this->expectException(TypeError::class);
+        $this->expectException(Error::class);
         $option->getCode();
     }
 

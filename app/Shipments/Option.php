@@ -6,11 +6,9 @@ namespace MyParcelCom\Microservice\Shipments;
 
 class Option
 {
-    /** @var string */
-    protected $code;
-
-    /** @var string|null */
-    protected $name;
+    private string $code;
+    private ?string $name = null;
+    private ?array $values = null;
 
     /**
      * @return string
@@ -46,6 +44,18 @@ class Option
     public function setName(?string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getValues(): ?array
+    {
+        return $this->values;
+    }
+
+    public function setValues(?array $values): self
+    {
+        $this->values = $values;
 
         return $this;
     }
