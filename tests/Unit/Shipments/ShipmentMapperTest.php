@@ -145,14 +145,20 @@ class ShipmentMapperTest extends TestCase
                 return $shipment;
             })
             ->shouldReceive('addOption')
-            ->andReturnUsing(function ($option) use ($shipment) {
-                $this->assertInstanceOf(Option::class, $option);
-                /** @var Option $option */
-                $this->assertEquals('delivery-day:sunday', $option->getCode());
-                $this->assertEquals('Sunday Delivery', $option->getName());
-
-                return $shipment;
+            ->withArgs(function (Option $option) {
+                return $option->getCode() === 'delivery-day:sunday'
+                    && $option->getName() === 'Sunday Delivery';
             })
+            ->once()
+            ->andReturnSelf()
+            ->shouldReceive('addOption')
+            ->withArgs(function (Option $option) {
+                return $option->getCode() === 'pin-code'
+                    && $option->getName() === 'Pin code'
+                    && $option->getValues() === ['pin' => '1234'];
+            })
+            ->once()
+            ->andReturnSelf()
             ->shouldReceive('getCustoms')
             ->andReturn(null)
             ->shouldReceive('setCustoms')

@@ -36,9 +36,13 @@ class CarrierSpanSubscriber
             return;
         }
         self::$scope = $this->tracer->startActiveSpan(
-            $event->getMethod() . ' ' . $event->getUrl(),
+            $event->getContext(),
             $this->getSpanOptions()
         );
+        self::$scope->getSpan()->log([
+            'url'    => $event->getUrl(),
+            'method' => $event->getMethod(),
+        ]);
     }
 
     public function end(CompletedCarrierApiRequest $event): void
