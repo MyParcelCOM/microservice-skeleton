@@ -19,21 +19,8 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(PickUpDropOffLocationRepository::class, function (Container $app) {
-            return (new PickUpDropOffLocationRepository())
-                ->setCache($app->make('cache.store'))
-                ->setCarrierApiGateway($app->make(CarrierApiGatewayInterface::class));
-        });
-
-        $this->app->singleton(StatusRepository::class, function (Container $app) {
-            return (new StatusRepository())
-                ->setCarrierApiGateway($app->make(CarrierApiGatewayInterface::class));
-        });
-
-        $this->app->singleton(ShipmentRepository::class, function (Container $app) {
-            return (new ShipmentRepository())
-                ->setShipmentMapper($app->make(ShipmentMapper::class))
-                ->setCarrierApiGateway($app->make(CarrierApiGatewayInterface::class));
-        });
+        $this->app->singleton(PickUpDropOffLocationRepository::class);
+        $this->app->singleton(StatusRepository::class);
+        $this->app->singleton(ShipmentRepository::class);
     }
 }
