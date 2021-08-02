@@ -10,11 +10,16 @@ use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
 
 class ShipmentRepository
 {
-    /** @var MapperInterface */
-    protected $shipmentMapper;
+    protected MapperInterface $shipmentMapper;
+    protected CarrierApiGatewayInterface $carrierApiGateway;
 
-    /** @var CarrierApiGatewayInterface */
-    protected $carrierApiGateway;
+    public function __construct(
+        CarrierApiGatewayInterface $carrierApiGateway,
+        ShipmentMapper $shipmentMapper,
+    ) {
+        $this->carrierApiGateway = $carrierApiGateway;
+        $this->shipmentMapper = $shipmentMapper;
+    }
 
     /**
      * Makes a shipment from the posted shipment data and persists it (by sending it to the carrier api).
@@ -37,29 +42,5 @@ class ShipmentRepository
         // TODO: Add files to the shipment (use File objects).
 
         return $shipment;
-    }
-
-    /**
-     * @param CarrierApiGatewayInterface $carrierApiGateway
-     * @return $this
-     */
-    public function setCarrierApiGateway(CarrierApiGatewayInterface $carrierApiGateway): self
-    {
-        $this->carrierApiGateway = $carrierApiGateway;
-
-        return $this;
-    }
-
-    /**
-     * Set mapper to use when mapping request data to a Shipment.
-     *
-     * @param MapperInterface $mapper
-     * @return $this
-     */
-    public function setShipmentMapper(MapperInterface $mapper): self
-    {
-        $this->shipmentMapper = $mapper;
-
-        return $this;
     }
 }

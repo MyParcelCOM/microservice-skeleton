@@ -25,9 +25,7 @@ class ShipmentRepositoryTest extends TestCase
     {
         $postData = json_decode(file_get_contents(base_path('tests/Stubs/shipment-request.json')), true);
 
-        $shipmentRepository = (new ShipmentRepository())
-            ->setShipmentMapper(new ShipmentMapper())
-            ->setCarrierApiGateway(new CarrierApiGatewayMock());
+        $shipmentRepository = new ShipmentRepository(new CarrierApiGatewayMock(), new ShipmentMapper());
 
         $shipment = $shipmentRepository->createFromPostData($postData['data'], $postData['meta']);
 

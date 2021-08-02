@@ -13,11 +13,14 @@ use Psr\SimpleCache\CacheInterface;
 
 class PickUpDropOffLocationRepository
 {
-    /** @var CarrierApiGatewayInterface */
-    protected $carrierApiGateway;
+    protected CarrierApiGatewayInterface $carrierApiGateway;
+    protected CacheInterface $cache;
 
-    /** @var CacheInterface */
-    protected $cache;
+    public function __construct(CarrierApiGatewayInterface $carrierApiGateway, CacheInterface $cache)
+    {
+        $this->carrierApiGateway = $carrierApiGateway;
+        $this->cache = $cache;
+    }
 
     /**
      * @param string      $countryCode
@@ -137,27 +140,5 @@ class PickUpDropOffLocationRepository
             }
             return false;
         });
-    }
-
-    /**
-     * @param CarrierApiGatewayInterface $gateway
-     * @return $this
-     */
-    public function setCarrierApiGateway(CarrierApiGatewayInterface $gateway): self
-    {
-        $this->carrierApiGateway = $gateway;
-
-        return $this;
-    }
-
-    /**
-     * @param CacheInterface $cache
-     * @return $this
-     */
-    public function setCache(CacheInterface $cache): self
-    {
-        $this->cache = $cache;
-
-        return $this;
     }
 }

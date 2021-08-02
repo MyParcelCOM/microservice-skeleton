@@ -9,8 +9,13 @@ use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
 
 class StatusRepository
 {
-    /** @var CarrierApiGatewayInterface */
-    protected $carrierApiGateway;
+    protected CarrierApiGatewayInterface $carrierApiGateway;
+
+    public function __construct(
+        CarrierApiGatewayInterface $carrierApiGateway,
+    ) {
+        $this->carrierApiGateway = $carrierApiGateway;
+    }
 
     /**
      * @param string $shipmentId
@@ -22,16 +27,5 @@ class StatusRepository
         // TODO: Get statuses for given shipment/tracking_code from carrier (use CarrierApiGateway).
         // TODO: Map data to Status objects. Convert timestamp to UTC.
         // TODO: Put Status objects in an object that implements ResourcesInterface
-    }
-
-    /**
-     * @param CarrierApiGatewayInterface $gateway
-     * @return $this
-     */
-    public function setCarrierApiGateway(CarrierApiGatewayInterface $gateway): self
-    {
-        $this->carrierApiGateway = $gateway;
-
-        return $this;
     }
 }

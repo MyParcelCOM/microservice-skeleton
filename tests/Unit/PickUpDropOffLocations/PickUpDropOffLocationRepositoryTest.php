@@ -22,9 +22,10 @@ class PickUpDropOffLocationRepositoryTest extends TestCase
 
         $cache = Mockery::mock(CacheInterface::class, ['get' => null, 'set' => true]);
 
-        $this->pickUpDropOffLocationRepository = (new PickUpDropOffLocationRepository())
-            ->setCache($cache)
-            ->setCarrierApiGateway(new CarrierApiGatewayMock());
+        $this->pickUpDropOffLocationRepository = new PickUpDropOffLocationRepository(
+            new CarrierApiGatewayMock(),
+            $cache
+        );
     }
 
     protected function tearDown(): void
