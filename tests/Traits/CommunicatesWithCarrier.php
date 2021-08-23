@@ -8,6 +8,7 @@ use GuzzleHttp\Client as HttpClient;
 use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
 use MyParcelCom\Microservice\Tests\Mocks\CarrierApiGatewayMock;
 use MyParcelCom\Microservice\Tests\Mocks\HttpClientMock;
+use MyParcelCom\Microservice\Tests\Mocks\MockedClientResponse;
 
 trait CommunicatesWithCarrier
 {
