@@ -25,7 +25,7 @@ class ServiceRateRepository
     public function getServiceRates(Shipment $shipment): ResourcesInterface
     {
         // TODO: Get service rates for given shipment from carrier (use CarrierApiGateway).
-        // TODO: Map data to ServiceRate objects. Convert timestamp to UTC.
+        // TODO: Map data to ServiceRate objects.
         // TODO: Put ServiceRate objects in an object that implements ResourcesInterface
     }
 }

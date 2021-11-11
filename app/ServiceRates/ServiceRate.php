@@ -4,37 +4,62 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\ServiceRates;
 
-use TypeError;
-
 class ServiceRate
 {
-    protected string $id;
+    /** @var string */
+    protected $code;
 
-    protected string $code;
+    /** @var int */
+    protected $weight_min;
 
-    protected int $weight_min;
+    /** @var int */
+    protected $weight_max;
 
-    protected int $weight_max;
+    /** @var int */
+    protected $length_max;
 
-    protected int $length_max;
+    /** @var int */
+    protected $width_max;
 
-    protected int $width_max;
+    /** @var int */
+    protected $height_max;
 
-    protected int $height_max;
+    /** @var float */
+    protected $volume_max;
 
-    protected float $volume_max;
+    /** @var Price */
+    protected $price;
 
-    protected Price $price;
+    /** @var Price */
+    protected $purchase_price;
 
-    protected Price $purchase_price;
-
-    protected Price $fuel_surcharge;
+    /** @var Price */
+    protected $fuel_surcharge;
 
     /**
-     * @param int $weightMin
+     * @param string|null $code
      * @return $this
      */
-    public function setWeightMin(int $weightMin): self
+    public function setCode(?string $code): self
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param int|null $weightMin
+     * @return $this
+     */
+    public function setWeightMin(?int $weightMin): self
     {
         $this->weight_min = $weightMin;
 
@@ -42,23 +67,18 @@ class ServiceRate
     }
 
     /**
-     * @return int
-     * @throws TypeError
+     * @return int|null
      */
-    public function getWeightMin(): int
+    public function getWeightMin(): ?int
     {
-        if ($this->weight_min === null) {
-            throw new TypeError('weight_min cant be null');
-        }
-
         return $this->weight_min;
     }
 
     /**
-     * @param int $weightMax
+     * @param int|null $weightMax
      * @return $this
      */
-    public function setWeightMax(int $weightMax): self
+    public function setWeightMax(?int $weightMax): self
     {
         $this->weight_max = $weightMax;
 
@@ -66,15 +86,10 @@ class ServiceRate
     }
 
     /**
-     * @return int
-     * @throws TypeError
+     * @return int|null
      */
-    public function getWeightMax(): int
+    public function getWeightMax(): ?int
     {
-        if ($this->weight_max === null) {
-            throw new TypeError('weight_max cant be null');
-        }
-
         return $this->weight_max;
     }
 
@@ -193,10 +208,10 @@ class ServiceRate
     }
 
     /**
-     * @param Price $price
+     * @param Price|null $price
      * @return $this
      */
-    public function setFuelSurcharge(Price $price): self
+    public function setFuelSurcharge(?Price $price): self
     {
         $this->fuel_surcharge = $price;
 
@@ -204,9 +219,9 @@ class ServiceRate
     }
 
     /**
-     * @return Price
+     * @return Price|null
      */
-    public function getFuelSurcharge(): Price
+    public function getFuelSurcharge(): ?Price
     {
         return $this->fuel_surcharge;
     }
