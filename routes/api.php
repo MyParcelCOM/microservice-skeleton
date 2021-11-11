@@ -18,6 +18,8 @@ Route::get('/', function () {
     ]);
 });
 
+Route::post('/get-service-rates')->name('get-service-rates');
+
 Route::get('/pickup-dropoff-locations/{countryCode}/{postalCode}', [PickUpDropOffLocationController::class, 'getAll'])
     ->name('get-pickup-dropoff-locations');
 
