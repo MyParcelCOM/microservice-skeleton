@@ -12,11 +12,25 @@ class ServiceRateTransformer extends AbstractTransformer {
     /** @var string */
     protected $type = 'service_rates';
 
+    /**
+     * @param mixed $serviceRate
+     * @return string
+     */
     public function getId($serviceRate): string
     {
         $this->validateModel($serviceRate);
 
         return $serviceRate->getId();
+    }
+
+    /**
+     * @param mixed $serviceRate
+     * @return array
+     */
+    public function getAttributes($serviceRate): array
+    {
+        $this->validateModel($serviceRate);
+        return parent::getAttributes($serviceRate);
     }
 
     /**
