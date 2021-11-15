@@ -30,12 +30,7 @@ class ServiceRateController extends Controller
             ['size' => 100, 'number' => 1],
             request()->input('page') ?? []
         );
-        $paginator = (
-        new Paginator(
-            '/' . request()->path(),
-            (int) $page['size'],
-            (int) $page['number'])
-        )->setMaxPageSize((int) $page['size']);
+        $paginator = (new Paginator('/' . request()->path(), (int) $page['size'], (int) $page['number']))->setMaxPageSize((int) $page['size']);
 
         return new JsonResponse(
             $transformerService->setPaginator($paginator)->transformResources($serviceRates)
