@@ -19,7 +19,8 @@ Route::get('/', function () {
     ]);
 });
 
-Route::post('/get-service-rates', [ServiceRateController::class, 'getServiceRates'])->name('get-service-rates');
+Route::post('/get-service-rates', [ServiceRateController::class, 'getServiceRates'])
+    ->name('get-service-rates');
 
 Route::get('/pickup-dropoff-locations/{countryCode}/{postalCode}', [PickUpDropOffLocationController::class, 'getAll'])
     ->name('get-pickup-dropoff-locations');

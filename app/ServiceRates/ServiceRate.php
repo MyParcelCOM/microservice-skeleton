@@ -6,35 +6,35 @@ namespace MyParcelCom\Microservice\ServiceRates;
 
 class ServiceRate
 {
-    /** @var string */
-    protected $code;
+    /** @var string|null */
+    private $code;
 
-    /** @var int */
-    protected $weight_min;
+    /** @var int|null */
+    private $weightMin;
 
-    /** @var int */
-    protected $weight_max;
+    /** @var int|null */
+    private $weightMax;
 
-    /** @var int */
-    protected $length_max;
+    /** @var int|null */
+    private $lengthMax;
 
-    /** @var int */
-    protected $width_max;
+    /** @var int|null */
+    private $widthMax;
 
-    /** @var int */
-    protected $height_max;
+    /** @var int|null */
+    private $heightMax;
 
-    /** @var float */
-    protected $volume_max;
-
-    /** @var Price */
-    protected $price;
+    /** @var float|null */
+    private $volumeMax;
 
     /** @var Price */
-    protected $purchase_price;
+    private $price;
 
     /** @var Price */
-    protected $fuel_surcharge;
+    private $purchasePrice;
+
+    /** @var Price|null */
+    private $fuelSurcharge;
 
     /**
      * @param string|null $code
@@ -61,7 +61,7 @@ class ServiceRate
      */
     public function setWeightMin(?int $weightMin): self
     {
-        $this->weight_min = $weightMin;
+        $this->weightMin = $weightMin;
 
         return $this;
     }
@@ -71,7 +71,7 @@ class ServiceRate
      */
     public function getWeightMin(): ?int
     {
-        return $this->weight_min;
+        return $this->weightMin;
     }
 
     /**
@@ -80,7 +80,7 @@ class ServiceRate
      */
     public function setWeightMax(?int $weightMax): self
     {
-        $this->weight_max = $weightMax;
+        $this->weightMax = $weightMax;
 
         return $this;
     }
@@ -90,7 +90,7 @@ class ServiceRate
      */
     public function getWeightMax(): ?int
     {
-        return $this->weight_max;
+        return $this->weightMax;
     }
 
     /**
@@ -99,7 +99,7 @@ class ServiceRate
      */
     public function setLengthMax(?int $lengthMax): self
     {
-        $this->length_max = $lengthMax;
+        $this->lengthMax = $lengthMax;
 
         return $this;
     }
@@ -109,7 +109,7 @@ class ServiceRate
      */
     public function getLengthMax(): ?int
     {
-        return $this->length_max;
+        return $this->lengthMax;
     }
 
     /**
@@ -118,7 +118,7 @@ class ServiceRate
      */
     public function setWidthMax(?int $widthMax): self
     {
-        $this->width_max = $widthMax;
+        $this->widthMax = $widthMax;
 
         return $this;
     }
@@ -128,7 +128,7 @@ class ServiceRate
      */
     public function getWidthMax(): ?int
     {
-        return $this->width_max;
+        return $this->widthMax;
     }
 
     /**
@@ -137,7 +137,7 @@ class ServiceRate
      */
     public function setHeightMax(?int $heightMax): self
     {
-        $this->height_max = $heightMax;
+        $this->heightMax = $heightMax;
 
         return $this;
     }
@@ -147,7 +147,7 @@ class ServiceRate
      */
     public function getHeightMax(): ?int
     {
-        return $this->height_max;
+        return $this->heightMax;
     }
 
     /**
@@ -156,7 +156,7 @@ class ServiceRate
      */
     public function setVolumeMax(?float $volumeMax): self
     {
-        $this->volume_max = $volumeMax;
+        $this->volumeMax = $volumeMax;
 
         return $this;
     }
@@ -166,7 +166,7 @@ class ServiceRate
      */
     public function getVolumeMax(): ?float
     {
-        return $this->volume_max;
+        return $this->volumeMax;
     }
 
     /**
@@ -194,7 +194,7 @@ class ServiceRate
      */
     public function setPurchasePrice(Price $price): self
     {
-        $this->purchase_price = $price;
+        $this->purchasePrice = $price;
 
         return $this;
     }
@@ -204,7 +204,7 @@ class ServiceRate
      */
     public function getPurchasePrice(): Price
     {
-        return $this->purchase_price;
+        return $this->purchasePrice;
     }
 
     /**
@@ -213,7 +213,7 @@ class ServiceRate
      */
     public function setFuelSurcharge(?Price $price): self
     {
-        $this->fuel_surcharge = $price;
+        $this->fuelSurcharge = $price;
 
         return $this;
     }
@@ -223,7 +223,7 @@ class ServiceRate
      */
     public function getFuelSurcharge(): ?Price
     {
-        return $this->fuel_surcharge;
+        return $this->fuelSurcharge;
     }
 
 }

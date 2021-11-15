@@ -18,7 +18,7 @@ class ServiceRatesTest extends TestCase
     use JsonApiAssertionsTrait;
 
     /** @test */
-    public function testGetStatuses()
+    public function testGetServiceRates()
     {
         $this->bindHttpClientMock();
 

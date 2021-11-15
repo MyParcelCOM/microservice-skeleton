@@ -9,12 +9,11 @@ use MyParcelCom\JsonApi\Transformers\AbstractTransformer;
 
 class ServiceRateTransformer extends AbstractTransformer
 {
-
     /** @var string */
     protected $type = 'service_rates';
 
     /**
-     * @param mixed $serviceRate
+     * @param ServiceRate $serviceRate
      * @return string|null
      */
     public function getId($serviceRate): ?string

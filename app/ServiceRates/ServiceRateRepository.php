@@ -10,12 +10,8 @@ use MyParcelCom\Microservice\Shipments\Shipment;
 
 class ServiceRateRepository
 {
-    protected CarrierApiGatewayInterface $carrierApiGateway;
-
-    public function __construct(
-        CarrierApiGatewayInterface $carrierApiGateway,
-    ) {
-        $this->carrierApiGateway = $carrierApiGateway;
+    public function __construct(private CarrierApiGatewayInterface $carrierApiGateway)
+    {
     }
 
     /**

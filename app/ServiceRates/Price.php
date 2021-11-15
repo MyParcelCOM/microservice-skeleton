@@ -6,19 +6,12 @@ namespace MyParcelCom\Microservice\ServiceRates;
 
 class Price
 {
-
-    protected int $amount;
-
-    protected string $currency;
-
     /**
-     * @param int          $amount
+     * @param int    $amount
      * @param string $currency
      */
-    public function __construct(int $amount, string $currency)
+    public function __construct(private int $amount, private string $currency)
     {
-        $this->amount = $amount;
-        $this->currency = $currency;
     }
 
     /**

@@ -16,9 +16,7 @@ use stdClass;
 
 class ServiceRateTransformerTest extends TestCase
 {
-
     private ServiceRateTransformer $transformer;
-
     private ServiceRate $serviceRate;
 
     protected function setUp(): void
@@ -41,13 +39,6 @@ class ServiceRateTransformerTest extends TestCase
             'getPurchasePrice' => Mockery::mock(Price::class, ['getAmount' => 75, 'getCurrency' => 'GBP']),
             'getFuelSurcharge' => Mockery::mock(Price::class, ['getAmount' => 15, 'getCurrency' => 'GBP']),
         ]);
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-
-        Mockery::close();
     }
 
     /** @test */

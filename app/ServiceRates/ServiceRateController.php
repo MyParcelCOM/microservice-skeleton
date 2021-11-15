@@ -34,8 +34,7 @@ class ServiceRateController extends Controller
         new Paginator(
             '/' . request()->path(),
             (int) $page['size'],
-            (int) $page['number']
-        )
+            (int) $page['number'])
         )->setMaxPageSize((int) $page['size']);
 
         return new JsonResponse(
