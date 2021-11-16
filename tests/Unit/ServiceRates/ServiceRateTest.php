@@ -17,8 +17,8 @@ class ServiceRateTest extends TestCase
     {
         parent::setUp();
 
-        $this->serviceRate = new ServiceRate();
         $this->price = new Price(10, 'EUR');
+        $this->serviceRate = new ServiceRate($this->price, $this->price);
     }
 
     /** @test */
@@ -84,16 +84,14 @@ class ServiceRateTest extends TestCase
     }
 
     /** @test */
-    public function testItCanGetAndSetPrice(): void
+    public function testItCanGetPrice(): void
     {
-        $this->serviceRate->setPrice($this->price);
         $this->assertEquals($this->price, $this->serviceRate->getPrice());
     }
 
     /** @test */
-    public function testItCanGetAndSetPurchasePrice(): void
+    public function testItCanGetPurchasePrice(): void
     {
-        $this->serviceRate->setPurchasePrice($this->price);
         $this->assertEquals($this->price, $this->serviceRate->getPurchasePrice());
     }
 

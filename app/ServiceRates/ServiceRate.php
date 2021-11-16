@@ -27,14 +27,15 @@ class ServiceRate
     /** @var float|null */
     private $volumeMax;
 
-    /** @var Price */
-    private $price;
-
-    /** @var Price */
-    private $purchasePrice;
-
     /** @var Price|null */
     private $fuelSurcharge;
+
+    /**
+     * @param Price $price
+     * @param Price $purchasePrice
+     */
+    public function __construct(private Price $price, private Price $purchasePrice) {
+    }
 
     /**
      * @param string|null $code
@@ -170,33 +171,11 @@ class ServiceRate
     }
 
     /**
-     * @param Price $price
-     * @return $this
-     */
-    public function setPrice(Price $price): self
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    /**
      * @return Price
      */
     public function getPrice(): Price
     {
         return $this->price;
-    }
-
-    /**
-     * @param Price $price
-     * @return $this
-     */
-    public function setPurchasePrice(Price $price): self
-    {
-        $this->purchasePrice = $price;
-
-        return $this;
     }
 
     /**
