@@ -6,6 +6,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Route;
 use MyParcelCom\Microservice\Credentials\CredentialController;
 use MyParcelCom\Microservice\PickUpDropOffLocations\PickUpDropOffLocationController;
+use MyParcelCom\Microservice\ServiceRates\ServiceRateController;
 use MyParcelCom\Microservice\Shipments\ShipmentController;
 use MyParcelCom\Microservice\Statuses\StatusController;
 
@@ -17,6 +18,9 @@ Route::get('/', function () {
         ],
     ]);
 });
+
+Route::post('/get-service-rates', [ServiceRateController::class, 'getServiceRates'])
+    ->name('get-service-rates');
 
 Route::get('/pickup-dropoff-locations/{countryCode}/{postalCode}', [PickUpDropOffLocationController::class, 'getAll'])
     ->name('get-pickup-dropoff-locations');
