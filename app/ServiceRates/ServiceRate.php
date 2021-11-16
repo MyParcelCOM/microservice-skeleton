@@ -6,35 +6,21 @@ namespace MyParcelCom\Microservice\ServiceRates;
 
 class ServiceRate
 {
-    /** @var string|null */
-    private $code;
-
-    /** @var int|null */
-    private $weightMin;
-
-    /** @var int|null */
-    private $weightMax;
-
-    /** @var int|null */
-    private $lengthMax;
-
-    /** @var int|null */
-    private $widthMax;
-
-    /** @var int|null */
-    private $heightMax;
-
-    /** @var float|null */
-    private $volumeMax;
-
-    /** @var Price|null */
-    private $fuelSurcharge;
+    private ?string $code;
+    private ?int $weightMin;
+    private ?int $weightMax;
+    private ?int $lengthMax;
+    private ?int $widthMax;
+    private ?int $heightMax;
+    private ?float $volumeMax;
+    private ?Price $fuelSurcharge;
 
     /**
      * @param Price $price
      * @param Price $purchasePrice
      */
-    public function __construct(private Price $price, private Price $purchasePrice) {
+    public function __construct(private Price $price, private Price $purchasePrice)
+    {
     }
 
     /**
