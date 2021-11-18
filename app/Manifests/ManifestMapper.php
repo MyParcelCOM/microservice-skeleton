@@ -8,8 +8,13 @@ use MyParcelCom\JsonApi\Interfaces\MapperInterface;
 
 class ManifestMapper implements MapperInterface
 {
-    public function map($data, $model)
+    /**
+     * @param array    $data
+     * @param Manifest $manifest
+     * @return Manifest
+     */
+    public function map($data, $manifest): Manifest
     {
-        // TODO: Implement map() method.
+        return $manifest;
     }
 }

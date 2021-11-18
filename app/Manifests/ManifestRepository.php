@@ -28,8 +28,10 @@ class ManifestRepository
      */
     public function createFromPostData(array $data, array $meta = []): Manifest
     {
+        // Since the Manifest needs a name in its constructor we can extract the name from the attributes here but that feels iffy since we have the mapper to do this.
+        // Should we instantiate the new Manifest in the mapper so we can pass a name into the constructor?
         /** @var Manifest $manifest */
-        $manifest = $this->manifestMapper->map($data, new Manifest($data['name']));
+        $manifest = $this->manifestMapper->map($data, new Manifest($data['attributes']['name']));
 
         // TODO: Validate the data for this specific carrier.
         // TODO: Map/transform the Manifest to a valid request for the carrier.
