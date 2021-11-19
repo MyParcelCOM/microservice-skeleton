@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Manifests;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
+use MyParcelCom\Microservice\Shipments\Shipment;
+
 class Manifest
 {
 
@@ -14,8 +18,29 @@ class Manifest
     {
     }
 
+    /**
+     * @return string
+     */
     public function getName(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getShipments(): Collection
+    {
+        // Todo: Implement relationships with shipments see the ManifestMapper class.
+        // return $this->shipments;
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function shipments(): HasMany
+    {
+        // Todo: Implement relationships with shipments see the ManifestMapper class.
+        // return $this->hasMany(Shipment::class);
     }
 }
