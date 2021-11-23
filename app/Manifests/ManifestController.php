@@ -11,6 +11,7 @@ use MyParcelCom\JsonApi\Transformers\TransformerService;
 use MyParcelCom\Microservice\Http\Controllers\Controller;
 use MyParcelCom\Microservice\Http\JsonRequestValidator;
 use MyParcelCom\Microservice\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ManifestController extends Controller
 {
@@ -30,12 +31,11 @@ class ManifestController extends Controller
         TransformerService $transformerService
     ): JsonResponse {
         $jsonRequestValidator->validate('/manifests', 'post', null);
-
         $manifest = $repository->createFromPostData($request->json('data'), $request->json('meta', []));
 
         return new JsonResponse(
             $transformerService->transformResource($manifest),
-            JsonResponse::HTTP_CREATED
+            Response::HTTP_CREATED
         );
     }
 
