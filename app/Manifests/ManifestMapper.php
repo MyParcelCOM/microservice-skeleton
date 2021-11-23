@@ -11,10 +11,10 @@ class ManifestMapper implements MapperInterface
 {
     /**
      * @param array $data
-     * @param       $meta
+     * @param null  $model
      * @return Manifest
      */
-    public function map($data, $meta): Manifest
+    public function map($data, $model = null): Manifest
     {
         $attributes = Arr::get($data, 'attributes', $data);
         $relationships = Arr::get($data, 'relationships', $data);
