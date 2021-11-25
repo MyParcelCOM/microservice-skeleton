@@ -25,7 +25,6 @@ class ManifestTransformerTest extends TestCase
 
         $transformerFactory = Mockery::mock(TransformerFactory::class);
         $this->transformer = (new ManifestTransformer($transformerFactory))->setUrlGenerator(Mockery::mock(UrlGenerator::class, ['route' => 'url']));
-        // todo: declare new Manifest
         $this->manifest = new Manifest('my-test-manifest');
     }
 
