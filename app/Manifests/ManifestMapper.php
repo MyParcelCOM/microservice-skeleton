@@ -30,7 +30,7 @@ class ManifestMapper implements MapperInterface
      * @param Manifest $manifest
      * @return $this
      */
-    private function mapRelationships(array $relationships, Manifest $manifest): self
+    private function mapRelationships(array $relationships, Manifest $manifest): void
     {
 //        if (array_key_exists('shipments', $relationships)) {
 //            $shipments = array_map(function ($shipment) {

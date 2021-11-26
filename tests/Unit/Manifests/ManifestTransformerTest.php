@@ -15,7 +15,6 @@ use stdClass;
 
 class ManifestTransformerTest extends TestCase
 {
-
     private Manifest $manifest;
     private ManifestTransformer $transformer;
 
