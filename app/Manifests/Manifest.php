@@ -6,13 +6,15 @@ namespace MyParcelCom\Microservice\Manifests;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
+use MyParcelCom\Microservice\Shipments\File;
 
 class Manifest
 {
     /**
      * @param string $name
+     * @param File[] $files
      */
-    public function __construct(private string $name)
+    public function __construct(private string $name, private array $files = [])
     {
     }
 
@@ -22,6 +24,25 @@ class Manifest
     public function getName(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return File[]
+     */
+    public function getFiles(): array
+    {
+        return $this->files;
+    }
+
+    /**
+     * @param File $file
+     * @return $this
+     */
+    public function addFile(File $file): self
+    {
+        $this->files[] = $file;
+
+        return $this;
     }
 
     /**

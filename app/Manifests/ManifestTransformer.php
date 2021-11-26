@@ -6,6 +6,7 @@ namespace MyParcelCom\Microservice\Manifests;
 
 use MyParcelCom\JsonApi\Exceptions\ModelTypeException;
 use MyParcelCom\JsonApi\Transformers\AbstractTransformer;
+use MyParcelCom\Microservice\Shipments\File;
 
 class ManifestTransformer extends AbstractTransformer
 {
@@ -32,7 +33,15 @@ class ManifestTransformer extends AbstractTransformer
         $this->validateModel($manifest);
 
         return array_filter([
-            'name' => $manifest->getName(),
+            'name'  => $manifest->getName(),
+            'files' => array_map(function (File $file) {
+                return [
+                    'resource_type' => $file->getType(),
+                    'mime_type'     => $file->getMimeType(),
+                    'extension'     => $file->getExtension(),
+                    'data'          => $file->getData(),
+                ];
+            }, $manifest->getFiles()),
         ]);
     }
 
