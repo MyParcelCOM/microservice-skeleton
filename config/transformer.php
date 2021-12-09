@@ -1,5 +1,7 @@
 <?php
 
+use MyParcelCom\Microservice\Manifests\Manifest;
+use MyParcelCom\Microservice\Manifests\ManifestTransformer;
 use MyParcelCom\Microservice\PickUpDropOffLocations\PickUpDropOffLocation;
 use MyParcelCom\Microservice\PickUpDropOffLocations\PickUpDropOffLocationTransformer;
 use MyParcelCom\Microservice\Shipments\Shipment;
@@ -23,6 +25,7 @@ return [
         PickUpDropOffLocation::class => PickUpDropOffLocationTransformer::class,
         Shipment::class              => ShipmentTransformer::class,
         Status::class                => StatusTransformer::class,
+        Manifest::class              => ManifestTransformer::class,
     ],
 
     /*
