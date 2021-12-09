@@ -20,6 +20,8 @@ class ManifestsTest extends TestCase
     /** @test */
     public function testGetManifests()
     {
+        $this->markTestSkipped();
+
         $this->bindHttpClientMock();
 
         // TODO: Add carrier response stub for requesting a status.
