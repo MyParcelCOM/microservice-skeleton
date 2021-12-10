@@ -7,6 +7,7 @@ namespace MyParcelCom\Microservice\Manifests;
 use MyParcelCom\JsonApi\Exceptions\ModelTypeException;
 use MyParcelCom\JsonApi\Transformers\AbstractTransformer;
 use MyParcelCom\Microservice\Shipments\File;
+use MyParcelCom\Microservice\Shipments\Shipment;
 
 class ManifestTransformer extends AbstractTransformer
 {
@@ -43,6 +44,18 @@ class ManifestTransformer extends AbstractTransformer
                 ];
             }, $manifest->getFiles()),
         ]);
+    }
+
+    /**
+     * @param Manifest $manifest
+     * @return array[]
+     */
+    public function getRelationships($manifest): array
+    {
+        $shipmentIDs = $manifest->getShipments()->map(fn (Shipment $shipment) => $shipment->getId())->all();
+        return [
+            'shipments' => $this->transformRelationshipForIdentifiers($shipmentIDs, 'shipments')
+        ];
     }
 
     /**
