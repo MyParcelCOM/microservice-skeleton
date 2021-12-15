@@ -7,6 +7,7 @@ namespace MyParcelCom\Microservice\Shipments;
 use MyParcelCom\JsonApi\Exceptions\ModelTypeException;
 use MyParcelCom\JsonApi\Transformers\AbstractTransformer;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
+use function array_filter;
 
 class ShipmentTransformer extends AbstractTransformer
 {
@@ -59,10 +60,11 @@ class ShipmentTransformer extends AbstractTransformer
                 'name' => $shipment->getService()->getName(),
             ],
             'options'                              => array_map(function (Option $option) {
-                return [
-                    'code' => $option->getCode(),
-                    'name' => $option->getName(),
-                ];
+                return array_filter([
+                    'code'   => $option->getCode(),
+                    'name'   => $option->getName(),
+                    'values' => $option->getValues() ? array_filter($option->getValues()) : null,
+                ]);
             }, $shipment->getOptions()),
             'physical_properties'                  => $shipment->getPhysicalProperties() === null ? null : array_filter([
                 'height'            => $shipment->getPhysicalProperties()->getHeight(),

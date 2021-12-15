@@ -69,8 +69,9 @@ class ShipmentTransformerTest extends TestCase
         ]);
 
         $option = Mockery::mock(Option::class, [
-            'getCode' => 'somecode',
-            'getName' => 'plx name me',
+            'getCode'   => 'somecode',
+            'getName'   => 'plx name me',
+            'getValues' => null
         ]);
 
         $shipmentItem = Mockery::mock(ShipmentItem::class, [
