@@ -165,6 +165,15 @@ class ShipmentTest extends TestCase
     }
 
     /** @test */
+    public function testItSetsAndGetsLabelSize()
+    {
+        $this->assertEquals(Shipment::LABEL_SIZE_A6, $this->shipment->getLabelSize());
+
+        $this->shipment->setLabelSize(Shipment::LABEL_SIZE_A4);
+        $this->assertEquals(Shipment::LABEL_SIZE_A4, $this->shipment->getLabelSize());
+    }
+
+    /** @test */
     public function testItSetsAndGetsChannel()
     {
         $this->shipment->setChannel('eBay');

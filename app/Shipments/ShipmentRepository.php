@@ -33,6 +33,8 @@ class ShipmentRepository
         /** @var Shipment $shipment */
         $shipment = $this->shipmentMapper->map($data, new Shipment());
         $shipment->setTrackTraceEnabled(Arr::get($meta, 'track_trace.enabled', true));
+        $shipment->setLabelMimeType(Arr::get($meta, 'label.mime_type', Shipment::LABEL_MIME_TYPE_PDF));
+        $shipment->setLabelSize(Arr::get($meta, 'label.size', Shipment::LABEL_SIZE_A6));
 
         // TODO: Validate the data for this specific carrier.
         // TODO: Map/transform the Shipment to a valid request for the carrier.
