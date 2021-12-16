@@ -13,18 +13,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Validation\ValidationException;
 use Mockery;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use MyParcelCom\Microservice\Events\ExceptionOccurred;
 use MyParcelCom\Microservice\Exceptions\Handler;
 use MyParcelCom\Microservice\Tests\TestCase;
 
 class HandlerTest extends TestCase
 {
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-
-        Mockery::close();
-    }
+    use MockeryPHPUnitIntegration;
 
     /** @test */
     public function testItTransformsAValidationExceptionIntoAMultiErrorException()

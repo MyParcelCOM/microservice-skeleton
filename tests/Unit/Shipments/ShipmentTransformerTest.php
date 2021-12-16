@@ -6,6 +6,7 @@ namespace MyParcelCom\Microservice\Tests\Unit\Shipments;
 
 use Illuminate\Routing\UrlGenerator;
 use Mockery;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use MyParcelCom\JsonApi\Exceptions\ModelTypeException;
 use MyParcelCom\JsonApi\Transformers\TransformerFactory;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
@@ -21,6 +22,8 @@ use stdClass;
 
 class ShipmentTransformerTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /** @var ShipmentTransformer */
     private $shipmentTransformer;
 
@@ -178,13 +181,6 @@ class ShipmentTransformerTest extends TestCase
             'getItems'                             => [],
             'getMyparcelcomShipmentId'             => 'bbacd0c7-9ec5-42df-9870-443b8e1a7155',
         ]);
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-
-        Mockery::close();
     }
 
     /** @test */
