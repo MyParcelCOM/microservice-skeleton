@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MyParcelCom\Microservice\Tests\Traits;
 
 use GuzzleHttp\Client as HttpClient;
+use GuzzleHttp\Utils;
 use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
 use MyParcelCom\Microservice\Tests\Mocks\CarrierApiGatewayMock;
 use MyParcelCom\Microservice\Tests\Mocks\HttpClientMock;
@@ -19,7 +20,7 @@ trait CommunicatesWithCarrier
     {
         return [
             'X-MYPARCELCOM-SECRET'      => config('app.secret'),
-            'X-MYPARCELCOM-CREDENTIALS' => \GuzzleHttp\json_encode($this->getApiCredentials()),
+            'X-MYPARCELCOM-CREDENTIALS' => Utils::jsonEncode($this->getApiCredentials()),
         ];
     }
 

@@ -38,5 +38,4 @@ class ManifestController extends Controller
             Response::HTTP_CREATED
         );
     }
-
 }

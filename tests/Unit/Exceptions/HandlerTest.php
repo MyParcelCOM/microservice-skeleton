@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Tests\Unit\Exceptions;
 
+use Exception;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\Support\MessageBag;
@@ -88,7 +89,7 @@ class HandlerTest extends TestCase
         $handler->setResponseFactory($responseFactory);
 
         $request = Mockery::mock(Request::class);
-        $exception = Mockery::mock(\Exception::class);
+        $exception = Mockery::mock(Exception::class);
 
         $handler->render($request, $exception);
         Event::assertDispatched(ExceptionOccurred::class);
