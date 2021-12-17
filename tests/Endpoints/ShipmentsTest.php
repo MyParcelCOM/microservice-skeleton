@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Tests\Endpoints;
 
+use GuzzleHttp\Utils;
 use MyParcelCom\Microservice\Tests\TestCase;
 use MyParcelCom\Microservice\Tests\Traits\CommunicatesWithCarrier;
 use MyParcelCom\Microservice\Tests\Traits\JsonApiAssertionsTrait;
-
-use function GuzzleHttp\json_decode;
 
 /**
  * @group Endpoints:Shipment
@@ -28,7 +27,7 @@ class ShipmentsTest extends TestCase
         // See the "Response Stubs" chapter in the readme for more info.
 
         $requestStub = file_get_contents(base_path('tests/Stubs/shipment-request.json'));
-        $data = json_decode($requestStub, true);
+        $data = Utils::jsonDecode($requestStub, true);
 
         $this->assertJsonSchema(
             '/shipments',

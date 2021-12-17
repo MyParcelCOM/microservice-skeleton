@@ -25,9 +25,9 @@ class PickUpDropOffLocationController extends Controller
         $pudoLocations = $pickUpDropOffLocationRepository->getAll(
             $countryCode,
             $postalCode,
-            $request->query('street', null),
-            $request->query('street_number', null),
-            $request->query('city', null),
+            $request->query('street'),
+            $request->query('street_number'),
+            $request->query('city'),
             $categories
         );
 

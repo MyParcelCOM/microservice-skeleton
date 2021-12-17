@@ -190,5 +190,4 @@ class ServiceRate
     {
         return $this->fuelSurcharge;
     }
-
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Tests\Endpoints;
 
+use GuzzleHttp\Utils;
 use MyParcelCom\Microservice\Tests\TestCase;
 use MyParcelCom\Microservice\Tests\Traits\CommunicatesWithCarrier;
 use MyParcelCom\Microservice\Tests\Traits\JsonApiAssertionsTrait;
@@ -27,7 +28,7 @@ class ValidateCredentialsTest extends TestCase
             '/validate-credentials',
             [
                 'X-MYPARCELCOM-SECRET'      => config('app.secret'),
-                'X-MYPARCELCOM-CREDENTIALS' => \GuzzleHttp\json_encode([
+                'X-MYPARCELCOM-CREDENTIALS' => Utils::jsonEncode([
                     'api_key' => 'invalid',
                 ]),
             ],
@@ -46,9 +47,7 @@ class ValidateCredentialsTest extends TestCase
             '/validate-credentials',
             '/validate-credentials',
             $this->getRequestHeaders(),
-            [],
-            'get',
-            200
+            []
         );
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Tests\Unit\Exceptions;
 
+use Exception;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\Support\MessageBag;
@@ -12,18 +13,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Validation\ValidationException;
 use Mockery;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use MyParcelCom\Microservice\Events\ExceptionOccurred;
 use MyParcelCom\Microservice\Exceptions\Handler;
 use MyParcelCom\Microservice\Tests\TestCase;
 
 class HandlerTest extends TestCase
 {
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-
-        Mockery::close();
-    }
+    use MockeryPHPUnitIntegration;
 
     /** @test */
     public function testItTransformsAValidationExceptionIntoAMultiErrorException()
@@ -88,7 +85,7 @@ class HandlerTest extends TestCase
         $handler->setResponseFactory($responseFactory);
 
         $request = Mockery::mock(Request::class);
-        $exception = Mockery::mock(\Exception::class);
+        $exception = Mockery::mock(Exception::class);
 
         $handler->render($request, $exception);
         Event::assertDispatched(ExceptionOccurred::class);

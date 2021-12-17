@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Tests\Feature;
 
+use GuzzleHttp\Utils;
 use Illuminate\Support\Arr;
 use Mockery;
 use Mockery\MockInterface;
@@ -12,8 +13,6 @@ use MyParcelCom\Microservice\Rules\Sanitization\MaxCharsSanitization;
 use MyParcelCom\Microservice\Tests\TestCase;
 use MyParcelCom\Microservice\Tests\Traits\CommunicatesWithCarrier;
 use Symfony\Component\HttpFoundation\ParameterBag;
-
-use function GuzzleHttp\json_decode;
 
 class ShipmentRequestTest extends TestCase
 {
@@ -147,7 +146,7 @@ class ShipmentRequestTest extends TestCase
     {
         $requestStub = file_get_contents(base_path('tests/Stubs/shipment-request.json'));
 
-        return json_decode($requestStub, true);
+        return Utils::jsonDecode($requestStub, true);
     }
 
     /**

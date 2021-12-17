@@ -6,6 +6,7 @@ namespace MyParcelCom\Microservice\Tests\Unit\Statuses;
 
 use Illuminate\Routing\UrlGenerator;
 use Mockery;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use MyParcelCom\JsonApi\Exceptions\ModelTypeException;
 use MyParcelCom\JsonApi\Transformers\TransformerFactory;
 use MyParcelCom\Microservice\Shipments\PhysicalProperties;
@@ -16,6 +17,8 @@ use stdClass;
 
 class StatusTransformerTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /** @var StatusTransformer */
     private $statusTransformer;
 
@@ -45,13 +48,6 @@ class StatusTransformerTest extends TestCase
                 'getVolumetricWeight' => 6,
             ]),
         ]);
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-
-        Mockery::close();
     }
 
     public function testGetId()

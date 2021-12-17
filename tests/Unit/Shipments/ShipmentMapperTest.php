@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MyParcelCom\Microservice\Tests\Unit\Shipments;
 
 use Mockery;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 use MyParcelCom\Microservice\Shipments\Customs;
 use MyParcelCom\Microservice\Shipments\Option;
@@ -17,12 +18,7 @@ use PHPUnit\Framework\TestCase;
 
 class ShipmentMapperTest extends TestCase
 {
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-
-        Mockery::close();
-    }
+    use MockeryPHPUnitIntegration;
 
     /** @test */
     public function testMap()

@@ -11,6 +11,8 @@ class Shipment
 {
     public const LABEL_MIME_TYPE_PDF = 'application/pdf';
     public const LABEL_MIME_TYPE_ZPL = 'application/zpl';
+    public const LABEL_SIZE_A6 = 'A6';
+    public const LABEL_SIZE_A4 = 'A4';
 
     /** @var string */
     protected $id;
@@ -86,6 +88,9 @@ class Shipment
 
     /** @var string */
     protected $labelMimeType = self::LABEL_MIME_TYPE_PDF;
+
+    /** @var string */
+    protected $labelSize = self::LABEL_SIZE_A6;
 
     /** @var string|null */
     protected $channel;
@@ -478,6 +483,18 @@ class Shipment
     public function getLabelMimeType(): string
     {
         return $this->labelMimeType;
+    }
+
+    public function setLabelSize(string $labelSize): self
+    {
+        $this->labelSize = $labelSize;
+
+        return $this;
+    }
+
+    public function getLabelSize(): string
+    {
+        return $this->labelSize;
     }
 
     /**

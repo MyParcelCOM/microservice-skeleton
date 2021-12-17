@@ -97,7 +97,7 @@ class Handler extends ExceptionHandler
             foreach ($errorMessages as $errorMessage) {
                 $pointer = str_replace('.', '/', $invalidAttribute);
 
-                if (strpos($errorMessage, 'required') !== false) {
+                if (str_contains($errorMessage, 'required')) {
                     $errors[] = new MissingInputError('', $errorMessage, $pointer);
                 } else {
                     $errors[] = new InvalidInputError('', $errorMessage, $pointer);

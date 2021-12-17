@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Tests\Unit;
 
+use GuzzleHttp\Utils;
 use Mockery;
 use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
 use MyParcelCom\Microservice\Http\Middleware\ExtractCredentials;
@@ -31,7 +32,7 @@ class ExtractCredentialsTest extends TestCase
             ->shouldReceive('header')
             ->once()
             ->with('X-MYPARCELCOM-CREDENTIALS')
-            ->andReturn(\GuzzleHttp\json_encode($this->getApiCredentials()))
+            ->andReturn(Utils::jsonEncode($this->getApiCredentials()))
             ->getMock();
 
         $middleware->handle($request, function ($nextRequest) use ($request) {

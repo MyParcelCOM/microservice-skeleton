@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Tests\Unit\Rules;
 
+use GuzzleHttp\Utils;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\Validator;
 use MyParcelCom\Microservice\Tests\TestCase;
-
-use function GuzzleHttp\json_decode;
 
 class RequiredIfInternationalRuleTest extends TestCase
 {
@@ -16,7 +15,7 @@ class RequiredIfInternationalRuleTest extends TestCase
     public function testValidationDoesNotFailForDomesticShipmentsWithInternationalRules()
     {
         $requestStub = file_get_contents(base_path('tests/Stubs/shipment-request.json'));
-        $requestData = json_decode($requestStub, true);
+        $requestData = Utils::jsonDecode($requestStub, true);
 
         // The sender address country code in shipment-request is GB.
         // By making the recipient address country code also GB, it becomes domestic.
@@ -37,7 +36,7 @@ class RequiredIfInternationalRuleTest extends TestCase
     public function testItValidatesInternationalShipmentsBasedOnInternationalRequirements()
     {
         $requestStub = file_get_contents(base_path('tests/Stubs/shipment-request.json'));
-        $requestData = json_decode($requestStub, true);
+        $requestData = Utils::jsonDecode($requestStub, true);
 
         Arr::forget($requestData, 'data.attributes.description');
 
