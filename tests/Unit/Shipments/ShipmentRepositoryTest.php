@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Tests\Unit\Shipments;
 
-use Mockery;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use MyParcelCom\Microservice\Shipments\Shipment;
 use MyParcelCom\Microservice\Shipments\ShipmentMapper;
 use MyParcelCom\Microservice\Shipments\ShipmentRepository;
@@ -13,12 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class ShipmentRepositoryTest extends TestCase
 {
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-
-        Mockery::close();
-    }
+    use MockeryPHPUnitIntegration;
 
     /** @test */
     public function testCreateFromPostData()

@@ -7,6 +7,7 @@ namespace MyParcelCom\Microservice\Tests\Unit\PickUpDropOffLocations;
 use Carbon\Carbon;
 use Illuminate\Routing\UrlGenerator;
 use Mockery;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use MyParcelCom\JsonApi\Exceptions\ModelTypeException;
 use MyParcelCom\JsonApi\Transformers\TransformerFactory;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
@@ -19,6 +20,8 @@ use stdClass;
 
 class PickUpDropOffLocationTransformerTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /** @var PickUpDropOffLocationTransformer */
     private $pickUpDropOffLocationTransformer;
 
@@ -73,13 +76,6 @@ class PickUpDropOffLocationTransformerTest extends TestCase
             'getPosition'     => $position,
             'getDistance'     => '528',
         ]);
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-
-        Mockery::close();
     }
 
     public function testGetId()

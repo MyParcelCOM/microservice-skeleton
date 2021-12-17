@@ -165,6 +165,15 @@ class ShipmentTest extends TestCase
     }
 
     /** @test */
+    public function testItSetsAndGetsLabelSize()
+    {
+        $this->assertEquals(Shipment::LABEL_SIZE_A6, $this->shipment->getLabelSize());
+
+        $this->shipment->setLabelSize(Shipment::LABEL_SIZE_A4);
+        $this->assertEquals(Shipment::LABEL_SIZE_A4, $this->shipment->getLabelSize());
+    }
+
+    /** @test */
     public function testItSetsAndGetsChannel()
     {
         $this->shipment->setChannel('eBay');
@@ -206,7 +215,7 @@ class ShipmentTest extends TestCase
                 'type'         => 'eori',
             ],
         ]);
-        $this->assertEquals('XI123456789', $this->shipment->getSenderTaxIdentificationNumber(TaxTypeEnum::EORI(), ...['GB', 'NL']));
+        $this->assertEquals('XI123456789', $this->shipment->getSenderTaxIdentificationNumber(TaxTypeEnum::EORI(), 'GB', 'NL'));
         $this->assertEquals('XI123456789', $this->shipment->getSenderTaxIdentificationNumber(TaxTypeEnum::EORI(), 'GB'));
         $this->assertEquals('XI123456789', $this->shipment->getSenderTaxIdentificationNumber(TaxTypeEnum::EORI()));
         $this->assertNull($this->shipment->getSenderTaxIdentificationNumber(TaxTypeEnum::EORI(), 'NL'));
@@ -248,7 +257,7 @@ class ShipmentTest extends TestCase
                 'type'         => 'eori',
             ],
         ]);
-        $this->assertEquals('XI123456789', $this->shipment->getRecipientTaxIdentificationNumber(TaxTypeEnum::EORI(), ...['GB', 'NL']));
+        $this->assertEquals('XI123456789', $this->shipment->getRecipientTaxIdentificationNumber(TaxTypeEnum::EORI(), 'GB', 'NL'));
         $this->assertEquals('XI123456789', $this->shipment->getRecipientTaxIdentificationNumber(TaxTypeEnum::EORI(), 'GB'));
         $this->assertEquals('XI123456789', $this->shipment->getRecipientTaxIdentificationNumber(TaxTypeEnum::EORI()));
         $this->assertNull($this->shipment->getRecipientTaxIdentificationNumber(TaxTypeEnum::EORI(), 'NL'));

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MyParcelCom\Microservice\Tests\Unit\PickUpDropOffLocations;
 
 use Mockery;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use MyParcelCom\JsonApi\Resources\Interfaces\ResourcesInterface;
 use MyParcelCom\Microservice\PickUpDropOffLocations\PickUpDropOffLocationRepository;
 use MyParcelCom\Microservice\Tests\Mocks\CarrierApiGatewayMock;
@@ -13,6 +14,8 @@ use Psr\SimpleCache\CacheInterface;
 
 class PickUpDropOffLocationRepositoryTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /** @var PickUpDropOffLocationRepository */
     private $pickUpDropOffLocationRepository;
 
@@ -26,13 +29,6 @@ class PickUpDropOffLocationRepositoryTest extends TestCase
             new CarrierApiGatewayMock(),
             $cache
         );
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-
-        Mockery::close();
     }
 
     /**
