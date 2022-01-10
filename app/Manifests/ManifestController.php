@@ -30,7 +30,8 @@ class ManifestController extends Controller
         Request $request,
         TransformerService $transformerService
     ): JsonResponse {
-        $jsonRequestValidator->validate('/manifests', 'post', null);
+        $jsonRequestValidator->validate('/manifests', 'post');
+
         $manifest = $repository->createFromPostData($request->json('data'), $request->json('meta', []));
 
         return new JsonResponse(
