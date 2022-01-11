@@ -20,6 +20,7 @@
     "myparcelcom/json-api": "^1.1",
     "predis/predis": "^1.1",
     "rollbar/rollbar-laravel": "^7.0",
+    "spatie/data-transfer-object": "^2.8",
     "viison/address-splitter": "^0.3.4"
   },
   "require-dev": {
