@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace MyParcelCom\Microservice\Model\Json;
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
-use Spatie\DataTransferObject\FlexibleDataTransferObject;
+use Spatie\DataTransferObject\DataTransferObject as BaseDataTransferObject;
 
-abstract class DataTransferObject extends FlexibleDataTransferObject implements CastsAttributes
+abstract class DataTransferObject extends BaseDataTransferObject implements CastsAttributes
 {
     public function get($model, string $key, $value, array $attributes): ?self
     {
@@ -17,11 +17,6 @@ abstract class DataTransferObject extends FlexibleDataTransferObject implements 
     public function set($model, string $key, $value, array $attributes): ?string
     {
         return is_null($value) ? null : json_encode(array_filter($value->toArray()));
-    }
-
-    public function clone(array $parameters = []): self
-    {
-        return new static(array_merge($this->toArray(), $parameters));
     }
 
     public function toArrayWith(DataTransferObject $object, bool $filter = false): array
