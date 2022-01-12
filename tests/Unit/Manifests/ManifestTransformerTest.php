@@ -25,6 +25,8 @@ class ManifestTransformerTest extends TestCase
         parent::setUp();
 
         $addressData = [
+            'street_1'     => 'Binnenhof',
+            'city'         => 'Den Haag',
             'country_code' => 'NL',
             'company'      => 'Lockdown BV',
         ];
@@ -44,6 +46,8 @@ class ManifestTransformerTest extends TestCase
         $this->assertEquals([
             'name'    => 'my-test-manifest',
             'address' => [
+                'street_1'     => 'Binnenhof',
+                'city'         => 'Den Haag',
                 'country_code' => 'NL',
                 'company'      => 'Lockdown BV',
             ],

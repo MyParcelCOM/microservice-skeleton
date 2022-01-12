@@ -19,6 +19,8 @@ class ManifestTest extends TestCase
         parent::setUp();
 
         $addressData = [
+            'street_1'     => 'Binnenhof',
+            'city'         => 'Den Haag',
             'country_code' => 'NL',
             'company'      => 'Lockdown BV',
         ];
@@ -37,8 +39,20 @@ class ManifestTest extends TestCase
 
     public function testItGetsAnAddress(): void
     {
-        $this->assertEquals(['country_code' => 'NL'], array_filter($this->manifest->getAddressJson()->toArray()));
-        $this->assertEquals(['company' => 'Lockdown BV'], array_filter($this->manifest->getContactJson()->toArray()));
+        $this->assertEquals(
+            [
+                'street_1'     => 'Binnenhof',
+                'city'         => 'Den Haag',
+                'country_code' => 'NL',
+            ],
+            array_filter($this->manifest->getAddressJson()->toArray())
+        );
+        $this->assertEquals(
+            [
+                'company' => 'Lockdown BV',
+            ],
+            array_filter($this->manifest->getContactJson()->toArray())
+        );
     }
 
     /** @test */
