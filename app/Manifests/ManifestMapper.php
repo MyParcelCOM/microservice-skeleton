@@ -6,6 +6,8 @@ namespace MyParcelCom\Microservice\Manifests;
 
 use Illuminate\Support\Arr;
 use MyParcelCom\JsonApi\Interfaces\MapperInterface;
+use MyParcelCom\Microservice\Model\Json\AddressJson;
+use MyParcelCom\Microservice\Model\Json\ContactJson;
 
 class ManifestMapper implements MapperInterface
 {
@@ -18,7 +20,12 @@ class ManifestMapper implements MapperInterface
     {
         $attributes = Arr::get($data, 'attributes', $data);
         $relationships = Arr::get($data, 'relationships', $data);
-        $manifest = new Manifest($attributes['name']);
+
+        $manifest = new Manifest(
+            $attributes['name'],
+            new AddressJson($attributes['address']),
+            new ContactJson($attributes['address'])
+        );
 
         $this->mapRelationships($relationships, $manifest);
 

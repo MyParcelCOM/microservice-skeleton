@@ -34,8 +34,9 @@ class ManifestTransformer extends AbstractTransformer
         $this->validateModel($manifest);
 
         return array_filter([
-            'name'  => $manifest->getName(),
-            'files' => array_map(function (File $file) {
+            'name'    => $manifest->getName(),
+            'address' => $manifest->getAddressJson()->toArrayWith($manifest->getContactJson(), true),
+            'files'   => array_map(function (File $file) {
                 return [
                     'resource_type' => $file->getType(),
                     'mime_type'     => $file->getMimeType(),
@@ -52,7 +53,7 @@ class ManifestTransformer extends AbstractTransformer
      */
     public function getRelationships($manifest): array
     {
-        $shipmentIDs = $manifest->getShipments()->map(fn (Shipment $shipment) => $shipment->getId())->all();
+        $shipmentIDs = $manifest->getShipments()->map(fn(Shipment $shipment) => $shipment->getId())->all();
         return [
             'shipments' => $this->transformRelationshipForIdentifiers($shipmentIDs, 'shipments'),
         ];
