@@ -31,7 +31,7 @@ class ShipmentController extends Controller
         ShipmentRequest $request,
         TransformerService $transformerService
     ): JsonResponse {
-        $jsonRequestValidator->validate('/shipments', 'post', null);
+        $jsonRequestValidator->validate('/shipments', 'post');
 
         $shipment = $repository->createFromPostData($request->json('data'), $request->json('meta', []));
 

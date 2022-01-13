@@ -4,80 +4,89 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Http;
 
+use JsonSchema\Exception\InvalidSchemaException;
 use JsonSchema\Validator;
+use MyParcelCom\JsonApi\Exceptions\InvalidHeaderException;
 use MyParcelCom\JsonApi\Exceptions\InvalidJsonSchemaException;
+use MyParcelCom\JsonApi\Exceptions\ResourceConflictException;
 use stdClass;
 
 class JsonRequestValidator
 {
-    /** @var stdClass */
-    protected $schema;
+    protected Request $request;
+    protected stdClass $schema;
+    protected Validator $validator;
 
-    /** @var Validator */
-    protected $validator;
-
-    /** @var Request */
-    protected $request;
+    public function __construct(Request $request, stdClass $schema, Validator $validator)
+    {
+        $this->request = $request;
+        $this->schema = $schema;
+        $this->validator = $validator;
+    }
 
     /**
      * Validates currently set Request with schema for given path.
      *
      * @param string      $schemaPath
      * @param string|null $method
-     * @param int|null    $status
+     * @param string|null $accept
      * @throws InvalidJsonSchemaException
+     * @throws ResourceConflictException
      */
-    public function validate(string $schemaPath, string $method = null, ?int $status = 200): void
+    public function validate(string $schemaPath, ?string $method = null, ?string $accept = null): void
     {
-        $method = $method ?? strtolower($this->request->getRealMethod());
+        $method = $method ?? strtolower($this->request->getMethod());
+        $accept = $accept ?? strtolower($this->request->header('Accept', 'application/vnd.api+json'));
 
-        if ($status !== null) {
-            $schema = $this->schema->paths->{$schemaPath}->{$method}->responses->{$status}->schema;
-        } else {
-            $parameters = $this->schema->paths->{$schemaPath}->{$method}->parameters;
-
-            $schema = $parameters[array_search('body', array_column($parameters, 'in'))]->schema;
-        }
+        $schema = $this->getSchema($schemaPath, $method, $accept);
 
         $postData = json_decode($this->request->getContent());
-
         $this->validator->validate($postData, $schema);
 
         if ($this->validator->getErrors()) {
-            throw new InvalidJsonSchemaException($this->validator->getErrors());
+            if ($this->validator->getErrors()[0]['property'] === 'data.type') {
+                throw new ResourceConflictException('type');
+            } else {
+                throw new InvalidJsonSchemaException($this->validator->getErrors());
+            }
         }
     }
 
     /**
-     * @param stdClass $schema
-     * @return $this
+     * Get the schema for given path, method and accept header. Supports Swagger v2 and OpenAPI v3.
      */
-    public function setSchema(stdClass $schema): self
+    protected function getSchema(string $schemaPath, string $method, string $accept): stdClass
     {
-        $this->schema = $schema;
+        if (isset($this->schema->openapi) && (int) $this->schema->openapi === 3) {
+            $content = $this->schema->paths->{$schemaPath}->{strtolower($method)}->requestBody->content;
 
-        return $this;
-    }
+            if (!isset($content->{$accept})) {
+                throw new InvalidHeaderException('Accept header `' . $accept . '` is not supported');
+            }
 
-    /**
-     * @param Validator $validator
-     * @return $this
-     */
-    public function setValidator(Validator $validator): self
-    {
-        $this->validator = $validator;
+            return $content->{$accept}->schema;
+        }
 
-        return $this;
-    }
+        if (isset($this->schema->swagger) && (int) $this->schema->swagger === 2) {
+            $schemaParams = $this->schema->paths->{$schemaPath}->{$method}->parameters;
+            foreach ($schemaParams as $schemaParam) {
+                if ($schemaParam->in === 'body') {
+                    return $schemaParam->schema;
+                }
+            }
 
-    /**
-     * @param Request $request
-     * @return $this
-     */
-    public function setRequest(Request $request): self
-    {
-        $this->request = $request;
+            throw new InvalidSchemaException(
+                sprintf(
+                    'Could not find schema for path "%s" with method "%s" and accept header "%s"',
+                    $schemaPath,
+                    $method,
+                    $accept
+                )
+            );
+        }
 
-        return $this;
+        throw new InvalidSchemaException(
+            'Used schema is of unknown version, expected "Swagger v2" or "OpenAPI v3"'
+        );
     }
 }

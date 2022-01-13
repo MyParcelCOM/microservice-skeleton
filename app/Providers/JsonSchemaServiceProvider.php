@@ -10,6 +10,7 @@ use JsonSchema\Constraints\Factory;
 use JsonSchema\SchemaStorage;
 use JsonSchema\Validator;
 use MyParcelCom\Microservice\Http\JsonRequestValidator;
+use MyParcelCom\Microservice\Http\Request;
 
 class JsonSchemaServiceProvider extends ServiceProvider
 {
@@ -31,11 +32,12 @@ class JsonSchemaServiceProvider extends ServiceProvider
             return new Validator(new Factory($schemaStorage));
         });
 
-        $this->app->singleton(JsonRequestValidator::class, function (Container $app) {
-            return (new JsonRequestValidator())
-                ->setRequest($app->make('request'))
-                ->setSchema($app->make('schema'))
-                ->setValidator($app->make(Validator::class));
+        $this->app->bind(JsonRequestValidator::class, function (Container $app) {
+            return new JsonRequestValidator(
+                $app->make(Request::class),
+                $app->make('schema'),
+                $app->make(Validator::class)
+            );
         });
     }
 }
