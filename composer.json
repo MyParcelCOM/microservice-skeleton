@@ -9,6 +9,7 @@
   "require": {
     "php": ">=8.0",
     "ext-json": "*",
+    "ext-redis": "*",
     "fideloper/proxy": "^4.2",
     "guzzlehttp/guzzle": "^7.0.1",
     "jonahgeorge/jaeger-client-php": "^1.2",
@@ -18,7 +19,6 @@
     "myclabs/php-enum": "^1.5",
     "myparcelcom/concurrency-safe-migrations": "^0.1.2",
     "myparcelcom/json-api": "^1.1",
-    "predis/predis": "^1.1",
     "rollbar/rollbar-laravel": "^7.0",
     "spatie/data-transfer-object": "^3.7",
     "viison/address-splitter": "^0.3.4"
