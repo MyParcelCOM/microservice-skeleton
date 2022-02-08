@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Shipments;
 
+use MyParcelCom\FinalMileCarrier\FinalMileCarrier;
 use MyParcelCom\Microservice\Enums\TaxTypeEnum;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 
@@ -97,6 +98,9 @@ class Shipment
 
     /** @var array */
     protected $taxIdentificationNumbers = [];
+
+    /** @var array */
+    protected $finalMileCarrier;
 
     /**
      * @return string
@@ -746,5 +750,29 @@ class Shipment
         }
 
         return null;
+    }
+
+    /**
+     * @return array
+     */
+    public function getFinalMileCarrier(): array
+    {
+        return $this->finalMileCarrier;
+    }
+
+    /**
+     * @param FinalMileCarrier $finalMileCarrier
+     * @param string           $countryCode
+     * @return Shipment
+     */
+    public function setFinalMileCarrier(FinalMileCarrier $finalMileCarrier, string $countryCode): self
+    {
+        $this->finalMileCarrier = [
+            'name' => $finalMileCarrier->getName(),
+            'tracking_url'  => $finalMileCarrier->getUrl(),
+            'country_code' => $countryCode,
+        ];
+
+        return $this;
     }
 }
