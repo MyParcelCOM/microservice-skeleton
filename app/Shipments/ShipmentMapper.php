@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MyParcelCom\Microservice\Shipments;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use MyParcelCom\JsonApi\Interfaces\MapperInterface;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 
@@ -119,6 +120,12 @@ class ShipmentMapper implements MapperInterface
 
         if (isset($attributes['tax_identification_numbers'])) {
             $shipment->setTaxIdentificationNumbers($attributes['tax_identification_numbers']);
+        }
+
+        $relationships = Arr::get($data, 'relationships');
+
+        if (isset($relationships['consolidated_shipments'])) {
+            $shipment->setConsolidationShipments(new Collection($relationships['consolidated_shipments']));
         }
 
         return $shipment;
