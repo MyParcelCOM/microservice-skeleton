@@ -152,6 +152,19 @@ class ShipmentTransformer extends AbstractTransformer
 
     /**
      * @param Shipment $shipment
+     * @return array[]
+     */
+    public function getRelationships($shipment): array
+    {
+        $shipmentIDs = $shipment->getConsolidationShipments()->map(fn(Shipment $shipment) => $shipment->getId())->all();
+
+        return array_filter([
+            'consolidated_shipments' => $this->transformRelationshipForIdentifiers($shipmentIDs, 'shipments'),
+        ]);
+    }
+
+    /**
+     * @param Shipment $shipment
      * @throws ModelTypeException
      */
     protected function validateModel($shipment): void

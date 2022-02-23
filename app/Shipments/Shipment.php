@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Shipments;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 use MyParcelCom\Microservice\Enums\TaxTypeEnum;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 
@@ -97,6 +99,9 @@ class Shipment
 
     /** @var array */
     protected $taxIdentificationNumbers = [];
+
+    /** @var Collection */
+    protected $consolidationShipments;
 
     /**
      * @return string
@@ -746,5 +751,26 @@ class Shipment
         }
 
         return null;
+    }
+
+    public function setConsolidationShipments(Collection $shipments): self
+    {
+        $this->consolidationShipments = $shipments;
+
+        return $this;
+    }
+
+    public function getConsolidationShipments(): Collection
+    {
+        return $this->consolidationShipments;
+    }
+
+    /**
+     * @return HasMany|Collection
+     */
+    public function consolidationShipments()
+    {
+        // TODO: make this function return a hasMany() relationship if you store the related shipments in a database.
+        return $this->consolidationShipments ?? new Collection();
     }
 }
