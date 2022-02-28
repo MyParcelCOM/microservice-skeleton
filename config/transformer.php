@@ -4,6 +4,8 @@ use MyParcelCom\Microservice\Manifests\Manifest;
 use MyParcelCom\Microservice\Manifests\ManifestTransformer;
 use MyParcelCom\Microservice\PickUpDropOffLocations\PickUpDropOffLocation;
 use MyParcelCom\Microservice\PickUpDropOffLocations\PickUpDropOffLocationTransformer;
+use MyParcelCom\Microservice\ServiceRates\ServiceRate;
+use MyParcelCom\Microservice\ServiceRates\ServiceRateTransformer;
 use MyParcelCom\Microservice\Shipments\Shipment;
 use MyParcelCom\Microservice\Shipments\ShipmentTransformer;
 use MyParcelCom\Microservice\Statuses\Status;
@@ -26,6 +28,7 @@ return [
         Shipment::class              => ShipmentTransformer::class,
         Status::class                => StatusTransformer::class,
         Manifest::class              => ManifestTransformer::class,
+        ServiceRate::class           => ServiceRateTransformer::class,
     ],
 
     /*

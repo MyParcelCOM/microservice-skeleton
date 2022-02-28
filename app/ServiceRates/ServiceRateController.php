@@ -8,22 +8,22 @@ use Illuminate\Http\JsonResponse;
 use MyParcelCom\JsonApi\Http\Paginator;
 use MyParcelCom\JsonApi\Transformers\TransformerService;
 use MyParcelCom\Microservice\Http\Controllers\Controller;
-use MyParcelCom\Microservice\Shipments\Shipment;
+use MyParcelCom\Microservice\Http\Request;
 
 class ServiceRateController extends Controller
 {
     /**
-     * @param Shipment              $shipment
      * @param ServiceRateRepository $serviceRateRepository
      * @param TransformerService    $transformerService
+     * @param Request               $request
      * @return JsonResponse
      */
     public function getServiceRates(
-        Shipment $shipment,
         ServiceRateRepository $serviceRateRepository,
-        TransformerService $transformerService
+        TransformerService $transformerService,
+        Request $request
     ): JsonResponse {
-        $serviceRates = $serviceRateRepository->getServiceRates($shipment);
+        $serviceRates = $serviceRateRepository->getServiceRates($request->json('data'));
 
         // Handle pagination
         $page = array_merge(

@@ -15,10 +15,10 @@ class ServiceRateRepository
     }
 
     /**
-     * @param Shipment $shipment
+     * @param array $data
      * @return ResourcesInterface
      */
-    public function getServiceRates(Shipment $shipment): ResourcesInterface
+    public function getServiceRates(array $data): ResourcesInterface
     {
         // TODO: Get service rates for given shipment from carrier (use CarrierApiGateway).
         // TODO: Map data to ServiceRate objects.
