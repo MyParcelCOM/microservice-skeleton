@@ -6,7 +6,6 @@ namespace MyParcelCom\Microservice\ServiceRates;
 
 use MyParcelCom\JsonApi\Resources\Interfaces\ResourcesInterface;
 use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
-use MyParcelCom\Microservice\Shipments\Shipment;
 
 class ServiceRateRepository
 {

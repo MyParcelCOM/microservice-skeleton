@@ -12,17 +12,17 @@ use MyParcelCom\Microservice\Shipments\File;
 
 class Manifest
 {
-    /** @var array  */
+    /** @var array */
     protected $casts = [
         'address_json' => AddressJson::class,
         'contact_json' => ContactJson::class,
     ];
 
     /**
-     * @param string  $name
+     * @param string      $name
      * @param AddressJson $address_json
      * @param ContactJson $contact_json
-     * @param File[]  $files
+     * @param File[]      $files
      */
     public function __construct(
         private string $name,
