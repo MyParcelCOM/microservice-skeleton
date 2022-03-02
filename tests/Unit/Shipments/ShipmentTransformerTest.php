@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MyParcelCom\Microservice\Tests\Unit\Shipments;
 
 use Illuminate\Routing\UrlGenerator;
+use Illuminate\Support\Collection;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use MyParcelCom\JsonApi\Exceptions\ModelTypeException;
@@ -152,6 +153,14 @@ class ShipmentTransformerTest extends TestCase
             'getCustoms'                           => $customs,
             'getItems'                             => [$shipmentItem],
             'getMyparcelcomShipmentId'             => 'bbacd0c7-9ec5-42df-9870-443b8e1a7155',
+            'getConsolidationShipments'            => new Collection([
+                Mockery::mock(Shipment::class, [
+                    'getId' => 'con-1',
+                ]),
+                Mockery::mock(Shipment::class, [
+                    'getId' => 'con-2',
+                ]),
+            ]),
         ]);
 
         $this->minimalShipment = Mockery::mock(Shipment::class, [
@@ -180,6 +189,7 @@ class ShipmentTransformerTest extends TestCase
             'getCustoms'                           => null,
             'getItems'                             => [],
             'getMyparcelcomShipmentId'             => 'bbacd0c7-9ec5-42df-9870-443b8e1a7155',
+            'getConsolidationShipments'            => new Collection(),
         ]);
     }
 
@@ -372,9 +382,9 @@ class ShipmentTransformerTest extends TestCase
     {
         $this->assertEquals(
             [
-                'id'         => 'shipment-id',
-                'type'       => 'shipments',
-                'attributes' => [
+                'id'            => 'shipment-id',
+                'type'          => 'shipments',
+                'attributes'    => [
                     'recipient_address'                    => [
                         'street_1'             => 'First Street',
                         'street_2'             => 'Second Street',
@@ -533,6 +543,20 @@ class ShipmentTransformerTest extends TestCase
                     'myparcelcom_shipment_id'              => 'bbacd0c7-9ec5-42df-9870-443b8e1a7155',
                     'tracking_code'                        => 'TR4CK1NGC0D3',
                     'tracking_url'                         => 'https://track.me/TR4CK1NGC0D3',
+                ],
+                'relationships' => [
+                    'consolidated_shipments' => [
+                        'data' => [
+                            [
+                                'type' => 'shipments',
+                                'id'   => 'con-1',
+                            ],
+                            [
+                                'type' => 'shipments',
+                                'id'   => 'con-2',
+                            ],
+                        ],
+                    ],
                 ],
             ],
             $this->shipmentTransformer->transform($this->shipment)
