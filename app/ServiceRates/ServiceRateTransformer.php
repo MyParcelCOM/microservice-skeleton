@@ -10,7 +10,7 @@ use MyParcelCom\JsonApi\Transformers\AbstractTransformer;
 class ServiceRateTransformer extends AbstractTransformer
 {
     /** @var string */
-    protected $type = 'service_rates';
+    protected $type = 'service-rates';
 
     /**
      * @param ServiceRate $serviceRate

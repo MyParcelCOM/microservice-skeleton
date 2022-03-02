@@ -88,6 +88,8 @@ if [ $# -gt 0 ]; then
       ${COMPOSE} run --rm microservice ./vendor/bin/phpunit --group Endpoints:Status
     elif [ "$1" == "credentials" ]; then
       ${COMPOSE} run --rm microservice ./vendor/bin/phpunit --group Endpoints:ValidateCredentials
+    elif [ "$1" == "servicerate" ]; then
+      ${COMPOSE} run --rm canada-post ./vendor/bin/phpunit --group Endpoints:ServiceRate
     else
       ${COMPOSE} run --rm microservice ./vendor/bin/phpunit "$@"
     fi

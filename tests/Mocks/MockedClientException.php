@@ -17,14 +17,16 @@ class MockedClientException extends MockedClientResponse
      * @param string  $uri
      * @param integer $code
      * @param string  $message
+     * @param string  $body
      */
     public function __construct(
         string $method,
         string $uri,
         int $code = 400,
-        string $message = null
+        string $message = null,
+        string $body = null,
     ) {
-        parent::__construct($method, $uri, $code, null, []);
+        parent::__construct($method, $uri, $code, $body, []);
         $this->message = $message;
     }
 
