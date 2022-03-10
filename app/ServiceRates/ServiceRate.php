@@ -6,14 +6,14 @@ namespace MyParcelCom\Microservice\ServiceRates;
 
 class ServiceRate
 {
-    private ?string $code;
-    private ?int $weightMin;
-    private ?int $weightMax;
-    private ?int $lengthMax;
-    private ?int $widthMax;
-    private ?int $heightMax;
-    private ?float $volumeMax;
-    private ?Price $fuelSurcharge;
+    private ?string $code = null;
+    private ?int $weightMin = null;
+    private ?int $weightMax = null;
+    private ?int $lengthMax = null;
+    private ?int $widthMax = null;
+    private ?int $heightMax = null;
+    private ?float $volumeMax = null;
+    private ?Price $fuelSurcharge = null;
 
     /**
      * @param Price $price

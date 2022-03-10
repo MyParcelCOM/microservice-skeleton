@@ -6,7 +6,6 @@ namespace MyParcelCom\Microservice\ServiceRates;
 
 use MyParcelCom\JsonApi\Resources\Interfaces\ResourcesInterface;
 use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
-use MyParcelCom\Microservice\Shipments\Shipment;
 
 class ServiceRateRepository
 {
@@ -15,10 +14,10 @@ class ServiceRateRepository
     }
 
     /**
-     * @param Shipment $shipment
+     * @param array $data
      * @return ResourcesInterface
      */
-    public function getServiceRates(Shipment $shipment): ResourcesInterface
+    public function getServiceRates(array $data): ResourcesInterface
     {
         // TODO: Get service rates for given shipment from carrier (use CarrierApiGateway).
         // TODO: Map data to ServiceRate objects.
