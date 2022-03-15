@@ -6,11 +6,13 @@ namespace MyParcelCom\Microservice\Collections;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection as LaravelCollection;
 use MyParcelCom\JsonApi\Traits\TimestampsTrait;
 use MyParcelCom\Microservice\Model\Json\AddressJson;
 use MyParcelCom\Microservice\Model\Json\ContactJson;
 
 /**
+ * @property string      id
  * @property string      name
  * @property string      myparcelcom_collection_id
  * @property string      collection_date
@@ -26,11 +28,39 @@ class Collection extends Model
 {
     use TimestampsTrait;
 
+    /**
+     * Setting this property to an empty array allows assignment of all properties through the constructor.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
     /** @var array */
     protected $casts = [
-        'address_json'  => AddressJson::class,
-        'contact_json'  => ContactJson::class,
+        'address_json' => AddressJson::class,
+        'contact_json' => ContactJson::class,
     ];
+
+    public ?LaravelCollection $files = null;
+
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param string $id
+     * @return $this
+     */
+    public function setId(string $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     /**
      * @return string
@@ -199,6 +229,25 @@ class Collection extends Model
     public function setRegisteredAt(Carbon $registeredAt): self
     {
         $this->registered_at = $registeredAt;
+
+        return $this;
+    }
+
+    /**
+     * @return LaravelCollection|null
+     */
+    public function getFiles(): ?LaravelCollection
+    {
+        return $this->files;
+    }
+
+    /**
+     * @param LaravelCollection|null $files
+     * @return $this
+     */
+    public function setFiles(?LaravelCollection $files): self
+    {
+        $this->files = $files;
 
         return $this;
     }
