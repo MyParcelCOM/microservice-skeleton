@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Collections;
 
+use Carbon\Carbon;
+use Illuminate\Support\Arr;
+use MyParcelCom\JsonApi\Exceptions\ResourceNotFoundException;
 use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
 
 class CollectionRepository
@@ -28,7 +31,6 @@ class CollectionRepository
     public function createFromPostData(array $data): Collection
     {
         $collection = $this->collectionMapper->map($data);
-
         $collection->save();
 
         return $collection;
@@ -37,19 +39,32 @@ class CollectionRepository
     /**
      * Updates a Collection and registers it with the carrier if necessary.
      *
-     * @param Collection $collection
-     * @param array      $data
+     * @param string $collectionId
+     * @param array  $data
      *
      * @return Collection
      */
-    public function updateFromPatchData(Collection $collection, array $data): Collection
+    public function updateFromPatchData(string $collectionId, array $data): Collection
     {
-        // Grab collection from DB
+        /** @var Collection $collection */
+        $collection = Collection::query()->whereKey($collectionId)->first();
 
-        // Use mapper to update collection
+        if (!$collection) {
+            throw new ResourceNotFoundException('collections');
+        }
 
-        // If register: true in request data, register the collection with the carrier.
+        $updatedCollection = $this->collectionMapper->map($data, $collection);
 
-        return $collection;
+        if (Arr::get($data, 'attributes.register') === true) {
+            // TODO: Use the CarrierApiGateway to register the collection with the carrier API
+
+            // TODO: If applicable, map tracking code and files to the Collection resource.
+
+            $updatedCollection->setRegisteredAt(Carbon::now());
+
+            $updatedCollection->save();
+        }
+
+        return $updatedCollection;
     }
 }

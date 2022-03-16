@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MyParcelCom\Microservice\Collections;
 
 use Illuminate\Http\JsonResponse;
+use MyParcelCom\JsonApi\Exceptions\ResourceConflictException;
 use MyParcelCom\JsonApi\Transformers\TransformerService;
 use MyParcelCom\Microservice\Http\JsonRequestValidator;
 use MyParcelCom\Microservice\Http\Request;
@@ -39,5 +40,14 @@ class CollectionController
     ): JsonResponse {
         $jsonRequestValidator->validate('/collections/{collection_id}', 'patch');
 
+        if ($collectionId !== $request->json('data.id')) {
+            throw new ResourceConflictException('id');
+        }
+
+        $updatedCollection = $repository->updateFromPatchData($collectionId, $request->json('data'));
+
+        return new JsonResponse(
+            $transformerService->transformResource($updatedCollection),
+        );
     }
 }
