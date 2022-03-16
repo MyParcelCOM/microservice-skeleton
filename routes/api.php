@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Route;
+use MyParcelCom\Microservice\Collections\CollectionController;
 use MyParcelCom\Microservice\Credentials\CredentialController;
 use MyParcelCom\Microservice\Manifests\ManifestController;
 use MyParcelCom\Microservice\PickUpDropOffLocations\PickUpDropOffLocationController;
@@ -40,3 +41,9 @@ Route::post('/shipments', [ShipmentController::class, 'create'])
 
 Route::get('/validate-credentials', [CredentialController::class, 'validateCredentials'])
     ->name('validate-credentials');
+
+//Route::post('/collections', [CollectionController::class, 'create'])
+//    ->name('create-collection');
+//
+//Route::patch('/collections/{collectionId}', [CollectionController::class, 'update'])
+//    ->name('update-collection');

@@ -19,7 +19,7 @@ class CollectionController
         CollectionRepository $repository,
         Request $request,
         TransformerService $transformerService
-    ) {
+    ): JsonResponse {
         $jsonRequestValidator->validate('/collections', 'post');
 
         $collection = $repository->createFromPostData($request->json('data'));
@@ -28,5 +28,16 @@ class CollectionController
             $transformerService->transformResource($collection),
             JsonResponse::HTTP_CREATED
         );
+    }
+
+    public function update(
+        string $collectionId,
+        JsonRequestValidator $jsonRequestValidator,
+        CollectionRepository $repository,
+        Request $request,
+        TransformerService $transformerService
+    ): JsonResponse {
+        $jsonRequestValidator->validate('/collections/{collection_id}', 'patch');
+
     }
 }

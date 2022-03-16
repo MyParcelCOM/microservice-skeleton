@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Shipments;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 use MyParcelCom\Microservice\Enums\TaxTypeEnum;
@@ -684,6 +685,7 @@ class Shipment
 
     /**
      * Total value based on attributes.total_value with fallback to a sum of all attributes.items.*.item_value
+     *
      * @return array|null
      */
     public function getTotalValue(): ?array
@@ -773,4 +775,22 @@ class Shipment
         // TODO: make this function return a hasMany() relationship if you store the related shipments in a database.
         return $this->consolidationShipments ?? new Collection();
     }
+
+//    TODO: Uncomment the below methods when implementing collections in the carrier microservice.
+//    public function collection(): BelongsTo
+//    {
+//        return $this->belongsTo(Collection::class);
+//    }
+//
+//    public function setCollection(Collection $collection): self
+//    {
+//        $this->collection()->associate($collection);
+//
+//        return $this;
+//    }
+//
+//    public function getCollection(): ?Collection
+//    {
+//        return $this->collection;
+//    }
 }
