@@ -31,7 +31,7 @@ class PickUpDropOffLocationRepository
      * @param array       $categories
      * @return ResourcesInterface
      */
-    public function getAll(
+    public function getAllByCountryAndPostalCode(
         string $countryCode,
         string $postalCode,
         ?string $street = null,
@@ -48,6 +48,27 @@ class PickUpDropOffLocationRepository
         // TODO: Map data to PickUpDropOffLocation objects.
         // TODO: Put PickUpDropOffLocation objects in an object that implements ResourcesInterface.
         // TODO: Cache the collection of pudo locations using the method `setCachedLocations()`
+        // TODO: Return pudo points filtered by passed categories using the method `filterLocationsByCategories()`
+    }
+
+    /**
+     * @param string $latitude
+     * @param string $longitude
+     * @param int|null $radius Radius is in meters
+     * @param array $categories
+     * @return ResourcesInterface
+     */
+    public function getAllByGeolocation(
+        string $latitude,
+        string $longitude,
+        ?int $radius = null,
+        array $categories = []
+    ): ResourcesInterface {
+        return new CollectionResources($this->filterLocationsByCategories(new Collection(), $categories));
+
+        // TODO: Get the pudo points from carrier (use CarrierApiGateway).
+        // TODO: Map data to PickUpDropOffLocation objects.
+        // TODO: Put PickUpDropOffLocation objects in an object that implements ResourcesInterface.
         // TODO: Return pudo points filtered by passed categories using the method `filterLocationsByCategories()`
     }
 

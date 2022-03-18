@@ -27,8 +27,14 @@ Route::post('/get-service-rates', [ServiceRateController::class, 'getServiceRate
 Route::post('/manifests', [ManifestController::class, 'create'])
     ->name('create-manifest');
 
-Route::get('/pickup-dropoff-locations/{countryCode}/{postalCode}', [PickUpDropOffLocationController::class, 'getAll'])
-    ->name('get-pickup-dropoff-locations');
+Route::get('/pickup-dropoff-locations/{latitude}/{longitude}', [PickUpDropOffLocationController::class, 'getAllByGeolocation'])
+    // the regex for latitude and longitude is from https://stackoverflow.com/a/18690202
+    ->where('latitude', '^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$')
+    ->where('longitude', '^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$')
+    ->name('get-pickup-dropoff-locations-by-geolocation');
+
+Route::get('/pickup-dropoff-locations/{countryCode}/{postalCode}', [PickUpDropOffLocationController::class, 'getAllByCountryAndPostalCode'])
+    ->name('get-pickup-dropoff-locations-by-country-and-postal-code');
 
 Route::get('/shipments/{shipmentId}/statuses/{trackingCode}', [StatusController::class, 'getStatuses'])
     ->name('get-statuses');
