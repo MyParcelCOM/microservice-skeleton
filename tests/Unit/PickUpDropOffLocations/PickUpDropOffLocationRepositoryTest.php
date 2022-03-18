@@ -37,7 +37,7 @@ class PickUpDropOffLocationRepositoryTest extends TestCase
      */
     public function testGetAll()
     {
-        $resources = $this->pickUpDropOffLocationRepository->getAll('UK', 'EC1A 1BB');
+        $resources = $this->pickUpDropOffLocationRepository->getAllByCountryAndPostalCode('UK', 'EC1A 1BB');
 
         $this->assertInstanceOf(ResourcesInterface::class, $resources);
     }

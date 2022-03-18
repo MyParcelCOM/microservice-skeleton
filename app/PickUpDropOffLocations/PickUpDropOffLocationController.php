@@ -12,7 +12,7 @@ use MyParcelCom\Microservice\Http\Request;
 
 class PickUpDropOffLocationController extends Controller
 {
-    public function getAll(
+    public function getAllByCountryAndPostalCode(
         PickUpDropOffLocationRepository $pickUpDropOffLocationRepository,
         TransformerService $transformerService,
         Request $request,
@@ -22,12 +22,35 @@ class PickUpDropOffLocationController extends Controller
         $filters = $request->getFilter();
         $categories = array_filter(explode(',', Arr::get($filters, 'categories', '')));
 
-        $pudoLocations = $pickUpDropOffLocationRepository->getAll(
+        $pudoLocations = $pickUpDropOffLocationRepository->getAllByCountryAndPostalCode(
             $countryCode,
             $postalCode,
             $request->query('street'),
             $request->query('street_number'),
             $request->query('city'),
+            $categories
+        );
+
+        $response = $transformerService->transformResources($pudoLocations);
+
+        return new JsonResponse($response);
+    }
+
+    public function getAllByGeolocation(
+        PickUpDropOffLocationRepository $pickUpDropOffLocationRepository,
+        TransformerService $transformerService,
+        Request $request,
+        string $latitude,
+        string $longitude
+    ): JsonResponse {
+        $filters = $request->getFilter();
+        $categories = array_filter(explode(',', Arr::get($filters, 'categories', '')));
+        $radius = Arr::has($filters, 'radius') ? (int) Arr::get($filters, 'radius') : null;
+
+        $pudoLocations = $pickUpDropOffLocationRepository->getAllByGeolocation(
+            $latitude,
+            $longitude,
+            $radius,
             $categories
         );
 
