@@ -764,17 +764,19 @@ class Shipment
 
     public function getConsolidationShipments(): Collection
     {
-        return $this->consolidationShipments;
-    }
-
-    /**
-     * @return HasMany|Collection
-     */
-    public function consolidationShipments()
-    {
-        // TODO: make this function return a hasMany() relationship if you store the related shipments in a database.
         return $this->consolidationShipments ?? new Collection();
     }
+
+//    TODO: Uncomment the below methods when implementing consolidations with a database in the carrier microservice.
+//    public function getConsolidationShipments(): Collection
+//    {
+//        return $this->consolidationShipments;
+//    }
+//
+//    public function consolidationShipments(): HasMany
+//    {
+//        return $this->hasMany(Shipment::class, 'consolidation_shipment_id');
+//    }
 
 //    TODO: Uncomment the below methods when implementing collections in the carrier microservice.
 //    public function collection(): BelongsTo
