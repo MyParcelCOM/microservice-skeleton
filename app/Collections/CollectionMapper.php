@@ -38,9 +38,9 @@ class CollectionMapper implements MapperInterface
                 '/^\d{4}-(?:0[1-9]|1[0-2])-(?:[0-2][0-9]|3[0-1])T(?:[0-1][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](?:\.\d{3})?(Z|\+\d{2}:?\d{2})$/',
                 (string) $timeFrom
             )) {
-                $collection->setCollectionTimeFrom((new Carbon($timeFrom))->utc()->timestamp);
+                $collection->setCollectionTimeFrom((new Carbon($timeFrom))->utc());
             } elseif (is_numeric($timeFrom)) {
-                $collection->setCollectionTimeFrom($timeFrom);
+                $collection->setCollectionTimeFrom(new Carbon($timeFrom));
             } else {
                 throw new UnprocessableEntityException('The collection_time.from attribute is not a timestamp or an ISO 8601 formatted string.');
             }
@@ -52,9 +52,9 @@ class CollectionMapper implements MapperInterface
                 '/^\d{4}-(?:0[1-9]|1[0-2])-(?:[0-2][0-9]|3[0-1])T(?:[0-1][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](?:\.\d{3})?(Z|\+\d{2}:?\d{2})$/',
                 (string) $timeTo
             )) {
-                $collection->setCollectionTimeTo((new Carbon($timeTo))->utc()->timestamp);
+                $collection->setCollectionTimeTo((new Carbon($timeTo))->utc());
             } elseif (is_numeric($timeTo)) {
-                $collection->setCollectionTimeTo($timeTo);
+                $collection->setCollectionTimeTo(new Carbon($timeTo));
             } else {
                 throw new UnprocessableEntityException('The collection_time.to attribute is not a timestamp or an ISO 8601 formatted string.');
             }

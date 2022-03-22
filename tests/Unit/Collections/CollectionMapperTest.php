@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MyParcelCom\Microservice\Tests\Unit\Collections;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 use MyParcelCom\Microservice\Collections\Collection;
 use MyParcelCom\Microservice\Collections\CollectionMapper;
 use MyParcelCom\Microservice\Tests\TestCase;
@@ -54,12 +55,12 @@ class CollectionMapperTest extends TestCase
             Arr::get($this->collectionData, 'attributes.name')
         );
         $this->assertEquals(
-            $collection->getCollectionTimeFrom(),
-            Arr::get($this->collectionData, 'attributes.collection_time.from')
+            $collection->getCollectionTimeFrom()->timestamp,
+            (new Carbon(Arr::get($this->collectionData, 'attributes.collection_time.from')))->timestamp
         );
         $this->assertEquals(
-            $collection->getCollectionTimeTo(),
-            Arr::get($this->collectionData, 'attributes.collection_time.to')
+            $collection->getCollectionTimeTo()->timestamp,
+            (new Carbon(Arr::get($this->collectionData, 'attributes.collection_time.to')))->timestamp
         );
         $this->assertEquals(
             $collection->getAddressJson()->toArrayWith($collection->getContactJson()),

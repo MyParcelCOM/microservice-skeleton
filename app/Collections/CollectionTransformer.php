@@ -33,10 +33,9 @@ class CollectionTransformer extends AbstractTransformer
         $attributes = array_filter([
             'name'                      => $collection->getName(),
             'myparcelcom_collection_id' => $collection->getMyparcelcomCollectionId(),
-            'collection_date'           => $collection->getCollectionDate(),
             'collection_time'           => [
-                'from' => $collection->getCollectionTimeFrom(),
-                'to'   => $collection->getCollectionTimeTo(),
+                'from' => $collection->getCollectionTimeFrom()->timestamp,
+                'to'   => $collection->getCollectionTimeTo()->timestamp,
             ],
             'address'                   => $collection->getAddressJson()->toArrayWith($collection->getContactJson(), true),
             'tracking_code'             => $collection->getTrackingCode(),

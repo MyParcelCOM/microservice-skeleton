@@ -35,9 +35,8 @@ class CollectionTransformerTest extends TestCase
         $this->collection = new Collection([
             'myparcelcom_collection_id' => '6e287731-c391-4548-bc48-c09327e1e94f',
             'name'                      => 'First collection',
-            'collection_date'           => '2021-12-24',
-            'collection_time_from'      => '12:00',
-            'collection_time_to'        => '22:00',
+            'collection_time_from'      => 1647900000,
+            'collection_time_to'        => '2022-03-22T00:00:00+00:00',
             'address_json'              => new AddressJson([
                 'street_1'             => 'Baker Street',
                 'street_2'             => 'Marylebone',
@@ -76,10 +75,9 @@ class CollectionTransformerTest extends TestCase
         $this->assertEquals([
             'name'                      => 'First collection',
             'myparcelcom_collection_id' => '6e287731-c391-4548-bc48-c09327e1e94f',
-            'collection_date'           => '2021-12-24',
             'collection_time'           => [
-                'from' => '12:00',
-                'to'   => '22:00',
+                'from' => 1647900000,
+                'to'   => 1647907200,
             ],
             'address'                   => [
                 'street_1'             => 'Baker Street',

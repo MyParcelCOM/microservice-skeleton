@@ -15,9 +15,8 @@ use MyParcelCom\Microservice\Model\Json\ContactJson;
  * @property string      id
  * @property string      name
  * @property string      myparcelcom_collection_id
- * @property string      collection_date
- * @property string      collection_time_from
- * @property string      collection_time_to
+ * @property Carbon      collection_time_from
+ * @property Carbon      collection_time_to
  * @property AddressJson address_json
  * @property ContactJson contact_json
  * @property Carbon      created_at
@@ -37,8 +36,10 @@ class Collection extends Model
 
     /** @var array */
     protected $casts = [
-        'address_json' => AddressJson::class,
-        'contact_json' => ContactJson::class,
+        'address_json'         => AddressJson::class,
+        'contact_json'         => ContactJson::class,
+        'collection_time_from' => 'datetime',
+        'collection_time_to'   => 'datetime',
     ];
 
     public ?LaravelCollection $files = null;
@@ -98,14 +99,6 @@ class Collection extends Model
         $this->myparcelcom_collection_id = $myparcelcomCollectionId;
 
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCollectionDate(): string
-    {
-        return $this->collection_date;
     }
 
     /**
