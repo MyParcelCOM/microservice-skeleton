@@ -16,10 +16,9 @@ class CollectionMapperTest extends TestCase
         'attributes' => [
             'myparcelcom_collection_id' => '6e287731-c391-4548-bc48-c09327e1e94f',
             'name'                      => 'First collection',
-            'collection_date'           => '2021-12-24',
             'collection_time'           => [
-                'from' => '12:00',
-                'to'   => '22:00',
+                'from' => 14123123123,
+                'to'   => '2022-03-22T00:00:00+00:00',
             ],
             'address'                   => [
                 'street_1'             => 'Baker Street',
@@ -53,10 +52,6 @@ class CollectionMapperTest extends TestCase
         $this->assertEquals(
             $collection->getName(),
             Arr::get($this->collectionData, 'attributes.name')
-        );
-        $this->assertEquals(
-            $collection->getCollectionDate(),
-            Arr::get($this->collectionData, 'attributes.collection_date')
         );
         $this->assertEquals(
             $collection->getCollectionTimeFrom(),

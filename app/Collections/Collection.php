@@ -109,29 +109,18 @@ class Collection extends Model
     }
 
     /**
-     * @param string $collectionDate
-     * @return $this
+     * @return Carbon
      */
-    public function setCollectionDate(string $collectionDate): self
-    {
-        $this->collection_date = $collectionDate;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCollectionTimeFrom(): string
+    public function getCollectionTimeFrom(): Carbon
     {
         return $this->collection_time_from;
     }
 
     /**
-     * @param string $collectionTimeFrom
+     * @param Carbon $collectionTimeFrom
      * @return $this
      */
-    public function setCollectionTimeFrom(string $collectionTimeFrom): self
+    public function setCollectionTimeFrom(Carbon $collectionTimeFrom): self
     {
         $this->collection_time_from = $collectionTimeFrom;
 
@@ -139,18 +128,18 @@ class Collection extends Model
     }
 
     /**
-     * @return string
+     * @return Carbon
      */
-    public function getCollectionTimeTo(): string
+    public function getCollectionTimeTo(): Carbon
     {
         return $this->collection_time_to;
     }
 
     /**
-     * @param string $collectionTimeTo
+     * @param Carbon $collectionTimeTo
      * @return $this
      */
-    public function setCollectionTimeTo(string $collectionTimeTo): self
+    public function setCollectionTimeTo(Carbon $collectionTimeTo): self
     {
         $this->collection_time_to = $collectionTimeTo;
 

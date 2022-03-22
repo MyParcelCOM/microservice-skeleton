@@ -16,9 +16,8 @@ class CreateCollectionsTable extends Migration
         Schema::create('collections', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
-            $table->string('collection_date');
-            $table->string('collection_time_from');
-            $table->string('collection_time_to');
+            $table->timestamp('collection_time_from');
+            $table->timestamp('collection_time_to');
             $table->json('address_json');
             $table->json('contact_json');
             $table->string('tracking_code')->nullable();
