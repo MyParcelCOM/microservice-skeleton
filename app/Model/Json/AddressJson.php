@@ -11,7 +11,7 @@ class AddressJson extends DataTransferObject
 {
     #[MapFrom('street_1')]
     #[MapTo('street_1')]
-    public string $street1;
+    public ?string $street1;
 
     #[MapFrom('street_2')]
     #[MapTo('street_2')]
@@ -29,7 +29,7 @@ class AddressJson extends DataTransferObject
     #[MapTo('postal_code')]
     public ?string $postalCode;
 
-    public string $city;
+    public ?string $city;
 
     #[MapFrom('state_code')]
     #[MapTo('state_code')]
@@ -37,5 +37,5 @@ class AddressJson extends DataTransferObject
 
     #[MapFrom('country_code')]
     #[MapTo('country_code')]
-    public string $countryCode;
+    public ?string $countryCode;
 }
