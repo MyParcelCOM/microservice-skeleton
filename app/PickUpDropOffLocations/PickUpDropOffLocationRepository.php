@@ -52,10 +52,10 @@ class PickUpDropOffLocationRepository
     }
 
     /**
-     * @param string $latitude
-     * @param string $longitude
+     * @param string   $latitude
+     * @param string   $longitude
      * @param int|null $radius Radius is in meters
-     * @param array $categories
+     * @param array    $categories
      * @return ResourcesInterface
      */
     public function getAllByGeolocation(
