@@ -38,6 +38,7 @@ class StatusTransformerTest extends TestCase
             'getId'                 => 'w',
             'getCode'               => 'u',
             'getDescription'        => 'b',
+            'getCategory'           => 'default',
             'getTimestamp'          => 888,
             'getPhysicalProperties' => Mockery::mock(PhysicalProperties::class, [
                 'getHeight'           => 1,
@@ -64,6 +65,7 @@ class StatusTransformerTest extends TestCase
         $this->assertEquals([
             'myparcelcom_code'    => 'u',
             'description'         => 'b',
+            'category'            => 'default',
             'timestamp'           => 888,
             'physical_properties' => [
                 'height'            => 1,
