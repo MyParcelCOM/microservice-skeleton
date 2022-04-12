@@ -14,6 +14,9 @@ class Status
     /** @var string|null */
     protected $code;
 
+    /** @var string|null */
+    protected $category = 'default';
+
     /** @var string */
     protected $description;
 
@@ -77,6 +80,21 @@ class Status
     {
         $this->description = $description;
 
+        return $this;
+    }
+
+    public function getCategory(): ?string
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param string $category
+     * @return $this
+     */
+    public function setCategory(string $category): self
+    {
+        $this->category = $category;
         return $this;
     }
 
