@@ -1,5 +1,7 @@
 <?php
 
+use MyParcelCom\Microservice\Collections\Collection;
+use MyParcelCom\Microservice\Collections\CollectionTransformer;
 use MyParcelCom\Microservice\Manifests\Manifest;
 use MyParcelCom\Microservice\Manifests\ManifestTransformer;
 use MyParcelCom\Microservice\PickUpDropOffLocations\PickUpDropOffLocation;
@@ -24,11 +26,12 @@ return [
     */
 
     'mapping' => [
+        Collection::class            => CollectionTransformer::class,
+        Manifest::class              => ManifestTransformer::class,
         PickUpDropOffLocation::class => PickUpDropOffLocationTransformer::class,
+        ServiceRate::class           => ServiceRateTransformer::class,
         Shipment::class              => ShipmentTransformer::class,
         Status::class                => StatusTransformer::class,
-        Manifest::class              => ManifestTransformer::class,
-        ServiceRate::class           => ServiceRateTransformer::class,
     ],
 
     /*

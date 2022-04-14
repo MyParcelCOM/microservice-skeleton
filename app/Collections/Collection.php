@@ -22,7 +22,7 @@ use MyParcelCom\Microservice\Model\Json\ContactJson;
  * @property ContactJson contact_json
  * @property Carbon      created_at
  * @property string|null tracking_code
- * @property Carbon      registered_at
+ * @property Carbon|null registered_at
  */
 class Collection extends Model
 {
@@ -215,9 +215,9 @@ class Collection extends Model
     }
 
     /**
-     * @return Carbon
+     * @return Carbon|null
      */
-    public function getRegisteredAt(): Carbon
+    public function getRegisteredAt(): ?Carbon
     {
         return $this->registered_at;
     }
