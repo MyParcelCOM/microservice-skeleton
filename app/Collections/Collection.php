@@ -15,9 +15,8 @@ use MyParcelCom\Microservice\Model\Json\ContactJson;
  * @property string      id
  * @property string      name
  * @property string      myparcelcom_collection_id
- * @property string      collection_date
- * @property string      collection_time_from
- * @property string      collection_time_to
+ * @property Carbon      collection_time_from
+ * @property Carbon      collection_time_to
  * @property AddressJson address_json
  * @property ContactJson contact_json
  * @property Carbon      created_at
@@ -37,8 +36,10 @@ class Collection extends Model
 
     /** @var array */
     protected $casts = [
-        'address_json' => AddressJson::class,
-        'contact_json' => ContactJson::class,
+        'address_json'         => AddressJson::class,
+        'contact_json'         => ContactJson::class,
+        'collection_time_from' => 'datetime',
+        'collection_time_to'   => 'datetime',
     ];
 
     public ?LaravelCollection $files = null;
@@ -101,37 +102,18 @@ class Collection extends Model
     }
 
     /**
-     * @return string
+     * @return Carbon
      */
-    public function getCollectionDate(): string
-    {
-        return $this->collection_date;
-    }
-
-    /**
-     * @param string $collectionDate
-     * @return $this
-     */
-    public function setCollectionDate(string $collectionDate): self
-    {
-        $this->collection_date = $collectionDate;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCollectionTimeFrom(): string
+    public function getCollectionTimeFrom(): Carbon
     {
         return $this->collection_time_from;
     }
 
     /**
-     * @param string $collectionTimeFrom
+     * @param Carbon $collectionTimeFrom
      * @return $this
      */
-    public function setCollectionTimeFrom(string $collectionTimeFrom): self
+    public function setCollectionTimeFrom(Carbon $collectionTimeFrom): self
     {
         $this->collection_time_from = $collectionTimeFrom;
 
@@ -139,18 +121,18 @@ class Collection extends Model
     }
 
     /**
-     * @return string
+     * @return Carbon
      */
-    public function getCollectionTimeTo(): string
+    public function getCollectionTimeTo(): Carbon
     {
         return $this->collection_time_to;
     }
 
     /**
-     * @param string $collectionTimeTo
+     * @param Carbon $collectionTimeTo
      * @return $this
      */
-    public function setCollectionTimeTo(string $collectionTimeTo): self
+    public function setCollectionTimeTo(Carbon $collectionTimeTo): self
     {
         $this->collection_time_to = $collectionTimeTo;
 

@@ -6,6 +6,7 @@ namespace MyParcelCom\Microservice\Collections;
 
 use Illuminate\Support\Arr;
 use MyParcelCom\JsonApi\Interfaces\MapperInterface;
+use MyParcelCom\Microservice\Helpers\DateHelper;
 use MyParcelCom\Microservice\Model\Json\AddressJson;
 use MyParcelCom\Microservice\Model\Json\ContactJson;
 
@@ -30,16 +31,12 @@ class CollectionMapper implements MapperInterface
             $collection->setName(Arr::get($attributes, 'name'));
         }
 
-        if (Arr::has($attributes, 'collection_date')) {
-            $collection->setCollectionDate(Arr::get($attributes, 'collection_date'));
-        }
+        if (Arr::has($attributes, 'collection_time')) {
+            $timeTo = DateHelper::convertIsoOrTimestampToCarbon(Arr::get($attributes, 'collection_time.to'));
+            $timeFrom = DateHelper::convertIsoOrTimestampToCarbon(Arr::get($attributes, 'collection_time.from'));
 
-        if (Arr::has($attributes, 'collection_time.from')) {
-            $collection->setCollectionTimeFrom(Arr::get($attributes, 'collection_time.from'));
-        }
-
-        if (Arr::has($attributes, 'collection_time.to')) {
-            $collection->setCollectionTimeTo(Arr::get($attributes, 'collection_time.to'));
+            $collection->setCollectionTimeFrom($timeFrom);
+            $collection->setCollectionTimeTo($timeTo);
         }
 
         if (Arr::has($attributes, 'address')) {

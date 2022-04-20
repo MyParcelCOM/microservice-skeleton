@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Tests\Endpoints;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use MyParcelCom\Microservice\Tests\TestCase;
 use MyParcelCom\Microservice\Tests\Traits\CommunicatesWithCarrier;
@@ -23,6 +24,7 @@ class CollectionsTest extends TestCase
         $this->markTestSkipped('This test should be implemented in microservices for carriers that offer collections, not in the skeleton.');
 
         $uuid = Uuid::uuid4();
+        Carbon::setTestNow(Carbon::now());
 
         $postData = [
             'data' => [
@@ -30,10 +32,9 @@ class CollectionsTest extends TestCase
                 'attributes' => [
                     'myparcelcom_collection_id' => $uuid,
                     'name'                      => 'First Collection',
-                    'collection_date'           => '2022-03-03',
                     'collection_time'           => [
-                        'from' => '12:00',
-                        'to'   => '20:00',
+                        'from' => Carbon::now()->getTimestamp(),
+                        'to'   => Carbon::now()->addHours(10)->getTimestamp(),
                     ],
                     'address'                   => [
                         'street_1'             => 'My Street',
@@ -68,9 +69,8 @@ class CollectionsTest extends TestCase
             'id'                            => $response->json('data.id'),
             'myparcelcom_colletion_id'      => $uuid,
             'name'                          => 'First Collection',
-            'collection_date'               => '2022-03-03',
-            'collection_time_from'          => '12:00',
-            'collection_time_to'            => '20:00',
+            'collection_time_from'          => Carbon::now()->getTimestamp(),
+            'collection_time_to'            => Carbon::now()->addHours(10),
             'address->street_1'             => 'My Street',
             'address->street_2'             => 'Third Floor',
             'address->street_number'        => 55,
@@ -120,9 +120,8 @@ class CollectionsTest extends TestCase
             'id'                            => $response->json('data.id'),
             'myparcelcom_colletion_id'      => $uuid,
             'name'                          => 'Second Collection',
-            'collection_date'               => '2022-03-03',
-            'collection_time_from'          => '12:00',
-            'collection_time_to'            => '20:00',
+            'collection_time_from'          => Carbon::now()->getTimestamp(),
+            'collection_time_to'            => Carbon::now()->addHours(10),
             'address->street_1'             => 'My Street',
             'address->street_2'             => 'Third Floor',
             'address->street_number'        => 55,
