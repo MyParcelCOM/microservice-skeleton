@@ -33,10 +33,10 @@ return new class extends Migration {
 
         // Drop old columns
         Schema::table('collections', function (Blueprint $table) {
-            $table->timestamp('collection_time_from')->nullable(false)->change();
-            $table->timestamp('collection_time_to')->nullable(false)->change();
             $table->dropColumn(['collection_date', 'collection_time_from_old', 'collection_time_to_old']);
         });
+        DB::statement('ALTER TABLE collections ALTER COLUMN collection_time_from SET NOT NULL');
+        DB::statement('ALTER TABLE collections ALTER COLUMN collection_time_to SET NOT NULL');
     }
 
     public function down(): void
@@ -66,10 +66,10 @@ return new class extends Migration {
 
         // Drop old columns
         Schema::table('collections', function (Blueprint $table) {
-            $table->string('collection_date')->nullable(false)->change();
-            $table->timestamp('collection_time_from')->nullable(false)->change();
-            $table->timestamp('collection_time_to')->nullable(false)->change();
             $table->dropColumn(['collection_time_from_old', 'collection_time_to_old']);
         });
+        DB::statement('ALTER TABLE collections ALTER COLUMN collection_date SET NOT NULL');
+        DB::statement('ALTER TABLE collections ALTER COLUMN collection_time_from SET NOT NULL');
+        DB::statement('ALTER TABLE collections ALTER COLUMN collection_time_to SET NOT NULL');
     }
 };
