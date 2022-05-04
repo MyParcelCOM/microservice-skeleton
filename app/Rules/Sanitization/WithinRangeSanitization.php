@@ -6,7 +6,7 @@ namespace MyParcelCom\Microservice\Rules\Sanitization;
 
 use Illuminate\Support\Arr;
 
-class WithinRangeSanitization implements SanitizationInterface
+class WithinRangeSanitization extends BaseSanitization
 {
     /** @var int|float */
     private $minValue;
@@ -28,17 +28,26 @@ class WithinRangeSanitization implements SanitizationInterface
      *
      * @param string $key
      * @param array  $parameters
+     * @param array  $shipmentRules
      * @return array $parameters
      */
-    public function sanitize(string $key, array $parameters): array
-    {
+    public function sanitize(
+        string $key,
+        array $parameters,
+        array $shipmentRules = []
+    ): array {
         $values = data_get($parameters, $key);
         if ($values) {
             if (!is_array($values)) {
                 $values = [$values];
             }
-            foreach ($values as $index => $singleValue) {
-                $singleKey = str_replace('*', (string) $index, $key);
+            $keyedValues = collect($this->getKeys($key, $parameters))->combine($values)->toArray();
+            foreach ($keyedValues as $singleKey => $singleValue) {
+                // Prevent sanitization for optional empty fields
+                if (empty($singleValue) && $this->isParameterOptional($singleKey, $key, $parameters, $shipmentRules)) {
+                    continue;
+                }
+
                 $singleValue = max($singleValue, $this->minValue);
                 $singleValue = min($singleValue, $this->maxValue);
                 Arr::set($parameters, $singleKey, $singleValue);

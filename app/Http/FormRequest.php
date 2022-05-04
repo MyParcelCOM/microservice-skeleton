@@ -88,7 +88,12 @@ class FormRequest extends BaseFormRequest
 
             foreach ($callbacks as $callback) {
                 if ($callback instanceof SanitizationInterface) {
-                    $parameters = $callback->sanitize((string) $key, $parameters);
+                    $parameters = $callback->sanitize((string) $key, $parameters, $this->shipmentRules());
+                } elseif (is_array($callback) && count($callback) === 2 && is_string($callback[0]) && is_array($callback[1])) {
+                    // Sanitization class is given as first item of array
+                    // While sanitization parameters are given as second item
+                    $sanitizer = new ($callback[0])(...$callback[1]);
+                    $parameters = $sanitizer->sanitize((string) $key, $parameters, $this->shipmentRules());
                 } elseif (!is_string($key)) {
                     // This is a more complex sanitization for multiple fields
                     // Since no specific field key has been specified
