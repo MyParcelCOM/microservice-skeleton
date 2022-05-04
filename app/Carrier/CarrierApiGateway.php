@@ -87,8 +87,9 @@ class CarrierApiGateway implements CarrierApiGatewayInterface
             $errors = $mapper->mapErrors($response);
 
             if ($errors) {
+                $body = (string) $response->getBody();
                 $errors->setMeta([
-                    'carrier_response' => json_encode((string) $response->getBody()),
+                    'carrier_response' => json_decode($body) ?? $body,
                     'carrier_status'   => $response->getStatusCode(),
                 ]);
 
