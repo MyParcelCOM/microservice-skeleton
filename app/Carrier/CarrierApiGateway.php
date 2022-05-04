@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Carrier;
 
+use Exception;
 use GuzzleHttp\Client as HttpClient;
-use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\RequestOptions;
 use MyParcelCom\Microservice\Carrier\Errors\Mappers\ErrorMapper;
+use MyParcelCom\Microservice\Events\FailedCarrierApiRequest;
+use MyParcelCom\Microservice\Events\MakingCarrierApiRequest;
+use MyParcelCom\Microservice\Events\SuccessfulCarrierApiRequest;
+use Psr\Http\Message\ResponseInterface;
 
 class CarrierApiGateway implements CarrierApiGatewayInterface
 {
@@ -34,11 +38,11 @@ class CarrierApiGateway implements CarrierApiGatewayInterface
     {
         $options = $this->initRequestOptions($queryParams, $headers);
 
-        return $this->httpClient
-            ->getAsync($endpoint, $options)
-            ->otherwise(function (RequestException $exception) {
-                return $this->handleCarrierErrors($exception);
-            });
+        event(new MakingCarrierApiRequest($endpoint, 'get'));
+
+        return $this->handleResponse(
+            $this->httpClient->getAsync($endpoint, $options)
+        );
     }
 
     /**
@@ -50,11 +54,11 @@ class CarrierApiGateway implements CarrierApiGatewayInterface
             RequestOptions::JSON => $data,
         ]);
 
-        return $this->httpClient
-            ->postAsync($endpoint, $options)
-            ->otherwise(function (RequestException $exception) {
-                return $this->handleCarrierErrors($exception);
-            });
+        event(new MakingCarrierApiRequest($endpoint, 'post', body: $data));
+
+        return $this->handleResponse(
+            $this->httpClient->postAsync($endpoint, $options)
+        );
     }
 
     /**
@@ -76,13 +80,12 @@ class CarrierApiGateway implements CarrierApiGatewayInterface
     }
 
     /**
-     * @param GuzzleException $exception
+     * @param ResponseInterface $response
      */
-    private function handleCarrierErrors(RequestException $exception)
+    private function handleCarrierErrors(ResponseInterface $response)
     {
-        $response = $exception->getResponse();
-
         $mapper = new ErrorMapper();
+
         if ($mapper->hasErrors($response)) {
             $errors = $mapper->mapErrors($response);
 
@@ -95,7 +98,30 @@ class CarrierApiGateway implements CarrierApiGatewayInterface
                 throw $errors;
             }
         }
+    }
 
-        throw $exception;
+    /**
+     * @param PromiseInterface $requestPromise
+     * @return PromiseInterface
+     * @throws LogicException
+     */
+    private function handleResponse(PromiseInterface $requestPromise): PromiseInterface
+    {
+        return $requestPromise
+            ->then(function (ResponseInterface $response) {
+                $this->handleCarrierErrors($response);
+                event(new SuccessfulCarrierApiRequest());
+                return $response;
+            })
+            ->otherwise(function (Exception $exception) {
+                if ($exception instanceof RequestException) {
+                    $response = $exception->getResponse();
+                    event(new FailedCarrierApiRequest((string) $response->getBody()));
+                    $this->handleCarrierErrors($response);
+                } else {
+                    event(new FailedCarrierApiRequest());
+                }
+                throw $exception;
+            });
     }
 }
