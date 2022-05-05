@@ -6,17 +6,15 @@ namespace MyParcelCom\Microservice\Rules\Sanitization;
 
 use Illuminate\Support\Arr;
 
-class MaxCharsSanitization extends BaseSanitization
+class BetweenCharsSanitization extends BaseSanitization
 {
-    /** @var int */
-    private $maxChars;
-
     /**
      * @param int $maxChars
      */
-    public function __construct(int $maxChars)
-    {
-        $this->maxChars = $maxChars;
+    public function __construct(
+        private int $minChars,
+        private int $maxChars
+    ) {
     }
 
     /**
@@ -45,6 +43,12 @@ class MaxCharsSanitization extends BaseSanitization
                 }
 
                 Arr::set($parameters, $singleKey, substr((string) $singleValue, 0, $this->maxChars));
+
+                if (strlen(Arr::get($parameters, $singleKey)) < $this->minChars) {
+                    $additionalChars = $this->minChars - strlen(Arr::get($parameters, $singleKey));
+                    $value = Arr::get($parameters, $singleKey);
+                    Arr::set($parameters, $singleKey, $value . str_repeat('X', $additionalChars));
+                }
             }
         }
         return $parameters;
