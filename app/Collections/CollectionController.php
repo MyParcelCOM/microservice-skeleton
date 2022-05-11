@@ -6,9 +6,11 @@ namespace MyParcelCom\Microservice\Collections;
 
 use Illuminate\Http\JsonResponse;
 use MyParcelCom\JsonApi\Exceptions\ResourceConflictException;
+use MyParcelCom\JsonApi\Exceptions\ResourceNotFoundException;
 use MyParcelCom\JsonApi\Transformers\TransformerService;
 use MyParcelCom\Microservice\Http\JsonRequestValidator;
 use MyParcelCom\Microservice\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class CollectionController
 {
@@ -48,6 +50,29 @@ class CollectionController
 
         return new JsonResponse(
             $transformerService->transformResource($updatedCollection),
+        );
+    }
+
+    /**
+     * @param string               $collectionId
+     * @param CollectionRepository $repository
+     * @return JsonResponse
+     * @throws ResourceNotFoundException
+     */
+    public function void(
+        string $collectionId,
+        CollectionRepository $repository,
+    ): JsonResponse {
+        // TODO: implement void / cancel functionality.
+        $voided = false;
+
+        if ($voided) {
+            $repository->delete($collectionId);
+        }
+
+        return new JsonResponse(
+            '',
+            $voided ? Response::HTTP_NO_CONTENT : Response::HTTP_LOCKED
         );
     }
 }
