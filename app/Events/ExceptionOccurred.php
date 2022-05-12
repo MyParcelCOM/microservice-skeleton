@@ -6,5 +6,4 @@ namespace MyParcelCom\Microservice\Events;
 
 class ExceptionOccurred
 {
-
 }

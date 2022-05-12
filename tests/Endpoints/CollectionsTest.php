@@ -15,8 +15,9 @@ class CollectionsTest extends TestCase
 {
     use CommunicatesWithCarrier;
     use JsonApiAssertionsTrait;
+
     // TODO: Uncomment this when implementing this.
-//    use RefreshDatabase;
+    // use RefreshDatabase;
 
     /** @test */
     public function testItSavesACollectionInTheDatabase()

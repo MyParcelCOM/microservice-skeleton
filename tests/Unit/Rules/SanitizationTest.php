@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Tests\Unit\Rules;
 
+use MyParcelCom\Microservice\Rules\Sanitization\BetweenCharsSanitization;
 use MyParcelCom\Microservice\Rules\Sanitization\MaxCharsCombinedSanitization;
 use MyParcelCom\Microservice\Rules\Sanitization\MaxCharsSanitization;
 use MyParcelCom\Microservice\Rules\Sanitization\MaxMultipliedSanitization;
@@ -269,4 +270,44 @@ class SanitizationTest extends TestCase
         $this->assertEquals(2, data_get($sanitized, 'test.1.input2'));
         $this->assertEquals(2, data_get($sanitized, 'test.1.input3'));
     }
+
+     /** @test */
+     public function testBetweenCharsSanitizationWorks()
+     {
+         // Test that valid input doesn't change
+         $sanitization = new BetweenCharsSanitization(4, 5);
+         $sanitized = $sanitization->sanitize('test.input', ['test' => ['input' => 'abcd']]);
+         $this->assertEquals('abcd', data_get($sanitized, 'test.input'));
+         $sanitized = $sanitization->sanitize('test.input', ['test' => ['input' => 'abcde']]);
+         $this->assertEquals('abcde', data_get($sanitized, 'test.input'));
+
+         // If there are not enough chars, some should be added
+         $sanitization = new BetweenCharsSanitization(4, 6);
+         $sanitized = $sanitization->sanitize('test.input', ['test' => ['input' => 'ab']]);
+         $this->assertEquals('abXX', data_get($sanitized, 'test.input'));
+         $sanitized = $sanitization->sanitize('test.input', ['test' => ['input' => 'abc']]);
+         $this->assertEquals('abcX', data_get($sanitized, 'test.input'));
+
+         // If there are too much chars, some should be removed
+         $sanitization = new BetweenCharsSanitization(4, 6);
+         $sanitized = $sanitization->sanitize('test.input', ['test' => ['input' => 'abcdefgh']]);
+         $this->assertEquals('abcdef', data_get($sanitized, 'test.input'));
+         $sanitized = $sanitization->sanitize('test.input', ['test' => ['input' => 'abcdefg']]);
+         $this->assertEquals('abcdef', data_get($sanitized, 'test.input'));
+
+         // Test that wrong input gets corrected for arrays
+         $sanitization = new BetweenCharsSanitization(4, 6);
+         $sanitized = $sanitization->sanitize('test.*.input', [
+             'test' => [
+                 [
+                     'input' => 'abc',
+                 ],
+                 [
+                     'input' => 'abcdefg',
+                 ],
+             ],
+         ]);
+         $this->assertEquals('abcX', data_get($sanitized, 'test.0.input'));
+         $this->assertEquals('abcdef', data_get($sanitized, 'test.1.input'));
+     }
 }
