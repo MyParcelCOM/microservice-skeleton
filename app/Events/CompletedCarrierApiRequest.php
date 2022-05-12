@@ -7,17 +7,17 @@ namespace MyParcelCom\Microservice\Events;
 class CompletedCarrierApiRequest
 {
     /**
-     * @param null|string $response
+     * @param mixed $response
      */
-    public function __construct(private ?string $response = null)
+    public function __construct(private $response = null)
     {
         $this->response = $response;
     }
 
     /**
-     * @return string|null
+     * @return mixed
      */
-    public function getResponse(): ?string
+    public function getResponse()
     {
         return $this->response;
     }
