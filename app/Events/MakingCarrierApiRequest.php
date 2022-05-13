@@ -4,22 +4,20 @@ namespace MyParcelCom\Microservice\Events;
 
 class MakingCarrierApiRequest
 {
-    private string $url;
-    private string $method;
-    private string $context;
-
     /**
      * Create a new event instance.
      *
-     * @param string $context
-     * @param string $url
-     * @param string $method
+     * @param string      $context
+     * @param string      $url
+     * @param string      $method
+     * @param mixed       $body
      */
-    public function __construct(string $url, string $method, string $context = 'Carrier API request')
-    {
-        $this->url = $url;
-        $this->method = $method;
-        $this->context = $context;
+    public function __construct(
+        private string $url,
+        private string $method,
+        private string $context = 'Carrier API request',
+        private $body = null
+    ) {
     }
 
     public function getUrl(): string
@@ -35,5 +33,10 @@ class MakingCarrierApiRequest
     public function getContext(): string
     {
         return $this->context;
+    }
+
+    public function getBody()
+    {
+        return $this->body;
     }
 }
