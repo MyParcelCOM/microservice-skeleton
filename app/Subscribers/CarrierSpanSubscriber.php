@@ -42,11 +42,19 @@ class CarrierSpanSubscriber
         self::$scope->getSpan()->log([
             'url'    => $event->getUrl(),
             'method' => $event->getMethod(),
+            'body'   => $event->getBody(),
         ]);
     }
 
     public function end(CompletedCarrierApiRequest $event): void
     {
+        if (!config('jaeger.enabled')) {
+            return;
+        }
+        self::$scope->getSpan()->log(array_filter([
+            'response' => $event->getResponse()
+        ]));
+
         $this->closeSpan();
     }
 
@@ -69,6 +77,11 @@ class CarrierSpanSubscriber
         $events->listen(
             MakingCarrierApiRequest::class,
             self::class . '@start'
+        );
+
+        $events->listen(
+            CompletedCarrierApiRequest::class,
+            self::class . '@end'
         );
 
         $events->listen(

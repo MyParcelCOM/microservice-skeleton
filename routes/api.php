@@ -53,3 +53,6 @@ Route::get('/validate-credentials', [CredentialController::class, 'validateCrede
 //
 //Route::patch('/collections/{collectionId}', [CollectionController::class, 'update'])
 //    ->name('update-collection');
+//Route::delete('/collections/{collectionId}', [CollectionController::class, 'delete'])
+//    ->name('delete-collection');
+

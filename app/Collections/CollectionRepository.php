@@ -67,4 +67,18 @@ class CollectionRepository
 
         return $updatedCollection;
     }
+
+    public function delete(string $collectionId): self
+    {
+        /** @var Collection $collection */
+        $collection = Collection::query()->whereKey($collectionId)->first();
+
+        if (!$collection) {
+            throw new ResourceNotFoundException('collections');
+        }
+
+        $collection->delete();
+
+        return $this;
+    }
 }
