@@ -344,6 +344,25 @@ class Shipment
     }
 
     /**
+     * @param string $optionCode
+     * @return bool
+     */
+    public function hasOption(string $optionCode): bool
+    {
+        return $this->getOption($optionCode) !== null;
+    }
+
+    /**
+     * @param string $optionCode
+     * @return Option|null
+     */
+    public function getOption(string $optionCode): ?Option
+    {
+        return collect($this->getOptions())
+            ->first(fn(Option $option) => $option->getCode() === $optionCode);
+    }
+
+    /**
      * @return PhysicalProperties|null
      */
     public function getPhysicalProperties(): ?PhysicalProperties
