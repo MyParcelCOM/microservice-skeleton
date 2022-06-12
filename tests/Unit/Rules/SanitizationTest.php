@@ -19,30 +19,30 @@ class SanitizationTest extends TestCase
     {
         // Test that valid input doesn't change
         $sanitization = new MaxCharsSanitization(10);
-        $sanitized = $sanitization->sanitize('test.input', ['test' => ['input' => '1234567890']]);
-        $this->assertEquals('1234567890', data_get($sanitized, 'test.input'));
-        $sanitized = $sanitization->sanitize('test.input', ['test' => ['input' => '123456789']]);
-        $this->assertEquals('123456789', data_get($sanitized, 'test.input'));
+        $sanitized = $sanitization->sanitize('test.input', ['test' => ['input' => 'ć234567890']]);
+        $this->assertEquals('ć234567890', data_get($sanitized, 'test.input'));
+        $sanitized = $sanitization->sanitize('test.input', ['test' => ['input' => 'ć23456789']]);
+        $this->assertEquals('ć23456789', data_get($sanitized, 'test.input'));
 
         // Test that long input gets cut off correctly
         $sanitization = new MaxCharsSanitization(10);
-        $sanitized = $sanitization->sanitize('test.input', ['test' => ['input' => '1234567890a']]);
-        $this->assertEquals('1234567890', data_get($sanitized, 'test.input'));
+        $sanitized = $sanitization->sanitize('test.input', ['test' => ['input' => 'ć234567890a']]);
+        $this->assertEquals('ć234567890', data_get($sanitized, 'test.input'));
 
         // Test that long input gets cut off correctly for arrays
         $sanitization = new MaxCharsSanitization(10);
         $sanitized = $sanitization->sanitize('test.*.input', [
             'test' => [
                 [
-                    'input' => '1234567890a',
+                    'input' => 'ć234567890a',
                 ],
                 [
-                    'input' => '1234567890b',
+                    'input' => 'ć234567890b',
                 ],
             ],
         ]);
-        $this->assertEquals('1234567890', data_get($sanitized, 'test.0.input'));
-        $this->assertEquals('1234567890', data_get($sanitized, 'test.1.input'));
+        $this->assertEquals('ć234567890', data_get($sanitized, 'test.0.input'));
+        $this->assertEquals('ć234567890', data_get($sanitized, 'test.1.input'));
     }
 
     /** @test */
@@ -88,19 +88,19 @@ class SanitizationTest extends TestCase
         ], '::');
         $sanitized = $sanitization->sanitize('0', [
             'test' => [
-                'input1' => 'abcd',
+                'input1' => 'abćd',
                 'input2' => 'fghi',
             ],
         ]);
-        $this->assertEquals('abcd', data_get($sanitized, 'test.input1'));
+        $this->assertEquals('abćd', data_get($sanitized, 'test.input1'));
         $this->assertEquals('fghi', data_get($sanitized, 'test.input2'));
         $sanitized = $sanitization->sanitize('0', [
             'test' => [
-                'input1' => 'abc',
+                'input1' => 'abć',
                 'input2' => 'fgh',
             ],
         ]);
-        $this->assertEquals('abc', data_get($sanitized, 'test.input1'));
+        $this->assertEquals('abć', data_get($sanitized, 'test.input1'));
         $this->assertEquals('fgh', data_get($sanitized, 'test.input2'));
 
         // Test that long input gets cut off correctly
@@ -110,11 +110,11 @@ class SanitizationTest extends TestCase
         ], '::');
         $sanitized = $sanitization->sanitize('0', [
             'test' => [
-                'input1' => 'abcdef',
+                'input1' => 'abćdef',
                 'input2' => 'ghijkl',
             ],
         ]);
-        $this->assertEquals('abcdef', data_get($sanitized, 'test.input1'));
+        $this->assertEquals('abćdef', data_get($sanitized, 'test.input1'));
         // Only 2 chars because 6 (input1) + spacer (2) + 2 = 10 (max)
         $this->assertEquals('gh', data_get($sanitized, 'test.input2'));
 
@@ -126,7 +126,7 @@ class SanitizationTest extends TestCase
         $sanitized = $sanitization->sanitize('0', [
             'test' => [
                 [
-                    'input1' => 'abcdef',
+                    'input1' => 'abćdef',
                     'input2' => 'ghijkl',
                 ],
                 [
@@ -135,7 +135,7 @@ class SanitizationTest extends TestCase
                 ],
             ],
         ]);
-        $this->assertEquals('abcdef', data_get($sanitized, 'test.0.input1'));
+        $this->assertEquals('abćdef', data_get($sanitized, 'test.0.input1'));
         $this->assertEquals('gh', data_get($sanitized, 'test.0.input2'));
         $this->assertEquals('mnopqr', data_get($sanitized, 'test.1.input1'));
         $this->assertEquals('st', data_get($sanitized, 'test.1.input2'));
@@ -276,38 +276,38 @@ class SanitizationTest extends TestCase
     {
         // Test that valid input doesn't change
         $sanitization = new BetweenCharsSanitization(4, 5);
-        $sanitized = $sanitization->sanitize('test.input', ['test' => ['input' => 'abcd']]);
-        $this->assertEquals('abcd', data_get($sanitized, 'test.input'));
-        $sanitized = $sanitization->sanitize('test.input', ['test' => ['input' => 'abcde']]);
-        $this->assertEquals('abcde', data_get($sanitized, 'test.input'));
+        $sanitized = $sanitization->sanitize('test.input', ['test' => ['input' => 'abćd']]);
+        $this->assertEquals('abćd', data_get($sanitized, 'test.input'));
+        $sanitized = $sanitization->sanitize('test.input', ['test' => ['input' => 'abćde']]);
+        $this->assertEquals('abćde', data_get($sanitized, 'test.input'));
 
         // If there are not enough chars, some should be added
         $sanitization = new BetweenCharsSanitization(4, 6);
         $sanitized = $sanitization->sanitize('test.input', ['test' => ['input' => 'ab']]);
         $this->assertEquals('abXX', data_get($sanitized, 'test.input'));
-        $sanitized = $sanitization->sanitize('test.input', ['test' => ['input' => 'abc']]);
-        $this->assertEquals('abcX', data_get($sanitized, 'test.input'));
+        $sanitized = $sanitization->sanitize('test.input', ['test' => ['input' => 'abć']]);
+        $this->assertEquals('abćX', data_get($sanitized, 'test.input'));
 
         // If there are too much chars, some should be removed
         $sanitization = new BetweenCharsSanitization(4, 6);
-        $sanitized = $sanitization->sanitize('test.input', ['test' => ['input' => 'abcdefgh']]);
-        $this->assertEquals('abcdef', data_get($sanitized, 'test.input'));
-        $sanitized = $sanitization->sanitize('test.input', ['test' => ['input' => 'abcdefg']]);
-        $this->assertEquals('abcdef', data_get($sanitized, 'test.input'));
+        $sanitized = $sanitization->sanitize('test.input', ['test' => ['input' => 'abćdefgh']]);
+        $this->assertEquals('abćdef', data_get($sanitized, 'test.input'));
+        $sanitized = $sanitization->sanitize('test.input', ['test' => ['input' => 'abćdefg']]);
+        $this->assertEquals('abćdef', data_get($sanitized, 'test.input'));
 
         // Test that wrong input gets corrected for arrays
         $sanitization = new BetweenCharsSanitization(4, 6);
         $sanitized = $sanitization->sanitize('test.*.input', [
             'test' => [
                 [
-                    'input' => 'abc',
+                    'input' => 'abć',
                 ],
                 [
-                    'input' => 'abcdefg',
+                    'input' => 'abćdefg',
                 ],
             ],
         ]);
-        $this->assertEquals('abcX', data_get($sanitized, 'test.0.input'));
-        $this->assertEquals('abcdef', data_get($sanitized, 'test.1.input'));
+        $this->assertEquals('abćX', data_get($sanitized, 'test.0.input'));
+        $this->assertEquals('abćdef', data_get($sanitized, 'test.1.input'));
     }
 }
