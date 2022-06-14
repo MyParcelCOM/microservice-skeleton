@@ -69,9 +69,11 @@ class Address
         if ($street1 && $combined) {
             try {
                 $addressBreakdown = AddressSplitter::splitAddress($street1);
-                $street1 = $addressBreakdown['streetName'];
-                $this->setStreetNumber((int) Arr::get($addressBreakdown, 'houseNumberParts.base'));
+                $street1 = Arr::get($addressBreakdown, 'streetName');
+                $number = Arr::get($addressBreakdown, 'houseNumberParts.base');
+                $this->setStreetNumber(empty($number) ? null : (int) $number);
                 $this->setStreetNumberSuffix(Arr::get($addressBreakdown, 'houseNumberParts.extension'));
+                $this->setStreet2(Arr::get($addressBreakdown, 'additionToAddress2'));
             } catch (SplittingException $e) {
                 // cannot split address, ignore
             }
