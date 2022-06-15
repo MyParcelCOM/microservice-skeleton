@@ -45,6 +45,9 @@ Route::delete('/shipments/{shipmentId}', [ShipmentController::class, 'void'])
 Route::post('/shipments', [ShipmentController::class, 'create'])
     ->name('create-shipment');
 
+//Route::post('/multi-colli-shipments', [ShipmentController::class, 'createMultiColli'])
+//    ->name('create-multi-colli-shipment');
+
 Route::get('/validate-credentials', [CredentialController::class, 'validateCredentials'])
     ->name('validate-credentials');
 
