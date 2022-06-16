@@ -24,11 +24,11 @@ class CombinedFieldsMaxRule implements CustomRuleInterface
         }, $parameters);
 
         // Filter out empty strings.
-        $filteredParams = array_filter($otherParams, 'strlen');
+        $filteredParams = array_filter($otherParams, 'mb_strlen');
 
         $totalLength = array_reduce($filteredParams, function ($totalLength, $param) {
-            return $totalLength + strlen($param);
-        }, strlen($value) + count($filteredParams));
+            return $totalLength + mb_strlen($param);
+        }, mb_strlen($value) + count($filteredParams));
 
         return $totalLength <= $maxLength;
     }

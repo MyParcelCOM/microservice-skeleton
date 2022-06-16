@@ -53,14 +53,14 @@ class MaxCharsCombinedSanitization implements SanitizationInterface
                 if ($origValue = data_get($parameters, $fieldKey)) {
                     // Limit to max length, keeping in mind combined length
                     // Typecast to string, because it might be an integer (example: street number)
-                    $value = substr((string) $origValue, 0, max(0, $this->maxChars - $currLen));
+                    $value = mb_substr((string) $origValue, 0, max(0, $this->maxChars - $currLen));
 
                     // Set the (possibly changed) value
                     // Typecast back to integer if needed
                     Arr::set($parameters, $fieldKey, is_int($origValue) ? (int) $value : $value);
 
                     // Update combined length so far
-                    $currLen += strlen($value) + strlen($this->spacer);
+                    $currLen += mb_strlen($value) + mb_strlen($this->spacer);
                 }
             }
         }

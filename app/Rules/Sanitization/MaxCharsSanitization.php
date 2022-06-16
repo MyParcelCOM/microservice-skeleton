@@ -44,7 +44,7 @@ class MaxCharsSanitization extends BaseSanitization
                     continue;
                 }
 
-                Arr::set($parameters, $singleKey, substr((string) $singleValue, 0, $this->maxChars));
+                Arr::set($parameters, $singleKey, mb_substr((string) $singleValue, 0, $this->maxChars));
             }
         }
         return $parameters;

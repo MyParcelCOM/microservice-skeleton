@@ -14,7 +14,7 @@ class CombinedFieldsMaxRuleTest extends TestCase
     {
         $data = [
             'fields' => [
-                'field-1' => 'is 21 characters long',
+                'field-1' => 'is 21 ćharacters long',
                 'field-2' => 'is 4',
                 'field-3' => 'is 9 long',
             ],
@@ -22,7 +22,7 @@ class CombinedFieldsMaxRuleTest extends TestCase
 
         /** @var Validator $validator */
         $validator = app('validator')->make($data, [
-            'fields.field-1' => 'combined_fields_max:40,fields.field-2,fields.field-3',
+            'fields.field-1' => 'combined_fields_max:36,fields.field-2,fields.field-3',
         ]);
 
         // Total amount of characters is 34, plus a space for each added input is 36.
@@ -34,7 +34,7 @@ class CombinedFieldsMaxRuleTest extends TestCase
     {
         $data = [
             'fields' => [
-                'field-1' => 'is 21 characters long',
+                'field-1' => 'is 21 ćharacters long',
                 'field-2' => 'is 4',
                 'field-3' => 'is 9 long',
             ],
@@ -42,7 +42,7 @@ class CombinedFieldsMaxRuleTest extends TestCase
 
         /** @var Validator $validator */
         $validator = app('validator')->make($data, [
-            'fields.field-1' => 'combined_fields_max:25,fields.field-2,fields.field-3',
+            'fields.field-1' => 'combined_fields_max:35,fields.field-2,fields.field-3',
         ]);
 
         // Total amount of characters is 34, plus a space for each added input is 36.
@@ -55,7 +55,7 @@ class CombinedFieldsMaxRuleTest extends TestCase
         $data = [
             'fields' => [
                 'field-1' => '6 long',
-                'field-2' => 'is 21 characters long',
+                'field-2' => 'is 21 ćharacters long',
                 'field-3' => '13 characters',
             ],
         ];
@@ -77,7 +77,7 @@ class CombinedFieldsMaxRuleTest extends TestCase
         $data = [
             'fields' => [
                 'field-1' => '6 long',
-                'field-2' => 'is 21 characters long',
+                'field-2' => 'is 21 ćharacters long',
                 'field-3' => '13 characters',
             ],
         ];
@@ -98,7 +98,7 @@ class CombinedFieldsMaxRuleTest extends TestCase
             'fields' => [
                 'field-1' => '6 long',
                 'field-2' => '',
-                'field-3' => '18 characters long',
+                'field-3' => '18 ćharacters long',
             ],
         ];
 
@@ -120,7 +120,7 @@ class CombinedFieldsMaxRuleTest extends TestCase
             'fields' => [
                 'field-1' => '6 long',
                 'field-2' => 'is 9 long',
-                'field-3' => '18 characters long',
+                'field-3' => '18 ćharacters long',
             ],
         ];
 
@@ -147,7 +147,7 @@ class CombinedFieldsMaxRuleTest extends TestCase
                     'recipient_address' => [
                         'street_1'             => '6 long',
                         'street_number'        => 'is 9 long',
-                        'street_number_suffix' => '18 characters long',
+                        'street_number_suffix' => '18 ćharacters long',
                     ],
                 ],
             ],

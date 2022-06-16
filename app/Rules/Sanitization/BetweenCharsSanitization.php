@@ -42,10 +42,10 @@ class BetweenCharsSanitization extends BaseSanitization
                     continue;
                 }
 
-                Arr::set($parameters, $singleKey, substr((string) $singleValue, 0, $this->maxChars));
+                Arr::set($parameters, $singleKey, mb_substr((string) $singleValue, 0, $this->maxChars));
 
-                if (strlen(Arr::get($parameters, $singleKey)) < $this->minChars) {
-                    $additionalChars = $this->minChars - strlen(Arr::get($parameters, $singleKey));
+                if (mb_strlen(Arr::get($parameters, $singleKey)) < $this->minChars) {
+                    $additionalChars = $this->minChars - mb_strlen(Arr::get($parameters, $singleKey));
                     $value = Arr::get($parameters, $singleKey);
                     Arr::set($parameters, $singleKey, $value . str_repeat('X', $additionalChars));
                 }
