@@ -10,6 +10,7 @@ use MyParcelCom\JsonApi\Transformers\TransformerException;
 use MyParcelCom\JsonApi\Transformers\TransformerService;
 use MyParcelCom\Microservice\Http\Controllers\Controller;
 use MyParcelCom\Microservice\Http\JsonRequestValidator;
+use MyParcelCom\Microservice\Http\MultiColliShipmentRequest;
 use MyParcelCom\Microservice\Http\ShipmentRequest;
 
 class ShipmentController extends Controller
@@ -37,6 +38,37 @@ class ShipmentController extends Controller
 
         return new JsonResponse(
             $transformerService->transformResource($shipment),
+            JsonResponse::HTTP_CREATED
+        );
+    }
+
+
+    /**
+     * @param JsonRequestValidator      $jsonRequestValidator
+     * @param ShipmentRepository        $repository
+     * @param MultiColliShipmentRequest $request
+     * @param TransformerService        $transformerService
+     * @return JsonResponse
+     */
+    public function createMultiColli(
+        JsonRequestValidator $jsonRequestValidator,
+        ShipmentRepository $repository,
+        MultiColliShipmentRequest $request,
+        TransformerService $transformerService
+    ): JsonResponse {
+        $jsonRequestValidator->validate('/multi-colli-shipments', 'post', null);
+
+        $response = $repository->createFromMultiColliPostData($request->json('data'), $request->json('meta', []));
+
+        return new JsonResponse(
+            [
+                'data' => [
+                    'master' => $transformerService->transformResource($response['master'])['data'],
+                    'colli'  => $response['colli']->map(function (Shipment $collo) use ($transformerService) {
+                        return $transformerService->transformResource($collo)['data'];
+                    }),
+                ]
+            ],
             JsonResponse::HTTP_CREATED
         );
     }
