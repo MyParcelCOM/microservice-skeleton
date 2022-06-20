@@ -20,9 +20,6 @@ class Shipment
     /** @var string */
     protected $id;
 
-    /** @var string|null */
-    protected $sequenceNumber;
-
     /** @var Address */
     protected $recipientAddress;
 
@@ -122,25 +119,6 @@ class Shipment
     public function setId(string $id): self
     {
         $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getSequenceNumber(): ?string
-    {
-        return $this->sequenceNumber;
-    }
-
-    /**
-     * @param string $sequenceNumber
-     * @return $this
-     */
-    public function setSequenceNumber(string $sequenceNumber): self
-    {
-        $this->sequenceNumber = $sequenceNumber;
 
         return $this;
     }
@@ -808,24 +786,25 @@ class Shipment
         return $this->consolidationShipments ?? new Collection();
     }
 
-    /**
-     * @param int $colloNumber
-     * @return $this
-     */
-    public function setColloNumber(int $colloNumber): self
-    {
-        $this->colloNumber = $colloNumber;
+//    Todo: Uncomment the below methods when implementing multi colli with a database in the carrier microservice.
+//    /**
+//     * @param int $colloNumber
+//     * @return $this
+//     */
+//    public function setColloNumber(int $colloNumber): self
+//    {
+//        $this->colloNumber = $colloNumber;
+//
+//        return $this;
+//    }
 
-        return $this;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getColloNumber(): ?int
-    {
-        return $this->colloNumber;
-    }
+//    /**
+//     * @return int|null
+//     */
+//    public function getColloNumber(): ?int
+//    {
+//        return $this->colloNumber;
+//    }
 
 //    Todo: Uncomment the below methods when implementing multi colli with a database in the carrier microservice.
 //    /**

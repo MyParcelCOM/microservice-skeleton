@@ -57,7 +57,7 @@ class MultiColliShipmentRequest extends ShipmentRequest
      * and that the weight of the shipment is an integer and is at least 1000.
      *
      * See the laravel documentation for all available validation rules:
-     * https://laravel.com/docs/5.5/validation#available-validation-rules
+     * https://laravel.com/docs/8.x/validation#available-validation-rules
      *
      * @return array
      */
