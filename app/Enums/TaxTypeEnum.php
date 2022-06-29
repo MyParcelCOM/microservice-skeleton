@@ -8,10 +8,12 @@ use MyCLabs\Enum\Enum;
  * @method static TaxTypeEnum EORI()
  * @method static TaxTypeEnum IOSS()
  * @method static TaxTypeEnum VAT()
+ * @method static TaxTypeEnum GST()
  */
 class TaxTypeEnum extends Enum
 {
     const EORI = 'eori';
     const IOSS = 'ioss';
     const VAT = 'vat';
+    const GST = 'gst';
 }

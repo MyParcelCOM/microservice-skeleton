@@ -786,6 +786,44 @@ class Shipment
         return $this->consolidationShipments ?? new Collection();
     }
 
+//    Todo: Uncomment the below methods when implementing multi colli with a database in the carrier microservice.
+//    /**
+//     * @param int $colloNumber
+//     * @return $this
+//     */
+//    public function setColloNumber(int $colloNumber): self
+//    {
+//        $this->colloNumber = $colloNumber;
+//
+//        return $this;
+//    }
+
+//    /**
+//     * @return int|null
+//     */
+//    public function getColloNumber(): ?int
+//    {
+//        return $this->colloNumber;
+//    }
+
+//    Todo: Uncomment the below methods when implementing multi colli with a database in the carrier microservice.
+//    /**
+//     * @return BelongsTo
+//     */
+//    public function master()
+//    {
+//        return $this->belongsTo(Shipment::class, 'master_id');
+//    }
+//
+//    /**
+//     * @return HasMany
+//     */
+//    public function colli()
+//    {
+//        return $this->hasMany(Shipment::class, 'master_id')
+//            ->orderBy('collo_number');
+//    }
+
 //    TODO: Uncomment the below methods when implementing consolidations with a database in the carrier microservice.
 //    public function getConsolidationShipments(): Collection
 //    {

@@ -45,4 +45,50 @@ class ShipmentRepository
 
         return $shipment;
     }
+
+//    /**
+//     * Makes a multi-colli shipment from the posted shipment data and persists it (by uploading it to the carrier FTP).
+//     *
+//     * @param array $data
+//     * @param array $meta
+//     * @return array
+//     */
+//    public function createFromMultiColliPostData(array $data, array $meta = []): array
+//    {
+//        // Todo: append to the logic in the initShipment method to create a multi-colli shipment with the carrier.
+//        $master = $this->initShipment($data['master'], $meta, true);
+//
+//        $colli = collect($data['colli'])->map(function (array $shipmentData, int $index) use ($meta) {
+//            $shipment = $this->initShipment($shipmentData, $meta);
+//            return $shipment->setColloNumber($index + 1);
+//        });
+//
+//        // Todo: uncomment related methods in the shipment resource
+//        // Link colli shipments to master shipment (and update changes)
+//        // $master->colli()->saveMany($colli);
+//
+//        return [
+//            'master' => $master,
+//            'colli'  => $colli,
+//        ];
+//    }
+//
+//    /**
+//     * @param array $shipmentData
+//     * @param array $meta
+//     * @param bool  $isMaster
+//     * @return Shipment
+//     */
+//    private function initShipment(array $shipmentData, array $meta, bool $isMaster = false): Shipment
+//    {
+//        $shipment = $this->shipmentMapper->map($shipmentData, new Shipment());
+//        $shipment->setLabelMimeType(Arr::get($meta, 'label.mime_type', Shipment::LABEL_MIME_TYPE_PDF));
+//        $shipment->setTrackTraceEnabled(Arr::get($meta, 'track_trace.enabled', true));
+//
+//        // Todo: Set needed values on shipment from credentials
+//
+//        // Todo: Map calculated data back into the Shipment object in the carrier mapper
+//
+//        return $shipment;
+//    }
 }
