@@ -8,12 +8,16 @@ class PickUpDropOffLocation
 {
     const CATEGORY_PICK_UP = 'pick-up';
     const CATEGORY_DROP_OFF = 'drop-off';
+    const FEATURE_PRINT_LABEL_IN_STORE = 'print-label-in-store';
 
     /** @var string */
     protected $id;
 
     /** @var array */
     protected $categories = [];
+
+    /** @var array */
+    protected $features = [];
 
     /** @var Address */
     protected $address;
@@ -62,6 +66,24 @@ class PickUpDropOffLocation
     {
         $this->categories = $categories;
 
+        return $this;
+    }
+
+    /**
+     * @return string[]|null
+     */
+    public function getFeatures(): ?array
+    {
+        return $this->features;
+    }
+
+    /**
+     * @param string[] $features
+     * @return $this
+     */
+    public function setFeatures(array $features): self
+    {
+        $this->features = $features;
         return $this;
     }
 
