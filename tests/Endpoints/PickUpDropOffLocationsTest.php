@@ -168,4 +168,32 @@ class PickUpDropOffLocationsTest extends TestCase
             $this->assertTrue(in_array('drop-off', $categories) || in_array('pick-up', $categories));
         });
     }
+
+    /** @test */
+    public function itRetrievesAndMapsPickUpAndDropOffLocationsFilterByFeature()
+    {
+        $this->assertJsonSchema(
+            '/pickup-dropoff-locations/{latitude}/{longitude}',
+            '/pickup-dropoff-locations/52.359686/4.884573?filter[features]=print-label-in-store',
+            $this->getRequestHeaders()
+        );
+
+        $this->assertJsonDataCount(
+            10, // TODO: Update this according to the used stub.
+            '/pickup-dropoff-locations/52.359686/4.884573?filter[features]=print-label-in-store',
+            $this->getRequestHeaders()
+        );
+
+        $this->assertJsonSchema(
+            '/pickup-dropoff-locations/{country_code}/{postal_code}',
+            '/pickup-dropoff-locations/UK/EC1A 1BB?filter[features]=print-label-in-store',
+            $this->getRequestHeaders()
+        );
+
+        $this->assertJsonDataCount(
+            10, // TODO: Update this according to the used stub.
+            '/pickup-dropoff-locations/UK/EC1A 1BB?filter[features]=print-label-in-store',
+            $this->getRequestHeaders()
+        );
+    }
 }
