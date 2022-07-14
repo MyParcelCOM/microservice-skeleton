@@ -45,6 +45,7 @@ class PickUpDropOffLocationTransformer extends AbstractTransformer
 
         return array_filter([
             'categories'    => $pickUpDropOffLocation->getCategories(),
+            'features'      => $pickUpDropOffLocation->getFeatures(),
             'address'       => array_filter([
                 'street_1'             => $address->getStreet1(),
                 'street_2'             => $address->getStreet2(),

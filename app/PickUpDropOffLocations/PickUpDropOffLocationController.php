@@ -21,6 +21,7 @@ class PickUpDropOffLocationController extends Controller
     ): JsonResponse {
         $filters = $request->getFilter();
         $categories = array_filter(explode(',', Arr::get($filters, 'categories', '')));
+        $features = array_filter(explode(',', Arr::get($filters, 'features', '')));
 
         $pudoLocations = $pickUpDropOffLocationRepository->getAllByCountryAndPostalCode(
             $countryCode,
@@ -28,7 +29,8 @@ class PickUpDropOffLocationController extends Controller
             $request->query('street'),
             $request->query('street_number'),
             $request->query('city'),
-            $categories
+            $categories,
+            $features
         );
 
         $response = $transformerService->transformResources($pudoLocations);
@@ -45,13 +47,15 @@ class PickUpDropOffLocationController extends Controller
     ): JsonResponse {
         $filters = $request->getFilter();
         $categories = array_filter(explode(',', Arr::get($filters, 'categories', '')));
+        $features = array_filter(explode(',', Arr::get($filters, 'features', '')));
         $radius = Arr::has($filters, 'radius') ? (int) Arr::get($filters, 'radius') : null;
 
         $pudoLocations = $pickUpDropOffLocationRepository->getAllByGeolocation(
             $latitude,
             $longitude,
             $radius,
-            $categories
+            $categories,
+            $features
         );
 
         $response = $transformerService->transformResources($pudoLocations);

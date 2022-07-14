@@ -71,6 +71,7 @@ class PickUpDropOffLocationTransformerTest extends TestCase
         $this->pickUpDropOffLocation = Mockery::mock(PickUpDropOffLocation::class, [
             'getId'           => 'location-id',
             'getCategories'   => ['pick-up'],
+            'getFeatures'     => ['print-label-in-store'],
             'getAddress'      => $address,
             'getOpeningHours' => [$openingHourA, $openingHourB],
             'getPosition'     => $position,
@@ -91,6 +92,7 @@ class PickUpDropOffLocationTransformerTest extends TestCase
     {
         $this->assertEquals([
             'categories'    => ['pick-up'],
+            'features'      => ['print-label-in-store'],
             'address'       => [
                 'street_1'             => 'First Street',
                 'street_2'             => 'Second Street',

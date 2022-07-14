@@ -29,6 +29,7 @@ class PickUpDropOffLocationRepository
      * @param string|null $streetNumber
      * @param string|null $city
      * @param array       $categories
+     * @param array       $features
      * @return ResourcesInterface
      */
     public function getAllByCountryAndPostalCode(
@@ -37,11 +38,20 @@ class PickUpDropOffLocationRepository
         ?string $street = null,
         ?string $streetNumber = null,
         ?string $city = null,
-        array $categories = []
+        array $categories = [],
+        array $features = []
     ): ResourcesInterface {
         // Return the locations if they are cached.
         if (($locations = $this->getCachedLocations($countryCode, $postalCode, $street, $streetNumber, $city))) {
-            return new CollectionResources($this->filterLocationsByCategories($locations, $categories));
+            return new CollectionResources(
+                $this->filterLocationsByCategories(
+                    $this->filterLocationsByFeatures(
+                        $locations,
+                        $features
+                    ),
+                    $categories
+                )
+            );
         }
 
         // TODO: Get the pudo points from carrier (use CarrierApiGateway).
@@ -56,15 +66,25 @@ class PickUpDropOffLocationRepository
      * @param string   $longitude
      * @param int|null $radius Radius is in meters
      * @param array    $categories
+     * @param array    $features
      * @return ResourcesInterface
      */
     public function getAllByGeolocation(
         string $latitude,
         string $longitude,
         ?int $radius = null,
-        array $categories = []
+        array $categories = [],
+        array $features = []
     ): ResourcesInterface {
-        return new CollectionResources($this->filterLocationsByCategories(new Collection(), $categories));
+        return new CollectionResources(
+            $this->filterLocationsByCategories(
+                $this->filterLocationsByFeatures(
+                    new Collection(),
+                    $features
+                ),
+                $categories
+            )
+        );
 
         // TODO: Get the pudo points from carrier (use CarrierApiGateway).
         // TODO: Map data to PickUpDropOffLocation objects.
@@ -145,9 +165,9 @@ class PickUpDropOffLocationRepository
     /**
      * @param Collection $locations
      * @param array      $categories
-     * @return mixed
+     * @return Collection
      */
-    private function filterLocationsByCategories(Collection $locations, array $categories)
+    private function filterLocationsByCategories(Collection $locations, array $categories): Collection
     {
         if (!$categories) {
             return $locations;
@@ -156,6 +176,27 @@ class PickUpDropOffLocationRepository
         return $locations->filter(function (PickUpDropOffLocation $location) use ($categories) {
             foreach ($categories as $category) {
                 if (in_array($category, $location->getCategories())) {
+                    return true;
+                }
+            }
+            return false;
+        });
+    }
+
+    /**
+     * @param Collection $locations
+     * @param array $features
+     * @return Collection
+     */
+    private function filterLocationsByFeatures(Collection $locations, array $features): Collection
+    {
+        if (!$features) {
+            return $locations;
+        }
+
+        return $locations->filter(function (PickUpDropOffLocation $location) use ($features) {
+            foreach ($features as $feature) {
+                if (in_array($feature, $location->getFeatures())) {
                     return true;
                 }
             }
