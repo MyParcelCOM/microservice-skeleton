@@ -105,6 +105,9 @@ class Shipment
     /** @var FinalMileCarrier|null  */
     protected ?FinalMileCarrier $finalMileCarrier = null;
 
+    /** @var string|null */
+    protected ?string $finalMileCarrierTrackingCode;
+
     /** @var Collection */
     protected $consolidationShipments;
 
@@ -805,6 +808,18 @@ class Shipment
     public function setFinalMileCarrier(FinalMileCarrier $finalMileCarrier): self
     {
         $this->finalMileCarrier = $finalMileCarrier;
+
+        return $this;
+    }
+
+    public function getFinalMileCarrierTrackingCode(): ?string
+    {
+        return $this->finalMileCarrierTrackingCode;
+    }
+
+    public function setFinalMileCarrierTrackingCode(string $finalMileCarrierTrackingCode): self
+    {
+        $this->finalMileCarrierTrackingCode = $finalMileCarrierTrackingCode;
 
         return $this;
     }
