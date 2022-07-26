@@ -7,6 +7,7 @@ namespace MyParcelCom\Microservice\Shipments;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
+use MyParcelCom\FinalMileCarrier\FinalMileCarrier;
 use MyParcelCom\Microservice\Enums\TaxTypeEnum;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 
@@ -100,6 +101,9 @@ class Shipment
 
     /** @var array */
     protected $taxIdentificationNumbers = [];
+
+    /** @var FinalMileCarrier|null  */
+    protected ?FinalMileCarrier $finalMileCarrier = null;
 
     /** @var Collection */
     protected $consolidationShipments;
@@ -784,6 +788,25 @@ class Shipment
     public function getConsolidationShipments(): Collection
     {
         return $this->consolidationShipments ?? new Collection();
+    }
+
+    /**
+     * @return FinalMileCarrier|null
+     */
+    public function getFinalMileCarrier(): ?FinalMileCarrier
+    {
+        return $this->finalMileCarrier;
+    }
+
+    /**
+     * @param FinalMileCarrier $finalMileCarrier
+     * @return Shipment
+     */
+    public function setFinalMileCarrier(FinalMileCarrier $finalMileCarrier): self
+    {
+        $this->finalMileCarrier = $finalMileCarrier;
+
+        return $this;
     }
 
 //    Todo: Uncomment the below methods when implementing multi colli with a database in the carrier microservice.
