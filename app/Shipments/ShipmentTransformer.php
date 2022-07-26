@@ -127,7 +127,7 @@ class ShipmentTransformer extends AbstractTransformer
             'final_mile_carrier'                   => $shipment->getFinalMileCarrier() ? [
                 'tracking_url'  => $shipment->getFinalMileCarrier()->getUrl(),
                 'name'          => $shipment->getFinalMileCarrier()->getName(),
-                'tracking_code' => $shipment->getFinalMileCarrierTrackingCode(),
+                'tracking_code' => $shipment->getFinalMileCarrier()->getTrackingCode(),
             ] : null,
         ]);
     }

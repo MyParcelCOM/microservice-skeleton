@@ -155,10 +155,10 @@ class ShipmentTransformerTest extends TestCase
             'getItems'                             => [$shipmentItem],
             'getMyparcelcomShipmentId'             => 'bbacd0c7-9ec5-42df-9870-443b8e1a7155',
             'getFinalMileCarrier'                  => Mockery::mock(FinalMileCarrier::class, [
-                'getName' => 'Final-Track',
-                'getUrl'  => 'https://finaltrack.me/details/TR4CK1NGC0D3',
+                'getName'         => 'Final-Track',
+                'getUrl'          => 'https://finaltrack.me/details/TR4CK1NGC0D3',
+                'getTrackingCode' => 'TR4CK1NGC0D3',
             ]),
-            'getFinalMileCarrierTrackingCode'      => 'TR4CK1NGC0D3',
             'getConsolidationShipments'            => new Collection([
                 Mockery::mock(Shipment::class, [
                     'getId' => 'con-1',
@@ -382,8 +382,8 @@ class ShipmentTransformerTest extends TestCase
             ],
             'myparcelcom_shipment_id'              => 'bbacd0c7-9ec5-42df-9870-443b8e1a7155',
             'final_mile_carrier'                   => [
-                'name'         => 'Final-Track',
-                'tracking_url' => 'https://finaltrack.me/details/TR4CK1NGC0D3',
+                'name'          => 'Final-Track',
+                'tracking_url'  => 'https://finaltrack.me/details/TR4CK1NGC0D3',
                 'tracking_code' => 'TR4CK1NGC0D3',
             ],
         ], $this->shipmentTransformer->getAttributes($this->shipment));
