@@ -125,7 +125,7 @@ class ShipmentMapper implements MapperInterface
         $relationships = Arr::get($data, 'relationships');
 
         if (isset($relationships['consolidated_shipments'])) {
-            $shipment->setConsolidationShipments(new Collection($relationships['consolidated_shipments']));
+            $shipment->setConsolidationShipments(new Collection($relationships['consolidated_shipments']['data']));
         }
 
         return $shipment;
