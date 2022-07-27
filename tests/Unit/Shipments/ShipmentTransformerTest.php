@@ -160,12 +160,12 @@ class ShipmentTransformerTest extends TestCase
                 'getTrackingCode' => 'TR4CK1NGC0D3',
             ]),
             'getConsolidationShipments'            => new Collection([
-                Mockery::mock(Shipment::class, [
-                    'getId' => 'con-1',
-                ]),
-                Mockery::mock(Shipment::class, [
-                    'getId' => 'con-2',
-                ]),
+                [
+                    'id' => 'con-1',
+                ],
+                [
+                    'id' => 'con-2',
+                ],
             ]),
         ]);
 
