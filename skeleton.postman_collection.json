@@ -1,0 +1,549 @@
+{
+	"info": {
+		"_postman_id": "1bb6f551-a0f4-4428-8251-ca6669682682",
+		"name": "MyParcel microservice Skeleton",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6491618"
+	},
+	"item": [
+		{
+			"name": "Collections",
+			"item": [
+				{
+					"name": "Void Collection",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-myparcelcom-credentials",
+								"value": "{{MYPARCELCOM_CREDENTIALS}}",
+								"type": "text"
+							},
+							{
+								"key": "x-myparcelcom-secret",
+								"value": "{{MYPARCELCOM_SECRET}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{APP_DOMAIN}}:{{APP_PORT}}/collections/{{COLLECTION_ID}}",
+							"protocol": "https",
+							"host": [
+								"{{APP_DOMAIN}}"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"collections",
+								"{{COLLECTION_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Collection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"try {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"",
+									"    pm.environment.set(\"COLLECTION_ID\", jsonData.data.id);",
+									"} catch {",
+									"    console.error('Error while parsing response body. Environment variable `COLLECTION_ID` has not been set.')",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-myparcelcom-credentials",
+								"value": "{{MYPARCELCOM_CREDENTIALS}}",
+								"type": "text"
+							},
+							{
+								"key": "x-myparcelcom-secret",
+								"value": "{{MYPARCELCOM_SECRET}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"data\": {\n    \"type\": \"collections\",\n    \"id\": \"6e287731-c391-4548-bc48-c09327e1e94f\",\n    \"attributes\": {\n      \"myparcelcom_collection_id\": \"6e287731-c391-4548-bc48-c09327e1e94f\",\n      \"name\": \"First collection\",\n      \"collection_time\": {\n        \"from\": 1647878216,\n        \"to\": \"2022-03-22T20:00:00+01:00\"\n      },\n      \"address\": {\n        \"street_1\": \"Baker Street\",\n        \"street_2\": \"Marylebone\",\n        \"street_number\": 221,\n        \"street_number_suffix\": \"B\",\n        \"postal_code\": \"NW1 6XE\",\n        \"city\": \"London\",\n        \"state_code\": \"ENG\",\n        \"country_code\": \"GB\",\n        \"first_name\": \"Sherlock\",\n        \"last_name\": \"Holmes\",\n        \"company\": \"Holmes Investigations\",\n        \"email\": \"s.holmes@holmesinvestigations.com\",\n        \"phone_number\": \"+31 234 567 890\"\n      },\n      \"created_at\": 1504801719\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{APP_DOMAIN}}:{{APP_PORT}}/collections",
+							"protocol": "https",
+							"host": [
+								"{{APP_DOMAIN}}"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"collections"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE Collection",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "x-myparcelcom-credentials",
+								"value": "{{MYPARCELCOM_CREDENTIALS}}",
+								"type": "text"
+							},
+							{
+								"key": "x-myparcelcom-secret",
+								"value": "{{MYPARCELCOM_SECRET}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"data\": {\n    \"type\": \"collections\",\n    \"id\": \"6e287731-c391-4548-bc48-c09327e1e94f\",\n    \"attributes\": {\n      \"myparcelcom_collection_id\": \"6e287731-c391-4548-bc48-c09327e1e94f\",\n      \"name\": \"First collection\",\n      \"collection_time\": {\n        \"from\": 1647878216,\n        \"to\": \"2022-03-22T20:00:00+01:00\"\n      },\n      \"address\": {\n        \"street_1\": \"Baker Street\",\n        \"street_2\": \"Marylebone\",\n        \"street_number\": 221,\n        \"street_number_suffix\": \"B\",\n        \"postal_code\": \"NW1 6XE\",\n        \"city\": \"London\",\n        \"state_code\": \"ENG\",\n        \"country_code\": \"GB\",\n        \"first_name\": \"Sherlock\",\n        \"last_name\": \"Holmes\",\n        \"company\": \"Holmes Investigations\",\n        \"email\": \"s.holmes@holmesinvestigations.com\",\n        \"phone_number\": \"+31 234 567 890\"\n      },\n      \"created_at\": 1504801719,\n      \"register\": true\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{APP_DOMAIN}}:{{APP_PORT}}/collections/{{COLLECTION_ID}}",
+							"protocol": "https",
+							"host": [
+								"{{APP_DOMAIN}}"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"collections",
+								"{{COLLECTION_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Shipments",
+			"item": [
+				{
+					"name": "Create Shipment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"try {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"",
+									"    pm.environment.set(\"SHIPMENT_ID\", jsonData.data.id);",
+									"    PM.environment.set(\"SHIPMENT_TRACKING_CODE\", jsonData.data.attributes.tracking_code)",
+									"} catch {",
+									"    console.error('Error while parsing response body. Environment variables `SHIPMENT_ID` and `SHIPMENT_TRACKING_CODE` have not been set.')",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-myparcelcom-credentials",
+								"value": "{{MYPARCELCOM_CREDENTIALS}}",
+								"type": "text"
+							},
+							{
+								"key": "x-myparcelcom-secret",
+								"value": "{{MYPARCELCOM_SECRET}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"data\": {\n    \"type\": \"shipments\",\n    \"attributes\": {\n      \"myparcelcom_shipment_id\": \"7b808eee-bf1c-40cd-98f2-3c335a06417e\",\n      \"recipient_address\": {\n        \"street_1\": \"Baker Street\",\n        \"street_2\": \"Marylebone\",\n        \"street_number\": 221,\n        \"street_number_suffix\": \"B\",\n        \"postal_code\": \"NW1 6XE\",\n        \"city\": \"London\",\n        \"state_code\": \"ENG\",\n        \"country_code\": \"GB\",\n        \"first_name\": \"Sherlock\",\n        \"last_name\": \"Holmes\",\n        \"company\": \"Holmes Investigations\",\n        \"email\": \"s.holmes@holmesinvestigations.com\",\n        \"phone_number\": \"+31 234 567 890\"\n      },\n      \"recipient_tax_identification_numbers\": [\n        {\n          \"country_code\": \"GB\",\n          \"number\": \"XI123456789\",\n          \"description\": \"Eori number for Northern Ireland\",\n          \"type\": \"eori\"\n        }\n      ],\n      \"recipient_tax_number\": \"string\",\n      \"return_address\": {\n        \"street_1\": \"Baker Street\",\n        \"street_2\": \"Marylebone\",\n        \"street_number\": 221,\n        \"street_number_suffix\": \"B\",\n        \"postal_code\": \"NW1 6XE\",\n        \"city\": \"London\",\n        \"state_code\": \"ENG\",\n        \"country_code\": \"GB\",\n        \"first_name\": \"Sherlock\",\n        \"last_name\": \"Holmes\",\n        \"company\": \"Holmes Investigations\",\n        \"email\": \"s.holmes@holmesinvestigations.com\",\n        \"phone_number\": \"+31 234 567 890\"\n      },\n      \"sender_address\": {\n        \"street_1\": \"Baker Street\",\n        \"street_2\": \"Marylebone\",\n        \"street_number\": 221,\n        \"street_number_suffix\": \"B\",\n        \"postal_code\": \"NW1 6XE\",\n        \"city\": \"London\",\n        \"state_code\": \"ENG\",\n        \"country_code\": \"GB\",\n        \"first_name\": \"Sherlock\",\n        \"last_name\": \"Holmes\",\n        \"company\": \"Holmes Investigations\",\n        \"email\": \"s.holmes@holmesinvestigations.com\",\n        \"phone_number\": \"+31 234 567 890\"\n      },\n      \"sender_tax_identification_numbers\": [\n        {\n          \"country_code\": \"GB\",\n          \"number\": \"XI123456789\",\n          \"description\": \"Eori number for Northern Ireland\",\n          \"type\": \"eori\"\n        }\n      ],\n      \"sender_tax_number\": \"string\",\n      \"tax_identification_numbers\": [\n        {\n          \"country_code\": \"GB\",\n          \"number\": \"XI123456789\",\n          \"description\": \"Eori number for Northern Ireland\",\n          \"type\": \"eori\"\n        }\n      ],\n      \"description\": \"order #8008135\",\n      \"service\": {\n        \"code\": \"service-a01\",\n        \"name\": \"Parcel to Parcelshop\"\n      },\n      \"options\": [\n        {\n          \"code\": \"delivery-day:sunday\",\n          \"name\": \"Sunday Delivery\",\n          \"values\": {\n            \"pin\": \"1234\"\n          }\n        }\n      ],\n      \"total_value\": {\n        \"amount\": 995,\n        \"currency\": \"EUR\"\n      },\n      \"physical_properties\": {\n        \"height\": 150,\n        \"width\": 300,\n        \"length\": 500,\n        \"volume\": 22.5,\n        \"weight\": 5000,\n        \"volumetric_weight\": 4500\n      },\n      \"items\": [\n        {\n          \"sku\": \"123456789\",\n          \"description\": \"OnePlus X\",\n          \"image_url\": \"https://myparcel.com/product.png\",\n          \"item_value\": {\n            \"amount\": 995,\n            \"currency\": \"EUR\"\n          },\n          \"item_weight\": 1000,\n          \"quantity\": 2,\n          \"hs_code\": \"8517.12.00\",\n          \"origin_country_code\": \"GB\",\n          \"vat_percentage\": 19\n        }\n      ],\n      \"customs\": {\n        \"content_type\": \"merchandise\",\n        \"invoice_number\": \"9000\",\n        \"non_delivery\": \"return\",\n        \"incoterm\": \"DAP\",\n        \"shipping_value\": {\n          \"amount\": 995,\n          \"currency\": \"EUR\"\n        }\n      },\n      \"channel\": \"MyParcel.com\"\n    },\n    \"relationships\": {\n      \"consolidated_shipments\": {\n        \"data\": [\n          {\n            \"type\": \"shipments\",\n            \"id\": \"be7f6752-34e0-49a1-a832-bcc209450ea9\"\n          }\n        ]\n      }\n    }\n  },\n  \"meta\": {\n    \"track_trace\": {\n      \"enabled\": false\n    },\n    \"label_mime_type\": \"application/pdf\",\n    \"label\": {\n      \"mime_type\": \"application/pdf\",\n      \"size\": \"A6\",\n      \"print_sku_on_label\": true\n    },\n    \"print_sku_on_label\": true\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{APP_DOMAIN}}:{{APP_PORT}}/shipments",
+							"protocol": "https",
+							"host": [
+								"{{APP_DOMAIN}}"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"shipments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create PUDO Shipment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"try {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"",
+									"    pm.environment.set(\"SHIPMENT_ID\", jsonData.data.id);",
+									"    PM.environment.set(\"SHIPMENT_TRACKING_CODE\", jsonData.data.attributes.tracking_code)",
+									"} catch {",
+									"    console.error('Error while parsing response body. Environment variables `SHIPMENT_ID` and `SHIPMENT_TRACKING_CODE` have not been set.')",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-myparcelcom-credentials",
+								"value": "{{MYPARCELCOM_CREDENTIALS}}",
+								"type": "text"
+							},
+							{
+								"key": "x-myparcelcom-secret",
+								"value": "{{MYPARCELCOM_SECRET}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"data\": {\n    \"type\": \"shipments\",\n    \"attributes\": {\n      \"myparcelcom_shipment_id\": \"7b808eee-bf1c-40cd-98f2-3c335a06417e\",\n      \"recipient_address\": {\n        \"street_1\": \"Baker Street\",\n        \"street_2\": \"Marylebone\",\n        \"street_number\": 221,\n        \"street_number_suffix\": \"B\",\n        \"postal_code\": \"NW1 6XE\",\n        \"city\": \"London\",\n        \"state_code\": \"ENG\",\n        \"country_code\": \"GB\",\n        \"first_name\": \"Sherlock\",\n        \"last_name\": \"Holmes\",\n        \"company\": \"Holmes Investigations\",\n        \"email\": \"s.holmes@holmesinvestigations.com\",\n        \"phone_number\": \"+31 234 567 890\"\n      },\n      \"recipient_tax_identification_numbers\": [\n        {\n          \"country_code\": \"GB\",\n          \"number\": \"XI123456789\",\n          \"description\": \"Eori number for Northern Ireland\",\n          \"type\": \"eori\"\n        }\n      ],\n      \"recipient_tax_number\": \"string\",\n      \"return_address\": {\n        \"street_1\": \"Baker Street\",\n        \"street_2\": \"Marylebone\",\n        \"street_number\": 221,\n        \"street_number_suffix\": \"B\",\n        \"postal_code\": \"NW1 6XE\",\n        \"city\": \"London\",\n        \"state_code\": \"ENG\",\n        \"country_code\": \"GB\",\n        \"first_name\": \"Sherlock\",\n        \"last_name\": \"Holmes\",\n        \"company\": \"Holmes Investigations\",\n        \"email\": \"s.holmes@holmesinvestigations.com\",\n        \"phone_number\": \"+31 234 567 890\"\n      },\n      \"sender_address\": {\n        \"street_1\": \"Baker Street\",\n        \"street_2\": \"Marylebone\",\n        \"street_number\": 221,\n        \"street_number_suffix\": \"B\",\n        \"postal_code\": \"NW1 6XE\",\n        \"city\": \"London\",\n        \"state_code\": \"ENG\",\n        \"country_code\": \"GB\",\n        \"first_name\": \"Sherlock\",\n        \"last_name\": \"Holmes\",\n        \"company\": \"Holmes Investigations\",\n        \"email\": \"s.holmes@holmesinvestigations.com\",\n        \"phone_number\": \"+31 234 567 890\"\n      },\n      \"sender_tax_identification_numbers\": [\n        {\n          \"country_code\": \"GB\",\n          \"number\": \"XI123456789\",\n          \"description\": \"Eori number for Northern Ireland\",\n          \"type\": \"eori\"\n        }\n      ],\n      \"sender_tax_number\": \"string\",\n      \"tax_identification_numbers\": [\n        {\n          \"country_code\": \"GB\",\n          \"number\": \"XI123456789\",\n          \"description\": \"Eori number for Northern Ireland\",\n          \"type\": \"eori\"\n        }\n      ],\n      \"pickup_location\": {\n        \"code\": \"123456\",\n        \"address\": {\n          \"street_1\": \"Baker Street\",\n          \"street_2\": \"Marylebone\",\n          \"street_number\": 221,\n          \"street_number_suffix\": \"B\",\n          \"postal_code\": \"NW1 6XE\",\n          \"city\": \"London\",\n          \"state_code\": \"ENG\",\n          \"country_code\": \"GB\",\n          \"first_name\": \"Sherlock\",\n          \"last_name\": \"Holmes\",\n          \"company\": \"Holmes Investigations\",\n          \"email\": \"s.holmes@holmesinvestigations.com\",\n          \"phone_number\": \"+31 234 567 890\"\n        }\n      },\n      \"description\": \"order #8008135\",\n      \"service\": {\n        \"code\": \"service-a01\",\n        \"name\": \"Parcel to Parcelshop\"\n      },\n      \"options\": [\n        {\n          \"code\": \"delivery-day:sunday\",\n          \"name\": \"Sunday Delivery\",\n          \"values\": {\n            \"pin\": \"1234\"\n          }\n        }\n      ],\n      \"total_value\": {\n        \"amount\": 995,\n        \"currency\": \"EUR\"\n      },\n      \"physical_properties\": {\n        \"height\": 150,\n        \"width\": 300,\n        \"length\": 500,\n        \"volume\": 22.5,\n        \"weight\": 5000,\n        \"volumetric_weight\": 4500\n      },\n      \"items\": [\n        {\n          \"sku\": \"123456789\",\n          \"description\": \"OnePlus X\",\n          \"image_url\": \"https://myparcel.com/product.png\",\n          \"item_value\": {\n            \"amount\": 995,\n            \"currency\": \"EUR\"\n          },\n          \"item_weight\": 1000,\n          \"quantity\": 2,\n          \"hs_code\": \"8517.12.00\",\n          \"origin_country_code\": \"GB\",\n          \"vat_percentage\": 19\n        }\n      ],\n      \"customs\": {\n        \"content_type\": \"merchandise\",\n        \"invoice_number\": \"9000\",\n        \"non_delivery\": \"return\",\n        \"incoterm\": \"DAP\",\n        \"shipping_value\": {\n          \"amount\": 995,\n          \"currency\": \"EUR\"\n        }\n      },\n      \"channel\": \"MyParcel.com\"\n    },\n    \"relationships\": {\n      \"consolidated_shipments\": {\n        \"data\": [\n          {\n            \"type\": \"shipments\",\n            \"id\": \"be7f6752-34e0-49a1-a832-bcc209450ea9\"\n          }\n        ]\n      }\n    }\n  },\n  \"meta\": {\n    \"track_trace\": {\n      \"enabled\": false\n    },\n    \"label_mime_type\": \"application/pdf\",\n    \"label\": {\n      \"mime_type\": \"application/pdf\",\n      \"size\": \"A6\",\n      \"print_sku_on_label\": true\n    },\n    \"print_sku_on_label\": true\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{APP_DOMAIN}}:{{APP_PORT}}/shipments",
+							"protocol": "https",
+							"host": [
+								"{{APP_DOMAIN}}"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"shipments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Void Shipment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"pm.environment.set(\"SHIPMENT_ID\", jsonData.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-myparcelcom-credentials",
+								"value": "{{MYPARCELCOM_CREDENTIALS}}",
+								"type": "text"
+							},
+							{
+								"key": "x-myparcelcom-secret",
+								"value": "{{MYPARCELCOM_SECRET}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{APP_DOMAIN}}:{{APP_PORT}}/shipments/{{SHIPMENT_ID}}",
+							"protocol": "https",
+							"host": [
+								"{{APP_DOMAIN}}"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"shipments",
+								"{{SHIPMENT_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Shipment Statuses",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-myparcelcom-credentials",
+								"value": "{{MYPARCELCOM_CREDENTIALS}}",
+								"type": "text"
+							},
+							{
+								"key": "x-myparcelcom-secret",
+								"value": "{{MYPARCELCOM_SECRET}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{APP_DOMAIN}}:{{APP_PORT}}/shipments/{{SHIPMENT_ID}}/statuses/{{SHIPMENT_TRACKING_CODE}}",
+							"protocol": "https",
+							"host": [
+								"{{APP_DOMAIN}}"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"shipments",
+								"{{SHIPMENT_ID}}",
+								"statuses",
+								"{{SHIPMENT_TRACKING_CODE}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Collection Shipment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"try {",
+									"    var jsonData = JSON.parse(responseBody);",
+									"",
+									"    pm.environment.set(\"SHIPMENT_ID\", jsonData.data.id);",
+									"    PM.environment.set(\"SHIPMENT_TRACKING_CODE\", jsonData.data.attributes.tracking_code)",
+									"} catch {",
+									"    console.error('Error while parsing response body. Environment variables `SHIPMENT_ID` and `SHIPMENT_TRACKING_CODE` have not been set.')",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-myparcelcom-credentials",
+								"value": "{{MYPARCELCOM_CREDENTIALS}}",
+								"type": "text"
+							},
+							{
+								"key": "x-myparcelcom-secret",
+								"value": "{{MYPARCELCOM_SECRET}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"data\": {\n    \"type\": \"shipments\",\n    \"attributes\": {\n      \"myparcelcom_shipment_id\": \"7b808eee-bf1c-40cd-98f2-3c335a06417e\",\n      \"recipient_address\": {\n        \"street_1\": \"Baker Street\",\n        \"street_2\": \"Marylebone\",\n        \"street_number\": 221,\n        \"street_number_suffix\": \"B\",\n        \"postal_code\": \"NW1 6XE\",\n        \"city\": \"London\",\n        \"state_code\": \"ENG\",\n        \"country_code\": \"GB\",\n        \"first_name\": \"Sherlock\",\n        \"last_name\": \"Holmes\",\n        \"company\": \"Holmes Investigations\",\n        \"email\": \"s.holmes@holmesinvestigations.com\",\n        \"phone_number\": \"+31 234 567 890\"\n      },\n      \"recipient_tax_identification_numbers\": [\n        {\n          \"country_code\": \"GB\",\n          \"number\": \"XI123456789\",\n          \"description\": \"Eori number for Northern Ireland\",\n          \"type\": \"eori\"\n        }\n      ],\n      \"recipient_tax_number\": \"string\",\n      \"return_address\": {\n        \"street_1\": \"Baker Street\",\n        \"street_2\": \"Marylebone\",\n        \"street_number\": 221,\n        \"street_number_suffix\": \"B\",\n        \"postal_code\": \"NW1 6XE\",\n        \"city\": \"London\",\n        \"state_code\": \"ENG\",\n        \"country_code\": \"GB\",\n        \"first_name\": \"Sherlock\",\n        \"last_name\": \"Holmes\",\n        \"company\": \"Holmes Investigations\",\n        \"email\": \"s.holmes@holmesinvestigations.com\",\n        \"phone_number\": \"+31 234 567 890\"\n      },\n      \"sender_address\": {\n        \"street_1\": \"Baker Street\",\n        \"street_2\": \"Marylebone\",\n        \"street_number\": 221,\n        \"street_number_suffix\": \"B\",\n        \"postal_code\": \"NW1 6XE\",\n        \"city\": \"London\",\n        \"state_code\": \"ENG\",\n        \"country_code\": \"GB\",\n        \"first_name\": \"Sherlock\",\n        \"last_name\": \"Holmes\",\n        \"company\": \"Holmes Investigations\",\n        \"email\": \"s.holmes@holmesinvestigations.com\",\n        \"phone_number\": \"+31 234 567 890\"\n      },\n      \"sender_tax_identification_numbers\": [\n        {\n          \"country_code\": \"GB\",\n          \"number\": \"XI123456789\",\n          \"description\": \"Eori number for Northern Ireland\",\n          \"type\": \"eori\"\n        }\n      ],\n      \"sender_tax_number\": \"string\",\n      \"tax_identification_numbers\": [\n        {\n          \"country_code\": \"GB\",\n          \"number\": \"XI123456789\",\n          \"description\": \"Eori number for Northern Ireland\",\n          \"type\": \"eori\"\n        }\n      ],\n      \"pickup_location\": {\n        \"code\": \"123456\",\n        \"address\": {\n          \"street_1\": \"Baker Street\",\n          \"street_2\": \"Marylebone\",\n          \"street_number\": 221,\n          \"street_number_suffix\": \"B\",\n          \"postal_code\": \"NW1 6XE\",\n          \"city\": \"London\",\n          \"state_code\": \"ENG\",\n          \"country_code\": \"GB\",\n          \"first_name\": \"Sherlock\",\n          \"last_name\": \"Holmes\",\n          \"company\": \"Holmes Investigations\",\n          \"email\": \"s.holmes@holmesinvestigations.com\",\n          \"phone_number\": \"+31 234 567 890\"\n        }\n      },\n      \"description\": \"order #8008135\",\n      \"service\": {\n        \"code\": \"service-a01\",\n        \"name\": \"Parcel to Parcelshop\"\n      },\n      \"options\": [\n        {\n          \"code\": \"delivery-day:sunday\",\n          \"name\": \"Sunday Delivery\",\n          \"values\": {\n            \"pin\": \"1234\"\n          }\n        }\n      ],\n      \"total_value\": {\n        \"amount\": 995,\n        \"currency\": \"EUR\"\n      },\n      \"physical_properties\": {\n        \"height\": 150,\n        \"width\": 300,\n        \"length\": 500,\n        \"volume\": 22.5,\n        \"weight\": 5000,\n        \"volumetric_weight\": 4500\n      },\n      \"items\": [\n        {\n          \"sku\": \"123456789\",\n          \"description\": \"OnePlus X\",\n          \"image_url\": \"https://myparcel.com/product.png\",\n          \"item_value\": {\n            \"amount\": 995,\n            \"currency\": \"EUR\"\n          },\n          \"item_weight\": 1000,\n          \"quantity\": 2,\n          \"hs_code\": \"8517.12.00\",\n          \"origin_country_code\": \"GB\",\n          \"vat_percentage\": 19\n        }\n      ],\n      \"customs\": {\n        \"content_type\": \"merchandise\",\n        \"invoice_number\": \"9000\",\n        \"non_delivery\": \"return\",\n        \"incoterm\": \"DAP\",\n        \"shipping_value\": {\n          \"amount\": 995,\n          \"currency\": \"EUR\"\n        }\n      },\n      \"channel\": \"MyParcel.com\"\n    },\n    \"relationships\": {\n      \"collection\": {\n        \"data\": {\n          \"type\": \"collections\",\n          \"id\": \"{{COLLECTION_ID}}\"\n        }\n      }\n    }\n  },\n  \"meta\": {\n    \"track_trace\": {\n      \"enabled\": false\n    },\n    \"label_mime_type\": \"application/pdf\",\n    \"label\": {\n      \"mime_type\": \"application/pdf\",\n      \"size\": \"A6\",\n      \"print_sku_on_label\": true\n    },\n    \"print_sku_on_label\": true\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{APP_DOMAIN}}:{{APP_PORT}}/shipments",
+							"protocol": "https",
+							"host": [
+								"{{APP_DOMAIN}}"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"shipments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PUDO Locations",
+			"item": [
+				{
+					"name": "Get PUDO locations by GEO location",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-myparcelcom-credentials",
+								"value": "{{MYPARCELCOM_CREDENTIALS}}",
+								"type": "text"
+							},
+							{
+								"key": "x-myparcelcom-secret",
+								"value": "{{MYPARCELCOM_SECRET}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{APP_DOMAIN}}:{{APP_PORT}}/pickup-dropoff-locations/{{PUDO_LATITUDE}}/{{PUDO_LONGITUDE}}",
+							"protocol": "https",
+							"host": [
+								"{{APP_DOMAIN}}"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"pickup-dropoff-locations",
+								"{{PUDO_LATITUDE}}",
+								"{{PUDO_LONGITUDE}}"
+							],
+							"query": [
+								{
+									"key": "filter[categories]",
+									"value": "pick-up,drop-off",
+									"disabled": true
+								},
+								{
+									"key": "filter[radius]",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "filter[features]",
+									"value": "print-label-in-store",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get PUDO locations by country and postal code",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-myparcelcom-credentials",
+								"value": "{{MYPARCELCOM_CREDENTIALS}}",
+								"type": "text"
+							},
+							{
+								"key": "x-myparcelcom-secret",
+								"value": "{{MYPARCELCOM_SECRET}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://{{APP_DOMAIN}}:{{APP_PORT}}/pickup-dropoff-locations/{{PUDO_COUNTRY_CODE}}/{{PUDO_POSTAL_CODE}}",
+							"protocol": "https",
+							"host": [
+								"{{APP_DOMAIN}}"
+							],
+							"port": "{{APP_PORT}}",
+							"path": [
+								"pickup-dropoff-locations",
+								"{{PUDO_COUNTRY_CODE}}",
+								"{{PUDO_POSTAL_CODE}}"
+							],
+							"query": [
+								{
+									"key": "street",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "street_number",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "city",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "filter[categories]",
+									"value": "pick-up,drop-off",
+									"disabled": true
+								},
+								{
+									"key": "filter[features]",
+									"value": "print-label-in-store",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Validate credentials",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-myparcelcom-credentials",
+						"value": "{{MYPARCELCOM_CREDENTIALS}}",
+						"type": "text"
+					},
+					{
+						"key": "x-myparcelcom-secret",
+						"value": "{{MYPARCELCOM_SECRET}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://{{APP_DOMAIN}}:{{APP_PORT}}/validate-credentials",
+					"protocol": "https",
+					"host": [
+						"{{APP_DOMAIN}}"
+					],
+					"port": "{{APP_PORT}}",
+					"path": [
+						"validate-credentials"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
