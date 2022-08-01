@@ -76,6 +76,7 @@ class PickUpDropOffLocationTransformerTest extends TestCase
             'getOpeningHours' => [$openingHourA, $openingHourB],
             'getPosition'     => $position,
             'getDistance'     => '528',
+            'getLocationType' => 'office',
         ]);
     }
 
@@ -93,6 +94,7 @@ class PickUpDropOffLocationTransformerTest extends TestCase
         $this->assertEquals([
             'categories'    => ['pick-up'],
             'features'      => ['print-label-in-store'],
+            'location_type' => 'office',
             'address'       => [
                 'street_1'             => 'First Street',
                 'street_2'             => 'Second Street',
