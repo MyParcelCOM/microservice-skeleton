@@ -31,7 +31,7 @@ class PickUpDropOffLocation
     /** @var int|null */
     protected $distance;
 
-    /** @var string */
+    /** @var string|null */
     protected $locationType;
 
     /**
@@ -169,16 +169,16 @@ class PickUpDropOffLocation
     /**
      * @return string
      */
-    public function getLocationType(): string
+    public function getLocationType(): ?string
     {
         return $this->locationType;
     }
 
     /**
-     * @param string $locationType
+     * @param string|null $locationType
      * @return PickUpDropOffLocation
      */
-    public function setLocationType(string $locationType): PickUpDropOffLocation
+    public function setLocationType(?string $locationType): self
     {
         $this->locationType = $locationType;
 
