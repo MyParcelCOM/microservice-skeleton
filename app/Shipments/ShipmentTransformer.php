@@ -124,6 +124,11 @@ class ShipmentTransformer extends AbstractTransformer
                     'currency' => $shipment->getCustoms()->getTotalDutyCurrency(),
                 ],
             ]),
+            'final_mile_carrier'                   => $shipment->getFinalMileCarrier() ? [
+                'tracking_url'  => $shipment->getFinalMileCarrier()->getUrl(),
+                'name'          => $shipment->getFinalMileCarrier()->getName(),
+                'tracking_code' => $shipment->getFinalMileCarrier()->getTrackingCode(),
+            ] : null,
         ]);
     }
 
@@ -157,7 +162,7 @@ class ShipmentTransformer extends AbstractTransformer
      */
     public function getRelationships($shipment): array
     {
-        $shipmentIDs = $shipment->getConsolidationShipments()->map(fn (Shipment $shipment) => $shipment->getId())->all();
+        $shipmentIDs = $shipment->getConsolidationShipments()->map(fn (array $shipment) => $shipment['id'])->all();
 
         return array_filter([
             'consolidated_shipments' => $this->transformRelationshipForIdentifiers($shipmentIDs, 'shipments'),

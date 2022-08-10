@@ -39,14 +39,18 @@ class PickUpDropOffLocationRepository
         ?string $streetNumber = null,
         ?string $city = null,
         array $categories = [],
-        array $features = []
+        array $features = [],
+        array $locationTypes = []
     ): ResourcesInterface {
         // Return the locations if they are cached.
         if (($locations = $this->getCachedLocations($countryCode, $postalCode, $street, $streetNumber, $city))) {
             return new CollectionResources(
                 $this->filterLocationsByCategories(
                     $this->filterLocationsByFeatures(
-                        $locations,
+                        $this->filterLocationsByLocationType(
+                            $locations,
+                            $locationTypes
+                        ),
                         $features
                     ),
                     $categories
@@ -74,12 +78,16 @@ class PickUpDropOffLocationRepository
         string $longitude,
         ?int $radius = null,
         array $categories = [],
-        array $features = []
+        array $features = [],
+        array $locationTypes = []
     ): ResourcesInterface {
         return new CollectionResources(
             $this->filterLocationsByCategories(
                 $this->filterLocationsByFeatures(
-                    new Collection(),
+                    $this->filterLocationsByLocationType(
+                        new Collection(),
+                        $locationTypes
+                    ),
                     $features
                 ),
                 $categories
@@ -179,13 +187,14 @@ class PickUpDropOffLocationRepository
                     return true;
                 }
             }
+
             return false;
         });
     }
 
     /**
      * @param Collection $locations
-     * @param array $features
+     * @param array      $features
      * @return Collection
      */
     private function filterLocationsByFeatures(Collection $locations, array $features): Collection
@@ -200,6 +209,30 @@ class PickUpDropOffLocationRepository
                     return true;
                 }
             }
+
+            return false;
+        });
+    }
+
+
+    /**
+     * @param Collection $locations
+     * @param array      $locationTypes
+     * @return Collection
+     */
+    private function filterLocationsByLocationType(Collection $locations, array $locationTypes): Collection
+    {
+        if (!$locationTypes) {
+            return $locations;
+        }
+
+        return $locations->filter(function (PickUpDropOffLocation $location) use ($locationTypes) {
+            foreach ($locationTypes as $type) {
+                if ($location->getLocationType() === $type) {
+                    return true;
+                }
+            }
+
             return false;
         });
     }

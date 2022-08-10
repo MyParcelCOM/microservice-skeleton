@@ -22,6 +22,7 @@ class PickUpDropOffLocationController extends Controller
         $filters = $request->getFilter();
         $categories = array_filter(explode(',', Arr::get($filters, 'categories', '')));
         $features = array_filter(explode(',', Arr::get($filters, 'features', '')));
+        $locationType = array_filter(explode(',', Arr::get($filters, 'location_type', '')));
 
         $pudoLocations = $pickUpDropOffLocationRepository->getAllByCountryAndPostalCode(
             $countryCode,
@@ -30,7 +31,8 @@ class PickUpDropOffLocationController extends Controller
             $request->query('street_number'),
             $request->query('city'),
             $categories,
-            $features
+            $features,
+            $locationType
         );
 
         $response = $transformerService->transformResources($pudoLocations);
@@ -49,13 +51,15 @@ class PickUpDropOffLocationController extends Controller
         $categories = array_filter(explode(',', Arr::get($filters, 'categories', '')));
         $features = array_filter(explode(',', Arr::get($filters, 'features', '')));
         $radius = Arr::has($filters, 'radius') ? (int) Arr::get($filters, 'radius') : null;
+        $locationType = array_filter(explode(',', Arr::get($filters, 'location_type', '')));
 
         $pudoLocations = $pickUpDropOffLocationRepository->getAllByGeolocation(
             $latitude,
             $longitude,
             $radius,
             $categories,
-            $features
+            $features,
+            $locationType
         );
 
         $response = $transformerService->transformResources($pudoLocations);
