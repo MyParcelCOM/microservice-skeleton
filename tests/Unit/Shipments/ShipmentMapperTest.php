@@ -74,6 +74,12 @@ class ShipmentMapperTest extends TestCase
 
                 return $shipment;
             })
+            ->shouldReceive('setCustomerReference')
+            ->andReturnUsing(function (string $customerReference) use ($shipment) {
+                $this->assertEquals('#8008135', $customerReference);
+
+                return $shipment;
+            })
             ->shouldReceive('getPhysicalProperties')
             ->andReturn($physicalProperties)
             ->shouldReceive('setService')

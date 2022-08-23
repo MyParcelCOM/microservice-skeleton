@@ -93,6 +93,10 @@ class ShipmentMapper implements MapperInterface
             $shipment->setDescription($attributes['description']);
         }
 
+        if (isset($attributes['customer_reference'])) {
+            $shipment->setCustomerReference($attributes['customer_reference']);
+        }
+
         if (isset($attributes['total_value'])) {
             $shipment->setTotalValueAmount((int) $attributes['total_value']['amount']);
             $shipment->setTotalValueCurrency($attributes['total_value']['currency']);
