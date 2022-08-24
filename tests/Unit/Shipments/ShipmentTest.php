@@ -74,6 +74,12 @@ class ShipmentTest extends TestCase
     }
 
     /** @test */
+    public function testCustomerReference()
+    {
+        $this->assertEquals('#order', $this->shipment->setCustomerReference('#order')->getCustomerReference());
+    }
+
+    /** @test */
     public function testBarcode()
     {
         $this->assertEquals('S3JEWEETWEL', $this->shipment->setBarcode('S3JEWEETWEL')->getBarcode());
