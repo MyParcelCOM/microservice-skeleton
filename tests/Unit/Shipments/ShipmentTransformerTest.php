@@ -141,6 +141,7 @@ class ShipmentTransformerTest extends TestCase
             'getPickupLocationCode'                => 'aaaa',
             'getPickupLocationAddress'             => $address,
             'getDescription'                       => 'descending ription',
+            'getCustomerReference'                 => 'referral',
             'getTotalValueAmount'                  => 42,
             'getTotalValueCurrency'                => 'EUR',
             'getBarcode'                           => '3SBARCODE',
@@ -182,6 +183,7 @@ class ShipmentTransformerTest extends TestCase
             'getPickupLocationCode'                => null,
             'getPickupLocationAddress'             => null,
             'getDescription'                       => null,
+            'getCustomerReference'                 => null,
             'getTotalValueAmount'                  => null,
             'getTotalValueCurrency'                => null,
             'getBarcode'                           => null,
@@ -314,6 +316,7 @@ class ShipmentTransformerTest extends TestCase
                 ],
             ],
             'description'                          => 'descending ription',
+            'customer_reference'                   => 'referral',
             'total_value'                          => [
                 'amount'   => 42,
                 'currency' => 'EUR',
@@ -488,6 +491,7 @@ class ShipmentTransformerTest extends TestCase
                         ],
                     ],
                     'description'                          => 'descending ription',
+                    'customer_reference'                   => 'referral',
                     'total_value'                          => [
                         'amount'   => 42,
                         'currency' => 'EUR',

@@ -49,6 +49,7 @@ class ShipmentTransformer extends AbstractTransformer
                 'address' => $this->transformAddress($shipment->getPickupLocationAddress()),
             ],
             'description'                          => $shipment->getDescription(),
+            'customer_reference'                   => $shipment->getCustomerReference(),
             'total_value'                          => $shipment->getTotalValueAmount() === null ? null : [
                 'amount'   => $shipment->getTotalValueAmount(),
                 'currency' => $shipment->getTotalValueCurrency(),

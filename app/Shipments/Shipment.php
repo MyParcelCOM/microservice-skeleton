@@ -51,6 +51,9 @@ class Shipment
     /** @var string|null */
     protected $description;
 
+    /** @var string|null */
+    protected $customerReference;
+
     /** @var int|null */
     protected $totalValueAmount;
 
@@ -237,6 +240,18 @@ class Shipment
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getCustomerReference(): ?string
+    {
+        return $this->customerReference;
+    }
+
+    public function setCustomerReference(?string $customerReference): self
+    {
+        $this->customerReference = $customerReference;
 
         return $this;
     }
