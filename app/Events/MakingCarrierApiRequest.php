@@ -7,10 +7,10 @@ class MakingCarrierApiRequest
     /**
      * Create a new event instance.
      *
-     * @param string      $context
-     * @param string      $url
-     * @param string      $method
-     * @param mixed       $body
+     * @param string $context
+     * @param string $url
+     * @param string $method
+     * @param mixed  $body
      */
     public function __construct(
         private string $url,

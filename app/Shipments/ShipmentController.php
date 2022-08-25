@@ -67,7 +67,7 @@ class ShipmentController extends Controller
                     'colli'  => $response['colli']->map(function (Shipment $collo) use ($transformerService) {
                         return $transformerService->transformResource($collo)['data'];
                     }),
-                ]
+                ],
             ],
             JsonResponse::HTTP_CREATED
         );
