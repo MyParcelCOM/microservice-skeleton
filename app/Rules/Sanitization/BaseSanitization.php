@@ -47,7 +47,7 @@ abstract class BaseSanitization implements SanitizationInterface
         return $keys;
     }
 
-        /**
+    /**
      * @param mixed $paramKey
      * @param mixed $fullKey
      * @param array $parameters

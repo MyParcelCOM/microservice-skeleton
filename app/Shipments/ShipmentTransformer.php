@@ -7,7 +7,6 @@ namespace MyParcelCom\Microservice\Shipments;
 use MyParcelCom\JsonApi\Exceptions\ModelTypeException;
 use MyParcelCom\JsonApi\Transformers\AbstractTransformer;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
-
 use function array_filter;
 
 class ShipmentTransformer extends AbstractTransformer
