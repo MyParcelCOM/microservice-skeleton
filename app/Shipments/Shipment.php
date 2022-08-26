@@ -105,7 +105,7 @@ class Shipment
     /** @var array */
     protected $taxIdentificationNumbers = [];
 
-    /** @var FinalMileCarrier|null  */
+    /** @var FinalMileCarrier|null */
     protected ?FinalMileCarrier $finalMileCarrier = null;
 
     /** @var Collection */

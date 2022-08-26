@@ -62,7 +62,7 @@
         "email": "s.holmes@holmesinvestigations.com"
       },
       "description": "order #8008135",
-      "customer_Reference": "#8008135",
+      "customer_reference": "#8008135",
       "total_value": {
         "amount": 42,
         "currency": "EUR"

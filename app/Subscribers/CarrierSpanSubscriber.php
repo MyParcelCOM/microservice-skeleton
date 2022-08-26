@@ -52,7 +52,7 @@ class CarrierSpanSubscriber
             return;
         }
         self::$scope->getSpan()->log(array_filter([
-            'response' => $event->getResponse()
+            'response' => $event->getResponse(),
         ]));
 
         $this->closeSpan();

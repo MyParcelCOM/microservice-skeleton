@@ -91,7 +91,7 @@ class MultiColliShipmentRequest extends ShipmentRequest
     }
 
     /**
-     * @param mixed $rules
+     * @param mixed  $rules
      * @param string $replacement
      * @return array
      */
@@ -112,7 +112,7 @@ class MultiColliShipmentRequest extends ShipmentRequest
     }
 
     /**
-     * @param mixed $rules
+     * @param mixed  $rules
      * @param string $replacement
      * @return mixed
      */
