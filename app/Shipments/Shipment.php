@@ -15,6 +15,7 @@ class Shipment
 {
     public const LABEL_MIME_TYPE_PDF = 'application/pdf';
     public const LABEL_MIME_TYPE_ZPL = 'application/zpl';
+    public const LABEL_MIME_TYPE_PNG = 'image/png';
     public const LABEL_SIZE_A6 = 'A6';
     public const LABEL_SIZE_A4 = 'A4';
 
