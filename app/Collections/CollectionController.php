@@ -64,15 +64,11 @@ class CollectionController
         CollectionRepository $repository,
     ): JsonResponse {
         // TODO: implement void / cancel functionality.
-        $voided = false;
-
-        if ($voided) {
-            $repository->delete($collectionId);
-        }
+        $repository->delete($collectionId);
 
         return new JsonResponse(
             '',
-            $voided ? Response::HTTP_NO_CONTENT : Response::HTTP_LOCKED
+            Response::HTTP_NO_CONTENT
         );
     }
 }

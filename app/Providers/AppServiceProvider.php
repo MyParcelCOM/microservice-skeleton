@@ -14,6 +14,7 @@ use Illuminate\Support\ServiceProvider;
 use MyParcelCom\JsonApi\Http\Interfaces\RequestInterface;
 use MyParcelCom\JsonApi\Transformers\AbstractTransformer;
 use MyParcelCom\JsonApi\Transformers\TransformerFactory;
+use MyParcelCom\JsonApi\Transformers\TransformerService;
 use MyParcelCom\Microservice\Carrier\CarrierApiGateway;
 use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
 use MyParcelCom\Microservice\Exceptions\Handler;
@@ -59,6 +60,18 @@ class AppServiceProvider extends ServiceProvider
                     ],
                 ])
                 ->setMapping(config('transformer.mapping'));
+        });
+
+        $this->app->bind(TransformerService::class, function (Container $app) {
+            $request = $app->make(Request::class);
+            $service = new TransformerService($app->make(TransformerFactory::class));
+
+            if ($request instanceof RequestInterface) {
+                $service->setPaginator($request->getPaginator());
+                $service->setIncludes($request->getIncludes());
+            }
+
+            return $service;
         });
     }
 
