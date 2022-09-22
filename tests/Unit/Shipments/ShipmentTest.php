@@ -168,6 +168,9 @@ class ShipmentTest extends TestCase
 
         $this->shipment->setLabelMimeType(Shipment::LABEL_MIME_TYPE_ZPL);
         $this->assertEquals(Shipment::LABEL_MIME_TYPE_ZPL, $this->shipment->getLabelMimeType());
+
+        $this->shipment->setLabelMimeType(Shipment::LABEL_MIME_TYPE_PNG);
+        $this->assertEquals(Shipment::LABEL_MIME_TYPE_PNG, $this->shipment->getLabelMimeType());
     }
 
     /** @test */
