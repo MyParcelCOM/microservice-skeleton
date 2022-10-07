@@ -13,7 +13,7 @@ use MyParcelCom\Microservice\Model\Json\ContactJson;
 
 /**
  * @property string      id
- * @property string      name
+ * @property string|null name
  * @property string      myparcelcom_collection_id
  * @property Carbon      collection_time_from
  * @property Carbon      collection_time_to
@@ -64,18 +64,17 @@ class Collection extends Model
     }
 
     /**
-     * @return string
+     * @deprecated
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @param string $name
-     * @return $this
+     * @deprecated
      */
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
