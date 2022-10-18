@@ -31,8 +31,8 @@ class CollectionTimeSlotTransformer extends AbstractTransformer
         $this->validateModel($model);
 
         return [
-            'from' => $model->getFrom(),
-            'to'   => $model->getTo(),
+            'from' => $model->getFrom()->toIso8601String(),
+            'to'   => $model->getTo()->toIso8601String(),
         ];
     }
 
@@ -46,5 +46,4 @@ class CollectionTimeSlotTransformer extends AbstractTransformer
             throw new ModelTypeException($collectionTimeSlot, 'collection-time-slots');
         }
     }
-
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Tests\Unit\CollectionTimeSlots;
 
+use Carbon\Carbon;
 use Illuminate\Routing\UrlGenerator;
 use Mockery;
 use MyParcelCom\JsonApi\Exceptions\ModelTypeException;
@@ -28,8 +29,8 @@ class CollectionTimeSlotTransformerTest extends TestCase
 
         $this->collectionTimeSlot = Mockery::mock(CollectionTimeSlot::class, [
             'getId'   => 'time-slot-id',
-            'getFrom' => '2022-03-24T09:30:00+01:00',
-            'getTo'   => '2022-03-24T10:30:00+01:00',
+            'getFrom' => new Carbon('2022-03-24T09:30:00+01:00'),
+            'getTo'   => new Carbon('2022-03-24T10:30:00+01:00'),
         ]);
     }
 

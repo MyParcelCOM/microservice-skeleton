@@ -149,7 +149,7 @@ class CollectionsTest extends TestCase
         $this->markTestSkipped('This test should be implemented in microservices for carriers that offer collection time slots, not in the skeleton.');
 
         $this->assertJsonSchema(
-            '/get-collection-time-slots',
+            '/collection-time-slots',
             '/get-collection-time-slots?country_code=NL&postal_code=1111aa&date_from=2022-03-24T09:30:00+01:00&date_to=2022-03-24T10:30:00+01:00',
             $this->getRequestHeaders()
         );

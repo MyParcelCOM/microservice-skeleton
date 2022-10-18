@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\CollectionTimeSlots;
 
+use Carbon\Carbon;
+
 class CollectionTimeSlot
 {
     protected string $id;
-    protected string $from;
-    protected string $to;
+    protected Carbon $from;
+    protected Carbon $to;
 
     /**
      * @return string
@@ -20,9 +22,9 @@ class CollectionTimeSlot
 
     /**
      * @param string $id
-     * @return CollectionTimeSlot
+     * @return $this
      */
-    public function setId(string $id): CollectionTimeSlot
+    public function setId(string $id): self
     {
         $this->id = $id;
 
@@ -30,18 +32,18 @@ class CollectionTimeSlot
     }
 
     /**
-     * @return string
+     * @return Carbon
      */
-    public function getFrom(): string
+    public function getFrom(): Carbon
     {
         return $this->from;
     }
 
     /**
-     * @param string $from
-     * @return CollectionTimeSlot
+     * @param Carbon $from
+     * @return $this
      */
-    public function setFrom(string $from): CollectionTimeSlot
+    public function setFrom(Carbon $from): self
     {
         $this->from = $from;
 
@@ -49,22 +51,21 @@ class CollectionTimeSlot
     }
 
     /**
-     * @return string
+     * @return Carbon
      */
-    public function getTo(): string
+    public function getTo(): Carbon
     {
         return $this->to;
     }
 
     /**
-     * @param string $to
-     * @return CollectionTimeSlot
+     * @param Carbon $to
+     * @return $this
      */
-    public function setTo(string $to): CollectionTimeSlot
+    public function setTo(Carbon $to): self
     {
         $this->to = $to;
 
         return $this;
     }
-
 }

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Collections;
 
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use MyParcelCom\JsonApi\Exceptions\ResourceConflictException;
 use MyParcelCom\JsonApi\Exceptions\ResourceNotFoundException;
 use MyParcelCom\JsonApi\Transformers\TransformerService;
 use MyParcelCom\Microservice\CollectionTimeSlots\CollectionTimeSlotRepository;
-use MyParcelCom\Microservice\CollectionTimeSlots\CollectionTimeSlotTransformer;
 use MyParcelCom\Microservice\Http\JsonRequestValidator;
 use MyParcelCom\Microservice\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -80,15 +80,14 @@ class CollectionController
         CollectionTimeSlotRepository $collectionTimeSlotRepository,
         TransformerService $transformerService
     ): JsonResponse {
-        $jsonRequestValidator->validate('/get-collection-time-slots', 'get');
+        $jsonRequestValidator->validate('/collection-time-slots', 'get');
 
         // todo: Fill in Carrier specific request details in the CollectionTimeSlotRepository.
         $timeSlots = $collectionTimeSlotRepository->getCollectionTimeSlots(
             $request->query('country_code'),
             $request->query('postal_code'),
-            $request->query('date_from'),
-            $request->query('date_to'),
-            $request->query('service_code'),
+            new Carbon($request->query('date_from')),
+            new Carbon($request->query('date_to')),
         );
 
         return new JsonResponse(

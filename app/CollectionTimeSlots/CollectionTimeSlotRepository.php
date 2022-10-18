@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\CollectionTimeSlots;
 
+use Carbon\Carbon;
 use MyParcelCom\JsonApi\Resources\Interfaces\ResourcesInterface;
 use MyParcelCom\JsonApi\Resources\PromiseResources;
 use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
@@ -20,16 +21,14 @@ class CollectionTimeSlotRepository
     public function getCollectionTimeSlots(
         string $countryCode,
         string $postalCode,
-        string $dateFrom,
-        string $dateTo,
-        string $serviceCode,
+        Carbon $dateFrom,
+        Carbon $dateTo,
     ): ResourcesInterface {
         $queryParams = array_filter([
             'country_code' => $countryCode,
             'postal_code'  => $postalCode,
-            'date_from'    => $dateFrom,
-            'date_to'      => $dateTo,
-            'service_code' => $serviceCode,
+            'date_from'    => $dateFrom->toIso8601String(),
+            'date_to'      => $dateTo->toIso8601String(),
         ]);
 
         // todo: Implement a request to the carrier with the CarrierApiGateway using the queryString.
@@ -41,6 +40,4 @@ class CollectionTimeSlotRepository
             // todo: Return the CollectionTimeSlots.
         );
     }
-
-
 }
