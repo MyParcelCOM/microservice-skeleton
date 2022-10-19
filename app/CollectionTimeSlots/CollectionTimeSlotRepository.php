@@ -23,7 +23,7 @@ class CollectionTimeSlotRepository
         string $postalCode,
         Carbon $dateFrom,
         Carbon $dateTo,
-        string $serviceCode,
+        ?string $serviceCode = null,
     ): ResourcesInterface {
         $queryParams = array_filter([
             'country_code' => $countryCode,
