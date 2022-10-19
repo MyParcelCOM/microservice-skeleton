@@ -88,6 +88,7 @@ class CollectionController
             $request->query('postal_code'),
             new Carbon($request->query('date_from')),
             new Carbon($request->query('date_to')),
+            $request->query('service_code')
         );
 
         return new JsonResponse(

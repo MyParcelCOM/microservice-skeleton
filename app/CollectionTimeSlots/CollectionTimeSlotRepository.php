@@ -23,12 +23,14 @@ class CollectionTimeSlotRepository
         string $postalCode,
         Carbon $dateFrom,
         Carbon $dateTo,
+        string $serviceCode,
     ): ResourcesInterface {
         $queryParams = array_filter([
             'country_code' => $countryCode,
             'postal_code'  => $postalCode,
             'date_from'    => $dateFrom->toIso8601String(),
             'date_to'      => $dateTo->toIso8601String(),
+            'service_code' => $serviceCode,
         ]);
 
         // todo: Implement a request to the carrier with the CarrierApiGateway using the queryString.
@@ -37,7 +39,7 @@ class CollectionTimeSlotRepository
         // todo: Map the result into CollectionTimeSlot resources.
 
         return new PromiseResources(
-            // todo: Return the CollectionTimeSlots.
+        // todo: Return the CollectionTimeSlots.
         );
     }
 }
