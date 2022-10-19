@@ -142,4 +142,18 @@ class CollectionsTest extends TestCase
 //        $this->assertNotEmpty($response->json('data.attributes.tracking_code'));
 //        $this->assertNotEmpty($response->json('data.attributes.files'));
     }
+
+    /** @test */
+    public function itShouldRetrieveCollectionTimeSlots(): void
+    {
+        $this->markTestSkipped('This test should be implemented in microservices for carriers that offer collection time slots, not in the skeleton.');
+
+        $this->assertJsonSchema(
+            '/collection-time-slots',
+            '/get-collection-time-slots?country_code=NL&postal_code=1111aa&date_from=2022-03-24T09:30:00+01:00&date_to=2022-03-24T10:30:00+01:00',
+            $this->getRequestHeaders()
+        );
+
+        // todo: Assert data counts when time slots are available.
+    }
 }
