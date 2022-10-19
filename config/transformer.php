@@ -2,6 +2,8 @@
 
 use MyParcelCom\Microservice\Collections\Collection;
 use MyParcelCom\Microservice\Collections\CollectionTransformer;
+use MyParcelCom\Microservice\CollectionTimeSlots\CollectionTimeSlot;
+use MyParcelCom\Microservice\CollectionTimeSlots\CollectionTimeSlotTransformer;
 use MyParcelCom\Microservice\Manifests\Manifest;
 use MyParcelCom\Microservice\Manifests\ManifestTransformer;
 use MyParcelCom\Microservice\PickUpDropOffLocations\PickUpDropOffLocation;
@@ -27,6 +29,7 @@ return [
 
     'mapping' => [
         Collection::class            => CollectionTransformer::class,
+        CollectionTimeSlot::class    => CollectionTimeSlotTransformer::class,
         Manifest::class              => ManifestTransformer::class,
         PickUpDropOffLocation::class => PickUpDropOffLocationTransformer::class,
         ServiceRate::class           => ServiceRateTransformer::class,
