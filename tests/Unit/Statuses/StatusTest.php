@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class StatusTest extends TestCase
 {
-    /** @var Status */
-    private $status;
+    private Status $status;
 
     protected function setUp(): void
     {
@@ -52,5 +51,12 @@ class StatusTest extends TestCase
     {
         $physicalProperties = new PhysicalProperties();
         $this->assertEquals($physicalProperties, $this->status->setPhysicalProperties($physicalProperties)->getPhysicalProperties());
+    }
+
+    /** @test */
+    public function testNewTrackingCode()
+    {
+        $this->assertNull($this->status->getNewTrackingCode(), '`getTrackingCode()` should return `null` when not set');
+        $this->assertEquals('3SAAA23123123213', $this->status->setNewTrackingCode('3SAAA23123123213')->getNewTrackingCode());
     }
 }

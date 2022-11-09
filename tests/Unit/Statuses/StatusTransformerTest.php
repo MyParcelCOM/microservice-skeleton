@@ -48,6 +48,7 @@ class StatusTransformerTest extends TestCase
                 'getWeight'           => 5,
                 'getVolumetricWeight' => 6,
             ]),
+            'getNewTrackingCode'       => '3SAAA1231221312',
         ]);
     }
 
@@ -75,6 +76,7 @@ class StatusTransformerTest extends TestCase
                 'weight'            => 5,
                 'volumetric_weight' => 6,
             ],
+            'new_tracking_code'   => '3SAAA1231221312',
         ], $this->statusTransformer->getAttributes($this->status));
     }
 

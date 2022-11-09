@@ -45,6 +45,7 @@ class StatusTransformer extends AbstractTransformer
                     'weight'            => $status->getPhysicalProperties()->getWeight(),
                     'volumetric_weight' => $status->getPhysicalProperties()->getVolumetricWeight(),
                 ]),
+                'new_tracking_code'   => $status->getNewTrackingCode(),
             ];
     }
 

@@ -8,23 +8,13 @@ use MyParcelCom\Microservice\Shipments\PhysicalProperties;
 
 class Status
 {
-    /** @var string */
-    protected $id;
-
-    /** @var string|null */
-    protected $code;
-
-    /** @var string|null */
-    protected $category = 'default';
-
-    /** @var string */
-    protected $description;
-
-    /** @var int */
-    protected $timestamp;
-
-    /** @var PhysicalProperties */
-    protected $physicalProperties;
+    private ?string $id = null;
+    private ?string $code = null;
+    private string $category = 'default';
+    private ?string $description = null;
+    private ?int $timestamp = null;
+    private ?PhysicalProperties $physicalProperties = null;
+    private ?string $newTrackingCode = null;
 
     /**
      * @return string|null
@@ -132,6 +122,18 @@ class Status
     public function setPhysicalProperties(PhysicalProperties $physicalProperties): self
     {
         $this->physicalProperties = $physicalProperties;
+
+        return $this;
+    }
+
+    public function getNewTrackingCode(): string|null
+    {
+        return $this->newTrackingCode;
+    }
+
+    public function setNewTrackingCode(string $newTrackingCode): self
+    {
+        $this->newTrackingCode = $newTrackingCode;
 
         return $this;
     }
