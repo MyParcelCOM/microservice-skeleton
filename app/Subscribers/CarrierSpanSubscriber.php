@@ -51,7 +51,8 @@ class CarrierSpanSubscriber
         if (!config('jaeger.enabled')) {
             return;
         }
-        self::$scope->getSpan()->log(array_filter([
+
+        self::$scope?->getSpan()->log(array_filter([
             'response' => $event->getResponse(),
         ]));
 
@@ -60,11 +61,8 @@ class CarrierSpanSubscriber
 
     public function closeSpan(): void
     {
-        if (self::$scope) {
-            self::$scope->close();
-
-            self::$scope = null;
-        }
+        self::$scope?->close();
+        self::$scope = null;
     }
 
     /**
