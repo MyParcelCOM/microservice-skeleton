@@ -63,6 +63,10 @@ class HttpRequestSpanSubscriber
 
     public function end(RequestHandled $event): void
     {
+        if (!config('jaeger.enabled')) {
+            return;
+        }
+
         if (self::$scope) {
             $this->injectSpanMeta($event->request, $event->response);
             self::$scope->close();
