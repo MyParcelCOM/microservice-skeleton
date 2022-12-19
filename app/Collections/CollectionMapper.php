@@ -20,6 +20,7 @@ class CollectionMapper implements MapperInterface
     public function map($data, $collection = null): Collection
     {
         $attributes = Arr::get($data, 'attributes', $data);
+        $relationships = Arr::get($data, 'relationships');
 
         $collection = $collection ?? new Collection();
 
@@ -48,6 +49,24 @@ class CollectionMapper implements MapperInterface
             $collection->setTrackingCode(Arr::get($attributes, 'tracking_code'));
         }
 
+        $this->mapRelationships($relationships, $collection);
+
         return $collection;
+    }
+
+    /**
+     * @param array      $relationships
+     * @param Collection $collection
+     * @return $this
+     */
+    private function mapRelationships(array $relationships, Collection $collection): void
+    {
+//        if (array_key_exists('shipments', $relationships)) {
+//            $shipments = array_map(function ($shipment) {
+//                // todo: implement functionality to retrieve shipment based on shipment id.
+//                return $shipment['id'];
+//            }, Arr::get($relationships, 'shipments.data'));
+//            $collection->shipments()->save($shipments);
+//        }
     }
 }

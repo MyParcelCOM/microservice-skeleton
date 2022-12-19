@@ -6,22 +6,24 @@ namespace MyParcelCom\Microservice\Collections;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection as LaravelCollection;
 use MyParcelCom\JsonApi\Traits\TimestampsTrait;
 use MyParcelCom\Microservice\Model\Json\AddressJson;
 use MyParcelCom\Microservice\Model\Json\ContactJson;
 
 /**
- * @property string      id
- * @property string|null name
- * @property string      myparcelcom_collection_id
- * @property Carbon      collection_time_from
- * @property Carbon      collection_time_to
- * @property AddressJson address_json
- * @property ContactJson contact_json
- * @property Carbon      created_at
- * @property string|null tracking_code
- * @property Carbon|null registered_at
+ * @property string            id
+ * @property string|null       name
+ * @property string            myparcelcom_collection_id
+ * @property Carbon            collection_time_from
+ * @property Carbon            collection_time_to
+ * @property AddressJson       address_json
+ * @property ContactJson       contact_json
+ * @property Carbon            created_at
+ * @property string|null       tracking_code
+ * @property Carbon|null       registered_at
+ * @property LaravelCollection shipments
  */
 class Collection extends Model
 {
@@ -231,5 +233,21 @@ class Collection extends Model
         $this->files = $files;
 
         return $this;
+    }
+
+    /**
+     * @return LaravelCollection
+     */
+    public function getShipments(): LaravelCollection
+    {
+        // return $this->shipments;
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function shipments(): HasMany
+    {
+        // return $this->hasMany(Shipment::class);
     }
 }
