@@ -66,7 +66,7 @@ class CollectionMapper implements MapperInterface
 //                // todo: implement functionality to retrieve shipment based on shipment id.
 //                return $shipment['id'];
 //            }, Arr::get($relationships, 'shipments.data'));
-//            $collection->shipments()->save($shipments);
+//            $collection->shipments()->saveMany($shipments);
 //        }
     }
 }
