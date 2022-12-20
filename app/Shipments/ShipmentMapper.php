@@ -287,6 +287,9 @@ class ShipmentMapper implements MapperInterface
         if (isset($data['item_weight'])) {
             $item->setItemWeight($data['item_weight']);
         }
+        if (isset($data['item_weight'])) {
+            $item->setItemWeightUnit($data['item_weight_unit']);
+        }
         if (isset($data['quantity'])) {
             $item->setQuantity($data['quantity']);
         }

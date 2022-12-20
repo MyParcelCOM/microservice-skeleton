@@ -102,6 +102,7 @@
             "currency": "EUR"
           },
           "item_weight": 1500,
+          "item_weight_unit": "mg",
           "quantity": 2,
           "hs_code": "1234.15.05",
           "origin_country_code": "GB"
@@ -115,6 +116,7 @@
             "currency": "EUR"
           },
           "item_weight": 2500,
+          "item_weight_unit": "kg",
           "quantity": 1,
           "hs_code": "1234.15.05",
           "origin_country_code": "GB"
