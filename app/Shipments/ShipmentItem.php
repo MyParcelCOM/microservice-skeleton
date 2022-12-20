@@ -33,7 +33,7 @@ class ShipmentItem
     /** @var int|null */
     protected $itemWeight;
 
-    protected string $itemWeightUnit;
+    protected ?string $itemWeightUnit;
 
     /** @var int|null */
     protected $taxAmount;
@@ -221,12 +221,12 @@ class ShipmentItem
         return $this;
     }
 
-    public function getItemWeightUnit(): string
+    public function getItemWeightUnit(): ?string
     {
         return $this->itemWeightUnit;
     }
 
-    public function setItemWeightUnit(string $itemWeightUnit): self
+    public function setItemWeightUnit(?string $itemWeightUnit): self
     {
         $this->itemWeightUnit = $itemWeightUnit;
 
