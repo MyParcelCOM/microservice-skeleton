@@ -49,7 +49,9 @@ class CollectionMapper implements MapperInterface
             $collection->setTrackingCode(Arr::get($attributes, 'tracking_code'));
         }
 
-        $this->mapRelationships($relationships, $collection);
+        if (isset($relationships)) {
+            $this->mapRelationships($relationships, $collection);
+        }
 
         return $collection;
     }
