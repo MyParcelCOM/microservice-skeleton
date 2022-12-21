@@ -69,8 +69,8 @@ class CollectionTransformerTest extends TestCase
                 ]),
             ])
         );
-        $this->shipments = collect([Mockery::mock(Shipment::class)]);
-        $this->collection->shipments()->saveMany($this->shipments);
+//        $this->shipments = collect([Mockery::mock(Shipment::class)]);
+//        $this->collection->shipments()->saveMany($this->shipments);
     }
 
     /** @test */
