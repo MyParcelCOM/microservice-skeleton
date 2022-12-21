@@ -19,8 +19,8 @@ class CollectionMapperTest extends TestCase
         parent::setUp();
 
         $this->collectionData = [
-            'type'       => 'collections',
-            'attributes' => [
+            'type'          => 'collections',
+            'attributes'    => [
                 'myparcelcom_collection_id' => '6e287731-c391-4548-bc48-c09327e1e94f',
                 'name'                      => 'First collection',
                 'collection_time'           => [
@@ -43,6 +43,20 @@ class CollectionMapperTest extends TestCase
                     'phone_number'         => '+31 234 567 890',
                 ],
                 'tracking_code'             => 'Track-my-collection',
+            ],
+            'relationships' => [
+                'shipments' => [
+                    'data' => [
+                        [
+                            'type' => 'shipments',
+                            'id'   => 'ship-1',
+                        ],
+                        [
+                            'type' => 'shipments',
+                            'id'   => 'ship-2',
+                        ],
+                    ],
+                ],
             ],
         ];
     }
@@ -77,6 +91,12 @@ class CollectionMapperTest extends TestCase
             $collection->getTrackingCode(),
             Arr::get($this->collectionData, 'attributes.tracking_code')
         );
+
+        // todo uncomment this when a carrier allows adding shipments to a collection.
+//        $this->assertEquals(
+//            $collection->getShipments()->pluck('id')->all(),
+//            ['ship-1', 'ship-2']
+//        );
     }
 
     /** @test */
