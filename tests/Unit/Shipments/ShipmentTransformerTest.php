@@ -88,6 +88,8 @@ class ShipmentTransformerTest extends TestCase
             'getOriginCountryCode' => 'CN',
             'getItemValueAmount'   => 100000000,
             'getItemValueCurrency' => 'USD',
+            'getItemWeight'        => 12345,
+            'getItemWeightUnit'    => 'lb',
             'getTaxAmount'         => 8008,
             'getTaxCurrency'       => 'EUR',
             'getDutyAmount'        => 707,
@@ -348,6 +350,8 @@ class ShipmentTransformerTest extends TestCase
                     'description'         => 'priceless Ming vase from some dynasty',
                     'image_url'           => '//get.rich',
                     'quantity'            => 12,
+                    'item_weight'         => 12345,
+                    'item_weight_unit'    => 'lb',
                     'hs_code'             => '9801.00.60',
                     'origin_country_code' => 'CN',
                     'item_value'          => [
@@ -521,6 +525,8 @@ class ShipmentTransformerTest extends TestCase
                             'description'         => 'priceless Ming vase from some dynasty',
                             'image_url'           => '//get.rich',
                             'quantity'            => 12,
+                            'item_weight'         => 12345,
+                            'item_weight_unit'    => 'lb',
                             'hs_code'             => '9801.00.60',
                             'origin_country_code' => 'CN',
                             'item_value'          => [
