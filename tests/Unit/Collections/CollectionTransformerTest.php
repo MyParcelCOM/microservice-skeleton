@@ -14,6 +14,7 @@ use MyParcelCom\Microservice\Collections\CollectionTransformer;
 use MyParcelCom\Microservice\Model\Json\AddressJson;
 use MyParcelCom\Microservice\Model\Json\ContactJson;
 use MyParcelCom\Microservice\Shipments\File;
+use MyParcelCom\Microservice\Shipments\Shipment;
 use MyParcelCom\Microservice\Tests\TestCase;
 use stdClass;
 
@@ -21,6 +22,7 @@ class CollectionTransformerTest extends TestCase
 {
     private Collection $collection;
     private CollectionTransformer $transformer;
+    private \Illuminate\Support\Collection $shipments;
 
     protected function setUp(): void
     {
@@ -67,6 +69,8 @@ class CollectionTransformerTest extends TestCase
                 ]),
             ])
         );
+//        $this->shipments = collect([Mockery::mock(Shipment::class)]);
+//        $this->collection->shipments()->saveMany($this->shipments);
     }
 
     /** @test */
@@ -105,6 +109,17 @@ class CollectionTransformerTest extends TestCase
                 ],
             ],
         ], $this->transformer->getAttributes($this->collection));
+    }
+
+    /** @test */
+    public function itShouldGetRelationshipsFromModel(): void
+    {
+        // Todo: Uncomment this when implementing shipments on collection.
+//        $shipmentIds = $this->shipments->pluck('id')->all();
+//        $this->assertContains(
+//            $shipmentIds,
+//            $this->transformer->getRelationships($this->collection)
+//        );
     }
 
     /** @test */

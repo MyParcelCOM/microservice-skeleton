@@ -110,6 +110,7 @@
               "currency": "EUR"
             },
             "item_weight": 1000,
+            "item_weight_unit": "oz",
             "quantity": 2,
             "hs_code": "8517.12.00",
             "origin_country_code": "GB"
@@ -239,6 +240,7 @@
                 "currency": "EUR"
               },
               "item_weight": 1000,
+              "item_weight_unit": "oz",
               "quantity": 2,
               "hs_code": "8517.12.00",
               "origin_country_code": "GB"
@@ -367,6 +369,7 @@
                 "currency": "EUR"
               },
               "item_weight": 1000,
+              "item_weight_unit": "oz",
               "quantity": 2,
               "hs_code": "8517.12.00",
               "origin_country_code": "GB"

@@ -183,6 +183,7 @@ class ShipmentMapperTest extends TestCase
                     $this->assertNotNull($item->getImageUrl());
                     $this->assertNotNull($item->getHsCode());
                     $this->assertIsInt($item->getItemWeight());
+                    $this->assertNotNull($item->getItemWeightUnit());
                     $this->assertIsInt($item->getItemValueAmount());
                     $this->assertNotNull($item->getItemValueAmount());
                     $this->assertNotNull($item->getItemValueCurrency());

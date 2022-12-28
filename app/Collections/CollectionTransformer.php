@@ -7,6 +7,7 @@ namespace MyParcelCom\Microservice\Collections;
 use MyParcelCom\JsonApi\Exceptions\ModelTypeException;
 use MyParcelCom\JsonApi\Transformers\AbstractTransformer;
 use MyParcelCom\Microservice\Shipments\File;
+use MyParcelCom\Microservice\Shipments\Shipment;
 
 class CollectionTransformer extends AbstractTransformer
 {
@@ -57,6 +58,19 @@ class CollectionTransformer extends AbstractTransformer
         }
 
         return $attributes;
+    }
+
+    /**
+     * @param Collection $collection
+     * @return array[]
+     */
+    public function getRelationships($collection): array
+    {
+        $shipmentIDs = $collection->getShipments()->map(fn (Shipment $shipment) => $shipment->getId())->all();
+
+        return [
+            'shipments' => $this->transformRelationshipForIdentifiers($shipmentIDs, 'shipments'),
+        ];
     }
 
     /**

@@ -33,6 +33,8 @@ class ShipmentItem
     /** @var int|null */
     protected $itemWeight;
 
+    protected ?string $itemWeightUnit;
+
     /** @var int|null */
     protected $taxAmount;
 
@@ -215,6 +217,18 @@ class ShipmentItem
     public function setItemWeight(?int $itemWeight): self
     {
         $this->itemWeight = $itemWeight;
+
+        return $this;
+    }
+
+    public function getItemWeightUnit(): ?string
+    {
+        return $this->itemWeightUnit;
+    }
+
+    public function setItemWeightUnit(?string $itemWeightUnit): self
+    {
+        $this->itemWeightUnit = $itemWeightUnit;
 
         return $this;
     }

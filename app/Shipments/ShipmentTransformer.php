@@ -89,6 +89,8 @@ class ShipmentTransformer extends AbstractTransformer
                     'description'         => $item->getDescription(),
                     'image_url'           => $item->getImageUrl(),
                     'quantity'            => $item->getQuantity(),
+                    'item_weight'         => $item->getItemWeight(),
+                    'item_weight_unit'    => $item->getItemWeightUnit(),
                     'hs_code'             => $item->getHsCode(),
                     'origin_country_code' => $item->getOriginCountryCode(),
                     'item_value'          => $item->getItemValueAmount() === null ? null : [
