@@ -33,7 +33,7 @@ class ShipmentItem
     /** @var int|null */
     protected $itemWeight;
 
-    protected ?string $itemWeightUnit;
+    protected ?string $itemWeightUnit = null;
 
     /** @var int|null */
     protected $taxAmount;
