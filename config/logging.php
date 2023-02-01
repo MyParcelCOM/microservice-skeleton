@@ -48,6 +48,7 @@ return [
                 'X-MYPARCELCOM-SECRET',
                 'HTTP_X_MYPARCELCOM_CREDENTIALS',
                 'HTTP_X_MYPARCELCOM_SECRET',
+                'password',
             ],
         ],
 
