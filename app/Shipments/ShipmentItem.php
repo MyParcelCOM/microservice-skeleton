@@ -50,6 +50,8 @@ class ShipmentItem
     /** @var integer|null */
     protected $vatPercentage;
 
+    private bool $isPreferentialOrigin = false;
+
     /**
      * @param string|null $sku
      * @return $this
@@ -324,6 +326,18 @@ class ShipmentItem
     public function setVatPercentage(?int $vatPercentage): self
     {
         $this->vatPercentage = $vatPercentage;
+
+        return $this;
+    }
+
+    public function isPreferentialOrigin(): bool
+    {
+        return $this->isPreferentialOrigin;
+    }
+
+    public function setPreferentialOrigin(bool $isPreferentialOrigin): self
+    {
+        $this->isPreferentialOrigin = $isPreferentialOrigin;
 
         return $this;
     }

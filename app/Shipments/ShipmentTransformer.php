@@ -85,27 +85,28 @@ class ShipmentTransformer extends AbstractTransformer
             }, $shipment->getFiles()),
             'items'                                => array_map(function (ShipmentItem $item) {
                 return array_filter([
-                    'sku'                 => $item->getSku(),
-                    'description'         => $item->getDescription(),
-                    'image_url'           => $item->getImageUrl(),
-                    'quantity'            => $item->getQuantity(),
-                    'item_weight'         => $item->getItemWeight(),
-                    'item_weight_unit'    => $item->getItemWeightUnit(),
-                    'hs_code'             => $item->getHsCode(),
-                    'origin_country_code' => $item->getOriginCountryCode(),
-                    'item_value'          => $item->getItemValueAmount() === null ? null : [
+                    'sku'                    => $item->getSku(),
+                    'description'            => $item->getDescription(),
+                    'image_url'              => $item->getImageUrl(),
+                    'quantity'               => $item->getQuantity(),
+                    'item_weight'            => $item->getItemWeight(),
+                    'item_weight_unit'       => $item->getItemWeightUnit(),
+                    'hs_code'                => $item->getHsCode(),
+                    'origin_country_code'    => $item->getOriginCountryCode(),
+                    'item_value'             => $item->getItemValueAmount() === null ? null : [
                         'amount'   => $item->getItemValueAmount(),
                         'currency' => $item->getItemValueCurrency(),
                     ],
-                    'tax'                 => $item->getTaxAmount() === null ? null : [
+                    'tax'                    => $item->getTaxAmount() === null ? null : [
                         'amount'   => $item->getTaxAmount(),
                         'currency' => $item->getTaxCurrency(),
                     ],
-                    'duty'                => $item->getDutyAmount() === null ? null : [
+                    'duty'                   => $item->getDutyAmount() === null ? null : [
                         'amount'   => $item->getDutyAmount(),
                         'currency' => $item->getDutyCurrency(),
                     ],
-                    'vat_percentage'      => $item->getVatPercentage(),
+                    'vat_percentage'         => $item->getVatPercentage(),
+                    'is_preferential_origin' => $item->isPreferentialOrigin(),
                 ]);
             }, $shipment->getItems()),
             'customs'                              => $shipment->getCustoms() === null ? null : array_filter([

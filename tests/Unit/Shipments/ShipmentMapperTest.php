@@ -190,6 +190,7 @@ class ShipmentMapperTest extends TestCase
                     $this->assertIsInt($item->getQuantity());
                     $this->assertNotNull($item->getQuantity());
                     $this->assertNotNull($item->getOriginCountryCode());
+                    $this->assertNotNull($item->isPreferentialOrigin());
                 });
 
                 return $shipment;

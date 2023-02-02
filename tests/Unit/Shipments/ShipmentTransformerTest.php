@@ -95,6 +95,7 @@ class ShipmentTransformerTest extends TestCase
             'getDutyAmount'        => 707,
             'getDutyCurrency'      => 'USD',
             'getVatPercentage'     => 30,
+            'isPreferentialOrigin' => true,
         ]);
 
         $customs = Mockery::mock(Customs::class, [
@@ -346,27 +347,28 @@ class ShipmentTransformerTest extends TestCase
             ],
             'items'                                => [
                 [
-                    'sku'                 => '01284ASD',
-                    'description'         => 'priceless Ming vase from some dynasty',
-                    'image_url'           => '//get.rich',
-                    'quantity'            => 12,
-                    'item_weight'         => 12345,
-                    'item_weight_unit'    => 'lb',
-                    'hs_code'             => '9801.00.60',
-                    'origin_country_code' => 'CN',
-                    'item_value'          => [
+                    'sku'                    => '01284ASD',
+                    'description'            => 'priceless Ming vase from some dynasty',
+                    'image_url'              => '//get.rich',
+                    'quantity'               => 12,
+                    'item_weight'            => 12345,
+                    'item_weight_unit'       => 'lb',
+                    'hs_code'                => '9801.00.60',
+                    'origin_country_code'    => 'CN',
+                    'item_value'             => [
                         'amount'   => 100000000,
                         'currency' => 'USD',
                     ],
-                    'tax'                 => [
+                    'tax'                    => [
                         'amount'   => 8008,
                         'currency' => 'EUR',
                     ],
-                    'duty'                => [
+                    'duty'                   => [
                         'amount'   => 707,
                         'currency' => 'USD',
                     ],
-                    'vat_percentage'      => 30,
+                    'vat_percentage'         => 30,
+                    'is_preferential_origin' => true,
                 ],
             ],
             'customs'                              => [
@@ -521,27 +523,28 @@ class ShipmentTransformerTest extends TestCase
                     ],
                     'items'                                => [
                         [
-                            'sku'                 => '01284ASD',
-                            'description'         => 'priceless Ming vase from some dynasty',
-                            'image_url'           => '//get.rich',
-                            'quantity'            => 12,
-                            'item_weight'         => 12345,
-                            'item_weight_unit'    => 'lb',
-                            'hs_code'             => '9801.00.60',
-                            'origin_country_code' => 'CN',
-                            'item_value'          => [
+                            'sku'                    => '01284ASD',
+                            'description'            => 'priceless Ming vase from some dynasty',
+                            'image_url'              => '//get.rich',
+                            'quantity'               => 12,
+                            'item_weight'            => 12345,
+                            'item_weight_unit'       => 'lb',
+                            'hs_code'                => '9801.00.60',
+                            'origin_country_code'    => 'CN',
+                            'item_value'             => [
                                 'amount'   => 100000000,
                                 'currency' => 'USD',
                             ],
-                            'tax'                 => [
+                            'tax'                    => [
                                 'amount'   => 8008,
                                 'currency' => 'EUR',
                             ],
-                            'duty'                => [
+                            'duty'                   => [
                                 'amount'   => 707,
                                 'currency' => 'USD',
                             ],
-                            'vat_percentage'      => 30,
+                            'vat_percentage'         => 30,
+                            'is_preferential_origin' => true,
                         ],
                     ],
                     'customs'                              => [
