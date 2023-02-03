@@ -299,6 +299,9 @@ class ShipmentMapper implements MapperInterface
         if (isset($data['origin_country_code'])) {
             $item->setOriginCountryCode($data['origin_country_code']);
         }
+        if (isset($data['is_preferential_origin'])) {
+            $item->setPreferentialOrigin($data['is_preferential_origin']);
+        }
 
         return $item;
     }
