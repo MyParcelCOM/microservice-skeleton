@@ -111,7 +111,7 @@ class CollectionsTest extends TestCase
 
         $response = $this->assertJsonSchema(
             "/collections/{collection_id}",
-            "/collections/${uuid}",
+            "/collections/$uuid",
             $this->getRequestHeaders(),
             $patchData,
             'patch',
