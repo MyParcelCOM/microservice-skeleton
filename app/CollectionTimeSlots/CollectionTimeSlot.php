@@ -8,9 +8,17 @@ use Carbon\Carbon;
 
 class CollectionTimeSlot
 {
-    protected string $id;
-    protected Carbon $from;
-    protected Carbon $to;
+    /**
+     * @param string $id
+     * @param Carbon $from
+     * @param Carbon $to
+     */
+    public function __construct(
+        private string $id,
+        private Carbon $from,
+        private Carbon $to
+    ) {
+    }
 
     /**
      * @return string

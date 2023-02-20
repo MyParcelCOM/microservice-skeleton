@@ -75,13 +75,10 @@ class CollectionController
     }
 
     public function getTimeSlots(
-        JsonRequestValidator $jsonRequestValidator,
         Request $request,
         CollectionTimeSlotRepository $collectionTimeSlotRepository,
         TransformerService $transformerService
     ): JsonResponse {
-        $jsonRequestValidator->validate('/collection-time-slots', 'get');
-
         // todo: Fill in Carrier specific request details in the CollectionTimeSlotRepository.
         $timeSlots = $collectionTimeSlotRepository->getCollectionTimeSlots(
             $request->query('country_code'),

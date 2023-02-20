@@ -160,4 +160,56 @@ class CollectionsTest extends TestCase
 
         // todo: Assert data counts when time slots are available.
     }
+
+    /** @test */
+    public function testItReturnTimeSlotsForWeekdays(): void
+    {
+        $this->assertJsonDataCount(
+            5,
+            '/collection-time-slots?country_code=IT&postal_code=XYZ&date_from=2022-10-24&date_to=2022-10-28',
+            $this->getRequestHeaders(),
+        );
+    }
+
+    /** @test */
+    public function testItReturnTimeSlotsForWeekdaysWithWeekendInRange(): void
+    {
+        $this->assertJsonDataCount(
+            6,
+            '/collection-time-slots?country_code=IT&postal_code=XYZ&date_from=2022-10-24&date_to=2022-10-31',
+            $this->getRequestHeaders(),
+        );
+    }
+
+    /** @test */
+    public function testItReturnTimeSlotsForHolidays(): void
+    {
+        // excluding Epiphany day, 2022 for IT
+        $this->assertJsonDataCount(
+            4,
+            '/collection-time-slots?country_code=IT&postal_code=XYZ&date_from=2022-01-03&date_to=2022-01-07',
+            $this->getRequestHeaders(),
+        );
+
+        // excluding Easter for IT
+        $this->assertJsonDataCount(
+            1,
+            '/collection-time-slots?country_code=IT&postal_code=XYZ&date_from=2022-04-15&date_to=2022-04-18',
+            $this->getRequestHeaders(),
+        );
+
+        // excluding National day for BE
+        $this->assertJsonDataCount(
+            0,
+            '/collection-time-slots?country_code=BE&postal_code=XYZ&date_from=2022-07-21&date_to=2022-07-21',
+            $this->getRequestHeaders(),
+        );
+
+        // national day for BE is no holiday in IT
+        $this->assertJsonDataCount(
+            1,
+            '/collection-time-slots?country_code=IT&postal_code=XYZ&date_from=2022-07-21&date_to=2022-07-21',
+            $this->getRequestHeaders(),
+        );
+    }
 }
