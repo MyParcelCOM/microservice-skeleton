@@ -53,10 +53,9 @@ Route::get('/validate-credentials', [CredentialController::class, 'validateCrede
 
 //Route::post('/collections', [CollectionController::class, 'create'])
 //    ->name('create-collection');
-//Route::get('/collection-time-slots', [CollectionController::class, 'getTimeSlots'])
-//    ->name('get-collection-time-slots');
+Route::get('/collection-time-slots', [CollectionController::class, 'getTimeSlots'])
+   ->name('get-collection-time-slots');
 //Route::patch('/collections/{collectionId}', [CollectionController::class, 'update'])
 //    ->name('update-collection');
 //Route::delete('/collections/{collectionId}', [CollectionController::class, 'void'])
 //    ->name('delete-collection');
-

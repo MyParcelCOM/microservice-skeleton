@@ -61,9 +61,9 @@ class CollectionRepository
             // TODO: If applicable, map tracking code and files to the Collection resource.
 
             $updatedCollection->setRegisteredAt(Carbon::now());
-
-            $updatedCollection->save();
         }
+
+        $updatedCollection->save();
 
         return $updatedCollection;
     }

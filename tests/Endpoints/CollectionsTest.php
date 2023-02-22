@@ -11,6 +11,10 @@ use MyParcelCom\Microservice\Tests\Traits\CommunicatesWithCarrier;
 use MyParcelCom\Microservice\Tests\Traits\JsonApiAssertionsTrait;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * @group Endpoints:Collection
+ * @group Implementation
+ */
 class CollectionsTest extends TestCase
 {
     use CommunicatesWithCarrier;
@@ -67,24 +71,24 @@ class CollectionsTest extends TestCase
         );
 
         $this->assertDatabaseHas('collections', [
-            'id'                            => $response->json('data.id'),
-            'myparcelcom_colletion_id'      => $uuid,
-            'name'                          => 'First Collection',
-            'collection_time_from'          => Carbon::now(),
-            'collection_time_to'            => Carbon::now()->addHours(10),
-            'address->street_1'             => 'My Street',
-            'address->street_2'             => 'Third Floor',
-            'address->street_number'        => 55,
-            'address->street_number_suffix' => 'A',
-            'address->postal_code'          => '1111AA',
-            'address->city'                 => 'Amsterdam',
-            'address->state_code'           => 'NH',
-            'address->country_code'         => 'NL',
-            'address->first_name'           => 'Test',
-            'address->last_name'            => 'Tester',
-            'address->company'              => 'Acme Co.',
-            'address->email'                => 'user@example.com',
-            'address->phone_number'         => '12312312323',
+            'id'                                 => $response->json('data.id'),
+            'myparcelcom_colletion_id'           => $uuid,
+            'name'                               => 'First Collection',
+            'collection_time_from'               => Carbon::now(),
+            'collection_time_to'                 => Carbon::now()->addHours(10),
+            'address_json->street_1'             => 'My Street',
+            'address_json->street_2'             => 'Third Floor',
+            'address_json->street_number'        => 55,
+            'address_json->street_number_suffix' => 'A',
+            'address_json->postal_code'          => '1111AA',
+            'address_json->city'                 => 'Amsterdam',
+            'address_json->state_code'           => 'NH',
+            'address_json->country_code'         => 'NL',
+            'contact_json->first_name'           => 'Test',
+            'contact_json->last_name'            => 'Tester',
+            'contact_json->company'              => 'Acme Co.',
+            'contact_json->email'                => 'user@example.com',
+            'contact_json->phone_number'         => '12312312323',
         ]);
     }
 
@@ -111,31 +115,31 @@ class CollectionsTest extends TestCase
 
         $response = $this->assertJsonSchema(
             "/collections/{collection_id}",
-            "/collections/${uuid}",
+            "/collections/$uuid",
             $this->getRequestHeaders(),
             $patchData,
             'patch',
         );
 
         $this->assertDatabaseHas('collections', [
-            'id'                            => $response->json('data.id'),
-            'myparcelcom_colletion_id'      => $uuid,
-            'name'                          => 'Second Collection',
-            'collection_time_from'          => Carbon::now(),
-            'collection_time_to'            => Carbon::now()->addHours(10),
-            'address->street_1'             => 'My Street',
-            'address->street_2'             => 'Third Floor',
-            'address->street_number'        => 55,
-            'address->street_number_suffix' => 'A',
-            'address->postal_code'          => '1111AA',
-            'address->city'                 => 'Amsterdam',
-            'address->state_code'           => 'NH',
-            'address->country_code'         => 'NL',
-            'address->first_name'           => 'Test',
-            'address->last_name'            => 'Tester',
-            'address->company'              => 'Acme Co.',
-            'address->email'                => 'user@example.com',
-            'address->phone_number'         => '12312312323',
+            'id'                                 => $response->json('data.id'),
+            'myparcelcom_colletion_id'           => $uuid,
+            'name'                               => 'Second Collection',
+            'collection_time_from'               => Carbon::now(),
+            'collection_time_to'                 => Carbon::now()->addHours(10),
+            'address_json->street_1'             => 'My Street',
+            'address_json->street_2'             => 'Third Floor',
+            'address_json->street_number'        => 55,
+            'address_json->street_number_suffix' => 'A',
+            'address_json->postal_code'          => '1111AA',
+            'address_json->city'                 => 'Amsterdam',
+            'address_json->state_code'           => 'NH',
+            'address_json->country_code'         => 'NL',
+            'contact_json->first_name'           => 'Test',
+            'contact_json->last_name'            => 'Tester',
+            'contact_json->company'              => 'Acme Co.',
+            'contact_json->email'                => 'user@example.com',
+            'contact_json->phone_number'         => '12312312323',
         ]);
 
         // TODO: Assertion specific to the carrier response.
@@ -155,5 +159,57 @@ class CollectionsTest extends TestCase
         );
 
         // todo: Assert data counts when time slots are available.
+    }
+
+    /** @test */
+    public function testItReturnTimeSlotsForWeekdays(): void
+    {
+        $this->assertJsonDataCount(
+            5,
+            '/collection-time-slots?country_code=IT&postal_code=XYZ&date_from=2022-10-24&date_to=2022-10-28',
+            $this->getRequestHeaders(),
+        );
+    }
+
+    /** @test */
+    public function testItReturnTimeSlotsForWeekdaysWithWeekendInRange(): void
+    {
+        $this->assertJsonDataCount(
+            6,
+            '/collection-time-slots?country_code=IT&postal_code=XYZ&date_from=2022-10-24&date_to=2022-10-31',
+            $this->getRequestHeaders(),
+        );
+    }
+
+    /** @test */
+    public function testItReturnTimeSlotsForHolidays(): void
+    {
+        // excluding Epiphany day, 2022 for IT
+        $this->assertJsonDataCount(
+            4,
+            '/collection-time-slots?country_code=IT&postal_code=XYZ&date_from=2022-01-03&date_to=2022-01-07',
+            $this->getRequestHeaders(),
+        );
+
+        // excluding Easter for IT
+        $this->assertJsonDataCount(
+            1,
+            '/collection-time-slots?country_code=IT&postal_code=XYZ&date_from=2022-04-15&date_to=2022-04-18',
+            $this->getRequestHeaders(),
+        );
+
+        // excluding National day for BE
+        $this->assertJsonDataCount(
+            0,
+            '/collection-time-slots?country_code=BE&postal_code=XYZ&date_from=2022-07-21&date_to=2022-07-21',
+            $this->getRequestHeaders(),
+        );
+
+        // national day for BE is no holiday in IT
+        $this->assertJsonDataCount(
+            1,
+            '/collection-time-slots?country_code=IT&postal_code=XYZ&date_from=2022-07-21&date_to=2022-07-21',
+            $this->getRequestHeaders(),
+        );
     }
 }
