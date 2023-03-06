@@ -72,7 +72,7 @@ class CollectionsTest extends TestCase
 
         $this->assertDatabaseHas('collections', [
             'id'                                 => $response->json('data.id'),
-            'myparcelcom_colletion_id'           => $uuid,
+            'myparcelcom_collection_id'          => $uuid,
             'name'                               => 'First Collection',
             'collection_time_from'               => Carbon::now(),
             'collection_time_to'                 => Carbon::now()->addHours(10),
@@ -123,7 +123,7 @@ class CollectionsTest extends TestCase
 
         $this->assertDatabaseHas('collections', [
             'id'                                 => $response->json('data.id'),
-            'myparcelcom_colletion_id'           => $uuid,
+            'myparcelcom_collection_id'          => $uuid,
             'name'                               => 'Second Collection',
             'collection_time_from'               => Carbon::now(),
             'collection_time_to'                 => Carbon::now()->addHours(10),
