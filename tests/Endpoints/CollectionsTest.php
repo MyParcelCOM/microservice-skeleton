@@ -164,6 +164,8 @@ class CollectionsTest extends TestCase
     /** @test */
     public function testItReturnTimeSlotsForWeekdays(): void
     {
+        $this->markTestSkipped('This test should be implemented in microservices for carriers that offer collection time slots, not in the skeleton.');
+
         $this->assertJsonDataCount(
             5,
             '/collection-time-slots?country_code=IT&postal_code=XYZ&date_from=2022-10-24&date_to=2022-10-28',
@@ -174,6 +176,8 @@ class CollectionsTest extends TestCase
     /** @test */
     public function testItReturnTimeSlotsForWeekdaysWithWeekendInRange(): void
     {
+        $this->markTestSkipped('This test should be implemented in microservices for carriers that offer collection time slots, not in the skeleton.');
+
         $this->assertJsonDataCount(
             6,
             '/collection-time-slots?country_code=IT&postal_code=XYZ&date_from=2022-10-24&date_to=2022-10-31',
@@ -184,6 +188,8 @@ class CollectionsTest extends TestCase
     /** @test */
     public function testItReturnTimeSlotsForHolidays(): void
     {
+        $this->markTestSkipped('This test should be implemented in microservices for carriers that offer collection time slots, not in the skeleton.');
+
         // excluding Epiphany day, 2022 for IT
         $this->assertJsonDataCount(
             4,
