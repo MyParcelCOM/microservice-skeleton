@@ -72,7 +72,7 @@ class CollectionsTest extends TestCase
 
         $this->assertDatabaseHas('collections', [
             'id'                                 => $response->json('data.id'),
-            'myparcelcom_colletion_id'           => $uuid,
+            'myparcelcom_collection_id'          => $uuid,
             'name'                               => 'First Collection',
             'collection_time_from'               => Carbon::now(),
             'collection_time_to'                 => Carbon::now()->addHours(10),
@@ -123,7 +123,7 @@ class CollectionsTest extends TestCase
 
         $this->assertDatabaseHas('collections', [
             'id'                                 => $response->json('data.id'),
-            'myparcelcom_colletion_id'           => $uuid,
+            'myparcelcom_collection_id'          => $uuid,
             'name'                               => 'Second Collection',
             'collection_time_from'               => Carbon::now(),
             'collection_time_to'                 => Carbon::now()->addHours(10),
@@ -164,6 +164,8 @@ class CollectionsTest extends TestCase
     /** @test */
     public function testItReturnTimeSlotsForWeekdays(): void
     {
+        $this->markTestSkipped('This test should be implemented in microservices for carriers that offer collection time slots, not in the skeleton.');
+
         $this->assertJsonDataCount(
             5,
             '/collection-time-slots?country_code=IT&postal_code=XYZ&date_from=2022-10-24&date_to=2022-10-28',
@@ -174,6 +176,8 @@ class CollectionsTest extends TestCase
     /** @test */
     public function testItReturnTimeSlotsForWeekdaysWithWeekendInRange(): void
     {
+        $this->markTestSkipped('This test should be implemented in microservices for carriers that offer collection time slots, not in the skeleton.');
+
         $this->assertJsonDataCount(
             6,
             '/collection-time-slots?country_code=IT&postal_code=XYZ&date_from=2022-10-24&date_to=2022-10-31',
@@ -184,6 +188,8 @@ class CollectionsTest extends TestCase
     /** @test */
     public function testItReturnTimeSlotsForHolidays(): void
     {
+        $this->markTestSkipped('This test should be implemented in microservices for carriers that offer collection time slots, not in the skeleton.');
+
         // excluding Epiphany day, 2022 for IT
         $this->assertJsonDataCount(
             4,

@@ -114,7 +114,8 @@ class CollectionTransformerTest extends TestCase
     /** @test */
     public function itShouldGetRelationshipsFromModel(): void
     {
-        // Todo: Uncomment this when implementing shipments on collection.
+        $this->markTestSkipped('This test should be implemented in microservices for carriers that offer collections.');
+
 //        $shipmentIds = $this->shipments->pluck('id')->all();
 //        $this->assertContains(
 //            $shipmentIds,
