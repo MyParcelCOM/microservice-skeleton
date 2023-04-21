@@ -18,48 +18,22 @@ class Customs
     const INCOTERM_DELIVERED_AT_PLACE = 'DAP';
     const INCOTERM_DUTY_DELIVERY_PAID = 'DDP';
 
-    /** @var string|null */
-    private $contentType;
+    private ?string $contentType = null;
+    private ?string $invoiceNumber = null;
+    private ?string $nonDelivery = null;
+    private ?string $incoterm = null;
+    private ?int $shippingValueAmount = null;
+    private ?string $shippingValueCurrency = null;
+    private ?int $totalTaxAmount = null;
+    private ?string $totalTaxCurrency = null;
+    private ?int $totalDutyAmount = null;
+    private ?string $totalDutyCurrency = null;
 
-    /** @var string|null */
-    private $invoiceNumber;
-
-    /** @var string|null */
-    private $nonDelivery;
-
-    /** @var string|null */
-    private $incoterm;
-
-    /** @var int|null */
-    private $shippingValueAmount;
-
-    /** @var string|null */
-    private $shippingValueCurrency;
-
-    /** @var int|null */
-    private $totalTaxAmount;
-
-    /** @var string|null */
-    private $totalTaxCurrency;
-
-    /** @var int|null */
-    private $totalDutyAmount;
-
-    /** @var string|null */
-    private $totalDutyCurrency;
-
-    /**
-     * @return string|null
-     */
     public function getContentType(): ?string
     {
         return $this->contentType;
     }
 
-    /**
-     * @param string|null $contentType
-     * @return $this
-     */
     public function setContentType(?string $contentType): self
     {
         $this->contentType = $contentType;
@@ -67,18 +41,11 @@ class Customs
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getInvoiceNumber(): ?string
     {
         return $this->invoiceNumber;
     }
 
-    /**
-     * @param string|null $invoiceNumber
-     * @return $this
-     */
     public function setInvoiceNumber(?string $invoiceNumber): self
     {
         $this->invoiceNumber = $invoiceNumber;
@@ -86,18 +53,11 @@ class Customs
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getNonDelivery(): ?string
     {
         return $this->nonDelivery;
     }
 
-    /**
-     * @param string|null $nonDelivery
-     * @return $this
-     */
     public function setNonDelivery(?string $nonDelivery): self
     {
         $this->nonDelivery = $nonDelivery;
@@ -105,18 +65,11 @@ class Customs
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getIncoterm(): ?string
     {
         return $this->incoterm;
     }
 
-    /**
-     * @param string|null $incoterm
-     * @return $this
-     */
     public function setIncoterm(?string $incoterm): self
     {
         $this->incoterm = $incoterm;
@@ -124,18 +77,11 @@ class Customs
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
     public function getShippingValueAmount(): ?int
     {
         return $this->shippingValueAmount;
     }
 
-    /**
-     * @param int|null $shippingValueAmount
-     * @return $this
-     */
     public function setShippingValueAmount(?int $shippingValueAmount): self
     {
         $this->shippingValueAmount = $shippingValueAmount;
@@ -143,18 +89,11 @@ class Customs
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getShippingValueCurrency(): ?string
     {
         return $this->shippingValueCurrency;
     }
 
-    /**
-     * @param string|null $shippingValueCurrency
-     * @return $this
-     */
     public function setShippingValueCurrency(?string $shippingValueCurrency): self
     {
         $this->shippingValueCurrency = $shippingValueCurrency;
@@ -162,18 +101,11 @@ class Customs
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
     public function getTotalTaxAmount(): ?int
     {
         return $this->totalTaxAmount;
     }
 
-    /**
-     * @param int|null $totalTaxAmount
-     * @return $this
-     */
     public function setTotalTaxAmount(?int $totalTaxAmount): self
     {
         $this->totalTaxAmount = $totalTaxAmount;
@@ -181,18 +113,11 @@ class Customs
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getTotalTaxCurrency(): ?string
     {
         return $this->totalTaxCurrency;
     }
 
-    /**
-     * @param string|null $totalTaxCurrency
-     * @return $this
-     */
     public function setTotalTaxCurrency(?string $totalTaxCurrency): self
     {
         $this->totalTaxCurrency = $totalTaxCurrency;
@@ -200,18 +125,11 @@ class Customs
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
     public function getTotalDutyAmount(): ?int
     {
         return $this->totalDutyAmount;
     }
 
-    /**
-     * @param int|null $totalDutyAmount
-     * @return $this
-     */
     public function setTotalDutyAmount(?int $totalDutyAmount): self
     {
         $this->totalDutyAmount = $totalDutyAmount;
@@ -219,18 +137,11 @@ class Customs
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getTotalDutyCurrency(): ?string
     {
         return $this->totalDutyCurrency;
     }
 
-    /**
-     * @param string|null $totalDutyCurrency
-     * @return $this
-     */
     public function setTotalDutyCurrency(?string $totalDutyCurrency): self
     {
         $this->totalDutyCurrency = $totalDutyCurrency;

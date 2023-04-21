@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Helpers;
 
+use InvalidArgumentException;
 use MyParcelCom\Microservice\Enums\WeightUnitEnum;
 
 class WeightConverter
@@ -23,7 +24,7 @@ class WeightConverter
             WeightUnitEnum::KILOGRAM => $weight * 1000,
             WeightUnitEnum::OUNCE => $weight * 28.3495,
             WeightUnitEnum::POUND => $weight * 453.592,
-            default => throw new \InvalidArgumentException('Invalid weight unit'),
+            default => throw new InvalidArgumentException('Invalid weight unit'),
         };
     }
 
@@ -35,7 +36,7 @@ class WeightConverter
             WeightUnitEnum::KILOGRAM => $weightInGrams / 1000,
             WeightUnitEnum::OUNCE => $weightInGrams / 28.3495,
             WeightUnitEnum::POUND => $weightInGrams / 453.592,
-            default => throw new \InvalidArgumentException('Invalid weight unit'),
+            default => throw new InvalidArgumentException('Invalid weight unit'),
         };
     }
 }

@@ -8,28 +8,12 @@ use Illuminate\Support\Arr;
 
 class MaxMultipliedSanitization implements SanitizationInterface
 {
-    /** @var int|float */
-    private $maxMultiplied;
-    /** @var array */
-    private $fieldKeys;
-
-    /**
-     * @param int|float $maxMultiplued
-     * @param array     $fieldKeys
-     */
-    public function __construct($maxMultiplied, array $fieldKeys)
-    {
-        $this->maxMultiplied = $maxMultiplied;
-        $this->fieldKeys = $fieldKeys;
+    public function __construct(
+        private readonly int|float $maxMultiplied,
+        private readonly array $fieldKeys,
+    ) {
     }
 
-    /**
-     * Sanitize the incoming data.
-     *
-     * @param string $key
-     * @param array  $parameters
-     * @return array $parameters
-     */
     public function sanitize(string $key, array $parameters): array
     {
         $itemKeys = [];

@@ -135,11 +135,6 @@ class ShipmentMapper implements MapperInterface
         return $shipment;
     }
 
-    /**
-     * @param array    $data
-     * @param Shipment $shipment
-     * @return $this
-     */
     protected function mapService(array $data, Shipment $shipment): self
     {
         $service = (new Service())
@@ -154,11 +149,6 @@ class ShipmentMapper implements MapperInterface
         return $this;
     }
 
-    /**
-     * @param array    $options
-     * @param Shipment $shipment
-     * @return $this
-     */
     protected function mapOptions(array $options, Shipment $shipment): self
     {
         array_walk($options, function (array $optionData) use ($shipment) {
@@ -179,11 +169,6 @@ class ShipmentMapper implements MapperInterface
         return $this;
     }
 
-    /**
-     * @param array   $data
-     * @param Address $address
-     * @return Address
-     */
     protected function mapAddress(array $data, Address $address): Address
     {
         if (isset($data['street_1'])) {
@@ -232,11 +217,6 @@ class ShipmentMapper implements MapperInterface
         return $address;
     }
 
-    /**
-     * @param array    $data
-     * @param Shipment $shipment
-     * @return $this
-     */
     protected function mapCustoms(array $data, Shipment $shipment): self
     {
         $customs = $shipment->getCustoms() ?? new Customs();
@@ -263,10 +243,6 @@ class ShipmentMapper implements MapperInterface
         return $this;
     }
 
-    /**
-     * @param array $data
-     * @return ShipmentItem
-     */
     protected function mapShipmentItem(array $data): ShipmentItem
     {
         $item = new ShipmentItem();

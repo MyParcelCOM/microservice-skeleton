@@ -12,12 +12,6 @@ use MyParcelCom\Microservice\Http\Request;
 
 class ServiceRateController extends Controller
 {
-    /**
-     * @param ServiceRateRepository $serviceRateRepository
-     * @param TransformerService    $transformerService
-     * @param Request               $request
-     * @return JsonResponse
-     */
     public function getServiceRates(
         ServiceRateRepository $serviceRateRepository,
         TransformerService $transformerService,

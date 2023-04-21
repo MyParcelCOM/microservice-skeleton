@@ -9,10 +9,7 @@ use Illuminate\Validation\Validator;
 
 class RequiredIfInternationalRule implements CustomRuleInterface
 {
-    /**
-     * @inheritDoc
-     */
-    public function validate(string $attribute, $value, array $parameters, Validator $validator): bool
+    public function validate(string $attribute, mixed $value, array $parameters, Validator $validator): bool
     {
         if ($this->isInternational($validator->getData())) {
             return isset($value);
@@ -21,10 +18,6 @@ class RequiredIfInternationalRule implements CustomRuleInterface
         return true;
     }
 
-    /**
-     * @param array $data
-     * @return bool
-     */
     private function isInternational(array $data): bool
     {
         $recipientCountryCode = Arr::get($data, 'data.attributes.recipient_address.country_code');

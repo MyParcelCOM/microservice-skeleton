@@ -16,11 +16,6 @@ use Symfony\Component\HttpFoundation\Response;
 class ManifestController extends Controller
 {
     /**
-     * @param JsonRequestValidator $jsonRequestValidator
-     * @param ManifestRepository   $repository
-     * @param Request              $request
-     * @param TransformerService   $transformerService
-     * @return JsonResponse
      * @throws InvalidJsonSchemaException
      * @throws TransformerException
      */

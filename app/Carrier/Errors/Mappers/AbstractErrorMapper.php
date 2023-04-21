@@ -116,10 +116,5 @@ abstract class AbstractErrorMapper implements ErrorMapperInterface
         return $this;
     }
 
-    /**
-     * @param string $message
-     * @param string $code
-     * @return JsonSchemaErrorInterface
-     */
     abstract protected function mapError(string $message, string $code = ''): JsonSchemaErrorInterface;
 }

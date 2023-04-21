@@ -17,25 +17,16 @@ class FormRequest extends BaseFormRequest
      */
     protected $redirect = '/shipments';
 
-    /** @var bool $suspendValidation */
-    protected $suspendValidation;
-
     /**
-     * Constructor.
      * Uses constructor DI to set $suspendValidation variable
-     *
-     * @param boolean $suspendValidation
      */
-    public function __construct(bool $suspendValidation = false)
+    public function __construct(
+        protected readonly bool $suspendValidation = false,
+    )
     {
-        $this->suspendValidation = $suspendValidation;
-
         parent::__construct();
     }
 
-    /**
-     * @return bool
-     */
     public function authorize(): bool
     {
         return true;
@@ -57,27 +48,16 @@ class FormRequest extends BaseFormRequest
         return parent::all($keys);
     }
 
-    /**
-     * @return array
-     */
     protected function sanitization(): array
     {
         return [];
     }
 
-    /**
-     * @return array
-     */
     protected function sanitizationAfterValidation(): array
     {
         return [];
     }
 
-    /**
-     * @param array $parameters
-     * @param array $sanitization
-     * @return array
-     */
     protected function sanitize(array $parameters, array $sanitization): array
     {
         foreach ($sanitization as $key => $callbacks) {
@@ -107,9 +87,6 @@ class FormRequest extends BaseFormRequest
         return $parameters;
     }
 
-    /**
-     * @return array
-     */
     public function rules(): array
     {
         if ($this->suspendValidation) {
@@ -142,17 +119,11 @@ class FormRequest extends BaseFormRequest
         $this->getInputSource()->replace($this->all());
     }
 
-    /**
-     * @return array
-     */
     private function defaultRules(): array
     {
         return [];
     }
 
-    /**
-     * @return array
-     */
     protected function shipmentRules(): array
     {
         return [];

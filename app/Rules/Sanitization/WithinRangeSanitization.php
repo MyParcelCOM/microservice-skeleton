@@ -8,29 +8,12 @@ use Illuminate\Support\Arr;
 
 class WithinRangeSanitization extends BaseSanitization
 {
-    /** @var int|float */
-    private $minValue;
-    /** @var int|float */
-    private $maxValue;
-
-    /**
-     * @param int|float $minValue
-     * @param int|float $maxValue
-     */
-    public function __construct($minValue, $maxValue)
-    {
-        $this->minValue = $minValue;
-        $this->maxValue = $maxValue;
+    public function __construct(
+        private readonly int|float $minValue,
+        private readonly int|float $maxValue,
+    ) {
     }
 
-    /**
-     * Sanitize the incoming data.
-     *
-     * @param string $key
-     * @param array  $parameters
-     * @param array  $shipmentRules
-     * @return array $parameters
-     */
     public function sanitize(
         string $key,
         array $parameters,

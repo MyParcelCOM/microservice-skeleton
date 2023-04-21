@@ -11,25 +11,13 @@ use Illuminate\Validation\ValidationRuleParser;
 
 abstract class BaseSanitization implements SanitizationInterface
 {
-    /**
-     * @param string $key
-     * @param array  $parameters
-     * @param array  $shipmentRules
-     * @return array
-     */
     abstract public function sanitize(
         string $key,
         array $parameters,
         array $shipmentRules = []
     ): array;
 
-    /**
-     * @param string $key
-     * @param array  $parameters
-     * @param array  $keys
-     * @return mixed
-     */
-    public function getKeys(string $key, array $parameters, array $keys = [])
+    public function getKeys(string $key, array $parameters, array $keys = []): mixed
     {
         if (!Str::contains($key, '*')) {
             return $key;
@@ -47,16 +35,9 @@ abstract class BaseSanitization implements SanitizationInterface
         return $keys;
     }
 
-    /**
-     * @param mixed $paramKey
-     * @param mixed $fullKey
-     * @param array $parameters
-     * @param array $shipmentRules
-     * @return bool
-     */
     protected function isParameterOptional(
-        $paramKey,
-        $fullKey,
+        mixed $paramKey,
+        mixed $fullKey,
         array $parameters,
         array $shipmentRules
     ): bool {
@@ -79,8 +60,7 @@ abstract class BaseSanitization implements SanitizationInterface
             $requiredValidator = Validator::make($parameters, [
                 $fullKey => $requiredRules,
             ]);
-            $isOptional = !$requiredValidator->fails();
-            return $isOptional;
+            return !$requiredValidator->fails();
         }
         return true;
     }

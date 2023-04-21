@@ -10,8 +10,6 @@ class MultiColliShipmentRequest extends ShipmentRequest
      * Define callback functions to apply to the request data.
      * The original values will be overwritten by the callbacks.
      * By default all spaces will be removed from phone numbers.
-     *
-     * @return array
      */
     protected function sanitization(): array
     {
@@ -27,10 +25,7 @@ class MultiColliShipmentRequest extends ShipmentRequest
     }
 
     /**
-     * More intrusive sanitization rules should only modify the request data
-     * after validation has already occured.
-     *
-     * @return array
+     * More intrusive sanitization rules should only modify the request data after validation has already occurred.
      */
     protected function sanitizationAfterValidation(): array
     {
@@ -58,8 +53,6 @@ class MultiColliShipmentRequest extends ShipmentRequest
      *
      * See the laravel documentation for all available validation rules:
      * https://laravel.com/docs/8.x/validation#available-validation-rules
-     *
-     * @return array
      */
     protected function shipmentRules(): array
     {
@@ -90,12 +83,7 @@ class MultiColliShipmentRequest extends ShipmentRequest
         return $masterRules->merge($colliRules)->toArray();
     }
 
-    /**
-     * @param mixed  $rules
-     * @param string $replacement
-     * @return array
-     */
-    private function rewriteRules($rules, string $replacement): array
+    private function rewriteRules(mixed $rules, string $replacement): array
     {
         if (is_string($rules)) {
             $rules = explode('|', $rules);
@@ -111,12 +99,7 @@ class MultiColliShipmentRequest extends ShipmentRequest
         })->toArray();
     }
 
-    /**
-     * @param mixed  $rules
-     * @param string $replacement
-     * @return mixed
-     */
-    private function rewriteSanitization($rules, string $replacement)
+    private function rewriteSanitization(mixed $rules, string $replacement): mixed
     {
         if (is_array($rules)) {
             return collect($rules)->map(function ($rule) use ($replacement) {

@@ -16,18 +16,11 @@ use OpenTracing\Tracer;
 
 class CarrierSpanSubscriber
 {
-    private Tracer $tracer;
-
     private static ?Scope $scope = null;
 
-    /**
-     * Create the event listener.
-     *
-     * @param Tracer $tracer
-     */
-    public function __construct(Tracer $tracer)
-    {
-        $this->tracer = $tracer;
+    public function __construct(
+        private readonly Tracer $tracer,
+    ) {
     }
 
     public function start(MakingCarrierApiRequest $event): void
@@ -67,8 +60,6 @@ class CarrierSpanSubscriber
 
     /**
      * Register the listeners for the subscriber.
-     *
-     * @param Dispatcher $events
      */
     public function subscribe(Dispatcher $events): void
     {

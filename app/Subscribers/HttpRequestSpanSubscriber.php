@@ -25,21 +25,12 @@ use const OpenTracing\Formats\HTTP_HEADERS;
 
 class HttpRequestSpanSubscriber
 {
-    private Tracer $tracer;
-    private Request $request;
-
     private static ?Scope $scope = null;
 
-    /**
-     * Create the event listener.
-     *
-     * @param Tracer  $tracer
-     * @param Request $request
-     */
-    public function __construct(Tracer $tracer, Request $request)
-    {
-        $this->tracer = $tracer;
-        $this->request = $request;
+    public function __construct(
+        private readonly Tracer $tracer,
+        private readonly Request $request,
+    ) {
     }
 
     public function start(RouteMatched $event): void
@@ -81,8 +72,6 @@ class HttpRequestSpanSubscriber
 
     /**
      * Register the listeners for the subscriber.
-     *
-     * @param Dispatcher $events
      */
     public function subscribe(Dispatcher $events): void
     {

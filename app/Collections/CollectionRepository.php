@@ -11,22 +11,14 @@ use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
 
 class CollectionRepository
 {
-    /**
-     * @param CarrierApiGatewayInterface $carrierApiGateway
-     * @param CollectionMapper           $collectionMapper
-     */
     public function __construct(
-        private CarrierApiGatewayInterface $carrierApiGateway,
-        private CollectionMapper $collectionMapper,
+        private readonly CarrierApiGatewayInterface $carrierApiGateway,
+        private readonly CollectionMapper $collectionMapper,
     ) {
     }
 
     /**
      * Makes a Collection from the posted collection data and persists it.
-     *
-     * @param array $data
-     *
-     * @return Collection
      */
     public function createFromPostData(array $data): Collection
     {
@@ -38,11 +30,6 @@ class CollectionRepository
 
     /**
      * Updates a Collection and registers it with the carrier if necessary.
-     *
-     * @param string $collectionId
-     * @param array  $data
-     *
-     * @return Collection
      */
     public function updateFromPatchData(string $collectionId, array $data): Collection
     {

@@ -8,25 +8,11 @@ use Illuminate\Support\Arr;
 
 class MaxCharsSanitization extends BaseSanitization
 {
-    /** @var int */
-    private $maxChars;
-
-    /**
-     * @param int $maxChars
-     */
-    public function __construct(int $maxChars)
-    {
-        $this->maxChars = $maxChars;
+    public function __construct(
+        private readonly int $maxChars,
+    ) {
     }
 
-    /**
-     * Sanitize the incoming data.
-     *
-     * @param string $key
-     * @param array  $parameters
-     * @param array  $shipmentRules
-     * @return array $parameters
-     */
     public function sanitize(
         string $key,
         array $parameters,

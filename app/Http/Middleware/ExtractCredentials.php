@@ -13,15 +13,9 @@ use MyParcelCom\Microservice\Shipments\ShipmentRepository;
 
 class ExtractCredentials
 {
-    /** @var CarrierApiGatewayInterface */
-    private $gateway;
-
-    /**
-     * @param CarrierApiGatewayInterface $gateway
-     */
-    public function __construct(CarrierApiGatewayInterface $gateway)
-    {
-        $this->gateway = $gateway;
+    public function __construct(
+        private readonly CarrierApiGatewayInterface $gateway,
+    ) {
     }
 
     /**

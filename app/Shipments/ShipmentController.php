@@ -16,13 +16,6 @@ use MyParcelCom\Microservice\Http\ShipmentRequest;
 class ShipmentController extends Controller
 {
     /**
-     * Route that validates and creates a shipment.
-     *
-     * @param JsonRequestValidator $jsonRequestValidator
-     * @param ShipmentRepository   $repository
-     * @param ShipmentRequest      $request
-     * @param TransformerService   $transformerService
-     * @return JsonResponse
      * @throws InvalidJsonSchemaException
      * @throws TransformerException
      */
@@ -42,14 +35,6 @@ class ShipmentController extends Controller
         );
     }
 
-
-    /**
-     * @param JsonRequestValidator      $jsonRequestValidator
-     * @param ShipmentRepository        $repository
-     * @param MultiColliShipmentRequest $request
-     * @param TransformerService        $transformerService
-     * @return JsonResponse
-     */
     public function createMultiColli(
         JsonRequestValidator $jsonRequestValidator,
         ShipmentRepository $repository,
@@ -73,11 +58,7 @@ class ShipmentController extends Controller
         );
     }
 
-    /**
-     * @param string $shipmentId
-     * @return JsonResponse
-     */
-    public function void(string $shipmentId)
+    public function void(string $shipmentId): JsonResponse
     {
         // TODO: implement void / cancel functionality or return true if the carrier does not charge for unused labels.
         $voided = false;
