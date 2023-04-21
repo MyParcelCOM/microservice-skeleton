@@ -12,6 +12,9 @@ use MyParcelCom\Microservice\Tests\Mocks\CarrierApiGatewayMock;
 use PHPUnit\Framework\TestCase;
 use Psr\SimpleCache\CacheInterface;
 
+/**
+ * @group Implementation
+ */
 class PickUpDropOffLocationRepositoryTest extends TestCase
 {
     use MockeryPHPUnitIntegration;
@@ -31,13 +34,10 @@ class PickUpDropOffLocationRepositoryTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     * @group Implementation
-     */
+    /** @test */
     public function testGetAll()
     {
-        $resources = $this->pickUpDropOffLocationRepository->getAllByCountryAndPostalCode('UK', 'EC1A 1BB');
+        $resources = $this->pickUpDropOffLocationRepository->getAllByCountryAndPostalCode('GB', 'EC1A 1BB');
 
         $this->assertInstanceOf(ResourcesInterface::class, $resources);
     }
