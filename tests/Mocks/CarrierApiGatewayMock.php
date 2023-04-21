@@ -10,6 +10,7 @@ use Mockery;
 use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
 use PHPUnit\Framework\Exception;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
 
 class CarrierApiGatewayMock implements CarrierApiGatewayInterface
 {
@@ -24,12 +25,7 @@ class CarrierApiGatewayMock implements CarrierApiGatewayInterface
         ]));
     }
 
-    /**
-     * @param string $method
-     * @param string $url
-     * @return string
-     */
-    private function getResponseStub(string $method, string $url): string
+    private function getResponseStub(string $method, string $url): StreamInterface
     {
         $stubPath = base_path(
             'tests/Stubs/'
@@ -48,7 +44,9 @@ class CarrierApiGatewayMock implements CarrierApiGatewayInterface
             );
         }
 
-        return file_get_contents($stubPath);
+        return Mockery::mock(StreamInterface::class, [
+            '__toString' => file_get_contents($stubPath),
+        ]);
     }
 
     /**
