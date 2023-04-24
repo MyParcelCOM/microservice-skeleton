@@ -18,23 +18,14 @@ class Manifest
         'contact_json' => ContactJson::class,
     ];
 
-    /**
-     * @param string      $name
-     * @param AddressJson $address_json
-     * @param ContactJson $contact_json
-     * @param File[]      $files
-     */
     public function __construct(
         private string $name,
         private AddressJson $address_json,
         private ContactJson $contact_json,
-        private array $files = []
+        private array $files = [],
     ) {
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
@@ -69,17 +60,11 @@ class Manifest
         return $this;
     }
 
-    /**
-     * @return Collection
-     */
     public function getShipments(): Collection
     {
         // return $this->shipments;
     }
 
-    /**
-     * @return HasMany
-     */
     public function shipments(): HasMany
     {
         // return $this->hasMany(Shipment::class);

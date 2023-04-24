@@ -8,28 +8,12 @@ use Illuminate\Support\Arr;
 
 class MaxSumSanitization implements SanitizationInterface
 {
-    /** @var int|float */
-    private $maxSum;
-    /** @var array */
-    private $fieldKeys;
-
-    /**
-     * @param int|float $maxSum
-     * @param array     $fieldKeys
-     */
-    public function __construct($maxSum, array $fieldKeys)
-    {
-        $this->maxSum = $maxSum;
-        $this->fieldKeys = $fieldKeys;
+    public function __construct(
+        private readonly int|float $maxSum,
+        private readonly array $fieldKeys,
+    ) {
     }
 
-    /**
-     * Sanitize the incoming data.
-     *
-     * @param string $key
-     * @param array  $parameters
-     * @return array $parameters
-     */
     public function sanitize(string $key, array $parameters): array
     {
         $itemKeys = [];

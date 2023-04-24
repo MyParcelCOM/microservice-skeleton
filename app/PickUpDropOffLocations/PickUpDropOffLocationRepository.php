@@ -13,25 +13,12 @@ use Psr\SimpleCache\CacheInterface;
 
 class PickUpDropOffLocationRepository
 {
-    protected CarrierApiGatewayInterface $carrierApiGateway;
-    protected CacheInterface $cache;
-
-    public function __construct(CarrierApiGatewayInterface $carrierApiGateway, CacheInterface $cache)
-    {
-        $this->carrierApiGateway = $carrierApiGateway;
-        $this->cache = $cache;
+    public function __construct(
+        private readonly CarrierApiGatewayInterface $carrierApiGateway,
+        private readonly CacheInterface $cache,
+    ) {
     }
 
-    /**
-     * @param string      $countryCode
-     * @param string      $postalCode
-     * @param string|null $street
-     * @param string|null $streetNumber
-     * @param string|null $city
-     * @param array       $categories
-     * @param array       $features
-     * @return ResourcesInterface
-     */
     public function getAllByCountryAndPostalCode(
         string $countryCode,
         string $postalCode,
@@ -65,14 +52,6 @@ class PickUpDropOffLocationRepository
         // TODO: Return pudo points filtered by passed categories using the method `filterLocationsByCategories()`
     }
 
-    /**
-     * @param string   $latitude
-     * @param string   $longitude
-     * @param int|null $radius Radius is in meters
-     * @param array    $categories
-     * @param array    $features
-     * @return ResourcesInterface
-     */
     public function getAllByGeolocation(
         string $latitude,
         string $longitude,
@@ -100,14 +79,6 @@ class PickUpDropOffLocationRepository
         // TODO: Return pudo points filtered by passed categories using the method `filterLocationsByCategories()`
     }
 
-    /**
-     * @param Collection  $locations
-     * @param string|null $countryCode
-     * @param string|null $postalCode
-     * @param string|null $street
-     * @param string|null $streetNumber
-     * @param string|null $city
-     */
     protected function setCachedLocations(
         Collection $locations,
         ?string $countryCode,
@@ -123,13 +94,6 @@ class PickUpDropOffLocationRepository
 
     /**
      * Get the cached locations for given address. If no locations are cached return `null`.
-     *
-     * @param string|null $countryCode
-     * @param string|null $postalCode
-     * @param string|null $street
-     * @param string|null $streetNumber
-     * @param string|null $city
-     * @return Collection|null
      */
     protected function getCachedLocations(
         ?string $countryCode,
@@ -145,13 +109,6 @@ class PickUpDropOffLocationRepository
 
     /**
      * Return the cache key for the given address.
-     *
-     * @param string|null $countryCode
-     * @param string|null $postalCode
-     * @param string|null $street
-     * @param string|null $streetNumber
-     * @param string|null $city
-     * @return string
      */
     protected function getCacheKey(
         ?string $countryCode,
@@ -170,11 +127,6 @@ class PickUpDropOffLocationRepository
         ]));
     }
 
-    /**
-     * @param Collection $locations
-     * @param array      $categories
-     * @return Collection
-     */
     private function filterLocationsByCategories(Collection $locations, array $categories): Collection
     {
         if (!$categories) {
@@ -192,11 +144,6 @@ class PickUpDropOffLocationRepository
         });
     }
 
-    /**
-     * @param Collection $locations
-     * @param array      $features
-     * @return Collection
-     */
     private function filterLocationsByFeatures(Collection $locations, array $features): Collection
     {
         if (!$features) {
@@ -214,12 +161,6 @@ class PickUpDropOffLocationRepository
         });
     }
 
-
-    /**
-     * @param Collection $locations
-     * @param array      $locationTypes
-     * @return Collection
-     */
     private function filterLocationsByLocationType(Collection $locations, array $locationTypes): Collection
     {
         if (!$locationTypes) {

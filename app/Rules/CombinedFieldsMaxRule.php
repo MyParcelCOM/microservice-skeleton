@@ -10,10 +10,7 @@ use Illuminate\Validation\Validator;
 
 class CombinedFieldsMaxRule implements CustomRuleInterface
 {
-    /**
-     * @inheritDoc
-     */
-    public function validate(string $attribute, $value, array $parameters, Validator $validator): bool
+    public function validate(string $attribute, mixed $value, array $parameters, Validator $validator): bool
     {
         $maxLength = (int) array_shift($parameters);
 
@@ -35,12 +32,6 @@ class CombinedFieldsMaxRule implements CustomRuleInterface
 
     /**
      * Replace the placeholders in the error messages with custom attribute names.
-     *
-     * @param string $message
-     * @param string $attribute
-     * @param string $rule
-     * @param array  $parameters
-     * @return string
      */
     public function placeholders(string $message, string $attribute, string $rule, array $parameters): string
     {

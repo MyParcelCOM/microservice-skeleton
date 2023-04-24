@@ -46,18 +46,11 @@ class Collection extends Model
 
     public ?LaravelCollection $files = null;
 
-    /**
-     * @return string
-     */
     public function getId(): string
     {
         return $this->id;
     }
 
-    /**
-     * @param string $id
-     * @return $this
-     */
     public function setId(string $id): self
     {
         $this->id = $id;
@@ -83,18 +76,11 @@ class Collection extends Model
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getMyparcelcomCollectionId(): string
     {
         return $this->myparcelcom_collection_id;
     }
 
-    /**
-     * @param string $myparcelcomCollectionId
-     * @return $this
-     */
     public function setMyparcelcomCollectionId(string $myparcelcomCollectionId): self
     {
         $this->myparcelcom_collection_id = $myparcelcomCollectionId;
@@ -102,18 +88,11 @@ class Collection extends Model
         return $this;
     }
 
-    /**
-     * @return Carbon
-     */
     public function getCollectionTimeFrom(): Carbon
     {
         return $this->collection_time_from;
     }
 
-    /**
-     * @param Carbon $collectionTimeFrom
-     * @return $this
-     */
     public function setCollectionTimeFrom(Carbon $collectionTimeFrom): self
     {
         $this->collection_time_from = $collectionTimeFrom;
@@ -121,18 +100,11 @@ class Collection extends Model
         return $this;
     }
 
-    /**
-     * @return Carbon
-     */
     public function getCollectionTimeTo(): Carbon
     {
         return $this->collection_time_to;
     }
 
-    /**
-     * @param Carbon $collectionTimeTo
-     * @return $this
-     */
     public function setCollectionTimeTo(Carbon $collectionTimeTo): self
     {
         $this->collection_time_to = $collectionTimeTo;
@@ -140,18 +112,11 @@ class Collection extends Model
         return $this;
     }
 
-    /**
-     * @return AddressJson
-     */
     public function getAddressJson(): AddressJson
     {
         return $this->address_json;
     }
 
-    /**
-     * @param AddressJson $addressJson
-     * @return $this
-     */
     public function setAddressJson(AddressJson $addressJson): self
     {
         $this->address_json = $addressJson;
@@ -159,18 +124,11 @@ class Collection extends Model
         return $this;
     }
 
-    /**
-     * @return ContactJson
-     */
     public function getContactJson(): ContactJson
     {
         return $this->contact_json;
     }
 
-    /**
-     * @param ContactJson $contactJson
-     * @return $this
-     */
     public function setContactJson(ContactJson $contactJson): self
     {
         $this->contact_json = $contactJson;
@@ -178,18 +136,11 @@ class Collection extends Model
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getTrackingCode(): ?string
     {
         return $this->tracking_code;
     }
 
-    /**
-     * @param string|null $trackingCode
-     * @return $this
-     */
     public function setTrackingCode(?string $trackingCode): self
     {
         $this->tracking_code = $trackingCode;
@@ -197,18 +148,11 @@ class Collection extends Model
         return $this;
     }
 
-    /**
-     * @return Carbon|null
-     */
     public function getRegisteredAt(): ?Carbon
     {
         return $this->registered_at;
     }
 
-    /**
-     * @param Carbon $registeredAt
-     * @return $this
-     */
     public function setRegisteredAt(Carbon $registeredAt): self
     {
         $this->registered_at = $registeredAt;
@@ -216,18 +160,11 @@ class Collection extends Model
         return $this;
     }
 
-    /**
-     * @return LaravelCollection|null
-     */
     public function getFiles(): ?LaravelCollection
     {
         return $this->files;
     }
 
-    /**
-     * @param LaravelCollection|null $files
-     * @return $this
-     */
     public function setFiles(?LaravelCollection $files): self
     {
         $this->files = $files;
@@ -235,17 +172,11 @@ class Collection extends Model
         return $this;
     }
 
-    /**
-     * @return LaravelCollection
-     */
     public function getShipments(): LaravelCollection
     {
         // return $this->shipments;
     }
 
-    /**
-     * @return HasMany
-     */
     public function shipments(): HasMany
     {
         // return $this->hasMany(Shipment::class);

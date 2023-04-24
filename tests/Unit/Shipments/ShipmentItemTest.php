@@ -106,7 +106,6 @@ class ShipmentItemTest extends TestCase
         $this->assertEquals('USD', $item->getDutyCurrency());
     }
 
-
     /** @test */
     public function testVatPercentage()
     {

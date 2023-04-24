@@ -15,18 +15,12 @@ class ServiceRate
     private ?float $volumeMax = null;
     private ?Price $fuelSurcharge = null;
 
-    /**
-     * @param Price $price
-     * @param Price $purchasePrice
-     */
-    public function __construct(private Price $price, private Price $purchasePrice)
-    {
+    public function __construct(
+        private Price $price,
+        private Price $purchasePrice,
+    ) {
     }
 
-    /**
-     * @param string|null $code
-     * @return $this
-     */
     public function setCode(?string $code): self
     {
         $this->code = $code;
@@ -34,18 +28,11 @@ class ServiceRate
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getCode(): ?string
     {
         return $this->code;
     }
 
-    /**
-     * @param int|null $weightMin
-     * @return $this
-     */
     public function setWeightMin(?int $weightMin): self
     {
         $this->weightMin = $weightMin;
@@ -53,18 +40,11 @@ class ServiceRate
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
     public function getWeightMin(): ?int
     {
         return $this->weightMin;
     }
 
-    /**
-     * @param int|null $weightMax
-     * @return $this
-     */
     public function setWeightMax(?int $weightMax): self
     {
         $this->weightMax = $weightMax;
@@ -72,18 +52,11 @@ class ServiceRate
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
     public function getWeightMax(): ?int
     {
         return $this->weightMax;
     }
 
-    /**
-     * @param int|null $lengthMax
-     * @return $this
-     */
     public function setLengthMax(?int $lengthMax): self
     {
         $this->lengthMax = $lengthMax;
@@ -91,18 +64,11 @@ class ServiceRate
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
     public function getLengthMax(): ?int
     {
         return $this->lengthMax;
     }
 
-    /**
-     * @param int|null $widthMax
-     * @return $this
-     */
     public function setWidthMax(?int $widthMax): self
     {
         $this->widthMax = $widthMax;
@@ -110,18 +76,11 @@ class ServiceRate
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
     public function getWidthMax(): ?int
     {
         return $this->widthMax;
     }
 
-    /**
-     * @param int|null $heightMax
-     * @return $this
-     */
     public function setHeightMax(?int $heightMax): self
     {
         $this->heightMax = $heightMax;
@@ -129,18 +88,11 @@ class ServiceRate
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
     public function getHeightMax(): ?int
     {
         return $this->heightMax;
     }
 
-    /**
-     * @param float|null $volumeMax
-     * @return $this
-     */
     public function setVolumeMax(?float $volumeMax): self
     {
         $this->volumeMax = $volumeMax;
@@ -148,34 +100,21 @@ class ServiceRate
         return $this;
     }
 
-    /**
-     * @return float|null
-     */
     public function getVolumeMax(): ?float
     {
         return $this->volumeMax;
     }
 
-    /**
-     * @return Price
-     */
     public function getPrice(): Price
     {
         return $this->price;
     }
 
-    /**
-     * @return Price
-     */
     public function getPurchasePrice(): Price
     {
         return $this->purchasePrice;
     }
 
-    /**
-     * @param Price|null $price
-     * @return $this
-     */
     public function setFuelSurcharge(?Price $price): self
     {
         $this->fuelSurcharge = $price;
@@ -183,9 +122,6 @@ class ServiceRate
         return $this;
     }
 
-    /**
-     * @return Price|null
-     */
     public function getFuelSurcharge(): ?Price
     {
         return $this->fuelSurcharge;

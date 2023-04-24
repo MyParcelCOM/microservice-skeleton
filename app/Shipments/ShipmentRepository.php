@@ -5,28 +5,18 @@ declare(strict_types=1);
 namespace MyParcelCom\Microservice\Shipments;
 
 use Illuminate\Support\Arr;
-use MyParcelCom\JsonApi\Interfaces\MapperInterface;
 use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
 
 class ShipmentRepository
 {
-    protected MapperInterface $shipmentMapper;
-    protected CarrierApiGatewayInterface $carrierApiGateway;
-
     public function __construct(
-        CarrierApiGatewayInterface $carrierApiGateway,
-        ShipmentMapper $shipmentMapper,
+        private readonly CarrierApiGatewayInterface $carrierApiGateway,
+        private readonly ShipmentMapper $shipmentMapper,
     ) {
-        $this->carrierApiGateway = $carrierApiGateway;
-        $this->shipmentMapper = $shipmentMapper;
     }
 
     /**
      * Makes a shipment from the posted shipment data and persists it (by sending it to the carrier api).
-     *
-     * @param array $data
-     * @param array $meta
-     * @return Shipment
      */
     public function createFromPostData(array $data, array $meta = []): Shipment
     {
@@ -48,10 +38,6 @@ class ShipmentRepository
 
 //    /**
 //     * Makes a multi-colli shipment from the posted shipment data and persists it (by uploading it to the carrier FTP).
-//     *
-//     * @param array $data
-//     * @param array $meta
-//     * @return array
 //     */
 //    public function createFromMultiColliPostData(array $data, array $meta = []): array
 //    {
@@ -73,12 +59,6 @@ class ShipmentRepository
 //        ];
 //    }
 //
-//    /**
-//     * @param array $shipmentData
-//     * @param array $meta
-//     * @param bool  $isMaster
-//     * @return Shipment
-//     */
 //    private function initShipment(array $shipmentData, array $meta, bool $isMaster = false): Shipment
 //    {
 //        $shipment = $this->shipmentMapper->map($shipmentData, new Shipment());

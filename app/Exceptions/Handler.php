@@ -38,7 +38,7 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         // Fire an event to let the rest of the application know that an exception has occurred.
-        // Primary usecase is to close any lingering Jaeger spans,
+        // Primary use case is to close any lingering Jaeger spans,
         // that couldn't be closed because an exception interrupted the flow.
         event(ExceptionOccurred::class);
 
@@ -79,10 +79,6 @@ class Handler extends ExceptionHandler
         return Response::HTTP_INTERNAL_SERVER_ERROR;
     }
 
-    /**
-     * @param ValidationException $exception
-     * @return InvalidInputException
-     */
     private function mapValidationException(ValidationException $exception): InvalidInputException
     {
         $validator = $exception->validator;

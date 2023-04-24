@@ -6,24 +6,14 @@ namespace MyParcelCom\Microservice\PickUpDropOffLocations;
 
 class Position
 {
-    /** @var float */
-    protected $latitude;
+    protected ?float $latitude = null;
+    protected ?float $longitude = null;
 
-    /** @var float */
-    protected $longitude;
-
-    /**
-     * @return float|null
-     */
     public function getLatitude(): ?float
     {
         return $this->latitude;
     }
 
-    /**
-     * @param float $latitude
-     * @return $this
-     */
     public function setLatitude(float $latitude): self
     {
         $this->latitude = $latitude;
@@ -31,18 +21,11 @@ class Position
         return $this;
     }
 
-    /**
-     * @return float|null
-     */
     public function getLongitude(): ?float
     {
         return $this->longitude;
     }
 
-    /**
-     * @param float $longitude
-     * @return $this
-     */
     public function setLongitude(float $longitude): self
     {
         $this->longitude = $longitude;

@@ -10,8 +10,6 @@ class ShipmentRequest extends FormRequest
      * Define callback functions to apply to the request data.
      * The original values will be overwritten by the callbacks.
      * By default all spaces will be removed from phone numbers.
-     *
-     * @return array
      */
     protected function sanitization(): array
     {
@@ -28,10 +26,7 @@ class ShipmentRequest extends FormRequest
     }
 
     /**
-     * More intrusive sanitization rules should only modify the request data
-     * after validation has already occured.
-     *
-     * @return array
+     * More intrusive sanitization rules should only modify the request data after validation has already occurred.
      */
     protected function sanitizationAfterValidation(): array
     {
@@ -58,8 +53,6 @@ class ShipmentRequest extends FormRequest
      *
      * See the laravel documentation for all available validation rules:
      * https://laravel.com/docs/5.5/validation#available-validation-rules
-     *
-     * @return array
      */
     protected function shipmentRules(): array
     {

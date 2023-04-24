@@ -136,10 +136,6 @@ class ShipmentTransformer extends AbstractTransformer
         ]);
     }
 
-    /**
-     * @param Address $address
-     * @return array
-     */
     private function transformAddress(Address $address): array
     {
         return array_filter([

@@ -6,44 +6,27 @@ namespace MyParcelCom\Microservice\Shipments;
 
 class Service
 {
-    /** @var string */
-    protected $code;
+    protected string $code;
+    protected ?string $name = null;
 
-    /** @var string|null */
-    protected $name;
-
-    /**
-     * @return string
-     */
     public function getCode(): string
     {
         return $this->code;
     }
 
-    /**
-     * @param string $code
-     * @return $this
-     */
-    public function setCode(string $code): Service
+    public function setCode(string $code): self
     {
         $this->code = $code;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string|null $name
-     * @return Service
-     */
-    public function setName(?string $name): Service
+    public function setName(?string $name): self
     {
         $this->name = $name;
 

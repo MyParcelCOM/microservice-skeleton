@@ -8,22 +8,14 @@ use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
 
 class ManifestRepository
 {
-    /**
-     * @param CarrierApiGatewayInterface $carrierApiGateway
-     * @param ManifestMapper             $manifestMapper
-     */
     public function __construct(
-        private CarrierApiGatewayInterface $carrierApiGateway,
-        private ManifestMapper $manifestMapper,
+        private readonly CarrierApiGatewayInterface $carrierApiGateway,
+        private readonly ManifestMapper $manifestMapper,
     ) {
     }
 
     /**
      * Makes a manifest from the posted manifest data and persists it (by sending it to the carrier api).
-     *
-     * @param array $data
-     * @param array $meta
-     * @return Manifest
      */
     public function createFromPostData(array $data, array $meta = []): Manifest
     {

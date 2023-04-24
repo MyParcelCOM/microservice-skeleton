@@ -8,23 +8,12 @@ use Illuminate\Support\Arr;
 
 class BetweenCharsSanitization extends BaseSanitization
 {
-    /**
-     * @param int $maxChars
-     */
     public function __construct(
-        private int $minChars,
-        private int $maxChars
+        private readonly int $minChars,
+        private readonly int $maxChars,
     ) {
     }
 
-    /**
-     * Sanitize the incoming data.
-     *
-     * @param string $key
-     * @param array  $parameters
-     * @param array  $shipmentRules
-     * @return array $parameters
-     */
     public function sanitize(
         string $key,
         array $parameters,

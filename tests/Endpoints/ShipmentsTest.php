@@ -39,9 +39,7 @@ class ShipmentsTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function testPostValidMultiColliShipment()
     {
         $this->markTestIncomplete('This test has not been implemented yet.');

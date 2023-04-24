@@ -13,23 +13,16 @@ use stdClass;
 
 class JsonRequestValidator
 {
-    protected Request $request;
-    protected stdClass $schema;
-    protected Validator $validator;
-
-    public function __construct(Request $request, stdClass $schema, Validator $validator)
-    {
-        $this->request = $request;
-        $this->schema = $schema;
-        $this->validator = $validator;
+    public function __construct(
+        protected Request $request,
+        protected stdClass $schema,
+        protected Validator $validator,
+    ) {
     }
 
     /**
      * Validates currently set Request with schema for given path.
      *
-     * @param string      $schemaPath
-     * @param string|null $method
-     * @param string|null $accept
      * @throws InvalidJsonSchemaException
      * @throws ResourceConflictException
      */
