@@ -56,11 +56,6 @@ class CollectionMapper implements MapperInterface
         return $collection;
     }
 
-    /**
-     * @param array      $relationships
-     * @param Collection $collection
-     * @return $this
-     */
     private function mapRelationships(array $relationships, Collection $collection): void
     {
 //        if (array_key_exists('shipments', $relationships)) {

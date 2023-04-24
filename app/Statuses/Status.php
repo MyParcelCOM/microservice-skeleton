@@ -16,37 +16,23 @@ class Status
     private ?PhysicalProperties $physicalProperties = null;
     private ?string $newTrackingCode = null;
 
-    /**
-     * @return string|null
-     */
     public function getId(): ?string
     {
         return $this->id;
     }
 
-    /**
-     * @param string $id
-     * @return $this
-     */
-    public function setId(string $id)
+    public function setId(string $id): self
     {
         $this->id = $id;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getCode(): ?string
     {
         return $this->code;
     }
 
-    /**
-     * @param string|null $code
-     * @return $this
-     */
     public function setCode(?string $code): self
     {
         $this->code = $code;
@@ -54,18 +40,11 @@ class Status
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    /**
-     * @param string $description
-     * @return $this
-     */
     public function setDescription(string $description): self
     {
         $this->description = $description;
@@ -78,28 +57,18 @@ class Status
         return $this->category;
     }
 
-    /**
-     * @param string $category
-     * @return $this
-     */
     public function setCategory(string $category): self
     {
         $this->category = $category;
+
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
     public function getTimestamp(): ?int
     {
         return $this->timestamp;
     }
 
-    /**
-     * @param int $timestamp
-     * @return $this
-     */
     public function setTimestamp(int $timestamp): self
     {
         $this->timestamp = $timestamp;
@@ -107,18 +76,11 @@ class Status
         return $this;
     }
 
-    /**
-     * @return PhysicalProperties|null
-     */
     public function getPhysicalProperties(): ?PhysicalProperties
     {
         return $this->physicalProperties;
     }
 
-    /**
-     * @param PhysicalProperties $physicalProperties
-     * @return $this
-     */
     public function setPhysicalProperties(PhysicalProperties $physicalProperties): self
     {
         $this->physicalProperties = $physicalProperties;

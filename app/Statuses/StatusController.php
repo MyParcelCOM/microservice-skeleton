@@ -11,13 +11,6 @@ use MyParcelCom\Microservice\Http\Controllers\Controller;
 
 class StatusController extends Controller
 {
-    /**
-     * @param string             $shipmentId
-     * @param string             $trackingCode
-     * @param StatusRepository   $statusRepository
-     * @param TransformerService $transformerService
-     * @return JsonResponse
-     */
     public function getStatuses(
         string $shipmentId,
         string $trackingCode,

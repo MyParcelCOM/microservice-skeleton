@@ -8,32 +8,13 @@ use Illuminate\Support\Arr;
 
 class MaxCharsCombinedSanitization implements SanitizationInterface
 {
-    /** @var int */
-    private $maxChars;
-    /** @var array */
-    private $fieldKeys;
-    /** @var string */
-    private $spacer;
-
-    /**
-     * @param int    $maxChars
-     * @param array  $fieldKeys
-     * @param string $spacer
-     */
-    public function __construct(int $maxChars, array $fieldKeys, string $spacer = ' ')
-    {
-        $this->maxChars = $maxChars;
-        $this->fieldKeys = $fieldKeys;
-        $this->spacer = $spacer;
+    public function __construct(
+        private readonly int $maxChars,
+        private readonly array $fieldKeys,
+        private readonly string $spacer = ' ',
+    ) {
     }
 
-    /**
-     * Sanitize the incoming data.
-     *
-     * @param string $key
-     * @param array  $parameters
-     * @return array $parameters
-     */
     public function sanitize(string $key, array $parameters): array
     {
         $itemKeys = [];

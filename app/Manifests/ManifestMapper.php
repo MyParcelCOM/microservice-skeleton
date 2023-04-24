@@ -32,11 +32,6 @@ class ManifestMapper implements MapperInterface
         return $manifest;
     }
 
-    /**
-     * @param array    $relationships
-     * @param Manifest $manifest
-     * @return $this
-     */
     private function mapRelationships(array $relationships, Manifest $manifest): void
     {
 //        if (array_key_exists('shipments', $relationships)) {

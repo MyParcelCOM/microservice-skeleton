@@ -56,9 +56,6 @@ class CollectionController
     }
 
     /**
-     * @param string               $collectionId
-     * @param CollectionRepository $repository
-     * @return JsonResponse
      * @throws ResourceNotFoundException
      */
     public function void(

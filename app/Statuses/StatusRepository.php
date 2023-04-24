@@ -9,19 +9,11 @@ use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
 
 class StatusRepository
 {
-    protected CarrierApiGatewayInterface $carrierApiGateway;
-
     public function __construct(
-        CarrierApiGatewayInterface $carrierApiGateway,
+        private readonly CarrierApiGatewayInterface $carrierApiGateway,
     ) {
-        $this->carrierApiGateway = $carrierApiGateway;
     }
 
-    /**
-     * @param string $shipmentId
-     * @param string $trackingCode
-     * @return ResourcesInterface
-     */
     public function getStatuses(string $shipmentId, string $trackingCode): ResourcesInterface
     {
         // TODO: Get statuses for given shipment/tracking_code from carrier (use CarrierApiGateway).

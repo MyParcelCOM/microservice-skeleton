@@ -9,14 +9,11 @@ use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
 
 class ServiceRateRepository
 {
-    public function __construct(private CarrierApiGatewayInterface $carrierApiGateway)
-    {
+    public function __construct(
+        private readonly CarrierApiGatewayInterface $carrierApiGateway,
+    ) {
     }
 
-    /**
-     * @param array $data
-     * @return ResourcesInterface
-     */
     public function getServiceRates(array $data): ResourcesInterface
     {
         // TODO: Get service rates for given shipment from carrier (use CarrierApiGateway).

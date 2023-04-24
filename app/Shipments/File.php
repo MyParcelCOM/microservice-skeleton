@@ -6,30 +6,16 @@ namespace MyParcelCom\Microservice\Shipments;
 
 class File
 {
-    /** @var string */
-    private $type;
+    private string $type;
+    private ?string $mimeType = null;
+    private ?string $extension = null;
+    private string $data;
 
-    /** @var string|null */
-    private $mimeType;
-
-    /** @var string|null */
-    private $extension;
-
-    /** @var string */
-    private $data;
-
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @param string $type
-     * @return $this
-     */
     public function setType(string $type): self
     {
         $this->type = $type;
@@ -37,18 +23,11 @@ class File
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getMimeType(): ?string
     {
         return $this->mimeType;
     }
 
-    /**
-     * @param string|null $mimeType
-     * @return $this
-     */
     public function setMimeType(?string $mimeType): self
     {
         $this->mimeType = $mimeType;
@@ -56,18 +35,11 @@ class File
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getExtension(): ?string
     {
         return $this->extension;
     }
 
-    /**
-     * @param string|null $extension
-     * @return $this
-     */
     public function setExtension(?string $extension): self
     {
         $this->extension = $extension;
@@ -77,8 +49,6 @@ class File
 
     /**
      * Get the base64 encoded file data.
-     *
-     * @return string
      */
     public function getData(): string
     {
@@ -87,9 +57,6 @@ class File
 
     /**
      * Set the file data (should be base64 encoded string).
-     *
-     * @param string $data
-     * @return $this
      */
     public function setData(string $data): self
     {
@@ -98,10 +65,6 @@ class File
         return $this;
     }
 
-    /**
-     * @param string $path
-     * @return $this
-     */
     public function setDataFromPath(string $path): self
     {
         $this->data = base64_encode(

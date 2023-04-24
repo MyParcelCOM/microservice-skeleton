@@ -4,19 +4,11 @@ namespace MyParcelCom\Microservice\Events;
 
 class MakingCarrierApiRequest
 {
-    /**
-     * Create a new event instance.
-     *
-     * @param string $context
-     * @param string $url
-     * @param string $method
-     * @param mixed  $body
-     */
     public function __construct(
-        private string $url,
-        private string $method,
-        private string $context = 'Carrier API request',
-        private $body = null
+        private readonly string $url,
+        private readonly string $method,
+        private readonly string $context = 'Carrier API request',
+        private readonly mixed $body = null,
     ) {
     }
 

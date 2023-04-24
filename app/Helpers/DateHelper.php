@@ -25,9 +25,6 @@ class DateHelper
 
     /**
      * Checks if given string is a valid date string
-     *
-     * @param string $string
-     * @return bool
      */
     public static function isDateString(string $string): bool
     {
@@ -40,13 +37,6 @@ class DateHelper
         return false;
     }
 
-    /**
-     * Converts given date string to given format
-     *
-     * @param string $dateString
-     * @param string $format
-     * @return string
-     */
     public static function convertDateStringToFormat(string $dateString, string $format = 'Y-m-d'): string
     {
         try {

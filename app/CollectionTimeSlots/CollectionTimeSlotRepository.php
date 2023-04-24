@@ -26,16 +26,12 @@ class CollectionTimeSlotRepository
 {
     /**
      * In-memory cache for holiday checker objects
-     *
-     * @var array
      */
     private static array $holidayCheckers = [];
 
-    /**
-     * @param CarrierApiGatewayInterface $carrierApiGateway
-     */
-    public function __construct(private CarrierApiGatewayInterface $carrierApiGateway)
-    {
+    public function __construct(
+        private readonly CarrierApiGatewayInterface $carrierApiGateway,
+    ) {
     }
 
     public function getCollectionTimeSlots(
@@ -95,9 +91,6 @@ class CollectionTimeSlotRepository
     }
 
     /**
-     * @param string $countryCode
-     * @param Carbon $date
-     * @return bool
      * @throws RuntimeException
      * @throws InvalidArgumentException
      * @throws UnknownLocaleException

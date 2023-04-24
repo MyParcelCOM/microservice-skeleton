@@ -17,23 +17,11 @@ use Psr\Http\Message\ResponseInterface;
 
 class CarrierApiGateway implements CarrierApiGatewayInterface
 {
-    /** @var HttpClient */
-    private $httpClient;
-
-    /**
-     * Constructor.
-     * Note: Uses constructor dependency injection.
-     *
-     * @param HttpClient $httpClient
-     */
-    public function __construct(HttpClient $httpClient)
-    {
-        $this->httpClient = $httpClient;
+    public function __construct(
+        private readonly HttpClient $httpClient,
+    ) {
     }
 
-    /**
-     * @inheritDoc
-     */
     public function get(string $endpoint, array $queryParams = [], array $headers = []): PromiseInterface
     {
         $options = $this->initRequestOptions($queryParams, $headers);
@@ -45,9 +33,6 @@ class CarrierApiGateway implements CarrierApiGatewayInterface
         );
     }
 
-    /**
-     * @inheritDoc
-     */
     public function post(string $endpoint, array $data, array $queryParams = [], array $headers = []): PromiseInterface
     {
         $options = $this->initRequestOptions($queryParams, $headers, [
@@ -61,9 +46,6 @@ class CarrierApiGateway implements CarrierApiGatewayInterface
         );
     }
 
-    /**
-     * @inheritDoc
-     */
     public function setCredentials(array $credentials): CarrierApiGatewayInterface
     {
         // TODO: Store needed API credentials in one or more class variables
@@ -79,9 +61,6 @@ class CarrierApiGateway implements CarrierApiGatewayInterface
         ], $extraOptions);
     }
 
-    /**
-     * @param ResponseInterface $response
-     */
     private function handleCarrierErrors(ResponseInterface $response)
     {
         $mapper = new ErrorMapper();
@@ -101,11 +80,6 @@ class CarrierApiGateway implements CarrierApiGatewayInterface
         }
     }
 
-    /**
-     * @param PromiseInterface $requestPromise
-     * @return PromiseInterface
-     * @throws LogicException
-     */
     private function handleResponse(PromiseInterface $requestPromise): PromiseInterface
     {
         return $requestPromise
