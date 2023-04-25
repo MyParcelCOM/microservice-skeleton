@@ -148,7 +148,7 @@ class ShipmentMapperTest extends TestCase
             })
             ->shouldReceive('addOption')
             ->withArgs(function (Option $option) {
-                return $option->getCode() === 'delivery-day:sunday'
+                return $option->getCode() === 'delivery-window:sunday'
                     && $option->getName() === 'Sunday Delivery';
             })
             ->once()

@@ -81,7 +81,7 @@
       },
       "options": [
         {
-          "code": "delivery-day:sunday",
+          "code": "delivery-window:sunday",
           "name": "Sunday Delivery"
         },
         {
