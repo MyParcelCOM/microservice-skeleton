@@ -29,12 +29,14 @@ class StatusPublisher
     private function formatMessages(array $statuses): array
     {
         return array_map(function (Status $status) {
-        $shipmentId = $status->shipment()->first()->getId();
+            $shipmentId = $status->shipment()->first()->getId();
+
             return [
                 'MessageGroupId' => env('APP_NAME'),
                 'Message'        => [
-                    'shipment_id' => $shipmentId,
-                    'status'      => $status,
+                    'shipment_id'   => $shipmentId,
+                    'status'        => $status,
+                    'postpone_poll' => false,
                 ],
             ];
         }, $statuses);
