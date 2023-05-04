@@ -24,6 +24,7 @@ use MyParcelCom\Microservice\Rules\CombinedFieldsMaxRule;
 use MyParcelCom\Microservice\Rules\RequiredIfInternationalRule;
 use MyParcelCom\Microservice\Statuses\StatusPublisher;
 use Psr\Log\LoggerInterface;
+use function app;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -77,11 +78,12 @@ class AppServiceProvider extends ServiceProvider
         });
 
         // Todo: Uncomment this when implementing SNS.
-//        $this->app->bind(StatusPublisher::class, function () {
+//        $this->app->bind(StatusPublisher::class, function (Container $app) {
 //            $snsClient = new SnsClient(config('sns'));
 //
 //            return new StatusPublisher(
-//                $snsClient
+//                $snsClient,
+//                $app->make(TransformerService::class)
 //            );
 //        });
     }

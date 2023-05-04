@@ -4,18 +4,23 @@ namespace MyParcelCom\Microservice\Statuses;
 
 use Aws\Sns\SnsClient;
 use GuzzleHttp\Promise\Promise;
+use MyParcelCom\JsonApi\Transformers\TransformerException;
+use MyParcelCom\JsonApi\Transformers\TransformerService;
 use MyParcelCom\Microservice\Shipments\Shipment;
 use function array_map;
 
-class StatusPublisher
+readonly class StatusPublisher
 {
-    public function __construct(private readonly SnsClient $snsClient)
-    {
+    public function __construct(
+        private SnsClient $snsClient,
+        private TransformerService $transformerService
+    ) {
     }
 
     /**
      * @param Status[] $statuses
      * @return Promise
+     * @throws TransformerException
      */
     public function publish(array $statuses): Promise
     {
@@ -25,6 +30,7 @@ class StatusPublisher
     /**
      * @param Status[] $statuses
      * @return array
+     * @throws TransformerException
      */
     private function formatMessages(array $statuses): array
     {
@@ -35,7 +41,7 @@ class StatusPublisher
                 'MessageGroupId' => env('APP_NAME'),
                 'Message'        => [
                     'shipment_id'   => $shipmentId,
-                    'status'        => $status,
+                    'status'        => $this->transformerService->transformResource($status),
                     'postpone_poll' => false,
                 ],
             ];
