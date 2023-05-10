@@ -7,7 +7,6 @@ namespace MyParcelCom\Microservice\Tests\Feature;
 use Aws\Sns\SnsClient;
 use GuzzleHttp\Promise\Promise;
 use Mockery;
-use MyParcelCom\JsonApi\Transformers\TransformerFactory;
 use MyParcelCom\JsonApi\Transformers\TransformerService;
 use MyParcelCom\Microservice\Statuses\Status;
 use MyParcelCom\Microservice\Statuses\StatusPublisher;
@@ -24,14 +23,14 @@ class StatusPublisherTest extends TestCase
 
         $transformerService = Mockery::mock(TransformerService::class);
         $transformerService->shouldReceive('transformResource')->andReturn([
-            'shipment_id'   => 'shipment-id',
-            'status'        => [
+            'shipment_id' => 'shipment-id',
+            'status'      => [
                 'id'          => 'status-id',
                 'code'        => 'status-code',
                 'description' => 'status-description',
                 'category'    => 'status-category',
                 'timestamp'   => 123456789,
-            ]
+            ],
         ]);
 
         $this->snsClient = Mockery::mock(SnsClient::class);
@@ -41,10 +40,38 @@ class StatusPublisherTest extends TestCase
     /** @test */
     public function itShouldTransformAStatusMessage(): void
     {
-        $status = Mockery::mock(Status::class);
+        $status = Mockery::mock(Status::class, [
+            'id'          => 'status-id',
+            'code'        => 'status-code',
+            'description' => 'status-description',
+            'category'    => 'status-category',
+            'timestamp'   => 123456789,
+        ]);
+
         $status->shouldReceive('shipment->first->getId')->once()->andReturn('shipment-id');
 
-        $this->snsClient->shouldReceive('publishBatchAsync')->once()->andReturn(new Promise());
+        $this->snsClient->shouldReceive('publishBatchAsync')
+            ->once()
+            ->with([
+                [
+                    'MessageGroupId' => 'MyParcel.com Microservice',
+                    'Message'        => [
+                        'shipment_id'   => 'shipment-id',
+                        'status'        => [
+                            'shipment_id' => 'shipment-id',
+                            'status'      => [
+                                'id'          => 'status-id',
+                                'code'        => 'status-code',
+                                'description' => 'status-description',
+                                'category'    => 'status-category',
+                                'timestamp'   => 123456789,
+                            ],
+                        ],
+                        'postpone_poll' => false,
+                    ]
+                ]
+            ])
+            ->andReturn(new Promise());
         $this->statusPublisher->publish([$status]);
     }
 }

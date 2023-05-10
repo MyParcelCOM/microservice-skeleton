@@ -8,6 +8,7 @@ use MyParcelCom\JsonApi\Transformers\TransformerException;
 use MyParcelCom\JsonApi\Transformers\TransformerService;
 use MyParcelCom\Microservice\Shipments\Shipment;
 use function array_map;
+use function env;
 
 readonly class StatusPublisher
 {
@@ -35,12 +36,10 @@ readonly class StatusPublisher
     private function formatMessages(array $statuses): array
     {
         return array_map(function (Status $status) {
-            $shipmentId = $status->shipment()->first()->getId();
-
             return [
                 'MessageGroupId' => env('APP_NAME'),
                 'Message'        => [
-                    'shipment_id'   => $shipmentId,
+                    'shipment_id' => $status->shipment()->first()->getId(),
                     'status'        => $this->transformerService->transformResource($status),
                     'postpone_poll' => false,
                 ],
