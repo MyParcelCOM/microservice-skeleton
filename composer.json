@@ -10,6 +10,7 @@
     "php": ">=8.2",
     "ext-json": "*",
     "ext-redis": "*",
+    "aws/aws-sdk-php": "^3.268",
     "azuyalabs/yasumi": "^2.5",
     "fideloper/proxy": "^4.2",
     "guzzlehttp/guzzle": "^7.3",
