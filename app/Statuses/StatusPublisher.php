@@ -10,11 +10,11 @@ use MyParcelCom\Microservice\Shipments\Shipment;
 use function array_map;
 use function env;
 
-readonly class StatusPublisher
+class StatusPublisher
 {
     public function __construct(
-        private SnsClient $snsClient,
-        private TransformerService $transformerService
+        readonly private SnsClient $snsClient,
+        readonly private TransformerService $transformerService
     ) {
     }
 
