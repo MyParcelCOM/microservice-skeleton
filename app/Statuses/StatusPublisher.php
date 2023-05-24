@@ -37,7 +37,7 @@ readonly class StatusPublisher
     {
         return array_map(function (Status $status) {
             return [
-                'MessageGroupId' => env('APP_NAME'),
+                'MessageGroupId' => config('app.name'),
                 'Message'        => [
                     'shipment_id' => $status->shipment()->first()->getId(),
                     'status'        => $this->transformerService->transformResource($status),

@@ -54,7 +54,7 @@ class StatusPublisherTest extends TestCase
             ->once()
             ->with([
                 [
-                    'MessageGroupId' => 'MyParcel.com Microservice',
+                    'MessageGroupId' => config('app.name'),
                     'Message'        => [
                         'shipment_id'   => 'shipment-id',
                         'status'        => [
