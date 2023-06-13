@@ -27,7 +27,6 @@ class StatusMessage
 
         return [
             'Id'             => $this->id,
-            'MessageGroupId' => config('app.name'),
             'Message'        => json_encode($message, JSON_THROW_ON_ERROR),
         ];
     }

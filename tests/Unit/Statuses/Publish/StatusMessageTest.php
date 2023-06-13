@@ -10,7 +10,7 @@ use MyParcelCom\JsonApi\Transformers\TransformerService;
 use MyParcelCom\Microservice\Statuses\Publish\PostponePoll;
 use MyParcelCom\Microservice\Statuses\Publish\StatusMessage;
 use MyParcelCom\Microservice\Statuses\Status;
-use MyParcelCom\Microservice\Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 class StatusMessageTest extends TestCase
@@ -45,7 +45,6 @@ class StatusMessageTest extends TestCase
 
         $expected = [
             'Id'             => $id,
-            'MessageGroupId' => env('APP_NAME'),
             // message is json encoded string
             'Message'        => "{\"shipment_id\":\"{$shipmentId}\",\"status\":{\"data\":{\"type\":\"statuses\",\"attributes\":{\"code\":\"test\"}}},\"postpone_poll\":\"PT1H2M3S\"}",
         ];

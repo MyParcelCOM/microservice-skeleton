@@ -13,7 +13,7 @@ use MyParcelCom\Microservice\Statuses\Publish\PostponePoll;
 use MyParcelCom\Microservice\Statuses\Publish\Publisher;
 use MyParcelCom\Microservice\Statuses\Publish\StatusMessage;
 use MyParcelCom\Microservice\Statuses\Status;
-use MyParcelCom\Microservice\Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class PublisherTest extends TestCase
 {
@@ -29,7 +29,6 @@ class PublisherTest extends TestCase
                 'PublishBatchRequestEntries' => [
                     [
                         'Id'             => 'test',
-                        'MessageGroupId' => env('APP_NAME'),
                         // Message is encoded json
                         'Message'        => '{"shipment_id":"test","status":{"data":{"type":"statuses","attributes":{"code":"test"}}},"postpone_poll":"PT1H2M3S"}',
                     ],
