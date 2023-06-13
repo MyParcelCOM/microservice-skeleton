@@ -11,7 +11,7 @@ use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use MyParcelCom\JsonApi\Transformers\TransformerService;
 use MyParcelCom\Microservice\Statuses\Publish\PostponePoll;
 use MyParcelCom\Microservice\Statuses\Publish\Publisher;
-use MyParcelCom\Microservice\Statuses\Publish\StatusesMessage;
+use MyParcelCom\Microservice\Statuses\Publish\StatusMessage;
 use MyParcelCom\Microservice\Statuses\Status;
 use MyParcelCom\Microservice\Tests\TestCase;
 
@@ -26,19 +26,12 @@ class PublisherTest extends TestCase
             ->shouldReceive('publishBatchAsync')
             ->once()
             ->with([
-                [
-                    'MessageGroupId' => env('APP_NAME'),
-                    'Message'        => [
-                        'shipment_id'   => 'test',
-                        'status'        => [
-                            'data' => [
-                                'type'       => 'statuses',
-                                'attributes' => [
-                                    'code' => 'test',
-                                ],
-                            ],
-                        ],
-                        'postpone_poll' => 'PT1H2M3S',
+                'PublishBatchRequestEntries' => [
+                    [
+                        'Id'             => 'test',
+                        'MessageGroupId' => env('APP_NAME'),
+                        // Message is encoded json
+                        'Message'        => '{"shipment_id":"test","status":{"data":{"type":"statuses","attributes":{"code":"test"}}},"postpone_poll":"PT1H2M3S"}',
                     ],
                 ],
             ])
@@ -61,7 +54,8 @@ class PublisherTest extends TestCase
         $publisher = new Publisher($snsClient, $transformerService);
 
         $publisher->publish(
-            new StatusesMessage(
+            new StatusMessage(
+                'test',
                 'test',
                 Mockery::mock(PostponePoll::class, ['serialize' => 'PT1H2M3S']),
                 Mockery::mock(Status::class),
