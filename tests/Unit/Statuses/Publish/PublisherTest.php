@@ -33,6 +33,7 @@ class PublisherTest extends TestCase
                         'Message'        => '{"shipment_id":"test","status":{"data":{"type":"statuses","attributes":{"code":"test"}}},"postpone_poll":"PT1H2M3S"}',
                     ],
                 ],
+                'TopicArn'                   => 'test',
             ])
             ->andReturn(Mockery::mock(Promise::class));
 
@@ -53,6 +54,7 @@ class PublisherTest extends TestCase
         $publisher = new Publisher($snsClient, $transformerService);
 
         $publisher->publish(
+            'test',
             new StatusMessage(
                 'test',
                 'test',
