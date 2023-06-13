@@ -22,9 +22,7 @@ use MyParcelCom\Microservice\Exceptions\Handler;
 use MyParcelCom\Microservice\Http\Request;
 use MyParcelCom\Microservice\Rules\CombinedFieldsMaxRule;
 use MyParcelCom\Microservice\Rules\RequiredIfInternationalRule;
-use MyParcelCom\Microservice\Statuses\StatusPublisher;
 use Psr\Log\LoggerInterface;
-use function app;
 
 class AppServiceProvider extends ServiceProvider
 {
