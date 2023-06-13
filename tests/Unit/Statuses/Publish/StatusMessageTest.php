@@ -5,22 +5,25 @@ declare(strict_types=1);
 namespace MyParcelCom\Microservice\Tests\Unit\Statuses\Publish;
 
 use Mockery;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use MyParcelCom\JsonApi\Transformers\TransformerService;
 use MyParcelCom\Microservice\Statuses\Publish\PostponePoll;
-use MyParcelCom\Microservice\Statuses\Publish\StatusesMessage;
+use MyParcelCom\Microservice\Statuses\Publish\StatusMessage;
 use MyParcelCom\Microservice\Statuses\Status;
-use MyParcelCom\Microservice\Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-class StatusesMessageTest extends TestCase
+class StatusMessageTest extends TestCase
 {
-    use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+    use MockeryPHPUnitIntegration;
 
-    public function testItSerializesStatusesMessageWithShipmentIdPostponePollAndStatuses(): void
+    public function testItSerializesStatusMessageWithIdShipmentIdPostponePollAndStatuses(): void
     {
+        $id = Uuid::uuid4()->toString();
         $shipmentId = Uuid::uuid4()->toString();
 
-        $statusesMessage = new StatusesMessage(
+        $statusesMessage = new StatusMessage(
+            $id,
             $shipmentId,
             Mockery::mock(PostponePoll::class, ['serialize' => 'PT1H2M3S']),
             Mockery::mock(Status::class),
@@ -41,21 +44,9 @@ class StatusesMessageTest extends TestCase
             ]);
 
         $expected = [
-            [
-                'MessageGroupId' => env('APP_NAME'),
-                'Message'        => [
-                    'shipment_id'   => $shipmentId,
-                    'status'        => [
-                        'data' => [
-                            'type'       => 'statuses',
-                            'attributes' => [
-                                'code' => 'test',
-                            ],
-                        ],
-                    ],
-                    'postpone_poll' => 'PT1H2M3S',
-                ],
-            ],
+            'Id'             => $id,
+            // message is json encoded string
+            'Message'        => "{\"shipment_id\":\"{$shipmentId}\",\"status\":{\"data\":{\"type\":\"statuses\",\"attributes\":{\"code\":\"test\"}}},\"postpone_poll\":\"PT1H2M3S\"}",
         ];
 
         self::assertEquals($expected, $statusesMessage->serialize($transformerService));

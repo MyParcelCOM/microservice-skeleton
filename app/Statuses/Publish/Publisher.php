@@ -15,13 +15,16 @@ class Publisher
     }
 
     /**
-     * @param StatusesMessage $message
+     * @param StatusMessage ...$messages
      * @return Promise
      */
-    public function publish(StatusesMessage $message): Promise
+    public function publish(StatusMessage ...$messages): Promise
     {
-        return $this->snsClient->publishBatchAsync(
-            $message->serialize($this->transformerService)
-        );
+        return $this->snsClient->publishBatchAsync([
+            'PublishBatchRequestEntries' => array_map(
+                fn (StatusMessage $message) => $message->serialize($this->transformerService),
+                $messages
+            )
+        ]);
     }
 }
