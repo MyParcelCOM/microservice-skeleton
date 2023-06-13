@@ -17,9 +17,9 @@ class StatusesMessage
     public function __construct(
         public readonly string $shipmentId,
         public readonly PostponePoll $postponePoll,
-        Status ...$status,
+        Status ...$statuses,
     ) {
-        $this->statuses = $status;
+        $this->statuses = $statuses;
     }
 
     public function serialize(TransformerService $transformerService): array
