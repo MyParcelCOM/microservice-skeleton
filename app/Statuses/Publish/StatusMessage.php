@@ -14,12 +14,14 @@ class StatusMessage
         public readonly string $shipmentId,
         public readonly PostponePoll $postponePoll,
         public readonly Status $status,
+        public readonly ?string $origin = null,
     ) {
     }
 
     public function serialize(TransformerService $transformerService): array
     {
         $message = [
+            'origin'        => $this->origin ?? config('app.name'),
             'shipment_id'   => $this->shipmentId,
             'status'        => $transformerService->transformResource($this->status),
             'postpone_poll' => $this->postponePoll->serialize(),
