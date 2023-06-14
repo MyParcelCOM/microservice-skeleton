@@ -30,7 +30,7 @@ class PublisherTest extends TestCase
                     [
                         'Id'             => 'test',
                         // Message is encoded json
-                        'Message'        => '{"shipment_id":"test","status":{"data":{"type":"statuses","attributes":{"code":"test"}}},"postpone_poll":"PT1H2M3S"}',
+                        'Message'        => '{"origin":"test-origin","shipment_id":"test","status":{"data":{"type":"statuses","attributes":{"code":"test"}}},"postpone_poll":"PT1H2M3S"}',
                     ],
                 ],
                 'TopicArn'                   => 'test',
@@ -60,6 +60,7 @@ class PublisherTest extends TestCase
                 'test',
                 Mockery::mock(PostponePoll::class, ['serialize' => 'PT1H2M3S']),
                 Mockery::mock(Status::class),
+                'test-origin',
             )
         );
     }

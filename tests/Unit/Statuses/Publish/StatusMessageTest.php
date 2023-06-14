@@ -27,6 +27,7 @@ class StatusMessageTest extends TestCase
             $shipmentId,
             Mockery::mock(PostponePoll::class, ['serialize' => 'PT1H2M3S']),
             Mockery::mock(Status::class),
+            'test-origin',
         );
 
         $transformerService = Mockery::mock(TransformerService::class);
@@ -46,7 +47,7 @@ class StatusMessageTest extends TestCase
         $expected = [
             'Id'             => $id,
             // message is json encoded string
-            'Message'        => "{\"shipment_id\":\"{$shipmentId}\",\"status\":{\"data\":{\"type\":\"statuses\",\"attributes\":{\"code\":\"test\"}}},\"postpone_poll\":\"PT1H2M3S\"}",
+            'Message'        => "{\"origin\":\"test-origin\",\"shipment_id\":\"{$shipmentId}\",\"status\":{\"data\":{\"type\":\"statuses\",\"attributes\":{\"code\":\"test\"}}},\"postpone_poll\":\"PT1H2M3S\"}",
         ];
 
         self::assertEquals($expected, $statusesMessage->serialize($transformerService));
