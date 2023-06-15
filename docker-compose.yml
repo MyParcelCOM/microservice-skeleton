@@ -7,7 +7,7 @@ services:
       dockerfile: docker/app/Dockerfile
       args:
         REGISTRY: ${REGISTRY}
-    image: myparcelcom/microservice:v9-dev
+    image: myparcelcom/microservice-skeleton:v1-dev
     working_dir: /opt/app
     env_file: .env.xdebug
     environment:
