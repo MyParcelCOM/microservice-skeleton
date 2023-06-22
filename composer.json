@@ -12,6 +12,7 @@
     "ext-redis": "*",
     "aws/aws-sdk-php": "^3.268",
     "azuyalabs/yasumi": "^2.5",
+    "doctrine/dbal": "^3.6",
     "fideloper/proxy": "^4.2",
     "guzzlehttp/guzzle": "^7.3",
     "jonahgeorge/jaeger-client-php": "^1.2",
