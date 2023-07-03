@@ -13,12 +13,9 @@ class VerifySecret
     /**
      * Handle an incoming request.
      *
-     * @param Request $request
-     * @param Closure $next
-     * @return mixed
      * @throws InvalidSecretException
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next): mixed
     {
         $receivedSecret = $request->header('X-MYPARCELCOM-SECRET');
         $expectedSecret = config('app.secret');

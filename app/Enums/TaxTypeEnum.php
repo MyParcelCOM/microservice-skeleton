@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MyParcelCom\Microservice\Enums;
 
 use MyCLabs\Enum\Enum;

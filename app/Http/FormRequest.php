@@ -22,8 +22,7 @@ class FormRequest extends BaseFormRequest
      */
     public function __construct(
         protected readonly bool $suspendValidation = false,
-    )
-    {
+    ) {
         parent::__construct();
     }
 
