@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace MyParcelCom\Microservice\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class JsonApiResponseHeader
 {
     /**
      * Handle an outgoing response.
      */
-    public function handle(Request $request, Closure $next): JsonResponse
+    public function handle(Request $request, Closure $next): Response
     {
-        /** @var JsonResponse $response */
+        /** @var Response $response */
         $response = $next($request);
 
         if ($response->headers->get('Content-Type') === 'application/json') {
