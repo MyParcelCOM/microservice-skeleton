@@ -29,6 +29,10 @@ class ExtractCredentialsTest extends TestCase
         $middleware = new ExtractCredentials($gateway);
 
         $request = Mockery::mock(Request::class)
+            ->shouldReceive('hasHeader')
+            ->once()
+            ->with('X-MYPARCELCOM-CREDENTIALS')
+            ->andReturn(true)
             ->shouldReceive('header')
             ->once()
             ->with('X-MYPARCELCOM-CREDENTIALS')

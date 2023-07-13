@@ -7,6 +7,7 @@ namespace MyParcelCom\Microservice\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use MyParcelCom\JsonApi\Exceptions\InvalidHeaderException;
 use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
 use MyParcelCom\Microservice\Http\ShipmentRequest;
 use MyParcelCom\Microservice\Shipments\ShipmentRepository;
@@ -21,12 +22,14 @@ class ExtractCredentials
     /**
      * Handle an incoming request.
      *
-     * @param Request $request
-     * @param Closure $next
-     * @return mixed
+     * @throws InvalidHeaderException
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next): mixed
     {
+        if (!$request->hasHeader('X-MYPARCELCOM-CREDENTIALS')) {
+            throw new InvalidHeaderException('Missing `X-MYPARCELCOM-CREDENTIALS` header.');
+        }
+
         $credentials = json_decode($request->header('X-MYPARCELCOM-CREDENTIALS'), true);
 
         app()
