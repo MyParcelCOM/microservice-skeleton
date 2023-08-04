@@ -44,7 +44,7 @@ if [ ! -f ${ROOT_DIR}/.env ]; then
 fi
 IFS=$'\n' && export $(grep -v '^#' ${ROOT_DIR}/.env | xargs -0) && unset IFS
 
-COMPOSE="docker compose --compatibility"
+COMPOSE="docker-compose"
 
 if [ $# -gt 0 ]; then
   createMicronet
