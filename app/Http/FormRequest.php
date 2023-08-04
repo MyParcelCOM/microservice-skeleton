@@ -118,7 +118,7 @@ class FormRequest extends BaseFormRequest
         $this->getInputSource()->replace($this->all());
     }
 
-    private function defaultRules(): array
+    protected function defaultRules(): array
     {
         return [];
     }
