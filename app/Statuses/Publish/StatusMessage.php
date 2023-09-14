@@ -11,25 +11,29 @@ class StatusMessage
 {
     public function __construct(
         public readonly string $id,
-        public readonly string $shipmentId,
         public readonly PostponePoll $postponePoll,
         public readonly Status $status,
+        public readonly ?string $shipmentId = null,
+        public readonly ?string $trackingCode = null,
+        public readonly ?string $myParcelComShipmentId = null,
         public readonly ?string $origin = null,
     ) {
     }
 
     public function serialize(TransformerService $transformerService): array
     {
-        $message = [
-            'origin'        => $this->origin ?? config('app.name'),
-            'shipment_id'   => $this->shipmentId,
-            'status'        => $transformerService->transformResource($this->status),
-            'postpone_poll' => $this->postponePoll->serialize(),
-        ];
+        $message = array_filter([
+            'origin'                  => $this->origin ?? config('app.name'),
+            'shipment_id'             => $this->shipmentId,
+            'tracking_code'           => $this->trackingCode,
+            'myparcelcom_shipment_id' => $this->myParcelComShipmentId,
+            'status'                  => $transformerService->transformResource($this->status),
+            'postpone_poll'           => $this->postponePoll->serialize(),
+        ]);
 
         return [
-            'Id'             => $this->id,
-            'Message'        => json_encode($message, JSON_THROW_ON_ERROR),
+            'Id'      => $this->id,
+            'Message' => json_encode($message, JSON_THROW_ON_ERROR),
         ];
     }
 }
