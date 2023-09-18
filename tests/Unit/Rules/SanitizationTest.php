@@ -9,6 +9,7 @@ use MyParcelCom\Microservice\Rules\Sanitization\MaxCharsCombinedSanitization;
 use MyParcelCom\Microservice\Rules\Sanitization\MaxCharsSanitization;
 use MyParcelCom\Microservice\Rules\Sanitization\MaxMultipliedSanitization;
 use MyParcelCom\Microservice\Rules\Sanitization\MaxSumSanitization;
+use MyParcelCom\Microservice\Rules\Sanitization\NullifyIfInvalidSanitization;
 use MyParcelCom\Microservice\Rules\Sanitization\WithinRangeSanitization;
 use MyParcelCom\Microservice\Tests\TestCase;
 
@@ -309,5 +310,51 @@ class SanitizationTest extends TestCase
         ]);
         $this->assertEquals('abćX', data_get($sanitized, 'test.0.input'));
         $this->assertEquals('abćdef', data_get($sanitized, 'test.1.input'));
+    }
+
+    /** @test */
+    public function testNullifyIfInvalidSanitizationWorks()
+    {
+        // Test that valid input doesn't change
+        $sanitization = new NullifyIfInvalidSanitization();
+        $sanitized = $sanitization->sanitize(
+            'test.input',
+            ['test' => ['input' => '+39312345678']],
+            [
+                'test.input' => ['regex:/(^(\(?(((\+)|00)39)?\)?(3)(\d{8,9}))$)/'],
+                'test.other' => 'required|string|min:5',
+            ]
+        );
+        $this->assertEquals('+39312345678', data_get($sanitized, 'test.input'));
+
+        // If input is not valid, the value should get nullified
+        $sanitization = new NullifyIfInvalidSanitization();
+        $sanitized = $sanitization->sanitize(
+            'test.input',
+            ['test' => ['input' => '+49312345678']],
+            [
+                'test.input' => ['regex:/(^(\(?(((\+)|00)39)?\)?(3)(\d{8,9}))$)/'],
+                'test.other' => 'required|string|min:5',
+            ]
+        );
+        $this->assertNull(data_get($sanitized, 'test.input'));
+
+        // Test that wrong input gets corrected for arrays
+        $sanitization = new NullifyIfInvalidSanitization();
+        $sanitized = $sanitization->sanitize('test.*.input', [
+            'test' => [
+                [
+                    'input' => '+39312345678',
+                ],
+                [
+                    'input' => '+49312345678',
+                ],
+            ],
+        ], [
+            'test.*.input' => ['regex:/(^(\(?(((\+)|00)39)?\)?(3)(\d{8,9}))$)/'],
+            'test.other' => 'required|string|min:5',
+        ]);
+        $this->assertEquals('+39312345678', data_get($sanitized, 'test.0.input'));
+        $this->assertNull(data_get($sanitized, 'test.1.input'));
     }
 }
