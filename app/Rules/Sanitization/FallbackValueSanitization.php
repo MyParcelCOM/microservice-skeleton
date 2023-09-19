@@ -7,8 +7,13 @@ namespace MyParcelCom\Microservice\Rules\Sanitization;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 
-class NullifyIfInvalidSanitization extends BaseSanitization
+class FallbackValueSanitization extends BaseSanitization
 {
+    public function __construct(
+        private readonly mixed $defaultValue,
+    ) {
+    }
+
     public function sanitize(
         string $key,
         array $parameters,
@@ -34,9 +39,9 @@ class NullifyIfInvalidSanitization extends BaseSanitization
                     Arr::only($shipmentRules, $key)
                 );
 
-                // Nullify value if validation fails
+                // Fallback to default value if validation fails
                 if ($validator->fails()) {
-                    Arr::set($parameters, $singleKey, null);
+                    Arr::set($parameters, $singleKey, $this->defaultValue);
                 }
             }
         }

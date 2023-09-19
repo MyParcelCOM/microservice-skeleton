@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace MyParcelCom\Microservice\Tests\Unit\Rules;
 
 use MyParcelCom\Microservice\Rules\Sanitization\BetweenCharsSanitization;
+use MyParcelCom\Microservice\Rules\Sanitization\FallbackValueSanitization;
 use MyParcelCom\Microservice\Rules\Sanitization\MaxCharsCombinedSanitization;
 use MyParcelCom\Microservice\Rules\Sanitization\MaxCharsSanitization;
 use MyParcelCom\Microservice\Rules\Sanitization\MaxMultipliedSanitization;
 use MyParcelCom\Microservice\Rules\Sanitization\MaxSumSanitization;
-use MyParcelCom\Microservice\Rules\Sanitization\NullifyIfInvalidSanitization;
 use MyParcelCom\Microservice\Rules\Sanitization\WithinRangeSanitization;
 use MyParcelCom\Microservice\Tests\TestCase;
 
@@ -313,34 +313,46 @@ class SanitizationTest extends TestCase
     }
 
     /** @test */
-    public function testNullifyIfInvalidSanitizationWorks()
+    public function testFallbackValueSanitizationWorks()
     {
         // Test that valid input doesn't change
-        $sanitization = new NullifyIfInvalidSanitization();
+        $sanitization = new FallbackValueSanitization(null);
         $sanitized = $sanitization->sanitize(
             'test.input',
             ['test' => ['input' => '+39312345678']],
             [
-                'test.input' => ['regex:/(^(\(?(((\+)|00)39)?\)?(3)(\d{8,9}))$)/'],
+                'test.input' => ['regex:/\+3\d+/'],
                 'test.other' => 'required|string|min:5',
             ]
         );
         $this->assertEquals('+39312345678', data_get($sanitized, 'test.input'));
 
-        // If input is not valid, the value should get nullified
-        $sanitization = new NullifyIfInvalidSanitization();
+        // If input is not valid, the value should get set to the fallback
+        $sanitization = new FallbackValueSanitization('fallback');
         $sanitized = $sanitization->sanitize(
             'test.input',
             ['test' => ['input' => '+49312345678']],
             [
-                'test.input' => ['regex:/(^(\(?(((\+)|00)39)?\)?(3)(\d{8,9}))$)/'],
+                'test.input' => ['regex:/\+3\d+/'],
+                'test.other' => 'required|string|min:5',
+            ]
+        );
+        $this->assertEquals('fallback', data_get($sanitized, 'test.input'));
+
+        // Same as above, but with null as the fallback
+        $sanitization = new FallbackValueSanitization(null);
+        $sanitized = $sanitization->sanitize(
+            'test.input',
+            ['test' => ['input' => '+49312345678']],
+            [
+                'test.input' => ['regex:/\+3\d+/'],
                 'test.other' => 'required|string|min:5',
             ]
         );
         $this->assertNull(data_get($sanitized, 'test.input'));
 
         // Test that wrong input gets corrected for arrays
-        $sanitization = new NullifyIfInvalidSanitization();
+        $sanitization = new FallbackValueSanitization(123);
         $sanitized = $sanitization->sanitize('test.*.input', [
             'test' => [
                 [
@@ -351,10 +363,10 @@ class SanitizationTest extends TestCase
                 ],
             ],
         ], [
-            'test.*.input' => ['regex:/(^(\(?(((\+)|00)39)?\)?(3)(\d{8,9}))$)/'],
+            'test.*.input' => ['regex:/\+3\d+/'],
             'test.other' => 'required|string|min:5',
         ]);
         $this->assertEquals('+39312345678', data_get($sanitized, 'test.0.input'));
-        $this->assertNull(data_get($sanitized, 'test.1.input'));
+        $this->assertEquals(123, data_get($sanitized, 'test.1.input'));
     }
 }
