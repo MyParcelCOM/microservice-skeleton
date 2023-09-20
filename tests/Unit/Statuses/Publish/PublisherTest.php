@@ -13,7 +13,7 @@ use MyParcelCom\Microservice\Statuses\Publish\PostponePoll;
 use MyParcelCom\Microservice\Statuses\Publish\Publisher;
 use MyParcelCom\Microservice\Statuses\Publish\StatusMessage;
 use MyParcelCom\Microservice\Statuses\Status;
-use PHPUnit\Framework\TestCase;
+use MyParcelCom\Microservice\Tests\TestCase;
 
 class PublisherTest extends TestCase
 {
@@ -23,8 +23,7 @@ class PublisherTest extends TestCase
     {
         $snsClient = Mockery::mock(SnsClient::class);
         $snsClient
-            ->shouldReceive('publishBatchAsync')
-            ->once()
+            ->expects('publishBatchAsync')
             ->with([
                 'PublishBatchRequestEntries' => [
                     [
@@ -35,14 +34,13 @@ class PublisherTest extends TestCase
                 ],
                 'TopicArn'                   => 'test',
             ])
-            ->andReturn(Mockery::mock(Promise::class));
+            ->andReturns(Mockery::mock(Promise::class));
 
         $transformerService = Mockery::mock(TransformerService::class);
         $transformerService
-            ->shouldReceive('transformResource')
-            ->once()
+            ->expects('transformResource')
             ->with(Mockery::type(Status::class))
-            ->andReturn([
+            ->andReturns([
                 'data' => [
                     'type'       => 'statuses',
                     'attributes' => [
@@ -56,11 +54,11 @@ class PublisherTest extends TestCase
         $publisher->publish(
             'test',
             new StatusMessage(
-                'test',
-                'test',
-                Mockery::mock(PostponePoll::class, ['serialize' => 'PT1H2M3S']),
-                Mockery::mock(Status::class),
-                'test-origin',
+                id: 'test',
+                postponePoll: Mockery::mock(PostponePoll::class, ['serialize' => 'PT1H2M3S']),
+                status: Mockery::mock(Status::class),
+                shipmentId: 'test',
+                origin: 'test-origin',
             )
         );
     }

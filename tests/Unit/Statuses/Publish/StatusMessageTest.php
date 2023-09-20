@@ -23,11 +23,11 @@ class StatusMessageTest extends TestCase
         $shipmentId = Uuid::uuid4()->toString();
 
         $statusesMessage = new StatusMessage(
-            $id,
-            $shipmentId,
-            Mockery::mock(PostponePoll::class, ['serialize' => 'PT1H2M3S']),
-            Mockery::mock(Status::class),
-            'test-origin',
+            id: $id,
+            postponePoll: Mockery::mock(PostponePoll::class, ['serialize' => 'PT1H2M3S']),
+            status: Mockery::mock(Status::class),
+            shipmentId: $shipmentId,
+            origin: 'test-origin',
         );
 
         $transformerService = Mockery::mock(TransformerService::class);
@@ -45,9 +45,9 @@ class StatusMessageTest extends TestCase
             ]);
 
         $expected = [
-            'Id'             => $id,
+            'Id'      => $id,
             // message is json encoded string
-            'Message'        => "{\"origin\":\"test-origin\",\"shipment_id\":\"{$shipmentId}\",\"status\":{\"data\":{\"type\":\"statuses\",\"attributes\":{\"code\":\"test\"}}},\"postpone_poll\":\"PT1H2M3S\"}",
+            'Message' => "{\"origin\":\"test-origin\",\"shipment_id\":\"{$shipmentId}\",\"status\":{\"data\":{\"type\":\"statuses\",\"attributes\":{\"code\":\"test\"}}},\"postpone_poll\":\"PT1H2M3S\"}",
         ];
 
         self::assertEquals($expected, $statusesMessage->serialize($transformerService));
