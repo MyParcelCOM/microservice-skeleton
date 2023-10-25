@@ -8,6 +8,7 @@ use DateInterval;
 use Illuminate\Support\Collection;
 use MyParcelCom\JsonApi\Resources\CollectionResources;
 use MyParcelCom\JsonApi\Resources\Interfaces\ResourcesInterface;
+use MyParcelCom\JsonApi\Resources\PromiseResources;
 use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
 use Psr\SimpleCache\CacheInterface;
 
@@ -77,6 +78,15 @@ class PickUpDropOffLocationRepository
         // TODO: Map data to PickUpDropOffLocation objects.
         // TODO: Put PickUpDropOffLocation objects in an object that implements ResourcesInterface.
         // TODO: Return pudo points filtered by passed categories using the method `filterLocationsByCategories()`
+    }
+
+    public function getById(string $pickUpDropOffLocationId): ResourcesInterface
+    {
+        // TODO: Get the pudo point from carrier (use CarrierApiGateway).
+        // TODO: Map data to PickUpDropOffLocation object.
+        // TODO: Return PickUpDropOffLocation object in an object that implements ResourcesInterface.
+
+        return new CollectionResources(new Collection());
     }
 
     protected function setCachedLocations(

@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace MyParcelCom\Microservice\PickUpDropOffLocations;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use MyParcelCom\JsonApi\Transformers\TransformerService;
 use MyParcelCom\Microservice\Http\Controllers\Controller;
 use MyParcelCom\Microservice\Http\Request;
+use MyParcelCom\Microservice\PickUpDropOffLocations\PickUpDropOffLocationRepository;
 
 class PickUpDropOffLocationController extends Controller
 {
@@ -17,7 +19,7 @@ class PickUpDropOffLocationController extends Controller
         TransformerService $transformerService,
         Request $request,
         string $countryCode,
-        string $postalCode
+        string $postalCode,
     ): JsonResponse {
         $filters = $request->getFilter();
         $categories = array_filter(explode(',', Arr::get($filters, 'categories', '')));
@@ -32,7 +34,7 @@ class PickUpDropOffLocationController extends Controller
             $request->query('city'),
             $categories,
             $features,
-            $locationType
+            $locationType,
         );
 
         $response = $transformerService->transformResources($pudoLocations);
@@ -45,7 +47,7 @@ class PickUpDropOffLocationController extends Controller
         TransformerService $transformerService,
         Request $request,
         string $latitude,
-        string $longitude
+        string $longitude,
     ): JsonResponse {
         $filters = $request->getFilter();
         $categories = array_filter(explode(',', Arr::get($filters, 'categories', '')));
@@ -59,11 +61,24 @@ class PickUpDropOffLocationController extends Controller
             $radius,
             $categories,
             $features,
-            $locationType
+            $locationType,
         );
 
         $response = $transformerService->transformResources($pudoLocations);
 
         return new JsonResponse($response);
+    }
+
+    public function getOne(
+        PickUpDropOffLocationRepository $pickUpDropOffLocationRepository,
+        TransformerService $transformerService,
+        string $pickUpDropOffLocationId,
+    ): JsonResponse|Response {
+        $location = $pickUpDropOffLocationRepository->getById($pickUpDropOffLocationId);
+        if ($location->count()) {
+            return new JsonResponse($transformerService->transformResources($location));
+        }
+
+        return new Response('', Response::HTTP_NOT_FOUND);
     }
 }

@@ -41,4 +41,14 @@ class PickUpDropOffLocationRepositoryTest extends TestCase
 
         $this->assertInstanceOf(ResourcesInterface::class, $resources);
     }
+
+    /** @test */
+    public function testGetById()
+    {
+        $this->markTestSkipped();
+
+        $resources = $this->pickUpDropOffLocationRepository->getById('pudo-location-id');
+
+        $this->assertInstanceOf(ResourcesInterface::class, $resources);
+    }
 }
