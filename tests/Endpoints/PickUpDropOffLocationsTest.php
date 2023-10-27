@@ -33,23 +33,23 @@ class PickUpDropOffLocationsTest extends TestCase
         $this->assertJsonSchema(
             '/pickup-dropoff-locations/{country_code}/{postal_code}',
             '/pickup-dropoff-locations/GB/B694DA',
-            $this->getRequestHeaders()
+            $this->getRequestHeaders(),
         );
         $this->assertJsonDataCount(
             2, // TODO: Update this according to the used stub.
             '/pickup-dropoff-locations/GB/B694DA',
-            $this->getRequestHeaders()
+            $this->getRequestHeaders(),
         );
 
         $this->assertJsonSchema(
             '/pickup-dropoff-locations/{latitude}/{longitude}',
             '/pickup-dropoff-locations/52.359686/4.884573',
-            $this->getRequestHeaders()
+            $this->getRequestHeaders(),
         );
         $this->assertJsonDataCount(
             2, // TODO: Update this according to the used stub.
             '/pickup-dropoff-locations/52.359686/4.884573',
-            $this->getRequestHeaders()
+            $this->getRequestHeaders(),
         );
     }
 
@@ -61,12 +61,12 @@ class PickUpDropOffLocationsTest extends TestCase
         $response = $this->assertJsonSchema(
             '/pickup-dropoff-locations/{country_code}/{postal_code}',
             '/pickup-dropoff-locations/GB/EC1A 1BB?filter[categories]=pick-up',
-            $this->getRequestHeaders()
+            $this->getRequestHeaders(),
         );
         $this->assertJsonDataCount(
             2, // TODO: Update this according to the used stub.
             '/pickup-dropoff-locations/GB/EC1A 1BB?filter[categories]=pick-up',
-            $this->getRequestHeaders()
+            $this->getRequestHeaders(),
         );
         $locations = $response->json('data');
         array_walk($locations, function ($pudoPoint) {
@@ -78,12 +78,12 @@ class PickUpDropOffLocationsTest extends TestCase
         $response = $this->assertJsonSchema(
             '/pickup-dropoff-locations/{latitude}/{longitude}',
             '/pickup-dropoff-locations/52.359686/4.884573?filter[categories]=pick-up',
-            $this->getRequestHeaders()
+            $this->getRequestHeaders(),
         );
         $this->assertJsonDataCount(
             2, // TODO: Update this according to the used stub.
             '/pickup-dropoff-locations/52.359686/4.884573?filter[categories]=pick-up',
-            $this->getRequestHeaders()
+            $this->getRequestHeaders(),
         );
         $locations = $response->json('data');
         array_walk($locations, function ($pudoPoint) {
@@ -99,12 +99,12 @@ class PickUpDropOffLocationsTest extends TestCase
         $response = $this->assertJsonSchema(
             '/pickup-dropoff-locations/{country_code}/{postal_code}',
             '/pickup-dropoff-locations/GB/EC1A 1BB?filter[categories]=drop-off',
-            $this->getRequestHeaders()
+            $this->getRequestHeaders(),
         );
         $this->assertJsonDataCount(
             2, // TODO: Update this according to the used stub.
             '/pickup-dropoff-locations/GB/EC1A 1BB?filter[categories]=drop-off',
-            $this->getRequestHeaders()
+            $this->getRequestHeaders(),
         );
         $locations = $response->json('data');
         array_walk($locations, function ($pudoPoint) {
@@ -116,12 +116,12 @@ class PickUpDropOffLocationsTest extends TestCase
         $response = $this->assertJsonSchema(
             '/pickup-dropoff-locations/{latitude}/{longitude}',
             '/pickup-dropoff-locations/52.359686/4.884573?filter[categories]=drop-off',
-            $this->getRequestHeaders()
+            $this->getRequestHeaders(),
         );
         $this->assertJsonDataCount(
             2, // TODO: Update this according to the used stub.
             '/pickup-dropoff-locations/52.359686/4.884573?filter[categories]=drop-off',
-            $this->getRequestHeaders()
+            $this->getRequestHeaders(),
         );
         $locations = $response->json('data');
         array_walk($locations, function ($pudoPoint) {
@@ -137,12 +137,12 @@ class PickUpDropOffLocationsTest extends TestCase
         $response = $this->assertJsonSchema(
             '/pickup-dropoff-locations/{country_code}/{postal_code}',
             '/pickup-dropoff-locations/GB/EC1A 1BB?filter[categories]=pick-up,drop-off',
-            $this->getRequestHeaders()
+            $this->getRequestHeaders(),
         );
         $this->assertJsonDataCount(
             2, // TODO: Update this according to the used stub.
             '/pickup-dropoff-locations/GB/EC1A 1BB?filter[categories]=pick-up,drop-off',
-            $this->getRequestHeaders()
+            $this->getRequestHeaders(),
         );
         $locations = $response->json('data');
         array_walk($locations, function ($pudoPoint) {
@@ -155,12 +155,12 @@ class PickUpDropOffLocationsTest extends TestCase
         $response = $this->assertJsonSchema(
             '/pickup-dropoff-locations/{latitude}/{longitude}',
             '/pickup-dropoff-locations/52.359686/4.884573?filter[categories]=pick-up,drop-off',
-            $this->getRequestHeaders()
+            $this->getRequestHeaders(),
         );
         $this->assertJsonDataCount(
             2, // TODO: Update this according to the used stub.
             '/pickup-dropoff-locations/52.359686/4.884573?filter[categories]=pick-up,drop-off',
-            $this->getRequestHeaders()
+            $this->getRequestHeaders(),
         );
         $locations = $response->json('data');
         array_walk($locations, function ($pudoPoint) {
@@ -175,25 +175,54 @@ class PickUpDropOffLocationsTest extends TestCase
         $this->assertJsonSchema(
             '/pickup-dropoff-locations/{latitude}/{longitude}',
             '/pickup-dropoff-locations/52.359686/4.884573?filter[features]=print-label-in-store',
-            $this->getRequestHeaders()
+            $this->getRequestHeaders(),
         );
 
         $this->assertJsonDataCount(
             10, // TODO: Update this according to the used stub.
             '/pickup-dropoff-locations/52.359686/4.884573?filter[features]=print-label-in-store',
-            $this->getRequestHeaders()
+            $this->getRequestHeaders(),
         );
 
         $this->assertJsonSchema(
             '/pickup-dropoff-locations/{country_code}/{postal_code}',
             '/pickup-dropoff-locations/GB/EC1A 1BB?filter[features]=print-label-in-store',
-            $this->getRequestHeaders()
+            $this->getRequestHeaders(),
         );
 
         $this->assertJsonDataCount(
             10, // TODO: Update this according to the used stub.
             '/pickup-dropoff-locations/GB/EC1A 1BB?filter[features]=print-label-in-store',
-            $this->getRequestHeaders()
+            $this->getRequestHeaders(),
         );
+    }
+
+    /** @test */
+    public function itRetrievesAPickUpAndDropOffLocationById()
+    {
+        $this->markTestSkipped();
+
+        $pudoLocationId = 'pudo-location-id'; // TODO: Update this according to the used stub.
+        $this->assertJsonSchema(
+            "/pickup-dropoff-locations/{pudo_id}",
+            "/pickup-dropoff-locations/$pudoLocationId",
+            $this->getRequestHeaders(),
+        );
+
+        $this->assertJsonDataCount(
+            1,
+            "/pickup-dropoff-locations/$pudoLocationId",
+            $this->getRequestHeaders(),
+        );
+    }
+
+    /** @test */
+    public function itReturns404IfNoPudoLocationsAreFound()
+    {
+        $this->markTestSkipped();
+
+        $pudoLocationId = 'non-existent-pudo-location-id';
+        $this->get("/pickup-dropoff-locations/$pudoLocationId", $this->getRequestHeaders())
+            ->assertNotFound();
     }
 }
