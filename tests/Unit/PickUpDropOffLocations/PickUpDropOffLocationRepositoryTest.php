@@ -7,6 +7,7 @@ namespace MyParcelCom\Microservice\Tests\Unit\PickUpDropOffLocations;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use MyParcelCom\JsonApi\Resources\Interfaces\ResourcesInterface;
+use MyParcelCom\Microservice\PickUpDropOffLocations\PickUpDropOffLocation;
 use MyParcelCom\Microservice\PickUpDropOffLocations\PickUpDropOffLocationRepository;
 use MyParcelCom\Microservice\Tests\Mocks\CarrierApiGatewayMock;
 use PHPUnit\Framework\TestCase;
@@ -43,12 +44,22 @@ class PickUpDropOffLocationRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function testGetById()
+    public function testGetByIdReturnsModel()
     {
         $this->markTestSkipped();
 
-        $resources = $this->pickUpDropOffLocationRepository->getById('pudo-location-id');
+        $pudoLocation = $this->pickUpDropOffLocationRepository->getById('pudo-location-id');
 
-        $this->assertInstanceOf(ResourcesInterface::class, $resources);
+        $this->assertInstanceOf(PickUpDropOffLocation::class, $pudoLocation);
+    }
+
+    /** @test */
+    public function testGetByIdReturnsNull()
+    {
+        $this->markTestSkipped();
+
+        $pudoLocation = $this->pickUpDropOffLocationRepository->getById('pudo-location-id');
+
+        $this->assertNull($pudoLocation);
     }
 }
