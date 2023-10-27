@@ -75,8 +75,8 @@ class PickUpDropOffLocationController extends Controller
         string $pickUpDropOffLocationId,
     ): JsonResponse|Response {
         $location = $pickUpDropOffLocationRepository->getById($pickUpDropOffLocationId);
-        if ($location->count()) {
-            return new JsonResponse($transformerService->transformResources($location));
+        if ($location) {
+            return new JsonResponse($transformerService->transformResource($location));
         }
 
         return new Response('', Response::HTTP_NOT_FOUND);

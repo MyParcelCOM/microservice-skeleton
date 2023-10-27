@@ -80,13 +80,13 @@ class PickUpDropOffLocationRepository
         // TODO: Return pudo points filtered by passed categories using the method `filterLocationsByCategories()`
     }
 
-    public function getById(string $pickUpDropOffLocationId): ResourcesInterface
+    public function getById(string $pickUpDropOffLocationId): ?PickUpDropOffLocation
     {
         // TODO: Get the pudo point from carrier (use CarrierApiGateway).
         // TODO: Map data to PickUpDropOffLocation object.
         // TODO: Return PickUpDropOffLocation object in an object that implements ResourcesInterface.
 
-        return new CollectionResources(new Collection());
+        return null;
     }
 
     protected function setCachedLocations(
