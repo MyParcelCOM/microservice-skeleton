@@ -36,6 +36,10 @@ Route::get('/pickup-dropoff-locations/{latitude}/{longitude}', [PickUpDropOffLoc
 Route::get('/pickup-dropoff-locations/{countryCode}/{postalCode}', [PickUpDropOffLocationController::class, 'getAllByCountryAndPostalCode'])
     ->name('get-pickup-dropoff-locations-by-country-and-postal-code');
 
+Route::get(
+    '/pickup-dropoff-locations/{pudo_id}', [PickUpDropOffLocationController::class, 'getOne'])
+    ->name('get-pickup-dropoff-locations-by-id');
+
 Route::get('/shipments/{shipmentId}/statuses/{trackingCode}', [StatusController::class, 'getStatuses'])
     ->name('get-statuses');
 
