@@ -19,8 +19,6 @@ use OpenTracing\Tracer;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
-use function in_array;
-
 use const OpenTracing\Formats\HTTP_HEADERS;
 
 class HttpRequestSpanSubscriber

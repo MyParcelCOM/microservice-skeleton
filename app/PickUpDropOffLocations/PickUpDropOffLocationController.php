@@ -10,7 +10,6 @@ use Illuminate\Support\Arr;
 use MyParcelCom\JsonApi\Transformers\TransformerService;
 use MyParcelCom\Microservice\Http\Controllers\Controller;
 use MyParcelCom\Microservice\Http\Request;
-use MyParcelCom\Microservice\PickUpDropOffLocations\PickUpDropOffLocationRepository;
 
 class PickUpDropOffLocationController extends Controller
 {
