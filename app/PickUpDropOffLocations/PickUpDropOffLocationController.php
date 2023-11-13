@@ -69,15 +69,14 @@ class PickUpDropOffLocationController extends Controller
     }
 
     public function getOne(
+        string $pickUpDropOffLocationId,
         PickUpDropOffLocationRepository $pickUpDropOffLocationRepository,
         TransformerService $transformerService,
-        string $pickUpDropOffLocationId,
     ): JsonResponse|Response {
         $location = $pickUpDropOffLocationRepository->getById($pickUpDropOffLocationId);
-        if (isset($location)) {
-            return new JsonResponse($transformerService->transformResource($location));
-        }
 
-        return new Response('', Response::HTTP_NOT_FOUND);
+        return empty($location)
+            ? new Response('', Response::HTTP_NOT_FOUND)
+            : new JsonResponse($transformerService->transformResource($location));
     }
 }
