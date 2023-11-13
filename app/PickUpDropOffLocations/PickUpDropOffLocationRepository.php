@@ -83,8 +83,7 @@ class PickUpDropOffLocationRepository
     public function getById(string $pickUpDropOffLocationId): ?PickUpDropOffLocation
     {
         // TODO: Get the pudo point from carrier (use CarrierApiGateway).
-        // TODO: Map data to PickUpDropOffLocation object.
-        // TODO: Return PickUpDropOffLocation object in an object that implements ResourcesInterface.
+        // TODO: Map data to PickUpDropOffLocation object and return it.
 
         return null;
     }
