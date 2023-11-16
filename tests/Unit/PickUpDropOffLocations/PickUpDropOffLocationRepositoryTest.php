@@ -56,9 +56,7 @@ class PickUpDropOffLocationRepositoryTest extends TestCase
     /** @test */
     public function testGetByIdReturnsNull()
     {
-        $this->markTestSkipped();
-
-        $pudoLocation = $this->pickUpDropOffLocationRepository->getById('pudo-location-id');
+        $pudoLocation = $this->pickUpDropOffLocationRepository->getById('non-existent-pudo-location-id');
 
         $this->assertNull($pudoLocation);
     }

@@ -41,7 +41,7 @@ class ShipmentController extends Controller
         MultiColliShipmentRequest $request,
         TransformerService $transformerService
     ): JsonResponse {
-        $jsonRequestValidator->validate('/multi-colli-shipments', 'post', null);
+        $jsonRequestValidator->validate('/multi-colli-shipments', 'post');
 
         $response = $repository->createFromMultiColliPostData($request->json('data'), $request->json('meta', []));
 

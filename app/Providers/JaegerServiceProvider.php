@@ -9,8 +9,6 @@ use Jaeger\Config;
 use OpenTracing\GlobalTracer;
 use OpenTracing\Tracer;
 
-use function config;
-
 use const Jaeger\SAMPLER_TYPE_CONST;
 
 class JaegerServiceProvider extends ServiceProvider

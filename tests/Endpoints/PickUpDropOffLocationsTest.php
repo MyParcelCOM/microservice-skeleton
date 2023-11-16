@@ -203,26 +203,20 @@ class PickUpDropOffLocationsTest extends TestCase
         $this->markTestSkipped();
 
         $pudoLocationId = 'pudo-location-id'; // TODO: Update this according to the used stub.
-        $this->assertJsonSchema(
+
+        $response = $this->assertJsonSchema(
             "/pickup-dropoff-locations/{pudo_id}",
             "/pickup-dropoff-locations/$pudoLocationId",
             $this->getRequestHeaders(),
         );
 
-        $this->assertJsonDataCount(
-            1,
-            "/pickup-dropoff-locations/$pudoLocationId",
-            $this->getRequestHeaders(),
-        );
+        $this->assertEquals($pudoLocationId, $response->json('data.id'));
     }
 
     /** @test */
     public function itReturns404IfNoPudoLocationsAreFound()
     {
-        $this->markTestSkipped();
-
-        $pudoLocationId = 'non-existent-pudo-location-id';
-        $this->get("/pickup-dropoff-locations/$pudoLocationId", $this->getRequestHeaders())
+        $this->get('/pickup-dropoff-locations/non-existent-pudo-location-id', $this->getRequestHeaders())
             ->assertNotFound();
     }
 }

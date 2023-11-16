@@ -20,8 +20,6 @@ use Yasumi\Exception\ProviderNotFoundException;
 use ReflectionException;
 use Yasumi\Yasumi;
 
-use function collect;
-
 class CollectionTimeSlotRepository
 {
     /**
