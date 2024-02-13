@@ -72,9 +72,12 @@ class ShipmentController extends Controller
     public function getShipmentServiceOptions(string $shipmentId): JsonResponse
     {
         // TODO: fetch service options connected to the Shipment from the carrier
+        //  map the carrier response to service options and return them
+
+        $serviceOptions = collect([new Option()]);
 
         return new JsonResponse([
-            'data' => [],
+            'data' => $serviceOptions->all(),
         ]);
     }
 }
