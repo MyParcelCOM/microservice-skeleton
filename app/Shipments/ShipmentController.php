@@ -23,7 +23,7 @@ class ShipmentController extends Controller
         JsonRequestValidator $jsonRequestValidator,
         ShipmentRepository $repository,
         ShipmentRequest $request,
-        TransformerService $transformerService
+        TransformerService $transformerService,
     ): JsonResponse {
         $jsonRequestValidator->validate('/shipments', 'post');
 
@@ -31,7 +31,7 @@ class ShipmentController extends Controller
 
         return new JsonResponse(
             $transformerService->transformResource($shipment),
-            JsonResponse::HTTP_CREATED
+            JsonResponse::HTTP_CREATED,
         );
     }
 
@@ -39,7 +39,7 @@ class ShipmentController extends Controller
         JsonRequestValidator $jsonRequestValidator,
         ShipmentRepository $repository,
         MultiColliShipmentRequest $request,
-        TransformerService $transformerService
+        TransformerService $transformerService,
     ): JsonResponse {
         $jsonRequestValidator->validate('/multi-colli-shipments', 'post');
 
@@ -54,7 +54,7 @@ class ShipmentController extends Controller
                     }),
                 ],
             ],
-            JsonResponse::HTTP_CREATED
+            JsonResponse::HTTP_CREATED,
         );
     }
 
@@ -65,7 +65,19 @@ class ShipmentController extends Controller
 
         return new JsonResponse(
             '',
-            $voided ? JsonResponse::HTTP_NO_CONTENT : JsonResponse::HTTP_LOCKED
+            $voided ? JsonResponse::HTTP_NO_CONTENT : JsonResponse::HTTP_LOCKED,
         );
+    }
+
+    public function getShipmentServiceOptions(string $shipmentId): JsonResponse
+    {
+        // TODO: fetch service options connected to the Shipment from the carrier
+        //  map the carrier response to service options and return them
+
+        $serviceOptions = collect([new Option()]);
+
+        return new JsonResponse([
+            'data' => $serviceOptions->all(),
+        ]);
     }
 }
