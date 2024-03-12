@@ -79,27 +79,24 @@ class ShipmentsTest extends TestCase
         $this->assertEquals('Shipment item 2', $response->json('data.colli.1.attributes.description'));
     }
 
-    public function testGetShipmentServiceOptions()
+    public function testGetShipmentService()
     {
         $this->markTestIncomplete('This test has not been implemented yet.');
 
         $this->bindHttpClientMock();
 
-        // TODO: Add carrier response stub for getting a shipment's service options.
+        // TODO: Add carrier response stub for getting a shipment's service.
         // See the "Response Stubs" chapter in the readme for more info.
 
         $shipmentId = '';
-        $response = $this->getJson("/shipments/$shipmentId/options");
+        $response = $this->getJson("/shipments/$shipmentId/service", $this->getRequestHeaders());
 
         // Check the response
         // TODO: assert response structure based on transformed carrier response stub
         $response->assertJsonStructure([
             'data' => [
-                [
-                    'code'   => '',
-                    'name'   => '',
-                    'values' => [],
-                ],
+                'code' => '',
+                'name' => '',
             ],
         ]);
     }

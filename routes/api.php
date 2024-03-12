@@ -43,8 +43,8 @@ Route::get(
 Route::get('/shipments/{shipmentId}/statuses/{trackingCode}', [StatusController::class, 'getStatuses'])
     ->name('get-statuses');
 
-//Route::get('/shipments/{shipmentId}/options', [ShipmentController::class, 'getShipmentServiceOptions'])
-//    ->name('get-shipment-service-options');
+//Route::get('/shipments/{shipmentId}/service', [ShipmentController::class, 'getShipmentService'])
+//    ->name('get-shipment-service');
 
 Route::delete('/shipments/{shipmentId}', [ShipmentController::class, 'void'])
     ->name('void-shipment');
