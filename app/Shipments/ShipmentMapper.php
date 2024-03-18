@@ -32,9 +32,11 @@ class ShipmentMapper implements MapperInterface
             $this->mapAddress($attributes['recipient_address'], new Address())
         );
 
-        $shipment->setReturnAddress(
-            $this->mapAddress($attributes['return_address'], new Address())
-        );
+        if (isset($attributes['return_address'])) {
+            $shipment->setReturnAddress(
+                $this->mapAddress($attributes['return_address'], new Address())
+            );
+        }
 
         $shipment->setSenderAddress(
             $this->mapAddress($attributes['sender_address'], new Address())
