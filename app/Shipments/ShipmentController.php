@@ -69,15 +69,18 @@ class ShipmentController extends Controller
         );
     }
 
-    public function getShipmentServiceOptions(string $shipmentId): JsonResponse
+    public function getShipmentService(string $shipmentId): JsonResponse
     {
-        // TODO: fetch service options connected to the Shipment from the carrier
-        //  map the carrier response to service options and return them
+        // TODO: fetch service connected to the Shipment from the carrier
+        //  map the carrier response to a service code and name and return them
 
-        $serviceOptions = collect([new Option()]);
+        $service = new Service();
 
         return new JsonResponse([
-            'data' => $serviceOptions->all(),
+            'data' => array_filter([
+                'name' => $service->getName(),
+                'code' => $service->getCode(),
+            ]),
         ]);
     }
 }
