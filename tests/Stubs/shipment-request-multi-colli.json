@@ -396,8 +396,7 @@
     },
     "label": {
       "mime_type": "application/pdf",
-      "size": "A6",
-      "print_sku_on_label": true
+      "size": "A6"
     }
   }
 }
