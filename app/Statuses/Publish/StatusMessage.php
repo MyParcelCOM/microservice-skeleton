@@ -29,7 +29,7 @@ class StatusMessage
             'myparcelcom_shipment_id' => $this->myParcelComShipmentId,
             'status'                  => $transformerService->transformResource($this->status),
             'postpone_poll'           => $this->postponePoll->serialize(),
-        ]);
+        ], static fn ($value) => $value !== null);
 
         return [
             'Id'      => $this->id,
