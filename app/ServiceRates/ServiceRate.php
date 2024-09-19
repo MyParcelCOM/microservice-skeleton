@@ -14,6 +14,8 @@ class ServiceRate
     private ?int $heightMax = null;
     private ?float $volumeMax = null;
     private ?Price $fuelSurcharge = null;
+    private ?int $transitTimeMin = null;
+    private ?int $transitTimeMax = null;
 
     public function __construct(
         private Price $price,
@@ -125,5 +127,29 @@ class ServiceRate
     public function getFuelSurcharge(): ?Price
     {
         return $this->fuelSurcharge;
+    }
+
+    public function setTransitTimeMin(?int $min): self
+    {
+        $this->transitTimeMin = $min;
+
+        return $this;
+    }
+
+    public function getTransitTimeMin(): ?int
+    {
+        return $this->transitTimeMin;
+    }
+
+    public function setTransitTimeMax(?int $max): self
+    {
+        $this->transitTimeMax = $max;
+
+        return $this;
+    }
+
+    public function getTransitTimeMax(): ?int
+    {
+        return $this->transitTimeMax;
     }
 }
