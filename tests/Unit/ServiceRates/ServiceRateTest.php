@@ -94,4 +94,18 @@ class ServiceRateTest extends TestCase
         $this->serviceRate->setFuelSurcharge($this->price);
         $this->assertEquals($this->price, $this->serviceRate->getFuelSurcharge());
     }
+
+    /** @test */
+    public function testItCanGetAndSetTransitTimeMin(): void
+    {
+        $this->serviceRate->setTransitTimeMin(2);
+        $this->assertEquals(2, $this->serviceRate->getTransitTimeMin());
+    }
+
+    /** @test */
+    public function testItCanGetAndSetTransitTimeMax(): void
+    {
+        $this->serviceRate->setTransitTimeMax(4);
+        $this->assertEquals(4, $this->serviceRate->getTransitTimeMax());
+    }
 }

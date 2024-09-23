@@ -24,20 +24,23 @@ class ServiceRateTransformerTest extends TestCase
         parent::setUp();
 
         $transformerFactory = Mockery::mock(TransformerFactory::class);
-        $this->transformer = (new ServiceRateTransformer($transformerFactory))->setUrlGenerator(Mockery::mock(UrlGenerator::class, ['route' => 'url']));
+        $this->transformer = (new ServiceRateTransformer($transformerFactory))
+            ->setUrlGenerator(Mockery::mock(UrlGenerator::class, ['route' => 'url']));
 
         $this->serviceRate = Mockery::mock(ServiceRate::class, [
-            'getId'            => null,
-            'getCode'          => 'fedex-rate',
-            'getWeightMin'     => 1,
-            'getWeightMax'     => 2000,
-            'getLengthMax'     => 200,
-            'getWidthMax'      => 300,
-            'getHeightMax'     => 400,
-            'getVolumeMax'     => 30,
-            'getPrice'         => Mockery::mock(Price::class, ['getAmount' => 100, 'getCurrency' => 'GBP']),
-            'getPurchasePrice' => Mockery::mock(Price::class, ['getAmount' => 75, 'getCurrency' => 'GBP']),
-            'getFuelSurcharge' => Mockery::mock(Price::class, ['getAmount' => 15, 'getCurrency' => 'GBP']),
+            'getId'             => null,
+            'getCode'           => 'fedex-rate',
+            'getWeightMin'      => 1,
+            'getWeightMax'      => 2000,
+            'getLengthMax'      => 200,
+            'getWidthMax'       => 300,
+            'getHeightMax'      => 400,
+            'getVolumeMax'      => 30,
+            'getPrice'          => Mockery::mock(Price::class, ['getAmount' => 100, 'getCurrency' => 'GBP']),
+            'getPurchasePrice'  => Mockery::mock(Price::class, ['getAmount' => 75, 'getCurrency' => 'GBP']),
+            'getFuelSurcharge'  => Mockery::mock(Price::class, ['getAmount' => 15, 'getCurrency' => 'GBP']),
+            'getTransitTimeMin' => 2,
+            'getTransitTimeMax' => 4,
         ]);
     }
 
@@ -55,6 +58,7 @@ class ServiceRateTransformerTest extends TestCase
             'price'          => ['amount' => 100, 'currency' => 'GBP'],
             'purchase_price' => ['amount' => 75, 'currency' => 'GBP'],
             'fuel_surcharge' => ['amount' => 15, 'currency' => 'GBP'],
+            'transit_time'   => ['min' => 2, 'max' => 4],
         ], $this->transformer->getAttributes($this->serviceRate));
     }
 
