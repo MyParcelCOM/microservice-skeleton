@@ -51,6 +51,10 @@ class ServiceRateTransformer extends AbstractTransformer
                 'amount'   => $serviceRate->getFuelSurcharge()->getAmount(),
                 'currency' => $serviceRate->getFuelSurcharge()->getCurrency(),
             ]),
+            'transit_time' => array_filter([
+                'min' => $serviceRate->getTransitTimeMin(),
+                'max' => $serviceRate->getTransitTimeMax(),
+            ]),
         ]);
     }
 
