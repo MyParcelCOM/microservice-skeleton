@@ -4,14 +4,11 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Shipments;
 
-use MyParcelCom\Microservice\ServiceRates\Price;
-
 class Option
 {
     private string $code;
     private ?string $name = null;
     private ?array $values = null;
-    private ?Price $price = null;
 
     public function getCode(): string
     {
@@ -45,18 +42,6 @@ class Option
     public function setValues(?array $values): self
     {
         $this->values = $values;
-
-        return $this;
-    }
-
-    public function getPrice(): ?Price
-    {
-        return $this->price;
-    }
-
-    public function setPrice(?Price $price): self
-    {
-        $this->price = $price;
 
         return $this;
     }

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\ServiceRates;
 
-use MyParcelCom\Microservice\Shipments\Option;
-
 class ServiceRate
 {
     private ?string $code = null;

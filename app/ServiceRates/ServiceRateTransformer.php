@@ -6,7 +6,6 @@ namespace MyParcelCom\Microservice\ServiceRates;
 
 use MyParcelCom\JsonApi\Exceptions\ModelTypeException;
 use MyParcelCom\JsonApi\Transformers\AbstractTransformer;
-use MyParcelCom\Microservice\Shipments\Option;
 
 class ServiceRateTransformer extends AbstractTransformer
 {

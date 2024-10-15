@@ -8,10 +8,10 @@ use Illuminate\Routing\UrlGenerator;
 use Mockery;
 use MyParcelCom\JsonApi\Exceptions\ModelTypeException;
 use MyParcelCom\JsonApi\Transformers\TransformerFactory;
+use MyParcelCom\Microservice\ServiceRates\Option;
 use MyParcelCom\Microservice\ServiceRates\Price;
 use MyParcelCom\Microservice\ServiceRates\ServiceRate;
 use MyParcelCom\Microservice\ServiceRates\ServiceRateTransformer;
-use MyParcelCom\Microservice\Shipments\Option;
 use MyParcelCom\Microservice\Tests\TestCase;
 use stdClass;
 
