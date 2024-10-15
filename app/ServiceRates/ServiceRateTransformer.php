@@ -6,6 +6,7 @@ namespace MyParcelCom\Microservice\ServiceRates;
 
 use MyParcelCom\JsonApi\Exceptions\ModelTypeException;
 use MyParcelCom\JsonApi\Transformers\AbstractTransformer;
+use MyParcelCom\Microservice\Shipments\Option;
 
 class ServiceRateTransformer extends AbstractTransformer
 {
@@ -51,10 +52,21 @@ class ServiceRateTransformer extends AbstractTransformer
                 'amount'   => $serviceRate->getFuelSurcharge()->getAmount(),
                 'currency' => $serviceRate->getFuelSurcharge()->getCurrency(),
             ]),
-            'transit_time' => array_filter([
+            'transit_time'   => array_filter([
                 'min' => $serviceRate->getTransitTimeMin(),
                 'max' => $serviceRate->getTransitTimeMax(),
             ]),
+            'options'        => array_map(function (Option $option) {
+                return array_filter([
+                    'code'   => $option->getCode(),
+                    'name'   => $option->getName(),
+                    'values' => $option->getValues() === null ? null : array_filter($option->getValues()),
+                    'price'  => $option->getPrice() === null ? null : array_filter([
+                        'amount'   => $option->getPrice()->getAmount(),
+                        'currency' => $option->getPrice()->getCurrency(),
+                    ]),
+                ]);
+            }, $serviceRate->getOptions()),
         ]);
     }
 

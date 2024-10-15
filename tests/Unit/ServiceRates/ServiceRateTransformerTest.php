@@ -11,6 +11,7 @@ use MyParcelCom\JsonApi\Transformers\TransformerFactory;
 use MyParcelCom\Microservice\ServiceRates\Price;
 use MyParcelCom\Microservice\ServiceRates\ServiceRate;
 use MyParcelCom\Microservice\ServiceRates\ServiceRateTransformer;
+use MyParcelCom\Microservice\Shipments\Option;
 use MyParcelCom\Microservice\Tests\TestCase;
 use stdClass;
 
@@ -41,6 +42,14 @@ class ServiceRateTransformerTest extends TestCase
             'getFuelSurcharge'  => Mockery::mock(Price::class, ['getAmount' => 15, 'getCurrency' => 'GBP']),
             'getTransitTimeMin' => 2,
             'getTransitTimeMax' => 4,
+            'getOptions'        => [
+                Mockery::mock(Option::class, [
+                    'getCode'   => 'some code',
+                    'getName'   => 'some name',
+                    'getValues' => null,
+                    'getPrice'  => Mockery::mock(Price::class, ['getAmount' => 5, 'getCurrency' => 'GBP']),
+                ]),
+            ],
         ]);
     }
 
@@ -59,6 +68,13 @@ class ServiceRateTransformerTest extends TestCase
             'purchase_price' => ['amount' => 75, 'currency' => 'GBP'],
             'fuel_surcharge' => ['amount' => 15, 'currency' => 'GBP'],
             'transit_time'   => ['min' => 2, 'max' => 4],
+            'options'        => [
+                [
+                    'code'  => 'some code',
+                    'name'  => 'some name',
+                    'price' => ['amount' => 5, 'currency' => 'GBP'],
+                ],
+            ],
         ], $this->transformer->getAttributes($this->serviceRate));
     }
 
