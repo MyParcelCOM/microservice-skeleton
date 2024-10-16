@@ -16,6 +16,8 @@ class ServiceRate
     private ?Price $fuelSurcharge = null;
     private ?int $transitTimeMin = null;
     private ?int $transitTimeMax = null;
+    /** @var Option[] */
+    protected array $options = [];
 
     public function __construct(
         private Price $price,
@@ -151,5 +153,24 @@ class ServiceRate
     public function getTransitTimeMax(): ?int
     {
         return $this->transitTimeMax;
+    }
+
+    public function getOptions(): array
+    {
+        return $this->options;
+    }
+
+    public function addOption(Option $option): self
+    {
+        $this->options[] = $option;
+
+        return $this;
+    }
+
+    public function setOptions(array $options): self
+    {
+        $this->options = $options;
+
+        return $this;
     }
 }
