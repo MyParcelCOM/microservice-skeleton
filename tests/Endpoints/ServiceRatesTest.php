@@ -33,4 +33,21 @@ class ServiceRatesTest extends TestCase
             $this->getRequestHeaders()
         );
     }
+
+    /** @test */
+    public function testGetMultiColliServiceRates()
+    {
+        $this->markTestSkipped();
+
+        $this->bindHttpClientMock();
+
+        // TODO: Add carrier response stub for requesting a status.
+        // See the "Response Stubs" chapter in the readme for more info.
+
+        $this->assertJsonSchema(
+            '/get-multi-colli-service-rates',
+            '/get-multi-colli-service-rates',
+            $this->getRequestHeaders()
+        );
+    }
 }
