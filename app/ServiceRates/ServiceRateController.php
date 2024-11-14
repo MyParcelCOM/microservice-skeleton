@@ -9,10 +9,7 @@ use MyParcelCom\JsonApi\Http\Paginator;
 use MyParcelCom\JsonApi\Transformers\TransformerService;
 use MyParcelCom\Microservice\Http\Controllers\Controller;
 use MyParcelCom\Microservice\Http\JsonRequestValidator;
-use MyParcelCom\Microservice\Http\MultiColliShipmentRequest;
 use MyParcelCom\Microservice\Http\Request;
-use MyParcelCom\Microservice\Shipments\Shipment;
-use MyParcelCom\Microservice\Shipments\ShipmentRepository;
 
 class ServiceRateController extends Controller
 {
