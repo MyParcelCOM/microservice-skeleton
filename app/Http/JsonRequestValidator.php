@@ -73,13 +73,13 @@ class JsonRequestValidator
                     'Could not find schema for path "%s" with method "%s" and accept header "%s"',
                     $schemaPath,
                     $method,
-                    $accept
-                )
+                    $accept,
+                ),
             );
         }
 
         throw new InvalidSchemaException(
-            'Used schema is of unknown version, expected "Swagger v2" or "OpenAPI v3"'
+            'Used schema is of unknown version, expected "Swagger v2" or "OpenAPI v3"',
         );
     }
 }

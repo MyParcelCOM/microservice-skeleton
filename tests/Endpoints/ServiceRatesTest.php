@@ -24,13 +24,30 @@ class ServiceRatesTest extends TestCase
 
         $this->bindHttpClientMock();
 
-        // TODO: Add carrier response stub for requesting a status.
+        // TODO: Add carrier response stub for requesting service-rates.
         // See the "Response Stubs" chapter in the readme for more info.
 
         $this->assertJsonSchema(
             '/get-service-rates',
             '/get-service-rates',
-            $this->getRequestHeaders()
+            $this->getRequestHeaders(),
+        );
+    }
+
+    /** @test */
+    public function testGetMultiColliServiceRates()
+    {
+        $this->markTestSkipped();
+
+        $this->bindHttpClientMock();
+
+        // TODO: Add carrier response stub for requesting service-rates for a multi-colli shipment.
+        // See the "Response Stubs" chapter in the readme for more info.
+
+        $this->assertJsonSchema(
+            '/get-multi-colli-service-rates',
+            '/get-multi-colli-service-rates',
+            $this->getRequestHeaders(),
         );
     }
 }

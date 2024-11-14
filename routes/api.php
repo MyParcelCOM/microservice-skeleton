@@ -24,6 +24,9 @@ Route::get('/', function () {
 Route::post('/get-service-rates', [ServiceRateController::class, 'getServiceRates'])
     ->name('get-service-rates');
 
+Route::post('/get-multi-colli-service-rates', [ServiceRateController::class, 'getMultiColliServiceRates'])
+    ->name('get-multi-colli-service-rates');
+
 Route::post('/manifests', [ManifestController::class, 'create'])
     ->name('create-manifest');
 

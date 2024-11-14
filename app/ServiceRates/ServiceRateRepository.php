@@ -20,4 +20,11 @@ class ServiceRateRepository
         // TODO: Map data to ServiceRate objects.
         // TODO: Put ServiceRate objects in an object that implements ResourcesInterface
     }
+
+    public function getMultiColliServiceRates(array $data): ResourcesInterface
+    {
+        // TODO: Get service rates for given multi-colli shipment from carrier (use CarrierApiGateway).
+        // TODO: Map data to ServiceRate objects.
+        // TODO: Put ServiceRate objects in an object that implements ResourcesInterface
+    }
 }
