@@ -37,7 +37,7 @@ class ServiceRateController extends Controller
 
     public function getMultiColliServiceRates(
         JsonRequestValidator $jsonRequestValidator,
-        MultiColliShipmentRequest $request,
+        Request $request,
         ServiceRateRepository $serviceRateRepository,
         TransformerService $transformerService,
     ): JsonResponse {
