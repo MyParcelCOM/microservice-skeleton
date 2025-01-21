@@ -34,7 +34,7 @@ class PickUpDropOffLocationTest extends TestCase
         $this->assertEquals([], $this->location->getCategories());
         $this->assertEquals(
             ['pick-up'],
-            $this->location->setCategories(['pick-up'])->getCategories()
+            $this->location->setCategories(['pick-up'])->getCategories(),
         );
     }
 

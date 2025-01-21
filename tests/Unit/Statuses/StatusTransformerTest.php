@@ -48,7 +48,7 @@ class StatusTransformerTest extends TestCase
                 'getWeight'           => 5,
                 'getVolumetricWeight' => 6,
             ]),
-            'getNewTrackingCode'       => '3SAAA1231221312',
+            'getNewTrackingCode'    => '3SAAA1231221312',
         ]);
     }
 
@@ -57,7 +57,7 @@ class StatusTransformerTest extends TestCase
         $this->assertEquals(
             'w',
             $this->statusTransformer->getId($this->status),
-            'Failed getting model id.'
+            'Failed getting model id.',
         );
     }
 

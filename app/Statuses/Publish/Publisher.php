@@ -10,7 +10,7 @@ class Publisher
 {
     public function __construct(
         private readonly SnsClient $snsClient,
-        private readonly TransformerService $transformerService
+        private readonly TransformerService $transformerService,
     ) {
     }
 
@@ -19,9 +19,9 @@ class Publisher
         return $this->snsClient->publishBatchAsync([
             'PublishBatchRequestEntries' => array_map(
                 fn (StatusMessage $message) => $message->serialize($this->transformerService),
-                $messages
+                $messages,
             ),
-            'TopicArn' => $topicArn,
+            'TopicArn'                   => $topicArn,
         ]);
     }
 }

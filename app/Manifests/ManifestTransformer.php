@@ -53,7 +53,8 @@ class ManifestTransformer extends AbstractTransformer
      */
     public function getRelationships($manifest): array
     {
-        $shipmentIDs = $manifest->getShipments()->map(fn(Shipment $shipment) => $shipment->getId())->all();
+        $shipmentIDs = $manifest->getShipments()->map(fn (Shipment $shipment) => $shipment->getId())->all();
+
         return [
             'shipments' => $this->transformRelationshipForIdentifiers($shipmentIDs, 'shipments'),
         ];

@@ -38,7 +38,7 @@ class FileTest extends TestCase
         $file = new File();
         $this->assertEquals(
             'bfksanfgsgDFGEH#45y3kgbhwegESGDbghekrgbewr',
-            $file->setData('bfksanfgsgDFGEH#45y3kgbhwegESGDbghekrgbewr')->getData()
+            $file->setData('bfksanfgsgDFGEH#45y3kgbhwegESGDbghekrgbewr')->getData(),
         );
     }
 
@@ -49,7 +49,7 @@ class FileTest extends TestCase
         $contents = base64_encode(file_get_contents(base_path('tests/Stubs/document.pdf')));
         $this->assertEquals(
             $contents,
-            $file->setDataFromPath(base_path('tests/Stubs/document.pdf'))->getData()
+            $file->setDataFromPath(base_path('tests/Stubs/document.pdf'))->getData(),
         );
     }
 }

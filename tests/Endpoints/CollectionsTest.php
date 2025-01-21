@@ -67,7 +67,7 @@ class CollectionsTest extends TestCase
             $this->getRequestHeaders(),
             $postData,
             'post',
-            201
+            201,
         );
 
         $this->assertDatabaseHas('collections', [
@@ -155,9 +155,8 @@ class CollectionsTest extends TestCase
         $this->assertJsonSchema(
             '/collection-time-slots',
             '/get-collection-time-slots?country_code=NL&postal_code=1111aa&date_from=2022-03-24T09:30:00+01:00&date_to=2022-03-24T10:30:00+01:00',
-            $this->getRequestHeaders()
+            $this->getRequestHeaders(),
         );
-
         // todo: Assert data counts when time slots are available.
     }
 

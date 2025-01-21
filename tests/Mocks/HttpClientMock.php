@@ -13,11 +13,8 @@ use PHPUnit\Framework\Exception;
 class HttpClientMock extends HttpClient
 {
     /** @var MockedClientResponse[][] $mockedClientResponses */
-    private $mockedClientResponses = [];
+    private array $mockedClientResponses = [];
 
-    /**
-     * @inheritDoc
-     */
     public function requestAsync($method, $uri = '', array $options = []): PromiseInterface
     {
         $method = strtolower($method);
@@ -40,13 +37,11 @@ class HttpClientMock extends HttpClient
         // Try to mock a default '200 OK' response from a stub
         $body = $this->getResponseStub($method, $uri);
         $response = new Response(200, [], $body);
+
         return CreatePromise::promiseFor($response);
     }
 
-    /**
-     * @param MockedClientResponse $response
-     */
-    public function mockClientResponse(MockedClientResponse $response)
+    public function mockClientResponse(MockedClientResponse $response): void
     {
         $method = $response->getMethod();
         $uri = $response->getUri();
@@ -57,17 +52,12 @@ class HttpClientMock extends HttpClient
         $this->mockedClientResponses[$key][] = $response;
     }
 
-    /**
-     * @param string $method
-     * @param string $url
-     * @return string
-     */
     private function getResponseStub(string $method, string $url): string
     {
         $stubPath = base_path(
             'tests/Stubs/'
             . $method . '-' . str_replace('/', '-', $url)
-            . '.stub'
+            . '.stub',
         );
 
         if (!file_exists($stubPath)) {
@@ -76,8 +66,8 @@ class HttpClientMock extends HttpClient
                     'The stub response file `%s` does not exist. Please create it and add a response to it for a `%s` request to `%s`',
                     $stubPath,
                     $method,
-                    $url
-                )
+                    $url,
+                ),
             );
         }
 

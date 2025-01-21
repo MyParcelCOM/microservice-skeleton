@@ -23,7 +23,7 @@ class ManifestController extends Controller
         JsonRequestValidator $jsonRequestValidator,
         ManifestRepository $repository,
         Request $request,
-        TransformerService $transformerService
+        TransformerService $transformerService,
     ): JsonResponse {
         $jsonRequestValidator->validate('/manifests', 'post');
 
@@ -31,7 +31,7 @@ class ManifestController extends Controller
 
         return new JsonResponse(
             $transformerService->transformResource($manifest),
-            Response::HTTP_CREATED
+            Response::HTTP_CREATED,
         );
     }
 }

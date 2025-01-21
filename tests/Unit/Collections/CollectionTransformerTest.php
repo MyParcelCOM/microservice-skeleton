@@ -67,7 +67,7 @@ class CollectionTransformerTest extends TestCase
                     'getExtension' => 'pdf',
                     'getData'      => 'some-base-64-data',
                 ]),
-            ])
+            ]),
         );
 //        $this->shipments = collect([Mockery::mock(Shipment::class)]);
 //        $this->collection->shipments()->saveMany($this->shipments);

@@ -23,7 +23,7 @@ class CollectionController
         JsonRequestValidator $jsonRequestValidator,
         CollectionRepository $repository,
         Request $request,
-        TransformerService $transformerService
+        TransformerService $transformerService,
     ): JsonResponse {
         $jsonRequestValidator->validate('/collections', 'post');
 
@@ -31,7 +31,7 @@ class CollectionController
 
         return new JsonResponse(
             $transformerService->transformResource($collection),
-            JsonResponse::HTTP_CREATED
+            JsonResponse::HTTP_CREATED,
         );
     }
 
@@ -40,7 +40,7 @@ class CollectionController
         JsonRequestValidator $jsonRequestValidator,
         CollectionRepository $repository,
         Request $request,
-        TransformerService $transformerService
+        TransformerService $transformerService,
     ): JsonResponse {
         $jsonRequestValidator->validate('/collections/{collection_id}', 'patch');
 
@@ -67,14 +67,14 @@ class CollectionController
 
         return new JsonResponse(
             '',
-            Response::HTTP_NO_CONTENT
+            Response::HTTP_NO_CONTENT,
         );
     }
 
     public function getTimeSlots(
         Request $request,
         CollectionTimeSlotRepository $collectionTimeSlotRepository,
-        TransformerService $transformerService
+        TransformerService $transformerService,
     ): JsonResponse {
         // todo: Fill in Carrier specific request details in the CollectionTimeSlotRepository.
         $timeSlots = $collectionTimeSlotRepository->getCollectionTimeSlots(
@@ -82,11 +82,11 @@ class CollectionController
             $request->query('postal_code'),
             new Carbon($request->query('date_from')),
             new Carbon($request->query('date_to')),
-            $request->query('service_code')
+            $request->query('service_code'),
         );
 
         return new JsonResponse(
-            $transformerService->transformResources($timeSlots)
+            $transformerService->transformResources($timeSlots),
         );
     }
 }

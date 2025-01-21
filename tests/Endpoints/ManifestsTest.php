@@ -30,7 +30,7 @@ class ManifestsTest extends TestCase
         $this->assertJsonSchema(
             '/manifests',
             '/manifests',
-            $this->getRequestHeaders()
+            $this->getRequestHeaders(),
         );
     }
 }

@@ -21,13 +21,6 @@ trait JsonApiAssertionsTrait
     /** @var Validator */
     protected $validator;
 
-    /**
-     * @param string $schemaPath
-     * @param string $method
-     * @param int    $status
-     * @param string $accept
-     * @return stdClass
-     */
     protected function getSchema(string $schemaPath, string $method = 'get', int $status = 200, string $accept = 'application/vnd.api+json'): stdClass
     {
         if (!isset($this->schema)) {
@@ -42,9 +35,6 @@ trait JsonApiAssertionsTrait
         return $this->schema->paths->{$schemaPath}->{strtolower($method)}->responses->{$status}->content->{$accept}->schema;
     }
 
-    /**
-     * @return Validator
-     */
     protected function getValidator(): Validator
     {
         if (isset($this->validator)) {

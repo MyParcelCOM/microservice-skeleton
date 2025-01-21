@@ -43,7 +43,7 @@ class HttpRequestSpanSubscriber
 
         $scope = $this->tracer->startActiveSpan(
             $this->getOperationName($event),
-            $this->getSpanOptions()
+            $this->getSpanOptions(),
         );
         $scope->getSpan()->setTag('type', 'http');
 
@@ -75,11 +75,11 @@ class HttpRequestSpanSubscriber
     {
         $events->listen(
             RouteMatched::class,
-            self::class . '@start'
+            self::class . '@start',
         );
         $events->listen(
             RequestHandled::class,
-            self::class . '@end'
+            self::class . '@end',
         );
     }
 

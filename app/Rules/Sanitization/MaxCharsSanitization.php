@@ -16,7 +16,7 @@ class MaxCharsSanitization extends BaseSanitization
     public function sanitize(
         string $key,
         array $parameters,
-        array $shipmentRules = []
+        array $shipmentRules = [],
     ): array {
         $values = data_get($parameters, $key);
         if ($values) {
@@ -33,6 +33,7 @@ class MaxCharsSanitization extends BaseSanitization
                 Arr::set($parameters, $singleKey, mb_substr((string) $singleValue, 0, $this->maxChars));
             }
         }
+
         return $parameters;
     }
 }
