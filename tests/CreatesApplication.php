@@ -12,10 +12,8 @@ trait CreatesApplication
 {
     /**
      * Creates the application.
-     *
-     * @return Application
      */
-    public function createApplication()
+    public function createApplication(): Application
     {
         $app = require __DIR__ . '/../bootstrap/app.php';
 

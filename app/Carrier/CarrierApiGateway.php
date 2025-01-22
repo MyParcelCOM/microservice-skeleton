@@ -29,7 +29,7 @@ class CarrierApiGateway implements CarrierApiGatewayInterface
         event(new MakingCarrierApiRequest($endpoint, 'get'));
 
         return $this->handleResponse(
-            $this->httpClient->getAsync($endpoint, $options)
+            $this->httpClient->getAsync($endpoint, $options),
         );
     }
 
@@ -42,7 +42,7 @@ class CarrierApiGateway implements CarrierApiGatewayInterface
         event(new MakingCarrierApiRequest($endpoint, 'post', body: $data));
 
         return $this->handleResponse(
-            $this->httpClient->postAsync($endpoint, $options)
+            $this->httpClient->postAsync($endpoint, $options),
         );
     }
 
@@ -86,6 +86,7 @@ class CarrierApiGateway implements CarrierApiGatewayInterface
             ->then(function (ResponseInterface $response) {
                 $this->handleCarrierErrors($response);
                 event(new SuccessfulCarrierApiRequest());
+
                 return $response;
             })
             ->otherwise(function (Exception $exception) {

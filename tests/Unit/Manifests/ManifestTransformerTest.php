@@ -36,7 +36,7 @@ class ManifestTransformerTest extends TestCase
         $this->manifest = new Manifest(
             'my-test-manifest',
             new AddressJson($addressData),
-            new ContactJson($addressData)
+            new ContactJson($addressData),
         );
     }
 

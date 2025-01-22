@@ -81,7 +81,7 @@ class AppServiceProvider extends ServiceProvider
 
             return new Publisher(
                 $snsClient,
-                $app->make(TransformerService::class)
+                $app->make(TransformerService::class),
             );
         });
     }

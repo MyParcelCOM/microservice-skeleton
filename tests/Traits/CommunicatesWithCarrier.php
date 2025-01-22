@@ -13,9 +13,6 @@ use MyParcelCom\Microservice\Tests\Mocks\MockedClientResponse;
 
 trait CommunicatesWithCarrier
 {
-    /**
-     * @return array
-     */
     protected function getRequestHeaders(): array
     {
         return [
@@ -26,8 +23,6 @@ trait CommunicatesWithCarrier
 
     /**
      * Get credentials used for authentication with the carrier.
-     *
-     * @return array
      */
     protected function getApiCredentials(): array
     {
@@ -47,6 +42,7 @@ trait CommunicatesWithCarrier
             foreach ($mockedClientResponses as $mockedResponse) {
                 $httpClient->mockClientResponse($mockedResponse);
             }
+
             return $httpClient;
         });
     }

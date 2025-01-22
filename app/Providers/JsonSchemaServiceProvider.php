@@ -20,9 +20,11 @@ class JsonSchemaServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton('schema', function () {
-            return json_decode(file_get_contents(
-                base_path(config('transformer.schemas.carrier'))
-            ));
+            return json_decode(
+                file_get_contents(
+                    base_path(config('transformer.schemas.carrier')),
+                ),
+            );
         });
 
         $this->app->singleton(Validator::class, function (Container $app) {
@@ -36,7 +38,7 @@ class JsonSchemaServiceProvider extends ServiceProvider
             return new JsonRequestValidator(
                 $app->make(Request::class),
                 $app->make('schema'),
-                $app->make(Validator::class)
+                $app->make(Validator::class),
             );
         });
     }

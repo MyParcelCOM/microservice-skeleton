@@ -9,44 +9,27 @@ use GuzzleHttp\Psr7\Request;
 
 class MockedClientException extends MockedClientResponse
 {
-    /** @var string */
-    protected $message;
-
-    /**
-     * @param string  $method
-     * @param string  $uri
-     * @param integer $code
-     * @param string  $message
-     * @param string  $body
-     */
     public function __construct(
         string $method,
         string $uri,
         int $code = 400,
-        string $message = null,
+        protected ?string $message = null,
         string $body = null,
     ) {
-        parent::__construct($method, $uri, $code, $body, []);
-        $this->message = $message;
+        parent::__construct($method, $uri, $code, $body);
     }
 
-    /**
-     * @return string
-     */
     public function getMessage(): string
     {
         return $this->message;
     }
 
-    /**
-     * @return ClientException
-     */
     public function toClientException(): ClientException
     {
         return new ClientException(
             $this->message ?? 'Unknown error',
             new Request($this->method, $this->uri),
-            $this->toClientResponse()
+            $this->toClientResponse(),
         );
     }
 }

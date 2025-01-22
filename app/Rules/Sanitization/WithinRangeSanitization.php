@@ -17,7 +17,7 @@ class WithinRangeSanitization extends BaseSanitization
     public function sanitize(
         string $key,
         array $parameters,
-        array $shipmentRules = []
+        array $shipmentRules = [],
     ): array {
         $values = data_get($parameters, $key);
         if ($values) {
@@ -36,6 +36,7 @@ class WithinRangeSanitization extends BaseSanitization
                 Arr::set($parameters, $singleKey, $singleValue);
             }
         }
+
         return $parameters;
     }
 }

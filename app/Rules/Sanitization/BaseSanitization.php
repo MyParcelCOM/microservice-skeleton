@@ -14,7 +14,7 @@ abstract class BaseSanitization implements SanitizationInterface
     abstract public function sanitize(
         string $key,
         array $parameters,
-        array $shipmentRules = []
+        array $shipmentRules = [],
     ): array;
 
     public function getKeys(string $key, array $parameters, array $keys = []): mixed
@@ -32,6 +32,7 @@ abstract class BaseSanitization implements SanitizationInterface
                 $keys[] = $replacedKey;
             }
         }
+
         return $keys;
     }
 
@@ -39,7 +40,7 @@ abstract class BaseSanitization implements SanitizationInterface
         mixed $paramKey,
         mixed $fullKey,
         array $parameters,
-        array $shipmentRules
+        array $shipmentRules,
     ): bool {
         $validator = Validator::make($parameters, $shipmentRules);
         if ($validator instanceof \Illuminate\Validation\Validator) {
@@ -55,13 +56,16 @@ abstract class BaseSanitization implements SanitizationInterface
                     'RequiredWithoutAll',
                 ];
                 [$rule] = ValidationRuleParser::parse($rawRule);
+
                 return in_array($rule, $keepRules);
             })->toArray();
             $requiredValidator = Validator::make($parameters, [
                 $fullKey => $requiredRules,
             ]);
+
             return !$requiredValidator->fails();
         }
+
         return true;
     }
 }

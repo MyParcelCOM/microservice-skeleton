@@ -14,10 +14,10 @@ use MyParcelCom\JsonApi\Resources\CollectionResources;
 use MyParcelCom\JsonApi\Resources\Interfaces\ResourcesInterface;
 use MyParcelCom\JsonApi\Resources\PromiseResources;
 use MyParcelCom\Microservice\Carrier\CarrierApiGatewayInterface;
-use RuntimeException;
-use Yasumi\Exception\UnknownLocaleException;
-use Yasumi\Exception\ProviderNotFoundException;
 use ReflectionException;
+use RuntimeException;
+use Yasumi\Exception\ProviderNotFoundException;
+use Yasumi\Exception\UnknownLocaleException;
 use Yasumi\Yasumi;
 
 class CollectionTimeSlotRepository
@@ -41,7 +41,7 @@ class CollectionTimeSlotRepository
     ): ResourcesInterface {
         if ($dateFrom->isAfter($dateTo)) {
             throw new InvalidInputException([
-                new InvalidInputError('', 'Date from cannot be after date to')
+                new InvalidInputError('', 'Date from cannot be after date to'),
             ]);
         }
 
@@ -60,11 +60,13 @@ class CollectionTimeSlotRepository
             $from = $date->clone()->setTime(9, 0);
             $to = $date->clone()->setTime(18, 30);
 
-            $timeSlots->add(new CollectionTimeSlot(
-                $from->toIso8601String() . '_' . $to->toIso8601String(),
-                $from,
-                $to
-            ));
+            $timeSlots->add(
+                new CollectionTimeSlot(
+                    $from->toIso8601String() . '_' . $to->toIso8601String(),
+                    $from,
+                    $to,
+                ),
+            );
         }
 
         return new CollectionResources($timeSlots);

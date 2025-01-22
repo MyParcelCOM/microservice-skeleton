@@ -30,7 +30,7 @@ class CarrierSpanSubscriber
         }
         self::$scope = $this->tracer->startActiveSpan(
             $event->getContext(),
-            $this->getSpanOptions()
+            $this->getSpanOptions(),
         );
         self::$scope->getSpan()->log([
             'url'    => $event->getUrl(),
@@ -65,27 +65,27 @@ class CarrierSpanSubscriber
     {
         $events->listen(
             MakingCarrierApiRequest::class,
-            self::class . '@start'
+            self::class . '@start',
         );
 
         $events->listen(
             CompletedCarrierApiRequest::class,
-            self::class . '@end'
+            self::class . '@end',
         );
 
         $events->listen(
             SuccessfulCarrierApiRequest::class,
-            self::class . '@end'
+            self::class . '@end',
         );
 
         $events->listen(
             FailedCarrierApiRequest::class,
-            self::class . '@end'
+            self::class . '@end',
         );
 
         $events->listen(
             ExceptionOccurred::class,
-            self::class . '@closeSpan'
+            self::class . '@closeSpan',
         );
     }
 

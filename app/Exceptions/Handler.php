@@ -49,7 +49,7 @@ class Handler extends ExceptionHandler
             $exception = new CarrierApiException(
                 $this->mapStatusCode($response->getStatusCode()),
                 $carrierResponse,
-                $exception
+                $exception,
             );
         }
 

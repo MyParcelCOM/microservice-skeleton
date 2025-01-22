@@ -68,7 +68,7 @@ class File
     public function setDataFromPath(string $path): self
     {
         $this->data = base64_encode(
-            file_get_contents($path)
+            file_get_contents($path),
         );
 
         return $this;

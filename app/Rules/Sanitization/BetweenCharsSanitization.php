@@ -17,7 +17,7 @@ class BetweenCharsSanitization extends BaseSanitization
     public function sanitize(
         string $key,
         array $parameters,
-        array $shipmentRules = []
+        array $shipmentRules = [],
     ): array {
         $values = data_get($parameters, $key);
         if ($values) {
@@ -40,6 +40,7 @@ class BetweenCharsSanitization extends BaseSanitization
                 }
             }
         }
+
         return $parameters;
     }
 }

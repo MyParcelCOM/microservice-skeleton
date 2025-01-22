@@ -30,6 +30,7 @@ class MaxMultipliedSanitization implements SanitizationInterface
             // Multiply all values
             $multiplied = array_reduce($this->fieldKeys, function ($carry, $field) use ($parameters, $itemKey) {
                 $field = str_replace('*', (string) $itemKey, $field);
+
                 return $carry * Arr::get($parameters, $field, 1);
             }, 1);
 

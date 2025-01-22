@@ -34,7 +34,7 @@ class ValidateCredentialsTest extends TestCase
             ],
             [],
             'get',
-            400
+            400,
         );
     }
 
@@ -47,7 +47,7 @@ class ValidateCredentialsTest extends TestCase
             '/validate-credentials',
             '/validate-credentials',
             $this->getRequestHeaders(),
-            []
+            [],
         );
     }
 }

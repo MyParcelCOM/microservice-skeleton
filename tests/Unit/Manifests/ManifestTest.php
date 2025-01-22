@@ -28,7 +28,7 @@ class ManifestTest extends TestCase
         $this->manifest = new Manifest(
             'my-test-manifest',
             new AddressJson($addressData),
-            new ContactJson($addressData)
+            new ContactJson($addressData),
         );
     }
 
@@ -45,13 +45,13 @@ class ManifestTest extends TestCase
                 'city'         => 'Den Haag',
                 'country_code' => 'NL',
             ],
-            array_filter($this->manifest->getAddressJson()->toArray())
+            array_filter($this->manifest->getAddressJson()->toArray()),
         );
         $this->assertEquals(
             [
                 'company' => 'Lockdown BV',
             ],
-            array_filter($this->manifest->getContactJson()->toArray())
+            array_filter($this->manifest->getContactJson()->toArray()),
         );
     }
 
