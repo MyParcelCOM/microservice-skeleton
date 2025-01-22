@@ -30,6 +30,7 @@ class MaxSumSanitization implements SanitizationInterface
             // Sum all values
             $sum = array_reduce($this->fieldKeys, function ($carry, $field) use ($parameters, $itemKey) {
                 $field = str_replace('*', (string) $itemKey, $field);
+
                 return $carry + data_get($parameters, $field, 0);
             }, 0);
 

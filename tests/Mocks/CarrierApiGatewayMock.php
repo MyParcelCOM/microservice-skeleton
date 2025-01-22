@@ -14,9 +14,6 @@ use Psr\Http\Message\StreamInterface;
 
 class CarrierApiGatewayMock implements CarrierApiGatewayInterface
 {
-    /**
-     * @inheritdoc
-     */
     public function get(string $url, array $queryParams = [], array $headers = []): PromiseInterface
     {
         return Create::promiseFor(Mockery::mock(ResponseInterface::class, [
@@ -30,7 +27,7 @@ class CarrierApiGatewayMock implements CarrierApiGatewayInterface
         $stubPath = base_path(
             'tests/Stubs/'
             . $method . '-' . str_replace('/', '-', $url)
-            . '.stub'
+            . '.stub',
         );
 
         if (!file_exists($stubPath)) {
@@ -39,8 +36,8 @@ class CarrierApiGatewayMock implements CarrierApiGatewayInterface
                     'The stub response file `%s` does not exist. Please create it and add a response to it for a `%s` request to `%s`',
                     $stubPath,
                     $method,
-                    $url
-                )
+                    $url,
+                ),
             );
         }
 
@@ -49,9 +46,6 @@ class CarrierApiGatewayMock implements CarrierApiGatewayInterface
         ]);
     }
 
-    /**
-     * @inheritdoc
-     */
     public function post(string $url, array $data, array $queryParams = [], array $headers = []): PromiseInterface
     {
         return Create::promiseFor(Mockery::mock(ResponseInterface::class, [
@@ -60,10 +54,6 @@ class CarrierApiGatewayMock implements CarrierApiGatewayInterface
         ]));
     }
 
-    /**
-     * @param array $credentials
-     * @return $this
-     */
     public function setCredentials(array $credentials): CarrierApiGatewayInterface
     {
         return $this;

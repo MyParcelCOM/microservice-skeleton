@@ -139,9 +139,6 @@ class ShipmentRequestTest extends TestCase
         $this->assertEquals('123', data_get($request->all(), 'data.attributes.description'));
     }
 
-    /**
-     * @return array
-     */
     protected function getShipmentRequestBody(): array
     {
         $requestStub = file_get_contents(base_path('tests/Stubs/shipment-request.json'));
@@ -149,9 +146,6 @@ class ShipmentRequestTest extends TestCase
         return Utils::jsonDecode($requestStub, true);
     }
 
-    /**
-     * @param array $rules
-     */
     protected function registerShipmentRequestWithRules(array $rules = []): void
     {
         $this->app->singleton(ShipmentRequest::class, function () use ($rules) {
@@ -162,12 +156,8 @@ class ShipmentRequestTest extends TestCase
         });
     }
 
-    /**
-     * @return MockInterface
-     */
-    private function getShipmentRequestMock()
+    private function getShipmentRequestMock(): MockInterface
     {
-        /** @var MockInterface */
         $mock = Mockery::mock(ShipmentRequest::class);
 
         // We need to mock a few protected methods

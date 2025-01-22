@@ -27,9 +27,9 @@ class PublisherTest extends TestCase
             ->with([
                 'PublishBatchRequestEntries' => [
                     [
-                        'Id'             => 'test',
+                        'Id'      => 'test',
                         // Message is encoded json
-                        'Message'        => '{"origin":"test-origin","shipment_id":"test","status":{"data":{"type":"statuses","attributes":{"code":"test"}}},"postpone_poll":"PT1H2M3S"}',
+                        'Message' => '{"origin":"test-origin","shipment_id":"test","status":{"data":{"type":"statuses","attributes":{"code":"test"}}},"postpone_poll":"PT1H2M3S"}',
                     ],
                 ],
                 'TopicArn'                   => 'test',
@@ -59,7 +59,7 @@ class PublisherTest extends TestCase
                 status: Mockery::mock(Status::class),
                 shipmentId: 'test',
                 origin: 'test-origin',
-            )
+            ),
         );
     }
 }

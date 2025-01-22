@@ -16,19 +16,20 @@ class ServiceRateController extends Controller
     public function getServiceRates(
         ServiceRateRepository $serviceRateRepository,
         TransformerService $transformerService,
-        Request $request
+        Request $request,
     ): JsonResponse {
         $serviceRates = $serviceRateRepository->getServiceRates($request->json('data'));
 
         // Handle pagination
         $page = array_merge(
             ['size' => 100, 'number' => 1],
-            request()->input('page') ?? []
+            request()->input('page') ?? [],
         );
-        $paginator = (new Paginator('/' . request()->path(), (int) $page['size'], (int) $page['number']))->setMaxPageSize((int) $page['size']);
+        $paginator = new Paginator('/' . request()->path(), (int) $page['size'], (int) $page['number']);
+        $paginator->setMaxPageSize((int) $page['size']);
 
         return new JsonResponse(
-            $transformerService->setPaginator($paginator)->transformResources($serviceRates)
+            $transformerService->setPaginator($paginator)->transformResources($serviceRates),
         );
     }
 
@@ -44,12 +45,13 @@ class ServiceRateController extends Controller
 
         $page = array_merge(
             ['size' => 100, 'number' => 1],
-            request()->input('page') ?? []
+            request()->input('page') ?? [],
         );
-        $paginator = (new Paginator('/' . request()->path(), (int) $page['size'], (int) $page['number']))->setMaxPageSize((int) $page['size']);
+        $paginator = new Paginator('/' . request()->path(), (int) $page['size'], (int) $page['number']);
+        $paginator->setMaxPageSize((int) $page['size']);
 
         return new JsonResponse(
-            $transformerService->setPaginator($paginator)->transformResources($serviceRates)
+            $transformerService->setPaginator($paginator)->transformResources($serviceRates),
         );
     }
 }

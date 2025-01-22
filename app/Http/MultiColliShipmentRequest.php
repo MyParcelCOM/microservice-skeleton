@@ -31,11 +31,13 @@ class MultiColliShipmentRequest extends ShipmentRequest
     {
         $masterSanitization = collect(parent::sanitizationAfterValidation())->mapWithKeys(function ($value, $key) {
             $value = $this->rewriteSanitization($value, 'data.master.attributes');
+
             return [str_replace('data.attributes', 'data.master.attributes', (string) $key) => $value];
         });
 
         $colliSanitization = collect(parent::sanitizationAfterValidation())->mapWithKeys(function ($value, $key) {
             $value = $this->rewriteSanitization($value, 'data.colli.*.attributes');
+
             return [str_replace('data.attributes', 'data.colli.*.attributes', (string) $key) => $value];
         });
 
@@ -58,6 +60,7 @@ class MultiColliShipmentRequest extends ShipmentRequest
     {
         $masterRules = collect(parent::shipmentRules())->mapWithKeys(function ($value, $key) {
             $value = $this->rewriteRules($value, 'data.master.attributes');
+
             return [str_replace('data.attributes', 'data.master.attributes', (string) $key) => $value];
         });
 
@@ -69,6 +72,7 @@ class MultiColliShipmentRequest extends ShipmentRequest
 
         $colliRules = collect(parent::shipmentRules())->mapWithKeys(function ($value, $key) {
             $value = $this->rewriteRules($value, 'data.colli.*.attributes');
+
             return [str_replace('data.attributes', 'data.colli.*.attributes', (string) $key) => $value];
         });
 
@@ -109,6 +113,7 @@ class MultiColliShipmentRequest extends ShipmentRequest
                 if (is_array($rule)) {
                     return $this->rewriteSanitization($rule, $replacement);
                 }
+
                 return $rule;
             })->toArray();
         }

@@ -379,7 +379,7 @@ class Shipment
     public function getOption(string $optionCode): ?Option
     {
         return collect($this->getOptions())
-            ->first(fn(Option $option) => $option->getCode() === $optionCode);
+            ->first(fn (Option $option) => $option->getCode() === $optionCode);
     }
 
     /**

@@ -6,7 +6,6 @@ namespace MyParcelCom\Microservice\Tests\Unit\Shipments;
 
 use MyParcelCom\Microservice\Shipments\PhysicalProperties;
 use PHPUnit\Framework\TestCase;
-use TypeError;
 
 class PhysicalPropertiesTest extends TestCase
 {

@@ -15,7 +15,7 @@ class CustomsTest extends TestCase
         $customs = new Customs();
         $this->assertEquals(
             Customs::CONTENT_TYPE_SAMPLE_MERCHANDISE,
-            $customs->setContentType(Customs::CONTENT_TYPE_SAMPLE_MERCHANDISE)->getContentType()
+            $customs->setContentType(Customs::CONTENT_TYPE_SAMPLE_MERCHANDISE)->getContentType(),
         );
     }
 
@@ -25,7 +25,7 @@ class CustomsTest extends TestCase
         $customs = new Customs();
         $this->assertEquals(
             Customs::INCOTERM_DUTY_DELIVERY_PAID,
-            $customs->setIncoterm(Customs::INCOTERM_DUTY_DELIVERY_PAID)->getIncoterm()
+            $customs->setIncoterm(Customs::INCOTERM_DUTY_DELIVERY_PAID)->getIncoterm(),
         );
     }
 

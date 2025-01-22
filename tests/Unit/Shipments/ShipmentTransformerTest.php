@@ -211,7 +211,7 @@ class ShipmentTransformerTest extends TestCase
         $this->assertEquals(
             'shipment-id',
             $this->shipmentTransformer->getId($this->shipment),
-            'Failed getting model id.'
+            'Failed getting model id.',
         );
     }
 
@@ -220,7 +220,7 @@ class ShipmentTransformerTest extends TestCase
     {
         $this->assertEquals(
             'shipments',
-            $this->shipmentTransformer->getType()
+            $this->shipmentTransformer->getType(),
         );
     }
 
@@ -589,7 +589,7 @@ class ShipmentTransformerTest extends TestCase
                     ],
                 ],
             ],
-            $this->shipmentTransformer->transform($this->shipment)
+            $this->shipmentTransformer->transform($this->shipment),
         );
     }
 
@@ -656,7 +656,7 @@ class ShipmentTransformerTest extends TestCase
                     'myparcelcom_shipment_id' => 'bbacd0c7-9ec5-42df-9870-443b8e1a7155',
                 ],
             ],
-            $this->shipmentTransformer->transform($this->minimalShipment)
+            $this->shipmentTransformer->transform($this->minimalShipment),
         );
     }
 

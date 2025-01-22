@@ -31,11 +31,11 @@ abstract class TestCase extends BaseTestCase
             $cookies,
             $files,
             array_replace($this->serverVariables, $server),
-            $content
+            $content,
         );
 
         $response = $kernel->handle(
-            $request = Request::createFromBase($symfonyRequest)
+            $request = Request::createFromBase($symfonyRequest),
         );
 
         $kernel->terminate($request, $response);

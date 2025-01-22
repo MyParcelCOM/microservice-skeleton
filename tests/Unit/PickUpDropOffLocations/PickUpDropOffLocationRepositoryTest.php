@@ -31,7 +31,7 @@ class PickUpDropOffLocationRepositoryTest extends TestCase
 
         $this->pickUpDropOffLocationRepository = new PickUpDropOffLocationRepository(
             new CarrierApiGatewayMock(),
-            $cache
+            $cache,
         );
     }
 

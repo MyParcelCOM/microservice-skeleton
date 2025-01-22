@@ -69,27 +69,27 @@ class CollectionMapperTest extends TestCase
 
         $this->assertEquals(
             $collection->getMyparcelcomCollectionId(),
-            Arr::get($this->collectionData, 'attributes.myparcelcom_collection_id')
+            Arr::get($this->collectionData, 'attributes.myparcelcom_collection_id'),
         );
         $this->assertEquals(
             $collection->getName(),
-            Arr::get($this->collectionData, 'attributes.name')
+            Arr::get($this->collectionData, 'attributes.name'),
         );
         $this->assertEquals(
             $collection->getCollectionTimeFrom()->getTimestamp(),
-            Arr::get($this->collectionData, 'attributes.collection_time.from')
+            Arr::get($this->collectionData, 'attributes.collection_time.from'),
         );
         $this->assertEquals(
             $collection->getCollectionTimeTo()->getTimestamp(),
-            Arr::get($this->collectionData, 'attributes.collection_time.to')
+            Arr::get($this->collectionData, 'attributes.collection_time.to'),
         );
         $this->assertEquals(
             $collection->getAddressJson()->toArrayWith($collection->getContactJson()),
-            Arr::get($this->collectionData, 'attributes.address')
+            Arr::get($this->collectionData, 'attributes.address'),
         );
         $this->assertEquals(
             $collection->getTrackingCode(),
-            Arr::get($this->collectionData, 'attributes.tracking_code')
+            Arr::get($this->collectionData, 'attributes.tracking_code'),
         );
 
         // todo uncomment this when a carrier allows adding shipments to a collection.

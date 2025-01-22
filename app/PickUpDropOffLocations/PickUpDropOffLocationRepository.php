@@ -28,7 +28,7 @@ class PickUpDropOffLocationRepository
         ?string $city = null,
         array $categories = [],
         array $features = [],
-        array $locationTypes = []
+        array $locationTypes = [],
     ): ResourcesInterface {
         // Return the locations if they are cached.
         if (($locations = $this->getCachedLocations($countryCode, $postalCode, $street, $streetNumber, $city))) {
@@ -37,12 +37,12 @@ class PickUpDropOffLocationRepository
                     $this->filterLocationsByFeatures(
                         $this->filterLocationsByLocationType(
                             $locations,
-                            $locationTypes
+                            $locationTypes,
                         ),
-                        $features
+                        $features,
                     ),
-                    $categories
-                )
+                    $categories,
+                ),
             );
         }
 
@@ -59,19 +59,19 @@ class PickUpDropOffLocationRepository
         ?int $radius = null,
         array $categories = [],
         array $features = [],
-        array $locationTypes = []
+        array $locationTypes = [],
     ): ResourcesInterface {
         return new CollectionResources(
             $this->filterLocationsByCategories(
                 $this->filterLocationsByFeatures(
                     $this->filterLocationsByLocationType(
                         new Collection(),
-                        $locationTypes
+                        $locationTypes,
                     ),
-                    $features
+                    $features,
                 ),
-                $categories
-            )
+                $categories,
+            ),
         );
 
         // TODO: Get the pudo points from carrier (use CarrierApiGateway).
@@ -94,7 +94,7 @@ class PickUpDropOffLocationRepository
         ?string $postalCode,
         ?string $street,
         ?string $streetNumber,
-        ?string $city
+        ?string $city,
     ): void {
         $key = $this->getCacheKey($countryCode, $postalCode, $street, $streetNumber, $city);
 
@@ -109,7 +109,7 @@ class PickUpDropOffLocationRepository
         ?string $postalCode,
         ?string $street,
         ?string $streetNumber,
-        ?string $city
+        ?string $city,
     ): ?Collection {
         $key = $this->getCacheKey($countryCode, $postalCode, $street, $streetNumber, $city);
 
@@ -124,7 +124,7 @@ class PickUpDropOffLocationRepository
         ?string $postalCode,
         ?string $street,
         ?string $streetNumber,
-        ?string $city
+        ?string $city,
     ): string {
         return implode('_', array_filter([
             'pudo_locations',

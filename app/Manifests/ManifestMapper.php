@@ -24,7 +24,7 @@ class ManifestMapper implements MapperInterface
         $manifest = new Manifest(
             $attributes['name'],
             new AddressJson($attributes['address']),
-            new ContactJson($attributes['address'])
+            new ContactJson($attributes['address']),
         );
 
         $this->mapRelationships($relationships, $manifest);

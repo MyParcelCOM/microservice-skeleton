@@ -91,6 +91,7 @@ class FormRequest extends BaseFormRequest
         if ($this->suspendValidation) {
             return $this->defaultRules();
         }
+
         return array_merge($this->defaultRules(), $this->shipmentRules());
     }
 
@@ -103,6 +104,7 @@ class FormRequest extends BaseFormRequest
     {
         // Only use non-intrusive sanitization for validation
         $parameters = parent::all();
+
         return $this->sanitize($parameters, $this->sanitization());
     }
 

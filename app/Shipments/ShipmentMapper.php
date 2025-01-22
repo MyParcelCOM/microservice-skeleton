@@ -29,22 +29,22 @@ class ShipmentMapper implements MapperInterface
 
         // Map addresses.
         $shipment->setRecipientAddress(
-            $this->mapAddress($attributes['recipient_address'], new Address())
+            $this->mapAddress($attributes['recipient_address'], new Address()),
         );
 
         if (isset($attributes['return_address'])) {
             $shipment->setReturnAddress(
-                $this->mapAddress($attributes['return_address'], new Address())
+                $this->mapAddress($attributes['return_address'], new Address()),
             );
         }
 
         $shipment->setSenderAddress(
-            $this->mapAddress($attributes['sender_address'], new Address())
+            $this->mapAddress($attributes['sender_address'], new Address()),
         );
 
         if (isset($attributes['pickup_location'])) {
             $shipment->setPickupLocationAddress(
-                $this->mapAddress($attributes['pickup_location']['address'], new Address())
+                $this->mapAddress($attributes['pickup_location']['address'], new Address()),
             );
             $shipment->setPickupLocationCode($attributes['pickup_location']['code']);
         }
@@ -71,7 +71,9 @@ class ShipmentMapper implements MapperInterface
             $shipment->getPhysicalProperties()->setVolume((float) $attributes['physical_properties']['volume']);
         }
         if (isset($attributes['physical_properties']['volumetric_weight'])) {
-            $shipment->getPhysicalProperties()->setVolumetricWeight((int) $attributes['physical_properties']['volumetric_weight']);
+            $shipment->getPhysicalProperties()->setVolumetricWeight(
+                (int) $attributes['physical_properties']['volumetric_weight'],
+            );
         }
 
         if (isset($attributes['options'])) {
@@ -86,7 +88,7 @@ class ShipmentMapper implements MapperInterface
         // Map items information.
         if (!empty($attributes['items'])) {
             $shipment->setItems(
-                array_map([$this, 'mapShipmentItem'], $attributes['items'])
+                array_map([$this, 'mapShipmentItem'], $attributes['items']),
             );
         }
 

@@ -85,7 +85,7 @@ class PickUpDropOffLocationTransformerTest extends TestCase
         $this->assertEquals(
             'location-id',
             $this->pickUpDropOffLocationTransformer->getId($this->pickUpDropOffLocation),
-            'Failed getting model id.'
+            'Failed getting model id.',
         );
     }
 

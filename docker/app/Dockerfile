@@ -1,6 +1,6 @@
 ARG REGISTRY=docker.io
 # Stage 1: Build swagger bundles for carrier specification
-FROM ${REGISTRY}/myparcelcom/specs-builder:latest as bundles
+FROM ${REGISTRY}/myparcelcom/specs-builder:latest AS bundles
 
 ARG CARRIER_SPEC_BRANCH="master"
 
