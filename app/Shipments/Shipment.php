@@ -811,7 +811,7 @@ class Shipment
         return $this->firstMileCarrier;
     }
 
-    public function setFirstMileCarrier(FirstMileCarrier $firstMileCarrier): self
+    public function setFirstMileCarrier(?FirstMileCarrier $firstMileCarrier): self
     {
         $this->firstMileCarrier = $firstMileCarrier;
 

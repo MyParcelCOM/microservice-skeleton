@@ -6,7 +6,6 @@ namespace MyParcelCom\Microservice\Shipments;
 
 class FirstMileCarrier
 {
-
     public function __construct(private readonly string $name)
     {
     }
@@ -15,5 +14,4 @@ class FirstMileCarrier
     {
         return $this->name;
     }
-
 }
