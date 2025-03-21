@@ -126,6 +126,9 @@ class ShipmentTransformer extends AbstractTransformer
                     'currency' => $shipment->getCustoms()->getTotalDutyCurrency(),
                 ],
             ]),
+            'first_mile_carrier'                   => $shipment->getFirstMileCarrier() ? [
+                'name' => $shipment->getFirstMileCarrier()->getName(),
+            ] : null,
             'final_mile_carrier'                   => $shipment->getFinalMileCarrier() ? [
                 'tracking_url'  => $shipment->getFinalMileCarrier()->getUrl(),
                 'name'          => $shipment->getFinalMileCarrier()->getName(),

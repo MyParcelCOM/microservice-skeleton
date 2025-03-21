@@ -13,6 +13,7 @@ use MyParcelCom\JsonApi\Exceptions\ModelTypeException;
 use MyParcelCom\JsonApi\Transformers\TransformerFactory;
 use MyParcelCom\Microservice\PickUpDropOffLocations\Address;
 use MyParcelCom\Microservice\Shipments\Customs;
+use MyParcelCom\Microservice\Shipments\FirstMileCarrier;
 use MyParcelCom\Microservice\Shipments\Option;
 use MyParcelCom\Microservice\Shipments\PhysicalProperties;
 use MyParcelCom\Microservice\Shipments\Service;
@@ -158,6 +159,9 @@ class ShipmentTransformerTest extends TestCase
             'getCustoms'                           => $customs,
             'getItems'                             => [$shipmentItem],
             'getMyparcelcomShipmentId'             => 'bbacd0c7-9ec5-42df-9870-443b8e1a7155',
+            'getFirstMileCarrier' => Mockery::mock(FirstMileCarrier::class , [
+                'getName' => 'First-Track',
+            ]),
             'getFinalMileCarrier'                  => Mockery::mock(FinalMileCarrier::class, [
                 'getName'         => 'Final-Track',
                 'getUrl'          => 'https://finaltrack.me/details/TR4CK1NGC0D3',
@@ -200,6 +204,7 @@ class ShipmentTransformerTest extends TestCase
             'getCustoms'                           => null,
             'getItems'                             => [],
             'getMyparcelcomShipmentId'             => 'bbacd0c7-9ec5-42df-9870-443b8e1a7155',
+            'getFirstMileCarrier'                  => null,
             'getFinalMileCarrier'                  => null,
             'getConsolidationShipments'            => new Collection(),
         ]);
@@ -390,6 +395,9 @@ class ShipmentTransformerTest extends TestCase
                 ],
             ],
             'myparcelcom_shipment_id'              => 'bbacd0c7-9ec5-42df-9870-443b8e1a7155',
+            'first_mile_carrier'                   => [
+                'name' => 'First-Track'
+            ],
             'final_mile_carrier'                   => [
                 'name'          => 'Final-Track',
                 'tracking_url'  => 'https://finaltrack.me/details/TR4CK1NGC0D3',
@@ -568,6 +576,9 @@ class ShipmentTransformerTest extends TestCase
                     'myparcelcom_shipment_id'              => 'bbacd0c7-9ec5-42df-9870-443b8e1a7155',
                     'tracking_code'                        => 'TR4CK1NGC0D3',
                     'tracking_url'                         => 'https://track.me/TR4CK1NGC0D3',
+                    'first_mile_carrier'                   => [
+                        'name' => 'First-Track'
+                    ],
                     'final_mile_carrier'                   => [
                         'name'          => 'Final-Track',
                         'tracking_url'  => 'https://finaltrack.me/details/TR4CK1NGC0D3',
