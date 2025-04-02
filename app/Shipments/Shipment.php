@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace MyParcelCom\Microservice\Shipments;
 
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 use MyParcelCom\FinalMileCarrier\FinalMileCarrier;
 use MyParcelCom\Microservice\Enums\TaxTypeEnum;
@@ -105,6 +103,8 @@ class Shipment
 
     /** @var array */
     protected $taxIdentificationNumbers = [];
+
+    protected ?FirstMileCarrier $firstMileCarrier = null;
 
     /** @var FinalMileCarrier|null */
     protected ?FinalMileCarrier $finalMileCarrier = null;
@@ -804,6 +804,18 @@ class Shipment
     public function getConsolidationShipments(): Collection
     {
         return $this->consolidationShipments ?? new Collection();
+    }
+
+    public function getFirstMileCarrier(): ?FirstMileCarrier
+    {
+        return $this->firstMileCarrier;
+    }
+
+    public function setFirstMileCarrier(?FirstMileCarrier $firstMileCarrier): self
+    {
+        $this->firstMileCarrier = $firstMileCarrier;
+
+        return $this;
     }
 
     /**
