@@ -23,9 +23,9 @@ class ServiceRateController extends Controller
         // Handle pagination
         $page = array_merge(
             ['size' => 100, 'number' => 1],
-            request()->input('page') ?? [],
+            $request->input('page') ?? [],
         );
-        $paginator = new Paginator('/' . request()->path(), (int) $page['size'], (int) $page['number']);
+        $paginator = new Paginator('/' . $request->path(), (int) $page['size'], (int) $page['number']);
         $paginator->setMaxPageSize((int) $page['size']);
 
         return new JsonResponse(
@@ -45,9 +45,9 @@ class ServiceRateController extends Controller
 
         $page = array_merge(
             ['size' => 100, 'number' => 1],
-            request()->input('page') ?? [],
+            $request->input('page') ?? [],
         );
-        $paginator = new Paginator('/' . request()->path(), (int) $page['size'], (int) $page['number']);
+        $paginator = new Paginator('/' . $request->path(), (int) $page['size'], (int) $page['number']);
         $paginator->setMaxPageSize((int) $page['size']);
 
         return new JsonResponse(

@@ -6,6 +6,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Route;
 use MyParcelCom\Microservice\Collections\CollectionController;
 use MyParcelCom\Microservice\Credentials\CredentialController;
+use MyParcelCom\Microservice\DeliveryDates\DeliveryDateController;
 use MyParcelCom\Microservice\Manifests\ManifestController;
 use MyParcelCom\Microservice\PickUpDropOffLocations\PickUpDropOffLocationController;
 use MyParcelCom\Microservice\ServiceRates\ServiceRateController;
@@ -15,7 +16,7 @@ use MyParcelCom\Microservice\Statuses\StatusController;
 Route::get('/', function () {
     return new JsonResponse([
         'meta' => [
-            'title'  => config('app.name'),
+            'title' => config('app.name'),
             'status' => 'OK',
         ],
     ]);
@@ -30,13 +31,19 @@ Route::post('/get-multi-colli-service-rates', [ServiceRateController::class, 'ge
 Route::post('/manifests', [ManifestController::class, 'create'])
     ->name('create-manifest');
 
-Route::get('/pickup-dropoff-locations/{latitude}/{longitude}', [PickUpDropOffLocationController::class, 'getAllByGeolocation'])
+Route::get(
+    '/pickup-dropoff-locations/{latitude}/{longitude}',
+    [PickUpDropOffLocationController::class, 'getAllByGeolocation'],
+)
     // the regex for latitude and longitude is from https://stackoverflow.com/a/18690202
     ->where('latitude', '^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$')
     ->where('longitude', '^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$')
     ->name('get-pickup-dropoff-locations-by-geolocation');
 
-Route::get('/pickup-dropoff-locations/{countryCode}/{postalCode}', [PickUpDropOffLocationController::class, 'getAllByCountryAndPostalCode'])
+Route::get(
+    '/pickup-dropoff-locations/{countryCode}/{postalCode}',
+    [PickUpDropOffLocationController::class, 'getAllByCountryAndPostalCode'],
+)
     ->name('get-pickup-dropoff-locations-by-country-and-postal-code');
 
 Route::get('/pickup-dropoff-locations/{pudo_id}', [PickUpDropOffLocationController::class, 'getOne'])
@@ -68,3 +75,6 @@ Route::get('/validate-credentials', [CredentialController::class, 'validateCrede
 //    ->name('update-collection');
 //Route::delete('/collections/{collectionId}', [CollectionController::class, 'void'])
 //    ->name('delete-collection');
+
+Route::post('/available-delivery-dates', [DeliveryDateController::class, 'get'])
+    ->name('get-available-delivery-dates');
