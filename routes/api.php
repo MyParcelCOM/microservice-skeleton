@@ -76,5 +76,5 @@ Route::get('/validate-credentials', [CredentialController::class, 'validateCrede
 //Route::delete('/collections/{collectionId}', [CollectionController::class, 'void'])
 //    ->name('delete-collection');
 
-Route::post('/shipping/v2/available-delivery-dates', [DeliveryDateController::class, 'get'])
+Route::post('/available-delivery-dates', [DeliveryDateController::class, 'get'])
     ->name('get-available-delivery-dates');
