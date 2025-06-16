@@ -11,6 +11,7 @@ use MyCLabs\Enum\Enum;
  * @method static TaxTypeEnum IOSS()
  * @method static TaxTypeEnum VAT()
  * @method static TaxTypeEnum GST()
+ * @method static TaxTypeEnum UKIMS()
  */
 class TaxTypeEnum extends Enum
 {
@@ -18,4 +19,5 @@ class TaxTypeEnum extends Enum
     const IOSS = 'ioss';
     const VAT = 'vat';
     const GST = 'gst';
+    const UKIMS = 'ukims';
 }
