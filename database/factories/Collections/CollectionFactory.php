@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories\Collection;
+namespace Database\Factories\Collections;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
