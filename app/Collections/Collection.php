@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MyParcelCom\Microservice\Collections;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection as LaravelCollection;
@@ -28,6 +29,7 @@ use MyParcelCom\Microservice\Model\Json\ContactJson;
 class Collection extends Model
 {
     use TimestampsTrait;
+    use HasFactory;
 
     /**
      * Setting this property to an empty array allows assignment of all properties through the constructor.
