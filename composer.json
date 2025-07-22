@@ -28,6 +28,7 @@
     "viison/address-splitter": "^0.3.4"
   },
   "require-dev": {
+    "fakerphp/faker": "^1.24",
     "mockery/mockery": "^1.3",
     "myparcelcom/carrier-specification": "dev-develop",
     "phpunit/phpunit": "^9.0",
@@ -35,7 +36,8 @@
   },
   "autoload": {
     "psr-4": {
-      "MyParcelCom\\Microservice\\": "app/"
+      "MyParcelCom\\Microservice\\": "app/",
+      "Database\\Factories\\": "database/factories/"
     }
   },
   "autoload-dev": {
